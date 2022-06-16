@@ -1,0 +1,16 @@
+{
+  "name": "doc",
+  "version": "1.0.0",
+  "description": "Gable Document",
+  "main": "index.js",
+  "repository": "https://github.com/AdvancedProductivity/Gable",
+  "author": "zzq",
+  "license": "Apache-2.0 License",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "devDependencies": {
+    "vuepress": "^1.9.7"
+  }
+}
