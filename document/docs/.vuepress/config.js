@@ -21,22 +21,6 @@ module.exports = {
         lastUpdated: 'Last Updated',
         repo: 'https://github.com/AdvancedProductivity/Gable',
         docsDir: 'doc',
-        sidebar: [
-            {
-                title: 'Group 1',   // 必要的
-                path: '/foo/',      // 可选的, 标题的跳转链接，应为绝对路径且必须存在
-                collapsable: false, // 可选的, 默认值是 true,
-                sidebarDepth: 1,    // 可选的, 默认值是 1
-                children: [
-                    '/'
-                ]
-            },
-            {
-                title: 'Group 2',
-                children: [ /* ... */ ],
-                initialOpenGroupIndex: -1 // 可选的, 默认值是 0
-            }
-        ],
         locales: {
             '/': {
                 selectText: 'Languages',
@@ -50,8 +34,19 @@ module.exports = {
                     }
                 },
                 algolia: {},
+                sidebar: [
+                    {
+                        title: 'Guide',   // 必要的
+                        collapsable: false, // 可选的, 默认值是 true,
+                        sidebarDepth: 1,
+                        children: [
+                            '/guide/'
+                            , '/guide/getting-started'
+                        ]
+                    }
+                ],
                 nav: [
-                    {text: 'Guide', link: '/Guide/', ariaLabel: 'Nested'}
+                    {text: 'Guide', link: '/guide/', ariaLabel: 'Nested'}
                 ]
             },
             '/zh/': {
@@ -70,8 +65,19 @@ module.exports = {
                 },
                 // 当前 locale 的 algolia docsearch 选项
                 algolia: {},
+                sidebar: [
+                    {
+                        title: '指南',   // 必要的
+                        collapsable: false, // 可选的, 默认值是 true,
+                        sidebarDepth: 1,
+                        children: [
+                            '/zh/guide/'
+                            , '/zh/guide/getting-started'
+                        ]
+                    }
+                ],
                 nav: [
-                    { text: '指南', link: '/zh/guide/' }
+                    {text: '指南', link: '/zh/guide/', ariaLabel: 'Nested'}
                 ]
             }
         }
