@@ -42,6 +42,7 @@ module.exports = {
                         children: [
                             '/guide/'
                             , '/guide/getting-started'
+                            , '/guide/memory-assistant'
                         ]
                     }
                 ],
@@ -73,6 +74,7 @@ module.exports = {
                         children: [
                             '/zh/guide/'
                             , '/zh/guide/getting-started'
+                            , '/zh/guide/memory-assistant'
                         ]
                     }
                 ],
