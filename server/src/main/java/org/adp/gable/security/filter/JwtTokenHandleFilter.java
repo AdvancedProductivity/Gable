@@ -3,6 +3,9 @@ package org.adp.gable.security.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -64,10 +67,22 @@ public class JwtTokenHandleFilter extends BasicAuthenticationFilter {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDto, null, userDto.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             super.doFilterInternal(request, response, chain);
-        } catch (Exception e) {
-            log.error("handle jwt token error", e);
+        } catch (JWTDecodeException exception) {
+            log.error("jwt token:{} parser error", tokenHeader, exception);
+            response.setHeader(HttpHeaders.CONTENT_TYPE, JwtConst.JSON_RESPONSE);
+            response.getWriter().write(objectMapper.writeValueAsString(Result.failure(SecurityErrorResult.TOKEN_INVALID)));
+        } catch (SignatureVerificationException exception) {
+            log.error("jwt token:{} parser error", tokenHeader, exception);
             response.setHeader(HttpHeaders.CONTENT_TYPE, JwtConst.JSON_RESPONSE);
             response.getWriter().write(objectMapper.writeValueAsString(Result.failure(SecurityErrorResult.LOGIN_EXPIRED)));
+        } catch (TokenExpiredException exception) {
+            log.error("jwt token:{} have expired", tokenHeader, exception);
+            response.setHeader(HttpHeaders.CONTENT_TYPE, JwtConst.JSON_RESPONSE);
+            response.getWriter().write(objectMapper.writeValueAsString(Result.failure(SecurityErrorResult.LOGIN_EXPIRED)));
+        } catch (Exception e) {
+            log.error("handle jwt token unknown error happens", e);
+            response.setHeader(HttpHeaders.CONTENT_TYPE, JwtConst.JSON_RESPONSE);
+            response.getWriter().write(objectMapper.writeValueAsString(Result.failure(SecurityErrorResult.JWT_UNKNOWN_ERROR)));
         }
     }
 

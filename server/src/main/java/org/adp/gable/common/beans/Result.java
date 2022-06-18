@@ -24,7 +24,7 @@ public class Result<T> {
 
     public static <S> Result<S> success(S data) {
         Result<S> result = new Result<>();
-        result.setResult(false);
+        result.setResult(true);
         result.setData(data);
         result.setCode(ErrorResult.SUCCESS_CODE);
         return result;

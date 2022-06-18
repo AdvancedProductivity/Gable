@@ -1,5 +1,6 @@
 package org.adp.gable.security.service;
 
+import org.adp.gable.SupperUser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +21,7 @@ class JwtUserServiceImplTest {
     @Test
     @DisplayName("test load the user info while login")
     public void testLoadUserByEmail() {
-        final UserDetails userDetails = jwtUserService.loadUserByUsername("default@app.com");
+        final UserDetails userDetails = jwtUserService.loadUserByUsername(SupperUser.USER_EMAIL);
         assertNotNull(userDetails);
         assertNotNull(userDetails.getAuthorities());
         assertNotEquals(userDetails.getAuthorities(), 0);

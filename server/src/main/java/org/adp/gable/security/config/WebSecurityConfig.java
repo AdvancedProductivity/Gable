@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.adp.gable.security.filter.JwtAuthenticationFilter;
 import org.adp.gable.security.filter.JwtTokenHandleFilter;
 import org.adp.gable.security.handler.CustomAccessDeniedHandler;
+import org.adp.gable.security.handler.NoTokenProviderHandler;
 import org.adp.gable.security.service.JwtUserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,10 +29,11 @@ import javax.annotation.Resource;
  */
 @Configuration
 @EnableWebSecurity
+@Profile("!SECURITY_MOCK")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
-    private ObjectMapper objectMapper;
+    protected ObjectMapper objectMapper;
 
     @Resource
     private JwtUserServiceImpl jwtUserService;
@@ -45,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .exceptionHandling()
+                .authenticationEntryPoint(new NoTokenProviderHandler(objectMapper))
                 .accessDeniedHandler(accessDeniedHandler())
                 .and()
                 .sessionManagement(session -> session
@@ -52,8 +56,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), objectMapper))
                 .addFilterAfter(new JwtTokenHandleFilter(authenticationManager(), objectMapper), JwtAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/api/user/testConfigP").hasAnyAuthority("sec_createUser")
-                .antMatchers("/api/user/testConfigR").hasRole("SUPPER_ROLE")
                 .antMatchers("/", "/home")
                 .permitAll()
                 .anyRequest()
@@ -66,13 +68,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    protected PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
 
     @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
+    protected AccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler(objectMapper);
     }
 

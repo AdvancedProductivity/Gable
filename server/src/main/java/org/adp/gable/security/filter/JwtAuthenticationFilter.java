@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.adp.gable.common.beans.Result;
 import org.adp.gable.security.dtos.UserDto;
 import org.adp.gable.security.utils.JwtConst;
+import org.adp.gable.security.utils.JwtUtils;
 import org.adp.gable.security.utils.SecurityErrorResult;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,14 +48,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         UserDto userDto = (UserDto) authResult.getPrincipal();
         userDto.setPassword(null);
-        Algorithm algorithm = Algorithm.HMAC256(JwtConst.SECURITY_ARRAY);
-        final String token = JWT.create()
-                .withSubject(userDto.getEmail())
-                .withExpiresAt(new Date(System.currentTimeMillis() + JwtConst.ONLINE_TIME))
-                .withIssuer(JwtConst.ISSUER_PREFIX + request.getRequestURI())
-                .withIssuedAt(new Date())
-                .withClaim(JwtConst.CLAIM_KEY, objectMapper.writeValueAsString(userDto))
-                .sign(algorithm);
+        final String token = JwtUtils.generateToken(
+                System.currentTimeMillis() + JwtConst.ONLINE_TIME,
+                userDto,
+                request.getRequestURI(),
+                objectMapper
+        );
         response.setHeader(JwtConst.TOKEN_HEADER, token);
         Result<UserDto> userDtoResult = Result.success(userDto);
         response.setHeader(HttpHeaders.CONTENT_TYPE, JwtConst.JSON_RESPONSE);

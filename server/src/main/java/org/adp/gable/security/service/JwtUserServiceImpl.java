@@ -36,6 +36,10 @@ public class JwtUserServiceImpl implements UserDetailsService {
     @Resource
     private RolePermissionRepository rolePermissionRepository;
 
+    /**
+     * this method will search the authority
+     * @return UserDto with authority
+     * */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Example<UserEntity> example = Example.of(new UserEntity(email));

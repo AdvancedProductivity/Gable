@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -39,11 +40,10 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         if (authentication == null) {
             return;
         }
-        final UserDto userDto = (UserDto) authentication.getPrincipal();
-
+        final UserDetails principal = (UserDetails) authentication.getPrincipal();
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        log.warn("{} want to access the: {}, bug have no Authentication", principal.getUsername(), requestAttributes.getRequest().getRequestURI());
 
-        log.warn("{} want to access the: {}, bug have no Authentication", userDto.getEmail(), requestAttributes.getRequest().getRequestURI());
         response.setHeader(HttpHeaders.CONTENT_TYPE, JwtConst.JSON_RESPONSE);
         response.getWriter().write(objectMapper.writeValueAsString(Result.failure(SecurityErrorResult.ACCESS_DENIED)));
     }
