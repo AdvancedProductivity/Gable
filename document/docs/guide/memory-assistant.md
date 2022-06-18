@@ -12,7 +12,7 @@ pg_ctl start -D ../data -l logfile
 ```shell
 # psql -U [user name]
 
-psql -U postgress
+psql -U postgres
 ```
 #### show all database
 ```shell

@@ -12,7 +12,7 @@ pg_ctl start -D ../data -l logfile
 ```shell
 # psql -U [用户名]
 
-psql -U postgress
+psql -U postgres
 ```
 #### 查看数据库
 ```shell
