@@ -13,30 +13,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/user")
 public class UserController {
 
-    @GetMapping("test")
-    public String testMethod(){
-        return "test";
-    }
-
-    @GetMapping("testAnoP")
-    @PreAuthorize("hasAuthority('sec_createUser')")
-    public String testAno(){
-        return "testAnoP ok";
-    }
-
-    @GetMapping("testAnoR")
-    @PreAuthorize("hasRole('SUPPER_ROLE')")
-    public String testAnoR(){
-        return "testAnoR ok";
-    }
-
-    @GetMapping("testConfigP")
-    public String testConfigP(){
-        return "testConfigP ok";
-    }
-
-    @GetMapping("testConfigR")
-    public String testConfigR(){
-        return "testConfigR ok";
-    }
 }
