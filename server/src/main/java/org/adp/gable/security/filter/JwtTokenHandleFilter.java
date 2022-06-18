@@ -57,9 +57,9 @@ public class JwtTokenHandleFilter extends BasicAuthenticationFilter {
             String token = StringUtils.substringAfter(tokenHeader, JwtConst.TOKEN_PREFIX);
             Algorithm algorithm = Algorithm.HMAC256(JwtConst.SECURITY_ARRAY);
             JWTVerifier verifier = JWT.require(algorithm).build();
-            final DecodedJWT decodedJWT = verifier.verify(token);
-            String userEmail = decodedJWT.getSubject();
-            String userInfoStr = decodedJWT.getClaim(JwtConst.CLAIM_KEY).asString();
+            final DecodedJWT decodedJwt = verifier.verify(token);
+            String userEmail = decodedJwt.getSubject();
+            String userInfoStr = decodedJwt.getClaim(JwtConst.CLAIM_KEY).asString();
             UserDto userDto = readUserFromToken(userInfoStr);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDto, null, userDto.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
