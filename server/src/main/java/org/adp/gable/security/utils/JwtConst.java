@@ -17,4 +17,5 @@ public interface JwtConst {
     String JSON_RESPONSE = "application/json";
     String AUTH = "authorities";
     String ROLE_PREFIX = "ROLE_";
+    String LOGIN_PATH = "/api/user/login";
 }

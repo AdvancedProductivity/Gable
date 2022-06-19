@@ -137,8 +137,8 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("test success case have authority")
-    public void testJwtAndAuthorityOk(){
+    @DisplayName("test http config of permission have")
+    public void testHaveConfigPermission(){
         assertNotNull(mvc);
         assertDoesNotThrow(() -> {
             UserDto userDto = (UserDto) jwtUserService.loadUserByUsername(SupperUser.USER_EMAIL);
@@ -151,6 +151,29 @@ public class UserControllerTest {
                     objectMapper
             );
             MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get("/api/user/testConfigP").header(JwtConst.TOKEN_HEADER, JwtConst.TOKEN_PREFIX + token)
+                    .accept(MediaType.APPLICATION_JSON)
+            ).andExpect(status().isOk()).andReturn();
+            String contentAsString = mvcResult.getResponse().getContentAsString();
+            assertEquals(contentAsString, "testConfigP ok");
+
+        });
+    }
+
+    @Test
+    @DisplayName("test http config of Role have")
+    public void testHaveRoleOfRole(){
+        assertNotNull(mvc);
+        assertDoesNotThrow(() -> {
+            UserDto userDto = (UserDto) jwtUserService.loadUserByUsername(SupperUser.USER_EMAIL);
+
+            assertNotNull(userDto);
+            String token = JwtUtils.generateToken(
+                    System.currentTimeMillis() + JwtConst.ONLINE_TIME,
+                    userDto,
+                    "test case",
+                    objectMapper
+            );
+            MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get("/api/user/testConfigR").header(JwtConst.TOKEN_HEADER, JwtConst.TOKEN_PREFIX + token)
                     .accept(MediaType.APPLICATION_JSON)
             ).andExpect(status().isOk()).andReturn();
             String contentAsString = mvcResult.getResponse().getContentAsString();
