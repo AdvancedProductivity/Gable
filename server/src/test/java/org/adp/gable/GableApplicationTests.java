@@ -63,6 +63,7 @@ class GableApplicationTests {
 		LocaleContextHolder.setLocale(Locale.US);
 		final String message = I18nUtils.getMessage(SecurityErrorResult.USER_NOT_EXIST.getMessageI18nKey(), null);
 		assertEquals("Username Not Exist", message);
+		LocaleContextHolder.resetLocaleContext();
 	}
 
 	@Test

@@ -4,11 +4,13 @@ import lombok.Data;
 import org.adp.gable.common.utils.I18nUtils;
 import org.adp.gable.common.web.ErrorResult;
 
+import java.io.Serializable;
+
 /**
  * @author zzq
  */
 @Data
-public class Result<T> {
+public class Result<T> implements Serializable {
     private boolean result;
     private int code;
     private String message;

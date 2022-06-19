@@ -3,9 +3,13 @@ package org.adp.gable.security.controller;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.security.PermitAll;
+
 /**
  * write for test
  * */
@@ -34,5 +38,11 @@ public class TestController {
     @PreAuthorize("hasRole('SUPPER_ROLE')")
     public String testAnoR(){
         return "testAnoR ok";
+    }
+
+    @GetMapping("testNPE")
+    @PermitAll
+    public String testNPE() {
+        throw new NullPointerException("random");
     }
 }

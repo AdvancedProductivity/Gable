@@ -7,6 +7,7 @@ import org.adp.gable.security.utils.SecurityErrorResult;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
@@ -17,8 +18,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class CustomExceptionResolver extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = NullPointerException.class)
+    @ResponseBody
     public Result<String> handleAuthenticationError(Exception e) {
-        log.error("authentication error happens", e);
+        log.error("NPE error happens", e);
         return Result.failure(CommonErrorResult.SYSTEM_NPE_ERROR);
     }
 }
