@@ -82,7 +82,7 @@ public class LoginControllerTest {
             MvcResult mvcResult = mvc
                     .perform(MockMvcRequestBuilders.get(JwtConst.LOGIN_PATH)
                             .queryParam("username", SupperUser.USER_EMAIL)
-                            .queryParam("password", "123456")
+                            .queryParam("password", SupperUser.PASSWORD)
                     ).andExpect(status().isOk()).andReturn();
             String contentAsString = mvcResult.getResponse().getContentAsString();
             assertNotNull(contentAsString);

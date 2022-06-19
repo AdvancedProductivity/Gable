@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +21,20 @@ import java.util.Set;
 public class UserDto implements UserDetails {
 
     private Long id;
+
+    private Long tenantId;
+
+    private Long createdBy;
+
+    private Date dateCreated;
+
+    private Long modifiedBy;
+
+    private Date dateModified;
+
+    private String operationUrl;
+
+    private String dataFrom;
 
     private String username;
 

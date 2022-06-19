@@ -1,5 +1,6 @@
 package org.adp.gable.common.entity;
 
+import org.adp.gable.security.dtos.UserDto;
 import org.hibernate.annotations.Comment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -141,7 +142,6 @@ public class BaseEntity {
 
     @PrePersist
     public void initBeforeSave(){
-        System.out.println("pre persist");
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         this.dateCreated = new Date();
         this.dateModified = this.dateCreated;
@@ -150,7 +150,10 @@ public class BaseEntity {
             this.modifiedBy = this.createdBy;
             this.tenantId = 0L;
         }else {
-            final Object principal = authentication.getPrincipal();
+            final UserDto userDto = (UserDto) authentication.getPrincipal();
+            this.createdBy = userDto.getId();
+            this.modifiedBy = this.createdBy;
+            this.tenantId = userDto.getTenantId();
         }
         final RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes != null) {
@@ -160,13 +163,14 @@ public class BaseEntity {
 
     @PreUpdate
     public void initBeforeUpdate(){
-        System.out.println("pre update");
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         this.dateModified = new Date();
         if (authentication == null) {
             this.modifiedBy = 0L;
         } else {
             final Object principal = authentication.getPrincipal();
+            final UserDto userDto = (UserDto) authentication.getPrincipal();
+            this.modifiedBy = userDto.getId();
         }
         final RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes != null) {

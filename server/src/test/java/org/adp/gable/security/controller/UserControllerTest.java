@@ -235,8 +235,6 @@ public class UserControllerTest {
         });
     }
 
-
-
     @Test
     @DisplayName("test no jwt token")
     public void testNoJwtToken(){
