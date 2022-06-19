@@ -10,12 +10,14 @@ import org.adp.gable.security.utils.JwtConst;
 import org.adp.gable.security.utils.JwtUtils;
 import org.adp.gable.security.utils.SecurityErrorResult;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -33,9 +35,11 @@ import java.util.UUID;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     private ObjectMapper objectMapper;
+
+    protected LocaleResolver localeResolver;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, ObjectMapper objectMapper) {
         this.authenticationManager = authenticationManager;
@@ -56,7 +60,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         );
         response.setHeader(JwtConst.TOKEN_HEADER, token);
         Result<UserDto> userDtoResult = Result.success(userDto);
-        response.setHeader(HttpHeaders.CONTENT_TYPE, JwtConst.JSON_RESPONSE);
+        response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
         response.getWriter().write(objectMapper.writeValueAsString(userDtoResult));
     }
 
@@ -64,10 +68,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         log.error("auth error exp type: {}", failed.getClass().getName(), failed);
         if (failed instanceof InternalAuthenticationServiceException) {
+            response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
             final Result<String> failure = Result.failure(SecurityErrorResult.USER_NOT_EXIST);
             response.getWriter().write(objectMapper.writeValueAsString(failure));
             return;
         } else if (failed instanceof BadCredentialsException) {
+            response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
             final Result<String> failure = Result.failure(SecurityErrorResult.PASSWORD_ERROR);
             response.getWriter().write(objectMapper.writeValueAsString(failure));
             return;

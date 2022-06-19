@@ -1,6 +1,7 @@
 package org.adp.gable.common.beans;
 
 import lombok.Data;
+import org.adp.gable.common.utils.I18nUtils;
 import org.adp.gable.common.web.ErrorResult;
 
 /**
@@ -14,11 +15,15 @@ public class Result<T> {
     private T data;
 
     public static Result<String> failure(ErrorResult errorResult) {
+        return failure(errorResult, null);
+    }
+
+    public static Result<String> failure(ErrorResult errorResult, Object[] args) {
         Result<String> result = new Result<>();
         result.setResult(false);
         result.setData(null);
         result.setCode(errorResult.getErrorCode());
-        result.setMessage(errorResult.getMessageI18nKey());
+        result.setMessage(I18nUtils.getMessage(errorResult.getMessageI18nKey(), args));
         return result;
     }
 

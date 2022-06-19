@@ -14,7 +14,6 @@ public interface JwtConst {
     String ISSUER_PREFIX = "Gable Server---";
 
     String CLAIM_KEY = "user";
-    String JSON_RESPONSE = "application/json";
     String AUTH = "authorities";
     String ROLE_PREFIX = "ROLE_";
     String LOGIN_PATH = "/api/user/login";

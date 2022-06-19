@@ -6,6 +6,7 @@ import org.adp.gable.common.beans.Result;
 import org.adp.gable.security.utils.JwtConst;
 import org.adp.gable.security.utils.SecurityErrorResult;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -21,7 +22,7 @@ import java.io.IOException;
 @Slf4j
 public class NoTokenProviderHandler implements AuthenticationEntryPoint {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public NoTokenProviderHandler(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -31,7 +32,7 @@ public class NoTokenProviderHandler implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         log.info("Pre-authenticated entry point called. Rejecting access", authException);
         if (authException instanceof InsufficientAuthenticationException) {
-            response.setHeader(HttpHeaders.CONTENT_TYPE, JwtConst.JSON_RESPONSE);
+            response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
             response.getWriter().write(objectMapper.writeValueAsString(Result.failure(SecurityErrorResult.NO_TOKEN_PROVIDED)));
         }
     }

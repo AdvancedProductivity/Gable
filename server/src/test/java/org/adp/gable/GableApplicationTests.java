@@ -1,6 +1,7 @@
 package org.adp.gable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.adp.gable.common.utils.I18nUtils;
 import org.adp.gable.security.dao.RolePermissionRepository;
 import org.adp.gable.security.dao.RoleRepository;
 import org.adp.gable.security.dao.UserRepository;
@@ -8,15 +9,22 @@ import org.adp.gable.security.entity.RoleEntity;
 import org.adp.gable.security.entity.RolePermissionRelation;
 import org.adp.gable.security.entity.RoleUserRelation;
 import org.adp.gable.security.entity.UserEntity;
+import org.adp.gable.security.utils.SecurityErrorResult;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContext;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,12 +43,26 @@ class GableApplicationTests {
 	@Resource
 	private RolePermissionRepository rolePermissionRepository;
 
+	@Resource
+	private MessageSource messageSource;
 
 	@Test
 	@DisplayName("test app start")
 
 	void contextLoads() {
 		assertNotNull(objectMapper);
+	}
+
+	@Test
+	@DisplayName("test i18n resource working")
+	public void testI18nWorking(){
+		assertNotNull(messageSource);
+		//
+		final String message1 = I18nUtils.getMessage(SecurityErrorResult.USER_NOT_EXIST.getMessageI18nKey(), null);
+		assertEquals("账号不存在", message1);
+		LocaleContextHolder.setLocale(Locale.US);
+		final String message = I18nUtils.getMessage(SecurityErrorResult.USER_NOT_EXIST.getMessageI18nKey(), null);
+		assertEquals("Username Not Exist", message);
 	}
 
 	@Test

@@ -18,6 +18,7 @@ import org.adp.gable.security.utils.JwtConst;
 import org.adp.gable.security.utils.SecurityErrorResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -39,7 +40,7 @@ import java.util.UUID;
 @Slf4j
 public class JwtTokenHandleFilter extends BasicAuthenticationFilter {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public JwtTokenHandleFilter(AuthenticationManager authenticationManager, ObjectMapper objectMapper) {
         super(authenticationManager);
@@ -68,20 +69,20 @@ public class JwtTokenHandleFilter extends BasicAuthenticationFilter {
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             super.doFilterInternal(request, response, chain);
         } catch (JWTDecodeException exception) {
-            log.error("jwt token:{} parser error", tokenHeader, exception);
-            response.setHeader(HttpHeaders.CONTENT_TYPE, JwtConst.JSON_RESPONSE);
+            log.warn("jwt token:{} parser error", tokenHeader, exception);
+            response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
             response.getWriter().write(objectMapper.writeValueAsString(Result.failure(SecurityErrorResult.TOKEN_INVALID)));
         } catch (SignatureVerificationException exception) {
-            log.error("jwt token:{} parser error", tokenHeader, exception);
-            response.setHeader(HttpHeaders.CONTENT_TYPE, JwtConst.JSON_RESPONSE);
+            log.warn("jwt token:{} parser error", tokenHeader, exception);
+            response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
             response.getWriter().write(objectMapper.writeValueAsString(Result.failure(SecurityErrorResult.LOGIN_EXPIRED)));
         } catch (TokenExpiredException exception) {
-            log.error("jwt token:{} have expired", tokenHeader, exception);
-            response.setHeader(HttpHeaders.CONTENT_TYPE, JwtConst.JSON_RESPONSE);
+            log.warn("jwt token:{} have expired", tokenHeader, exception);
+            response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
             response.getWriter().write(objectMapper.writeValueAsString(Result.failure(SecurityErrorResult.LOGIN_EXPIRED)));
         } catch (Exception e) {
             log.error("handle jwt token unknown error happens", e);
-            response.setHeader(HttpHeaders.CONTENT_TYPE, JwtConst.JSON_RESPONSE);
+            response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
             response.getWriter().write(objectMapper.writeValueAsString(Result.failure(SecurityErrorResult.JWT_UNKNOWN_ERROR)));
         }
     }

@@ -177,7 +177,7 @@ public class UserControllerTest {
                     .accept(MediaType.APPLICATION_JSON)
             ).andExpect(status().isOk()).andReturn();
             String contentAsString = mvcResult.getResponse().getContentAsString();
-            assertEquals(contentAsString, "testConfigP ok");
+            assertEquals(contentAsString, "testConfigR ok");
 
             mvcResult = mvc.perform(MockMvcRequestBuilders.get("/api/user/testConfigR").header(JwtConst.TOKEN_HEADER, JwtConst.TOKEN_PREFIX + token)
                     .accept(MediaType.APPLICATION_JSON)

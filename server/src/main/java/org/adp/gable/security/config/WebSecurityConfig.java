@@ -21,8 +21,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.Locale;
 
 /**
  * @author zzq
@@ -56,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), objectMapper))
                 .addFilterAfter(new JwtTokenHandleFilter(authenticationManager(), objectMapper), JwtAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/", "/home")
+                .antMatchers("/static/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

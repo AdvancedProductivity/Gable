@@ -7,6 +7,7 @@ import org.adp.gable.security.dtos.UserDto;
 import org.adp.gable.security.utils.JwtConst;
 import org.adp.gable.security.utils.SecurityErrorResult;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -43,8 +45,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         final UserDetails principal = (UserDetails) authentication.getPrincipal();
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         log.warn("{} want to access the: {}, bug have no Authentication", principal.getUsername(), requestAttributes.getRequest().getRequestURI());
-
-        response.setHeader(HttpHeaders.CONTENT_TYPE, JwtConst.JSON_RESPONSE);
+        response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
         response.getWriter().write(objectMapper.writeValueAsString(Result.failure(SecurityErrorResult.ACCESS_DENIED)));
     }
 }
