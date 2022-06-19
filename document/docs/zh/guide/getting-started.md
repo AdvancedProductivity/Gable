@@ -30,6 +30,8 @@ grant connect, create, temporary on database gable to app;
 
 如果你需要运行单元测试的代码，需要额外创建一个数据库 `gable_test` 来初始化单元测试的数据。
 
+#### 初始化测试数据库
+
 执行以下 `sql`:
 ```sql
 -- 创建数据库 名为 gable_test
@@ -43,3 +45,9 @@ grant connect, create, temporary on database gable_test to app;
 
 在测试目录下的 `data.sql` 和 `schema.sql` 定义了测试数据库中所需要的数据。
 每次启动都会初始化数据库，如果后续因为测试的需要，只需要更改  `data.sql` 和 `schema.sql`  的数据即可。
+
+#### 命令执行测试
+
+```shell
+mvn test
+```
