@@ -53,7 +53,7 @@ public class WebSecurityConfigInTest extends WebSecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/api/user/testConfigP").hasAnyAuthority("sec_createUser")
                 .antMatchers("/api/user/testConfigR").hasRole("SUPPER_ROLE")
-                .antMatchers("/static/**")
+                .antMatchers("/static/**", "/all/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

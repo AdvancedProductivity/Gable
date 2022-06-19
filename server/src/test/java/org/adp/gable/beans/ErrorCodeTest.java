@@ -1,4 +1,4 @@
-package org.adp.gable.Controller;
+package org.adp.gable.beans;
 
 
 import com.fasterxml.jackson.databind.JsonNode;

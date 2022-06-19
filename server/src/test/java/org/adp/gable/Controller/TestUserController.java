@@ -1,4 +1,4 @@
-package org.adp.gable.security.controller;
+package org.adp.gable.Controller;
 
 
 import org.springframework.context.annotation.Profile;
@@ -16,7 +16,7 @@ import javax.annotation.security.PermitAll;
 @RestController
 @RequestMapping("/api/user")
 @Profile("SECURITY_MOCK")
-public class TestController {
+public class TestUserController {
 
     @GetMapping("testConfigP")
     public String testConfigP(){

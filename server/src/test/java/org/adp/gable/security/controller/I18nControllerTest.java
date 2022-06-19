@@ -1,7 +1,6 @@
 package org.adp.gable.security.controller;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.adp.gable.SupperUser;
@@ -24,7 +23,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.annotation.Resource;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Locale;
 
