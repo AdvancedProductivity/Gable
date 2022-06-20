@@ -7,21 +7,16 @@ import org.adp.gable.security.dao.RoleRepository;
 import org.adp.gable.security.dao.UserRepository;
 import org.adp.gable.security.entity.RoleEntity;
 import org.adp.gable.security.entity.RolePermissionRelation;
-import org.adp.gable.security.entity.RoleUserRelation;
 import org.adp.gable.security.entity.UserEntity;
 import org.adp.gable.security.utils.SecurityErrorResult;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContext;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;

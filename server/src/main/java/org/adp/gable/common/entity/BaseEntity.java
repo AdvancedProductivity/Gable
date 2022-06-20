@@ -3,7 +3,6 @@ package org.adp.gable.common.entity;
 import org.adp.gable.security.dtos.UserDto;
 import org.hibernate.annotations.Comment;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;

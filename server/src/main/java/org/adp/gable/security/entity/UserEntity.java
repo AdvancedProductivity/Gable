@@ -1,14 +1,10 @@
 package org.adp.gable.security.entity;
 
 import lombok.Data;
-import lombok.ToString;
 import org.adp.gable.common.entity.BaseEntity;
 import org.hibernate.annotations.Comment;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 /**
  * @author zzq

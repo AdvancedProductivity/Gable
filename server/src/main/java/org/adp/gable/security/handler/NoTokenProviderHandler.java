@@ -3,7 +3,6 @@ package org.adp.gable.security.handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.adp.gable.common.beans.Result;
-import org.adp.gable.security.utils.JwtConst;
 import org.adp.gable.security.utils.SecurityErrorResult;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

@@ -3,8 +3,6 @@ package org.adp.gable.common.handler;
 import lombok.extern.slf4j.Slf4j;
 import org.adp.gable.common.beans.Result;
 import org.adp.gable.common.web.CommonErrorResult;
-import org.adp.gable.security.utils.SecurityErrorResult;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
