@@ -22,4 +22,10 @@ export class HomeComponent implements OnInit {
       console.log('zzq see add data', v);
     });
   }
+
+  clearItem() {
+    this.dataServiceImplService.clearAll().subscribe((v) => {
+      console.log('zzq see clear data', v);
+    });
+  }
 }

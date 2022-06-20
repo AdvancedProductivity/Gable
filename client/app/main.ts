@@ -74,17 +74,34 @@ function createWindow(): BrowserWindow {
     connection = r;
     itemRepo = connection.getRepository(Item);
 
-    const item_1 = itemRepo.create({id: new Date().getTime() + 2, name: new Date().toString()});
-    itemRepo.save(item_1);
-
-    const item_2 = itemRepo.create({id: new Date().getTime() + 5, name: new Date().toString()});
-    itemRepo.save(item_2);
   });
 
   ipcMain.on('get-data', async (event: any, ...args: any[]) => {
     if (itemRepo) {
       try {
         event.returnValue = await itemRepo.find();
+      } catch (err) {
+        throw err;
+      }
+    }else {
+      try {
+        event.returnValue = {id: 0, name: 'item repo not init'};
+      } catch (err) {
+        throw err;
+      }
+    }
+  });
+
+  ipcMain.on('clear-data', async (event: any, ...args: any[]) => {
+    if (itemRepo) {
+      try {
+        const allData = await itemRepo.find();
+        let s = '';
+        allData.forEach(item => {
+          s += item.id + '.';
+          itemRepo.remove(item);
+        });
+        event.returnValue = s
       } catch (err) {
         throw err;
       }

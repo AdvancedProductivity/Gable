@@ -11,6 +11,14 @@ export class DatabaseDataServiceService implements DataService{
   constructor(private electronService: ElectronService) {
   }
 
+  clearAll(): Observable<string> {
+    return of(this.electronService.ipcRenderer.sendSync('clear-data')).pipe(
+      catchError((error: any) => {
+        return new Observable(error.json)
+      })
+    );
+  }
+
   getData(): Observable<any[]> {
     return of(this.electronService.ipcRenderer.sendSync('get-data')).pipe(
       catchError((error: any) => {

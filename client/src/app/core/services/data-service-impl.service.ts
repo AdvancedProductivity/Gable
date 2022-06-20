@@ -32,4 +32,13 @@ export class DataServiceImplService implements DataService{
       return this.webDataService.addItem();
     }
   }
+
+  clearAll(): Observable<string> {
+    console.log('zzq see clear data');
+    if (this.electronService.isElectron) {
+      return this.databaseDataServiceService.clearAll();
+    } else {
+      return this.webDataService.clearAll();
+    }
+  }
 }
