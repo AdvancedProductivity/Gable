@@ -2,10 +2,7 @@ package org.adp.gable.common.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.adp.gable.common.web.SpringContextHolder;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.NoSuchMessageException;
-import org.springframework.context.i18n.LocaleContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.util.Arrays;

@@ -1,7 +1,6 @@
 package org.adp.gable.security.dao;
 
 import org.adp.gable.security.entity.RoleEntity;
-import org.adp.gable.security.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

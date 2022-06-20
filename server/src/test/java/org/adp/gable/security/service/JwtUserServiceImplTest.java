@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.annotation.Resource;
-
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -4,10 +4,8 @@ import org.adp.gable.security.filter.JwtAuthenticationFilter;
 import org.adp.gable.security.filter.JwtTokenHandleFilter;
 import org.adp.gable.security.filter.LanguageFilter;
 import org.adp.gable.security.handler.NoTokenProviderHandler;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,8 +15,6 @@ import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
 import java.util.Arrays;
 import java.util.Locale;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author zzq
