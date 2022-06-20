@@ -1,0 +1,10 @@
+{
+  "name": "angular-electron",
+  "version": "10.5.2",
+  "main": "main.js",
+  "private": true,
+  "dependencies": {
+    "sqlite3": "^5.0.8",
+    "typeorm": "^0.3.6"
+  }
+}
