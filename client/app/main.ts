@@ -2,11 +2,15 @@ import {app, BrowserWindow, screen, ipcMain} from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
-import { createConnection } from 'typeorm';
+import {createConnection, DataSource} from 'typeorm';
 import {Item} from "./Item";
 import { homedir } from "os";
+import {of} from "rxjs";
 
 let win: BrowserWindow = null;
+
+let dataSource: DataSource = undefined;
+
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
 
@@ -57,9 +61,6 @@ function createWindow(): BrowserWindow {
     // when you should delete the corresponding element.
     win = null;
   });
-
-
-  let connection = undefined;
   let itemRepo = undefined;
   const dbFilePath = homedir() + '/.gable/database.sqlite';
   console.log('sqlite3 file in ' + dbFilePath);
@@ -71,8 +72,8 @@ function createWindow(): BrowserWindow {
     database: dbFilePath,
     entities: [Item],
   }).then((r) => {
-    connection = r;
-    itemRepo = connection.getRepository(Item);
+    dataSource = r;
+    itemRepo = dataSource.getRepository(Item);
 
   });
 
@@ -151,6 +152,11 @@ try {
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
       app.quit();
+    }
+    if (dataSource != undefined) {
+      dataSource.destroy().then(() => {
+        console.log('database connection closed');
+      });
     }
   });
 
