@@ -23,4 +23,13 @@ export class DataServiceImplService implements DataService{
       return this.webDataService.getData();
     }
   }
+
+  addItem(): Observable<any[]> {
+    console.log('zzq see add data');
+    if (this.electronService.isElectron) {
+      return this.databaseDataServiceService.addItem();
+    } else {
+      return this.webDataService.addItem();
+    }
+  }
 }

@@ -18,4 +18,13 @@ export class DatabaseDataServiceService implements DataService{
       })
     );
   }
+
+  addItem(): Observable<any> {
+    console.log('run add item in database')
+    return of(this.electronService.ipcRenderer.sendSync('add-data')).pipe(
+      catchError((error: any) => {
+        return new Observable(error.json)
+      })
+    );
+  }
 }

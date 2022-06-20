@@ -97,6 +97,24 @@ function createWindow(): BrowserWindow {
     }
   });
 
+  ipcMain.on('add-data', async (event: any, ...args: any[]) => {
+    if (itemRepo) {
+      try {
+        const item = itemRepo.create({ name: new Date().toString()});
+        itemRepo.save(item);
+        event.returnValue = item;
+      } catch (err) {
+        throw err;
+      }
+    }else {
+      try {
+        event.returnValue = {id: 0, name: 'item repo not init'};
+      } catch (err) {
+        throw err;
+      }
+    }
+  });
+
 
   return win;
 }
