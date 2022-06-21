@@ -1,5 +1,6 @@
 package org.adp.gable.common.entity;
 
+import lombok.Data;
 import org.adp.gable.security.dtos.UserDto;
 import org.hibernate.annotations.Comment;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import java.util.Date;
  * @author zzq
  */
 @MappedSuperclass
+@Data
 public class BaseEntity {
 
     @Comment("tenant id.ready for multi-tenancy.Probably not. 租户Id,为多租户做准备，有可能用不到")
@@ -82,62 +84,6 @@ public class BaseEntity {
             nullable = true
     )
     private String dataFrom;
-
-    public Long getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public Long getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Long createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Long getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(Long modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-    public Date getDateModified() {
-        return dateModified;
-    }
-
-    public void setDateModified(Date dateModified) {
-        this.dateModified = dateModified;
-    }
-
-    public String getOperationUrl() {
-        return operationUrl;
-    }
-
-    public void setOperationUrl(String operationUrl) {
-        this.operationUrl = operationUrl;
-    }
-
-    public String getDataFrom() {
-        return dataFrom;
-    }
-
-    public void setDataFrom(String dataFrom) {
-        this.dataFrom = dataFrom;
-    }
 
     @PrePersist
     public void initBeforeSave(){

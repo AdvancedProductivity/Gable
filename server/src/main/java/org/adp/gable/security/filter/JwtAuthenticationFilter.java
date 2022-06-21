@@ -1,6 +1,8 @@
 package org.adp.gable.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Generated;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.adp.gable.common.beans.Result;
 import org.adp.gable.security.dtos.UserDto;
@@ -27,14 +29,13 @@ import java.io.IOException;
  * @author zzq
  */
 @Slf4j
+@Getter
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 
     private final AuthenticationManager authenticationManager;
 
-    private ObjectMapper objectMapper;
-
-    protected LocaleResolver localeResolver;
+    private final ObjectMapper objectMapper;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, ObjectMapper objectMapper) {
         this.authenticationManager = authenticationManager;
@@ -66,14 +67,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
             final Result<String> failure = Result.failure(SecurityErrorResult.USER_NOT_EXIST);
             response.getWriter().write(objectMapper.writeValueAsString(failure));
-            return;
         } else if (failed instanceof BadCredentialsException) {
             response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
             final Result<String> failure = Result.failure(SecurityErrorResult.PASSWORD_ERROR);
             response.getWriter().write(objectMapper.writeValueAsString(failure));
-            return;
         }
-        super.unsuccessfulAuthentication(request, response, failed);
     }
 
     @Override
@@ -81,10 +79,4 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         super.setPostOnly(false);
     }
 
-    @Override
-    protected AuthenticationManager getAuthenticationManager() {
-        final AuthenticationManager authenticationManager = super.getAuthenticationManager();
-        log.info("father is null = {}", authenticationManager == null);
-        return this.authenticationManager;
-    }
 }

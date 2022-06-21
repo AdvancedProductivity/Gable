@@ -25,7 +25,7 @@ import java.io.IOException;
 @Slf4j
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public CustomAccessDeniedHandler(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -36,9 +36,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
             throws IOException, ServletException {
         accessDeniedException.printStackTrace();
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
-            return;
-        }
         final UserDetails principal = (UserDetails) authentication.getPrincipal();
         final ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         log.warn("{} want to access the: {}, bug have no Authentication", principal.getUsername(), requestAttributes.getRequest().getRequestURI());

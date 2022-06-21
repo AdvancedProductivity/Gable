@@ -9,6 +9,7 @@ import org.adp.gable.security.entity.RoleEntity;
 import org.adp.gable.security.entity.RolePermissionRelation;
 import org.adp.gable.security.entity.UserEntity;
 import org.adp.gable.security.utils.SecurityErrorResult;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -59,6 +60,14 @@ class GableApplicationTests {
 		final String message = I18nUtils.getMessage(SecurityErrorResult.USER_NOT_EXIST.getMessageI18nKey(), null);
 		assertEquals("Username Not Exist", message);
 		LocaleContextHolder.resetLocaleContext();
+	}
+
+	@Test
+	@DisplayName("test i18n key not exist")
+	public void testI18nNotExist(){
+		String randomSt = RandomStringUtils.random(10, true, true);
+		final String message1 = I18nUtils.getMessage(randomSt, null);
+		assertEquals(message1, randomSt);
 	}
 
 	@Test

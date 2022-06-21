@@ -57,6 +57,8 @@ public class RoleEntity extends BaseEntity {
     @Override
     public void initBeforeUpdate() {
         super.initBeforeUpdate();
-        this.adminRole = Boolean.FALSE;
+        if (this.adminRole == null) {
+            this.adminRole = Boolean.FALSE;
+        }
     }
 }

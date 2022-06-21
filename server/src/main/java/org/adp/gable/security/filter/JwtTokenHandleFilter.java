@@ -77,10 +77,6 @@ public class JwtTokenHandleFilter extends BasicAuthenticationFilter {
             log.warn("jwt token:{} have expired", tokenHeader, exception);
             response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
             response.getWriter().write(objectMapper.writeValueAsString(Result.failure(SecurityErrorResult.LOGIN_EXPIRED)));
-        } catch (Exception e) {
-            log.error("handle jwt token unknown error happens", e);
-            response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
-            response.getWriter().write(objectMapper.writeValueAsString(Result.failure(SecurityErrorResult.JWT_UNKNOWN_ERROR)));
         }
     }
 
