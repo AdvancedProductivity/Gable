@@ -1,11 +1,12 @@
 import {BrowserWindow, ipcMain, screen} from "electron";
-import {initDatasource} from "./config/app-my-datasource";
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
 import {listenerArray} from "./listeners/a-all-listener";
+import {wrapper} from "./utils/icp-main-wrapper-utils";
+import {initDatasource} from "./config/init-datasource";
 
-export function createWindow(serve: boolean) {
+export async function createWindow(serve: boolean) {
   let win: BrowserWindow = null;
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
@@ -22,7 +23,7 @@ export function createWindow(serve: boolean) {
       contextIsolation: false,  // false if you want to run e2e test with Spectron
     },
   });
-  initDatasource();
+  await initDatasource();
 
   if (serve) {
     const debug = require('electron-debug');
@@ -32,11 +33,11 @@ export function createWindow(serve: boolean) {
     win.loadURL('http://localhost:4200');
   } else {
     // Path when running electron executable
-    let pathIndex = './index.html';
+    let pathIndex = '../index.html';
 
-    if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
+    if (fs.existsSync(path.join(__dirname, '../../dist/index.html'))) {
       // Path when running electron in local folder
-      pathIndex = '../dist/index.html';
+      pathIndex = '../../dist/index.html';
     }
 
     win.loadURL(url.format({
@@ -55,7 +56,7 @@ export function createWindow(serve: boolean) {
   });
 
   listenerArray.forEach(item => {
-    ipcMain.on(item.channel, item.listener);
+    ipcMain.on(item.channel, wrapper(item.handler));
   });
 
   return win;
