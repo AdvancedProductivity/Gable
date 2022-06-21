@@ -48,6 +48,18 @@ grant connect, create, temporary on database gable_test to app;
 
 #### 命令执行测试
 
+普通测试
 ```shell
 mvn test
 ```
+
+覆盖率测试
+
+```shell
+mvn test jacoco:repor
+```
+该测试会生成代码覆盖率以及分支的检测，报告位置见: `target/site/jacoco/index.html`
+
+其它帮助文档： 
+- [https://www.baeldung.com/jacoco](https://www.baeldung.com/jacoco)
+- [https://www.baeldung.com/jacoco-report-exclude](https://www.baeldung.com/jacoco-report-exclude)
