@@ -12,11 +12,15 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataServiceImplService.getData().subscribe((res) => {
-      this.infos = res;
+      if (res instanceof Array) {
+        this.infos = res;
+      }else {
+        console.log('receive data not array', res);
+      }
       console.log('DetailComponent INIT', this.infos);
     }, error => {
       console.log('DetailComponent INIT error', error);
-    })
+    });
    }
 
 }

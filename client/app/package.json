@@ -4,7 +4,8 @@
   "main": "main.js",
   "private": true,
   "scripts": {
-    "electron-test": "jest"
+    "electron-test": "jest",
+    "electron-test-coverage": "jest --coverage"
   },
   "dependencies": {
     "sqlite3": "^5.0.8",

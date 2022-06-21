@@ -1,7 +1,9 @@
 <div class="container">
-  <h1 class="title" *ngFor="let info of infos">
-    {{ info.id + '    -    ' + info.name }}
+  <h1 class="title">
+    {{ 'PAGES.DETAIL.TITLE' | translate }}
   </h1>
-
+  <p *ngFor="let info of infos">
+    {{ info.id + '    -    ' + info.name }}
+  </p>
   <a routerLink="/">{{ 'PAGES.DETAIL.BACK_TO_HOME' | translate }}</a>
 </div>
