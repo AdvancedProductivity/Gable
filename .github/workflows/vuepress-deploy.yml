@@ -1,4 +1,4 @@
-name: Build and Deploy Document
+name: document
 on:
   push:
     branches:

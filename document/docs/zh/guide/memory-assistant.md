@@ -24,5 +24,3 @@ psql -U postgres
 
 \c gable
 ```
-
-test
