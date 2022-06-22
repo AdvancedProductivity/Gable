@@ -1,5 +1,8 @@
 name: Build and Deploy
-on: [push]
+on:
+  push:
+    branches:
+      - docs
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -12,6 +15,6 @@ jobs:
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           TARGET_REPO: AdvancedProductivity/Gable
-          TARGET_BRANCH: gh_pages
+          TARGET_BRANCH: gh-pages
           BUILD_SCRIPT: cd ./document && yarn && yarn docs:build
           BUILD_DIR: docs/.vuepress/dist/
