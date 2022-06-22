@@ -1,6 +1,5 @@
 module.exports = {
     port: 3005,
-    dest: '../docs',
     base: '/Gable/',
     lang: 'zh-CN',
     title: '你好， VuePress ！',
