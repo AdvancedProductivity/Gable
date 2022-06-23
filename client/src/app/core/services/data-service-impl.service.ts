@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {ElectronService} from "./electron/electron.service";
-import {DatabaseDataServiceService} from "./database-data-service.service";
-import {WebDataService} from "./web-data.service";
-import {DataService} from "./DataService";
-import {Observable} from "rxjs";
+import {ElectronService} from './electron/electron.service';
+import {DatabaseDataServiceService} from './database-data-service.service';
+import {WebDataService} from './web-data.service';
+import {DataService} from './DataService';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
