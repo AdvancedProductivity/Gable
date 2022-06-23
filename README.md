@@ -2,7 +2,7 @@
 [![document][document-image]][document-link]
 [![License][license-badge]](LICENSE.md)
 
-[license]: https://github.com/maximegris/angular-electron/blob/main/LICENSE.md
+[license]: https://github.com/AdvancedProductivity/Gable/blob/main/LICENSE
 [license-badge]: https://img.shields.io/badge/license-Apache%202-blue
 
 [document-image]: https://github.com/AdvancedProductivity/Gable/actions/workflows/vuepress-deploy.yml/badge.svg
