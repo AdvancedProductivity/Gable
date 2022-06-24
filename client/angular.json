@@ -30,6 +30,7 @@
             "polyfills": "src/polyfills.ts",
             "inlineStyleLanguage": "scss",
             "assets": [
+              { "glob": "**/*", "input": "node_modules/monaco-editor", "output": "assets/monaco-editor" },
               "src/favicon.ico",
               "src/assets"
             ],
@@ -150,6 +151,7 @@
               "src/styles.scss"
             ],
             "assets": [
+              { "glob": "**/*", "input": "node_modules/monaco-editor", "output": "assets/monaco-editor" },
               "src/favicon.ico",
               "src/assets"
             ],

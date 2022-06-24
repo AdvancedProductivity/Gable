@@ -6,8 +6,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { PageNotFoundComponent } from './components/';
 import { WebviewDirective } from './directives/';
 import { FormsModule } from '@angular/forms';
-import {MatSliderModule} from "@angular/material/slider";
-
+import {MatSliderModule} from '@angular/material/slider';
+import {MatButtonModule} from '@angular/material/button';
+import {MonacoEditorModule} from '@materia-ui/ngx-monaco-editor';
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective],
   imports: [CommonModule, TranslateModule, FormsModule],
@@ -15,7 +16,9 @@ import {MatSliderModule} from "@angular/material/slider";
     TranslateModule
     , WebviewDirective
     , FormsModule
-    , MatSliderModule,
+    , MatButtonModule
+    , MatSliderModule
+    , MonacoEditorModule
   ]
 })
 export class SharedModule {}

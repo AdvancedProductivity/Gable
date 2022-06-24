@@ -8,13 +8,14 @@ import {DataServiceImplService} from '../core/services/data-service-impl.service
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  editorOptions = {theme: 'vs-dark', language: 'javascript'};
+  code = 'function x() {\nconsole.log("Hello world!");\n}';
 
   constructor(private router: Router,
               private dataServiceImplService: DataServiceImplService) {
   }
 
   ngOnInit(): void {
-    console.log('HomeComponent INIT');
   }
 
   addItem() {

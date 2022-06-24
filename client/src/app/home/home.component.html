@@ -1,3 +1,12 @@
 <mat-slider min="1" max="100" step="1" value="50"></mat-slider>
 
-<div style="width: 20px;height: 50px;background-color: #ed3330"></div>
+<div class="container">
+  <h1 class="title">
+    {{ 'PAGES.HOME.TITLE' | translate }}
+  </h1>
+
+  <a mat-raised-button color="warn" routerLink="/detail">{{ 'PAGES.HOME.GO_TO_DETAIL' | translate }}</a>
+  <button  mat-raised-button color="primary" (click)="addItem()" style="margin: 10px">add Item</button>
+  <button  mat-raised-button color="accent" (click)="clearItem()" style="margin-top: 10px">clear Item</button>
+</div>
+<ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
