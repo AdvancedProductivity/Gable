@@ -8,7 +8,7 @@ import {DataServiceImplService} from '../core/services/data-service-impl.service
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  editorOptions = {theme: 'vs-dark', language: 'javascript'};
+  editorOptions = {theme: 'vs-dark', language: 'java'};
   code = 'function x() {\nconsole.log("Hello world!");\n}';
 
   constructor(private router: Router,
