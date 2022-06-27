@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ResultUtilsTest {
 
-    private static String PRIFIX = "gable";
+    private static String PREFIX = "gable";
 
     @Test
     @DisplayName("test result parser util")
@@ -28,8 +28,8 @@ public class ResultUtilsTest {
             assertNotNull(result);
             assertTrue(result.isResult());
             assertNotNull(result.getData());
-            assertTrue(StringUtils.startsWith(result.getData(), PRIFIX));
-            assertEquals(result.getData().length(), 10 + PRIFIX.length());
+            assertTrue(StringUtils.startsWith(result.getData(), PREFIX));
+            assertEquals(result.getData().length(), 10 + PREFIX.length());
         });
     }
 
@@ -44,7 +44,7 @@ public class ResultUtilsTest {
             public MockHttpServletResponse getResponse() {
                 MockHttpServletResponse response = new MockHttpServletResponse();
                 ObjectMapper objectMapper = new ObjectMapper();
-                Result<String> success = Result.success(PRIFIX + RandomStringUtils.random(10, true, true));
+                Result<String> success = Result.success(PREFIX + RandomStringUtils.random(10, true, true));
                 try {
                     response.getWriter().write(objectMapper.writeValueAsString(success));
                 } catch (Exception e) {
