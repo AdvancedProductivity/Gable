@@ -10,6 +10,12 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  }
+  ,
+  {
+    path: '',
+    loadChildren: () => import('./passport/passport.module').then(m => m.PassportModule),
+    data: {preload: true}
   },
   {
     path: '**',
