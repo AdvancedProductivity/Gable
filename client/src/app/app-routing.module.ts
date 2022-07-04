@@ -2,15 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './shared/components';
 
-import { HomeRoutingModule } from './home/home-routing.module';
-import { DetailRoutingModule } from './detail/detail-routing.module';
 import {JwtGuard} from './shared/guard/jwt.guard';
-import {AppComponent} from "./app.component";
+import {BasicLayoutComponent} from './shared/components/layout/basic-layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AppComponent,
+    component: BasicLayoutComponent,
     canActivate: [JwtGuard],
     canActivateChild: [JwtGuard],
     data: {},
@@ -35,9 +33,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
-    HomeRoutingModule,
-    DetailRoutingModule
+    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })
   ],
   exports: [RouterModule]
 })
