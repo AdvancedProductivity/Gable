@@ -2,15 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './shared/components';
 
-import {JwtGuard} from './shared/guard/jwt.guard';
 import {BasicLayoutComponent} from './shared/components/layout/basic-layout.component';
 
 const routes: Routes = [
   {
     path: '',
     component: BasicLayoutComponent,
-    canActivate: [JwtGuard],
-    canActivateChild: [JwtGuard],
     data: {},
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

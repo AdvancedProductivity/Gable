@@ -1,0 +1,26 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+@include mat.strong-focus-indicators();
+
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+.gable-header {
+  background: map-get($my-primary, 400);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 8px 16px;
+
+
+
+  .gable-logo-text {
+    text-transform: uppercase;
+    color: white;
+    font-family: Inter, sans-serif;
+    font-variant-ligatures: common-ligatures;
+    font-size: 12px;
+    font-weight: 700;
+  }
+}
