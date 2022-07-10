@@ -1,7 +1,7 @@
-import {Handler} from "./listener-handler";
-import {getItemRepository} from "../config/init-datasource";
+import {Handler} from "../listener-handler";
+import {getItemRepository} from "../../config/init-datasource";
 import {Repository} from "typeorm/repository/Repository";
-import {Item} from "../entity/Item";
+import {Item} from "../../entity/Item";
 
 export class OnItemGetAllHandler implements Handler {
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {DataService} from './DataService';
+import {DataService} from '../../DataService';
 import {Observable, of} from 'rxjs';
 @Injectable({
   providedIn: 'root'

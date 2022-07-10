@@ -3,7 +3,7 @@ import {
   OnItemAddHandler,
   OnItemClearHandler,
   OnItemGetAllHandler
-} from "../../src/listeners/item-listener";
+} from "../../src/listeners/handler/item-listener";
 import {Item} from "../../src/entity/Item";
 
 beforeEach(async () => {

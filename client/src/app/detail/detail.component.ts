@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DataServiceImplService} from '../core/services/data-service-impl.service';
+import {DataServiceImplService} from '../core/services/impl/data-service-impl.service';
 
 @Component({
   selector: 'app-detail',

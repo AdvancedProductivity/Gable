@@ -2,6 +2,7 @@ import { DataSource } from "typeorm"
 import {homedir} from "os";
 import {Item} from "../entity/Item";
 import {Repository} from "typeorm/repository/Repository";
+import {Config} from "../entity/Config";
 
 const dbFilePath = homedir() + '/.gable/';
 
@@ -22,6 +23,7 @@ function creatDatasource(dbFileName?): DataSource {
     database: dbF,
     entities: [
       Item
+      , Config
     ]
   });
   return myDataSource;
@@ -58,4 +60,8 @@ export const initTestDatasource = async () => {
 
 export const getItemRepository = async ():Promise<Repository<Item>> => {
   return myDataSource.getRepository(Item);
+};
+
+export const getConfigRepository = async ():Promise<Repository<Config>> => {
+  return myDataSource.getRepository(Config);
 };

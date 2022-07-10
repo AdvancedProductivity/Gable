@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {ElectronService} from './electron/electron.service';
-import {DatabaseDataServiceService} from './database-data-service.service';
-import {WebDataService} from './web-data.service';
-import {DataService} from './DataService';
+import {ElectronService} from '../electron/electron.service';
+import {DatabaseDataServiceService} from './electron/database-data-service.service';
+import {WebDataService} from './web/web-data.service';
+import {DataService} from '../DataService';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -16,7 +16,6 @@ export class DataServiceImplService implements DataService{
   }
 
   getData(): Observable<any[]> {
-    console.log('zzq see get data');
     if (this.electronService.isElectron) {
       return this.databaseDataServiceService.getData();
     } else {
@@ -25,7 +24,6 @@ export class DataServiceImplService implements DataService{
   }
 
   addItem(): Observable<any[]> {
-    console.log('zzq see add data');
     if (this.electronService.isElectron) {
       return this.databaseDataServiceService.addItem();
     } else {
