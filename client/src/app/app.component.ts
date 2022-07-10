@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ElectronService } from './core/services';
 import { TranslateService } from '@ngx-translate/core';
 import { APP_CONFIG } from '../environments/environment';
+import {ConfigServiceImpl} from './core/services/impl/ConfigServiceImpl';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { APP_CONFIG } from '../environments/environment';
 export class AppComponent {
   constructor(
     private electronService: ElectronService,
+    private configService: ConfigServiceImpl,
     private translate: TranslateService
   ) {
     this.loadLanguage();
@@ -29,15 +31,23 @@ export class AppComponent {
   private loadLanguage() {
     const langArray = ['en-US', 'zh-CN'];
     this.translate.addLangs(langArray);
-    const lang = navigator?.language;
-    if (!lang) {
-      this.translate.setDefaultLang(langArray[0]);
-    } else {
-      if (langArray.indexOf(lang)) {
+    this.configService.getConfig('lang').subscribe((value: string) => {
+      console.log('last setting language is ', value);
+      if (!value) {
+        let lang = navigator?.language;
+        if (!lang) {
+          lang = langArray[0];
+        } else {
+          if (!langArray.indexOf(lang)) {
+            lang = langArray[0];
+          }
+        }
         this.translate.setDefaultLang(lang);
-      }else {
-        this.translate.setDefaultLang(langArray[0]);
+        this.configService.updateOrCreateConfig('lang', lang);
+      } else {
+        this.translate.setDefaultLang(value);
       }
-    }
+    });
+
   }
 }
