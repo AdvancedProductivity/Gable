@@ -17,10 +17,37 @@ $my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
   .gable-logo-text {
     text-transform: uppercase;
-    color: white;
+    color: whitesmoke;
     font-family: Inter, sans-serif;
     font-variant-ligatures: common-ligatures;
     font-size: 12px;
     font-weight: 700;
+    margin-right: 24px;
   }
+
+  .header-link:hover {
+    background: rgba(0,0,0,.4);
+  }
+
+  .active-link {
+    background: rgba(0, 0, 0, .2);
+  }
+
+  .flex-spacer {
+    flex-grow: 1;
+  }
+
+  .header-link {
+    color: whitesmoke;
+
+    .mat-button-focus-overlay {
+      background: black;
+    }
+
+    .mat-button-focus-overlay {
+      opacity: 0;
+      transition: opacity 200ms cubic-bezier(0.35, 0, 0.25, 1),background-color 200ms cubic-bezier(0.35, 0, 0.25, 1);
+    }
+  }
+
 }

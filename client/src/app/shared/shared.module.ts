@@ -10,9 +10,23 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatButtonModule} from '@angular/material/button';
 import {MonacoEditorModule} from '@materia-ui/ngx-monaco-editor';
 import {RouterModule} from '@angular/router';
+import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatRippleModule} from '@angular/material/core';
+import {MatMenuModule} from '@angular/material/menu';
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent],
-  imports: [CommonModule, TranslateModule, FormsModule, RouterModule],
+  imports: [
+    CommonModule
+    , TranslateModule
+    , FormsModule
+    , RouterModule
+    , MatListModule
+    , MatIconModule
+    , MatButtonModule
+    , MatRippleModule
+    , MatMenuModule
+  ],
   exports: [
     TranslateModule
     , WebviewDirective
