@@ -15,9 +15,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatRippleModule} from '@angular/material/core';
 import {MatMenuModule} from '@angular/material/menu';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {MatTreeModule} from '@angular/material/tree';
+import { ApiTreeMenuComponent } from './components/api/api-tree-menu/api-tree-menu.component';
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent],
+  declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent, ApiTreeMenuComponent],
   imports: [
     CommonModule
     , TranslateModule
@@ -28,6 +30,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     , MatIconModule
     , MatButtonModule
     , MatRippleModule
+    , MatTreeModule
     , MatMenuModule
   ],
   exports: [
@@ -35,9 +38,11 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     , WebviewDirective
     , FlexLayoutModule
     , FormsModule
+    , MatIconModule
     , MatButtonModule
     , MatSliderModule
-    , MonacoEditorModule
+    , MatTreeModule
+    , MonacoEditorModule, ApiTreeMenuComponent
   ]
 })
 export class SharedModule {}
