@@ -13,7 +13,7 @@ export class AppComponent {
     private electronService: ElectronService,
     private translate: TranslateService
   ) {
-    this.translate.setDefaultLang('en');
+    this.loadLanguage();
     console.log('APP_CONFIG', APP_CONFIG);
 
     if (electronService.isElectron) {
@@ -23,6 +23,21 @@ export class AppComponent {
       console.log('NodeJS childProcess', this.electronService.childProcess);
     } else {
       console.log('Run in browser');
+    }
+  }
+
+  private loadLanguage() {
+    const langArray = ['en-US', 'zh-CN'];
+    this.translate.addLangs(langArray);
+    const lang = navigator?.language;
+    if (!lang) {
+      this.translate.setDefaultLang(langArray[0]);
+    } else {
+      if (langArray.indexOf(lang)) {
+        this.translate.setDefaultLang(lang);
+      }else {
+        this.translate.setDefaultLang(langArray[0]);
+      }
     }
   }
 }

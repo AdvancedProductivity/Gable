@@ -7,6 +7,18 @@
       "DETAIL": {
         "TITLE": "Detail page !",
         "BACK_TO_HOME": "Back to Home"
+    },
+    "API_TEST": {
+      "NAME": "API Test"
+    },
+    "API_DOCUMENT": {
+      "NAME": "API Document"
+    },
+    "API_Mock": {
+      "NAME": "API Mock"
     }
+  },
+  "OPERATION": {
+    "LOGIN": "Login"
   }
 }

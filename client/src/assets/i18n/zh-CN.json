@@ -1,0 +1,24 @@
+{
+  "PAGES": {
+    "HOME": {
+      "TITLE": "App works !",
+      "GO_TO_DETAIL": "Go to Detail"
+    },
+    "DETAIL": {
+      "TITLE": "Detail page !",
+      "BACK_TO_HOME": "Back to Home"
+    },
+    "API_TEST": {
+      "NAME": "API 测试"
+    },
+    "API_DOCUMENT": {
+      "NAME": "API 文档"
+    },
+    "API_Mock": {
+      "NAME": "API Mock"
+    }
+  },
+  "OPERATION": {
+    "LOGIN": "登录"
+  }
+}
