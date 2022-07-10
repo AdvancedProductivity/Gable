@@ -14,11 +14,14 @@ import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRippleModule} from '@angular/material/core';
 import {MatMenuModule} from '@angular/material/menu';
+import {FlexLayoutModule} from '@angular/flex-layout';
+
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent],
   imports: [
     CommonModule
     , TranslateModule
+    , FlexLayoutModule
     , FormsModule
     , RouterModule
     , MatListModule
@@ -30,6 +33,7 @@ import {MatMenuModule} from '@angular/material/menu';
   exports: [
     TranslateModule
     , WebviewDirective
+    , FlexLayoutModule
     , FormsModule
     , MatButtonModule
     , MatSliderModule
