@@ -32,7 +32,7 @@ export class AppComponent {
     }
     this.iconRegistry.addSvgIcon(
       'menu-add',
-      this.sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/add.svg')
+      this.sanitizer.bypassSecurityTrustResourceUrl('./assets/svg/add.svg')
     );
   }
 
