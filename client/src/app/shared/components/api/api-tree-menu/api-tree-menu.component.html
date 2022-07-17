@@ -14,7 +14,12 @@
     </button>
   </div>
   <perfect-scrollbar class="tree-container">
-    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <app-empty-tree *ngIf="empty"></app-empty-tree>
+    <mat-tree
+      *ngIf="!empty"
+      [dataSource]="dataSource"
+      [treeControl]="treeControl"
+    >
       <!-- This is the tree node template for leaf nodes -->
       <mat-tree-node
         *matTreeNodeDef="let node"

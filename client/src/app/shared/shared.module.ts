@@ -20,9 +20,10 @@ import { ApiTreeMenuComponent } from './components/api/api-tree-menu/api-tree-me
 import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import { EmptyTreeComponent } from './components/api/api-tree-menu/inner/empty-tree/empty-tree.component';
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent, ApiTreeMenuComponent],
+  declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent, ApiTreeMenuComponent, EmptyTreeComponent],
   imports: [
     CommonModule
     , TranslateModule

@@ -11,7 +11,9 @@
     "API_TEST": {
       "NAME": "API Test",
       "TREE_MENU": {
-        "SEARCH_PLACE_HOLDER": "Search API By Name Or Keyword"
+        "SEARCH_PLACE_HOLDER": "Search API By Name Or Keyword",
+        "EMPTY_TREE": "Have No Api Collections",
+        "EMPTY_TREE_ADVICE": "you can click the add icon button create an API Collection"
       }
     },
     "API_DOCUMENT": {
