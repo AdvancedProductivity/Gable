@@ -9,7 +9,10 @@
         "BACK_TO_HOME": "Back to Home"
     },
     "API_TEST": {
-      "NAME": "API Test"
+      "NAME": "API Test",
+      "TREE_MENU": {
+        "SEARCH_PLACE_HOLDER": "Search API By Name Or Keyword"
+      }
     },
     "API_DOCUMENT": {
       "NAME": "API Document"

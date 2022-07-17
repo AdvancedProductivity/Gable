@@ -3,6 +3,8 @@ import { ElectronService } from './core/services';
 import { TranslateService } from '@ngx-translate/core';
 import { APP_CONFIG } from '../environments/environment';
 import {ConfigServiceImpl} from './core/services/impl/ConfigServiceImpl';
+import {MatIconRegistry} from "@angular/material/icon";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,8 @@ export class AppComponent {
   constructor(
     private electronService: ElectronService,
     private configService: ConfigServiceImpl,
+    private iconRegistry: MatIconRegistry,
+    private sanitizer: DomSanitizer,
     private translate: TranslateService
   ) {
     this.loadLanguage();
@@ -26,6 +30,10 @@ export class AppComponent {
     } else {
       console.log('Run in browser');
     }
+    this.iconRegistry.addSvgIcon(
+      'menu-add',
+      this.sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/add.svg')
+    );
   }
 
   private loadLanguage() {

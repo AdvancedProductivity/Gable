@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import {debounceTime, distinctUntilChanged, Subject} from "rxjs";
 
 /**
  * Food data with nested structure.
@@ -18,92 +19,14 @@ const TREE_DATA: FoodNode[] = [
     children: [
       {name: 'Apple'},
       {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Apple'},
-      {name: 'Banana'},
       {name: 'Fruit loops'}
     ],
   },
   {
     name: 'Vegetables',
     children: [
-      {
-        name: 'Green',
-        children: [{name: 'Broccoli'}, {name: 'Brussels sprouts'}],
-      },
-      {
-        name: 'Orange',
-        children: [{name: 'Pumpkins'}, {name: 'Carrots'}],
-      },
+      {name: 'Broccoli'}, {name: 'Brussels sprouts'},
+      {name: 'Pumpkins'}, {name: 'Carrots'}
     ],
   },
 ];
@@ -112,27 +35,34 @@ const TREE_DATA: FoodNode[] = [
 interface ExampleFlatNode {
   expandable: boolean;
   name: string;
+  visible: boolean;
   level: number;
 }
+
 @Component({
   selector: 'app-api-tree-menu',
   templateUrl: './api-tree-menu.component.html',
   styleUrls: ['./api-tree-menu.component.scss']
 })
 export class ApiTreeMenuComponent implements OnInit {
-  private _transformer = (node: FoodNode, level: number) => ({
-    expandable: !!node.children && node.children.length > 0,
-    name: node.name,
-    level,
-  });
-
+  selectedId = '';
+  haveOperating = false;
+  searchText = '';
+  @Output()
+  selectMenu = new EventEmitter();
+  subject = new Subject<string>();
   treeControl = new FlatTreeControl<ExampleFlatNode>(
     node => node.level,
     node => node.expandable,
   );
 
   treeFlattener = new MatTreeFlattener(
-    this._transformer,
+    (node: FoodNode, level: number) => ({
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      visible: true,
+      level
+    }),
     node => node.level,
     node => node.expandable,
     node => node.children,
@@ -141,11 +71,64 @@ export class ApiTreeMenuComponent implements OnInit {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor() {
-    this.dataSource.data = TREE_DATA;
   }
+
   ngOnInit(): void {
+    this.subject.pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe(value => {
+        if (value) {
+          this.filterByName(value);
+        } else {
+          this.clearFilter();
+        }
+      });
+    for (let i = 0; i < 400; i++) {
+      TREE_DATA[0].children.push({name: 'idnex_' + i});
+    }
+    this.dataSource.data = TREE_DATA;
   }
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
+
+  onSelected(node): void {
+    if (this.haveOperating) {
+      return;
+    }
+    this.selectedId = node.name;
+    if (!this.treeControl.isExpanded(node)) {
+      this.treeControl.toggle(node);
+    }
+    this.selectMenu.next(node);
+  }
+
+  onDbClick(node): void {
+    if (this.treeControl.isExpanded(node)) {
+      this.treeControl.toggle(node);
+    }
+  }
+
+  onFilter(data: any): void {
+    this.subject.next(data);
+  }
+
+  clearFilter(): void {
+    this.treeControl.dataNodes.forEach(x => x.visible = true);
+  }
+
+  private filterByName(term: string): void {
+    const filteredItems = this.treeControl.dataNodes.filter(
+      x => x.name.toLowerCase().indexOf(term.toLowerCase()) === -1
+    );
+    filteredItems.map(x => {
+      x.visible = false;
+    });
+
+    const visibleItems = this.treeControl.dataNodes.filter(
+      x => x.name.toLowerCase().indexOf(term.toLowerCase()) > -1
+    );
+    visibleItems.map( x => {
+      x.visible = true;
+    });
+  }
 
 }

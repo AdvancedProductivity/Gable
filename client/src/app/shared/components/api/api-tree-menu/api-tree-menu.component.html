@@ -1,25 +1,82 @@
 <div class="tree-menu-container">
   <div class="top-operation-container">
+    <mat-form-field class="search-box" appearance="fill">
+      <mat-label>
+        {{ 'PAGES.API_TEST.TREE_MENU.SEARCH_PLACE_HOLDER' | translate }}
+      </mat-label>
+      <input matInput type="text" [(ngModel)]="searchText"  (ngModelChange)="onFilter($event)">
+      <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="searchText='';clearFilter()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button style="margin-top: 5px;margin-left: 5px"  mat-icon-button aria-label="Example icon button with a open in new tab icon">
+      <mat-icon style="width: 40px;height: 40px" svgIcon="menu-add" aria-hidden="false" aria-label="Add Collection"></mat-icon>
+    </button>
   </div>
   <perfect-scrollbar class="tree-container">
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
       <!-- This is the tree node template for leaf nodes -->
-      <mat-tree-node *matTreeNodeDef="let node">
+      <mat-tree-node
+        *matTreeNodeDef="let node"
+        [style.display]="node.visible ? 'inline' : 'none'"
+        (click)="onSelected(node)">
         <!-- use a disabled button to provide padding for tree leaf -->
-        <button mat-icon-button disabled></button>
-        {{node.name}}
+        <div class="menu-item"
+             [class.selected]="node.name === selectedId"
+             [class.bk]="node.isIn || node.operating"
+             (click)="onSelected(node);"
+             (mouseover)="node.isIn = true"
+             (mouseleave)="node.isIn = false"
+        >
+          <button mat-icon-button disabled></button>
+          <div
+            style="height: 100%;flex: 1"
+            class="menu_ellipsis"
+          >
+            <span>{{ node.name }}</span>
+          </div>
+          <button
+            mat-icon-button
+            *ngIf="node.isIn || node.operating"
+            [matMenuTriggerFor]="leafMenu"
+            (onMenuOpen)="node.operating = true;haveOperating=true"
+            (onMenuClose)="node.operating = false;haveOperating=false"
+            [matMenuTriggerData]="node"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
       </mat-tree-node>
       <!-- This is the tree node template for expandable nodes -->
       <mat-tree-node *matTreeNodeDef="let node;when: hasChild">
-        <div style="width: 100%">
+        <div class="menu-item"
+             [class.selected]="node.name === selectedId"
+             [class.bk]="node.isIn || node.operating"
+             (click)="onSelected(node);"
+             (dblclick)="onDbClick(node)"
+             (mouseover)="node.isIn = true"
+             (mouseleave)="node.isIn = false"
+        >
           <button mat-icon-button matTreeNodeToggle
                   [attr.aria-label]="'Toggle ' + node.name">
             <mat-icon class="mat-icon-rtl-mirror">
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
           </button>
-          <span style="max-width: 260px">{{node.name}}</span>
-          <button mat-icon-button style="float: right">
+          <div
+            style="height: 100%;flex: 1"
+            class="menu_ellipsis"
+          >
+            <span>{{ node.name }}</span>
+          </div>
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="groupMenu"
+            *ngIf="node.isIn || node.operating"
+            (onMenuOpen)="node.operating = true;haveOperating=true"
+            (onMenuClose)="node.operating = false;haveOperating=false"
+            [matMenuTriggerData]="node"
+          >
             <mat-icon>more_vert</mat-icon>
           </button>
         </div>
@@ -27,4 +84,38 @@
     </mat-tree>
 
   </perfect-scrollbar>
+  <mat-menu #groupMenu="matMenu">
+    <ng-template matMenuContent let-name="name">
+      <button mat-menu-item>{{ name }}</button>
+      <button mat-menu-item>
+        <mat-icon>dialpad</mat-icon>
+        <span>Redial</span>
+      </button>
+      <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voice mail</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+  <mat-menu #leafMenu="matMenu">
+    <ng-template matMenuContent let-name="name">
+      <button mat-menu-item>{{ name }}</button>
+      <button mat-menu-item>
+        <mat-icon>dialpad</mat-icon>
+        <span>Redial</span>
+      </button>
+      <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voice mail</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+      </button>
+    </ng-template>
+  </mat-menu>
 </div>

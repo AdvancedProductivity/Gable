@@ -18,6 +18,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatTreeModule} from '@angular/material/tree';
 import { ApiTreeMenuComponent } from './components/api/api-tree-menu/api-tree-menu.component';
 import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent, ApiTreeMenuComponent],
@@ -34,6 +36,8 @@ import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
     , MatTreeModule
     , MatMenuModule
     , PerfectScrollbarModule
+    , MatFormFieldModule
+    , MatInputModule
   ],
   exports: [
     TranslateModule
@@ -46,6 +50,8 @@ import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
     , MatTreeModule
     , MonacoEditorModule
     , ApiTreeMenuComponent
+    , MatFormFieldModule
+    , MatInputModule
   ]
 })
 export class SharedModule {}
