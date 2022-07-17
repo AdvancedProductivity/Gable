@@ -9,7 +9,14 @@
   .left {
     max-width: 380px;
     min-width: 380px;
+    position: relative;
     width: 380px;
+  }
+
+  .loading-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
   }
 
   .right {
@@ -26,4 +33,11 @@
 .main {
   padding: 33px;
   background-color: cadetblue;
+}
+
+.loading{
+  color: white;
+  padding-top: 50px;
+  width: 200px;
+  text-align: center;
 }

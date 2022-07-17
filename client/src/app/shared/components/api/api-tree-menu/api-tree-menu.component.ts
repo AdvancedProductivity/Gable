@@ -47,10 +47,12 @@ interface ExampleFlatNode {
 export class ApiTreeMenuComponent implements OnInit {
   @Output()
   selectMenu = new EventEmitter();
+  @Output()
+  ready = new EventEmitter();
   selectedId = '';
   haveOperating = false;
   searchText = '';
-  empty = false;
+  empty = true;
   subject = new Subject<string>();
   treeControl = new FlatTreeControl<ExampleFlatNode>(
     node => node.level,
@@ -83,13 +85,16 @@ export class ApiTreeMenuComponent implements OnInit {
           this.clearFilter();
         }
       });
-    const treeData = this.getMenus();
-    if (Array.isArray(treeData) && treeData.length === 0) {
-      this.empty = true;
-    }else {
-      this.empty = false;
-    }
-    this.dataSource.data = TREE_DATA;
+    setTimeout(() => {
+      const treeData = this.getMenus();
+      if (Array.isArray(treeData) && treeData.length === 0) {
+        this.empty = true;
+      } else {
+        this.empty = false;
+      }
+      this.dataSource.data = TREE_DATA;
+      this.ready.next({});
+    }, 2000);
   }
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
@@ -142,6 +147,6 @@ export class ApiTreeMenuComponent implements OnInit {
     for (let i = 0; i < 400; i++) {
       TREE_DATA[0].children.push({name: 'idnex_' + i});
     }
-    return [];
+    return TREE_DATA;
   }
 }

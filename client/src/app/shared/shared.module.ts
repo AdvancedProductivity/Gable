@@ -21,6 +21,7 @@ import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import { EmptyTreeComponent } from './components/api/api-tree-menu/inner/empty-tree/empty-tree.component';
+import {NgxSpinnerModule} from "ngx-spinner";
 
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent, ApiTreeMenuComponent, EmptyTreeComponent],
@@ -39,6 +40,7 @@ import { EmptyTreeComponent } from './components/api/api-tree-menu/inner/empty-t
     , PerfectScrollbarModule
     , MatFormFieldModule
     , MatInputModule
+    , NgxSpinnerModule
   ],
   exports: [
     TranslateModule
@@ -53,6 +55,7 @@ import { EmptyTreeComponent } from './components/api/api-tree-menu/inner/empty-t
     , ApiTreeMenuComponent
     , MatFormFieldModule
     , MatInputModule
+    , NgxSpinnerModule
   ]
 })
 export class SharedModule {}

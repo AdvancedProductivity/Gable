@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-api-test',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./api-test.component.scss']
 })
 export class ApiTestComponent implements OnInit {
-
-  constructor() { }
+  constructor(private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinner.show();
   }
 
+  onMenuReady(data: any) {
+    this.spinner.hide();
+  }
 }

@@ -61,6 +61,7 @@
     "@materia-ui/ngx-monaco-editor": "6.0.0",
     "gsap": "^2.1.0",
     "ngx-perfect-scrollbar": "^10.1.1",
+    "ngx-spinner": "^13.0.0",
     "monaco-editor": "0.33.0",
     "rxjs": "7.5.5",
     "tslib": "^2.1.0",
