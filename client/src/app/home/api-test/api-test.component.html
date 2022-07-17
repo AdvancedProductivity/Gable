@@ -1,8 +1,10 @@
-<div fxFill fxLayout="row">
-  <div fxFlex="380px" class="tree">
-    <div style="background-color: pink">
-      <app-api-tree-menu></app-api-tree-menu>
-    </div>
+<div class="api-container">
+  <div class="left">
+    <app-api-tree-menu></app-api-tree-menu>
   </div>
-  <div fxFlex class="main"></div>
+  <div class="right">
+    <perfect-scrollbar style="width: 100%;height: 100%">
+      <div style="height: 1600px;width: 3000px;background-color: pink;">Scrollable content</div>
+    </perfect-scrollbar>
+  </div>
 </div>

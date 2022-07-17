@@ -17,9 +17,13 @@ import { DetailModule } from './detail/detail.module';
 
 import { AppComponent } from './app.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: false
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,8 +42,18 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
         deps: [HttpClient]
       }
     })
+    , PerfectScrollbarModule
   ],
-  providers: [Location, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [
+    Location,
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    }, {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

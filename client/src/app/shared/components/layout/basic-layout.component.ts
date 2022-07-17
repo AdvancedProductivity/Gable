@@ -5,8 +5,8 @@ import {ConfigServiceImpl} from '../../../core/services/impl/ConfigServiceImpl';
 @Component({
   selector: 'app-basic-layout',
   template: `
-    <div fxFlexFill fxLayout="column">
-      <div fxFlex="none" >
+    <div class="gable-layout">
+      <div class="gable-layout-header" >
         <nav class="gable-header">
           <span class="gable-logo-text">
             Gable
@@ -38,8 +38,10 @@ import {ConfigServiceImpl} from '../../../core/services/impl/ConfigServiceImpl';
           </button>
         </nav>
       </div>
-      <div fxFlex>
-        <router-outlet></router-outlet>
+      <div class="gable-layout-content">
+        <div style="height: 100%;">
+          <router-outlet></router-outlet>
+        </div>
       </div>
     </div>
   `,
