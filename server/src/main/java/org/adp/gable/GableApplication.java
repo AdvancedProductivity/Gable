@@ -2,18 +2,101 @@ package org.adp.gable;
 
 
 import lombok.Generated;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author zzq
  */
-@SpringBootApplication
+//@SpringBootApplication
 public class GableApplication {
 
-	@Generated
+//	@Generated
 	public static void main(String[] args) {
-		SpringApplication.run(GableApplication.class, args);
+//		SpringApplication.run(GableApplication.class, args);
+		String s = getStr();
+		String[] split = StringUtils.split(s, "\n");
+		int i = 0;
+		for (String s1 : split) {
+			System.out.println("mv " + s1 + ".done" + " zzq_reset_ETIL_3292_" + s1 + ".done " );
+		}
+	}
+
+	private static String getStr() {
+		return "637910568975418752.csv\n" +
+				"637910571968596009.csv\n" +
+				"637910574982521302.csv\n" +
+				"637910577975854560.csv\n" +
+				"637910580993523860.csv\n" +
+				"637910583968137085.csv\n" +
+				"637910586986274386.csv\n" +
+				"637910589966347620.csv\n" +
+				"637910592975748906.csv\n" +
+				"637910595977662178.csv\n" +
+				"637910598974115441.csv\n" +
+				"637910601967292699.csv\n" +
+				"637910604990266008.csv\n" +
+				"637910607988123274.csv\n" +
+				"637910610968352508.csv\n" +
+				"637910613979157796.csv\n" +
+				"637910616977483063.csv\n" +
+				"637910619992500358.csv\n" +
+				"637910622978501603.csv\n" +
+				"637910625984938883.csv\n" +
+				"637910628971096128.csv\n" +
+				"637910631975973406.csv\n" +
+				"637910634971646668.csv\n" +
+				"637910637970907936.csv\n" +
+				"637910640969077202.csv\n" +
+				"637910643967246468.csv\n" +
+				"637910647034367855.csv\n" +
+				"637910649982149032.csv\n" +
+				"637910652979070296.csv\n" +
+				"637910655964603540.csv\n" +
+				"637910658965112810.csv\n" +
+				"637910661974358096.csv\n" +
+				"637910664966911352.csv\n" +
+				"637910667977716640.csv\n" +
+				"637910670967617891.csv\n" +
+				"637910674021947256.csv\n" +
+				"637910676977060446.csv\n" +
+				"637910679966337697.csv\n" +
+				"637910682978078987.csv\n" +
+				"637910685969852241.csv\n" +
+				"637910688962717498.csv\n" +
+				"637910691969778780.csv\n" +
+				"637910694958588029.csv\n" +
+				"637910697973137324.csv\n" +
+				"637910700972866593.csv\n" +
+				"637910703970879859.csv\n" +
+				"637910706971857129.csv\n" +
+				"637910709964098385.csv\n" +
+				"637910712988787698.csv\n" +
+				"637910715992260973.csv\n" +
+				"637910718982630225.csv\n" +
+				"637910721991875511.csv\n" +
+				"637910724968672739.csv\n" +
+				"637910727972146015.csv\n" +
+				"637910730963295268.csv\n" +
+				"637910734002492606.csv\n" +
+				"637910736999257870.csv\n" +
+				"637910739993839130.csv\n" +
+				"637910742974224364.csv\n" +
+				"637910745973329632.csv\n" +
+				"637910749008158962.csv\n" +
+				"637910532961975497.csv\n" +
+				"637910535977772794.csv\n" +
+				"637910538972354054.csv\n" +
+				"637910541965843312.csv\n" +
+				"637910545012216662.csv\n" +
+				"637910547967953854.csv\n" +
+				"637910550987183157.csv\n" +
+				"637910553972560400.csv\n" +
+				"637910556964801656.csv\n" +
+				"637910559990582970.csv\n" +
+				"637910562984384229.csv\n" +
+				"637910565971945476.csv";
 	}
 
 }

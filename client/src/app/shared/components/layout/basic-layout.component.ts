@@ -22,7 +22,13 @@ import {ConfigServiceImpl} from '../../../core/services/impl/ConfigServiceImpl';
             {{ 'PAGES.API_Mock.NAME' | translate }}
           </a>
           <div class="flex-spacer"></div>
-          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Change Language"
+            matTooltip="{{ 'PAGES.NAV.LANG_TIP' | translate }}"
+            [matTooltipShowDelay]="800"
+          >
             <mat-icon style="color: whitesmoke">language</mat-icon>
           </button>
           <mat-menu #menu="matMenu">

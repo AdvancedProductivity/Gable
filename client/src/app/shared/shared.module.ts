@@ -18,10 +18,11 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatTreeModule} from '@angular/material/tree';
 import { ApiTreeMenuComponent } from './components/api/api-tree-menu/api-tree-menu.component';
 import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 import { EmptyTreeComponent } from './components/api/api-tree-menu/inner/empty-tree/empty-tree.component';
-import {NgxSpinnerModule} from "ngx-spinner";
+import {NgxSpinnerModule} from 'ngx-spinner';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent, ApiTreeMenuComponent, EmptyTreeComponent],
@@ -40,6 +41,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
     , PerfectScrollbarModule
     , MatFormFieldModule
     , MatInputModule
+    , MatTooltipModule
     , NgxSpinnerModule
   ],
   exports: [
@@ -55,6 +57,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
     , ApiTreeMenuComponent
     , MatFormFieldModule
     , MatInputModule
+    , MatTooltipModule
     , NgxSpinnerModule
   ]
 })
