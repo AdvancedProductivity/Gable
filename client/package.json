@@ -58,6 +58,7 @@
     "@angular/platform-browser": "13.3.1",
     "@angular/platform-browser-dynamic": "13.3.1",
     "@angular/router": "13.3.1",
+    "angular-split": "^13.2.0",
     "@materia-ui/ngx-monaco-editor": "6.0.0",
     "gsap": "^2.1.0",
     "ngx-perfect-scrollbar": "^10.1.1",

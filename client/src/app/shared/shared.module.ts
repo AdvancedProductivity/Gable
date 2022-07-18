@@ -23,6 +23,7 @@ import {MatInputModule} from '@angular/material/input';
 import { EmptyTreeComponent } from './components/api/api-tree-menu/inner/empty-tree/empty-tree.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {AngularSplitModule} from 'angular-split';
 
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent, ApiTreeMenuComponent, EmptyTreeComponent],
@@ -43,6 +44,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     , MatInputModule
     , MatTooltipModule
     , NgxSpinnerModule
+    , AngularSplitModule
   ],
   exports: [
     TranslateModule
@@ -59,6 +61,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     , MatInputModule
     , MatTooltipModule
     , NgxSpinnerModule
+    , AngularSplitModule
   ]
 })
 export class SharedModule {}
