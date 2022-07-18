@@ -17,7 +17,8 @@
         "SEARCH_PLACE_HOLDER": "Search API By Name Or Keyword",
         "LOAD_MENU": "API Collections Data Loading...",
         "EMPTY_TREE": "Have No Api Collections",
-        "EMPTY_TREE_ADVICE": "you can click the add icon button create an API Collection"
+        "EMPTY_TREE_ADVICE": "you can click the add icon button create an API Collection",
+        "ADD_COLLECTION_TIP": "Add Api Collection"
       }
     },
     "API_DOCUMENT": {

@@ -9,7 +9,13 @@
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
-    <button style="margin-top: 5px;margin-left: 5px"  mat-icon-button aria-label="Example icon button with a open in new tab icon">
+    <button
+      style="margin-top: 5px;margin-left: 5px"
+      mat-icon-button
+      aria-label="Add Api Collection"
+      matTooltip="{{ 'PAGES.API_TEST.TREE_MENU.ADD_COLLECTION_TIP' | translate }}"
+      [matTooltipShowDelay]="800"
+    >
       <mat-icon style="width: 40px;height: 40px" svgIcon="menu-add" aria-hidden="false" aria-label="Add Collection"></mat-icon>
     </button>
   </div>
