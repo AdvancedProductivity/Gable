@@ -47,6 +47,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
     CommonModule
     , TranslateModule
     , FlexLayoutModule
+    , MonacoEditorModule
     , FormsModule
     , RouterModule
     , MatListModule

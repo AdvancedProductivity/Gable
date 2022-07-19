@@ -6,7 +6,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { ApiTestComponent } from './api-test/api-test.component';
-import {PerfectScrollbarModule} from "ngx-perfect-scrollbar";
+import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 
 @NgModule({
   declarations: [HomeComponent, ApiTestComponent],

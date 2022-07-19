@@ -37,12 +37,12 @@ export class NavComponent implements OnInit {
     this.activeLink = l;
   }
 
-  private closeAllTabs(): void {
+  closeAllTabs(): void {
     this.links = [];
     this.activeLink = undefined;
   }
 
-  private close(name: string): void {
+  close(name: string): void {
     console.log('zzq see close data', name);
     let index;
     this.links.forEach((item, i) => {
