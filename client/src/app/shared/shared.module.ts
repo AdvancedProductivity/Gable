@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {BasicLayoutComponent, PageNotFoundComponent} from './components/';
-import { WebviewDirective } from './directives/';
+import {WebviewDirective} from './directives/';
 import { FormsModule } from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatButtonModule} from '@angular/material/button';
@@ -26,9 +26,20 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {AngularSplitModule} from 'angular-split';
 import { RightPanelComponent } from './components/api/right-panel/right-panel.component';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatTabsModule} from '@angular/material/tabs';
+import { NavComponent } from './components/api/nav/nav.component';
+import {NgxMatContextMenuTriggerModule} from '@w3soto/ngx-mat-context-menu-trigger';
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent, ApiTreeMenuComponent, EmptyTreeComponent, RightPanelComponent],
+  declarations: [
+    PageNotFoundComponent
+    , WebviewDirective
+    , BasicLayoutComponent
+    , ApiTreeMenuComponent
+    , EmptyTreeComponent
+    , RightPanelComponent
+    , NavComponent
+  ],
   imports: [
     CommonModule
     , TranslateModule
@@ -48,6 +59,8 @@ import {MatDividerModule} from '@angular/material/divider';
     , NgxSpinnerModule
     , AngularSplitModule
     , MatDividerModule
+    , MatTabsModule
+    , NgxMatContextMenuTriggerModule
   ],
   exports: [
     TranslateModule
@@ -62,11 +75,15 @@ import {MatDividerModule} from '@angular/material/divider';
     , ApiTreeMenuComponent
     , MatFormFieldModule
     , MatInputModule
+    , MatTabsModule
+    , MatMenuModule
     , MatTooltipModule
     , MatDividerModule
     , NgxSpinnerModule
     , AngularSplitModule
     , RightPanelComponent
+    , NgxMatContextMenuTriggerModule
+    , NavComponent
   ]
 })
 export class SharedModule {}

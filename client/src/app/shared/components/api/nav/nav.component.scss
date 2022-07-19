@@ -1,0 +1,23 @@
+.nav {
+  display: flex;
+  min-height: 49px;
+  flex-direction: row;
+
+  .tabs{
+    flex: 1;
+    border-bottom: none;
+  }
+
+  .opera {
+    width: 40px;
+
+    .btn{
+      margin-top: 4px;
+    }
+  }
+}
+.context-menu {
+  width: auto;
+  height: auto;
+  display: inline;
+}

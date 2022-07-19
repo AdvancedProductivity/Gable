@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {IOutputData} from 'angular-split';
+import {NavComponent} from '../../shared/components/api/nav/nav.component';
 
 @Component({
   selector: 'app-api-test',
@@ -8,7 +8,9 @@ import {IOutputData} from 'angular-split';
   styleUrls: ['./api-test.component.scss']
 })
 export class ApiTestComponent implements OnInit {
-  defaultRightSize: number | '*';
+  @ViewChild('apiNav', {static: false}) nav: NavComponent;
+  defaultRightSize = 32;
+
   constructor(private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
@@ -20,7 +22,7 @@ export class ApiTestComponent implements OnInit {
     this.spinner.hide();
   }
 
-  onRightDragEnd(data: IOutputData): void {
+  onRightDragEnd(data: any): void {
     this.defaultRightSize = data.sizes[1];
   }
 
@@ -30,5 +32,13 @@ export class ApiTestComponent implements OnInit {
 
   doClosePanel(): void {
     this.defaultRightSize = 32;
+  }
+
+  addLink(): void {
+    this.nav.addLink();
+  }
+
+  onMenuSelected(data: any) {
+    this.nav.showLink(data.name);
   }
 }

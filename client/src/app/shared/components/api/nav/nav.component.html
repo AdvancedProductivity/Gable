@@ -1,0 +1,39 @@
+<div class="nav">
+  <nav mat-tab-nav-bar class="tabs">
+    <a
+      mat-tab-link *ngFor="let link of links"
+      (click)="activeLink = link"
+      [active]="activeLink === link"
+      [ngxMatContextMenuTriggerData]="{content: link}"
+      [ngxMatContextMenuTriggerFor]="context_menu"
+    >
+      {{link}}
+    </a>
+  </nav>
+  <mat-divider vertical></mat-divider>
+  <div class="opera">
+    <button class="btn" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="closeAllTabs()">
+        <mat-icon>clear</mat-icon>
+        <span>Close All Tabs</span>
+      </button>
+    </mat-menu>
+  </div>
+
+  <mat-menu #context_menu>
+    <ng-template matMenuContent let-content="content">
+      <button mat-menu-item (click)="close(content)">
+        Close This Tab-{{content}}
+      </button>
+      <button mat-menu-item>
+        Close Left Tabs
+      </button>
+      <button mat-menu-item>
+        Close Right Tabs
+      </button>
+    </ng-template>
+  </mat-menu>
+</div>

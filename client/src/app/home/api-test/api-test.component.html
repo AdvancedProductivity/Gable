@@ -9,17 +9,27 @@
         {{ 'PAGES.API_TEST.TREE_MENU.LOAD_MENU' | translate }}
       </p>
     </ngx-spinner>
-    <app-api-tree-menu (ready)="onMenuReady($event)"></app-api-tree-menu>
+    <app-api-tree-menu
+      (ready)="onMenuReady($event)"
+      (selectMenu)="onMenuSelected($event)"
+    >
+    </app-api-tree-menu>
   </div>
+  <mat-divider vertical></mat-divider>
   <div class="right">
-
-    <div style="height: 100%;width: 100%;">
+    <app-api-nav #apiNav></app-api-nav>
+    <mat-divider></mat-divider>
+    <div class="main-test">
       <as-split
         direction="horizontal" [unit]="'pixel'"
         (dragEnd)="onRightDragEnd($event)"
       >
         <as-split-area>
-          <div style="width: 100%;height: 100%;background-color: #71b771"></div>
+          <div style="width: 100%;height: 100%;">
+            <button class="btn" mat-icon-button (click)="addLink()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
         </as-split-area>
         <as-split-area
           [size]="defaultRightSize"
