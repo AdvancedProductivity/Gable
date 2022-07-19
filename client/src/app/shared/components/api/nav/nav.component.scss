@@ -3,6 +3,42 @@
   min-height: 49px;
   flex-direction: row;
 
+  .na-item {
+    display: flex;
+    flex-direction: row;
+
+    .nat-content-space{
+      width: 30px;
+    }
+    .nav-content{
+      flex: 1;
+    }
+
+    .nav-item-icon-box:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-item-icon-box {
+      width: 30px;
+      height: 30px;
+      color: #000;
+
+      .nav-item-icon {
+        margin-top: 5px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  .nav-border-right {
+    border-right-color: rgb(57, 57, 57);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(rgb(255, 255, 255) 25%, rgb(207, 207, 207) 0px, rgb(207, 207, 207) 75%, rgb(255, 255, 255) 0px);
+  }
+
+
   .tabs{
     flex: 1;
     border-bottom: none;

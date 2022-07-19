@@ -8,7 +8,7 @@ import {MatMenuTrigger} from '@angular/material/menu';
 })
 export class NavComponent implements OnInit {
   activeLink = '';
-  links: string[] = ['A'];
+  links: { name: string; isCursorIn: boolean }[] = [{name: 'A', isCursorIn: false}];
   constructor() { }
 
   ngOnInit(): void {
@@ -16,7 +16,7 @@ export class NavComponent implements OnInit {
 
   addLink(): void {
     const v = 'item_' + this.links.length;
-    this.links.push(v);
+    this.links.push({name: v, isCursorIn: false});
     this.activeLink = v;
   }
 
@@ -26,12 +26,12 @@ export class NavComponent implements OnInit {
     }
     let have = false;
     this.links.forEach(item => {
-      if (item === l) {
+      if (item.name === l) {
         have = true;
       }
     });
     if (!have) {
-      this.links.push(l);
+      this.links.push({name: l, isCursorIn: false});
     }
     this.activeLink = l;
   }
@@ -42,11 +42,17 @@ export class NavComponent implements OnInit {
   }
 
   private close(name: string): void {
-    const index = this.links.indexOf(name);
-    this.links = this.links.filter(item => item !== name);
-    if (index !== -1) {
+    console.log('zzq see close data', name);
+    let index;
+    this.links.forEach((item, i) => {
+      if (item.name === name) {
+        index = i;
+      }
+    });
+    this.links = this.links.filter(item => item.name !== name);
+    if (index !== -1 && this.links.length > 0) {
       if (name === this.activeLink) {
-        this.activeLink = this.links[index - 1];
+        this.activeLink = this.links[index - 1].name;
       }
     }
   }

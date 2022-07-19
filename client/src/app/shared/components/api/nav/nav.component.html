@@ -1,14 +1,32 @@
 <div class="nav">
   <nav mat-tab-nav-bar class="tabs">
-    <a
-      mat-tab-link *ngFor="let link of links"
-      (click)="activeLink = link"
-      [active]="activeLink === link"
+    <div
+      mat-tab-link
+      class="na-item"
+      (mouseover)="link.isCursorIn = true"
+      (mouseleave)="link.isCursorIn = false"
+      [class.nav-border-right]="i !== links.length-1"
+      *ngFor="let link of links;let i = index"
+      (click)="activeLink = link.name"
+      [active]="activeLink === link.name"
       [ngxMatContextMenuTriggerData]="{content: link}"
       [ngxMatContextMenuTriggerFor]="context_menu"
     >
-      {{link}}
-    </a>
+      <div class="nat-content-space">
+      </div>
+      <div class="nav-content">
+        {{link.name}}
+      </div>
+      <div  class="nat-content-space">
+        <div
+          class="nav-item-icon-box"
+          (click)="$event.cancelBubble=true;close(link.name)"
+          *ngIf="link.isCursorIn"
+        >
+          <mat-icon class="nav-item-icon" svgIcon="closeNav"></mat-icon>
+        </div>
+      </div>
+    </div>
   </nav>
   <mat-divider vertical></mat-divider>
   <div class="opera">
@@ -25,8 +43,8 @@
 
   <mat-menu #context_menu>
     <ng-template matMenuContent let-content="content">
-      <button mat-menu-item (click)="close(content)">
-        Close This Tab-{{content}}
+      <button mat-menu-item (click)="close(content.name)">
+        Close This Tab-{{content.name}}
       </button>
       <button mat-menu-item>
         Close Left Tabs
