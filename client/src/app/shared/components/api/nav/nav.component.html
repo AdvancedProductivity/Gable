@@ -3,10 +3,10 @@
     <div
       mat-tab-link
       class="na-item"
-      (mouseover)="link.isCursorIn = true"
-      (mouseleave)="link.isCursorIn = false"
       [class.nav-border-right]="i !== links.length-1"
       *ngFor="let link of links;let i = index"
+      (mouseover)="link.isCursorIn = true"
+      (mouseleave)="link.isCursorIn = false"
       (click)="activeLink = link.name"
       [active]="activeLink === link.name"
       [ngxMatContextMenuTriggerData]="{content: link}"
