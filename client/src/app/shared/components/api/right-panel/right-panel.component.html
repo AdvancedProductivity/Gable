@@ -1,0 +1,23 @@
+<div style="width: 100%;height: 100%" (waResizeObserver) ="windowSize($event)">
+  <div style="display: flex;height: 100%">
+    <div style="width: 32px;height: 100%">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+      <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+      <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+      <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+    </div>
+    <div style="flex: 1;height: 100%">
+      <div style="height: 44px">
+        <!--        <input style="width: 100%;height: 40px;padding: 0px;border-left-width: 0px;border-right-width: 0px"/>-->
+        <div *ngIf="showBtn" style="float:right">
+          <button nz-button nzType="primary" (click)="onClose()" [nzSize]="'small'">
+            <i nz-icon nzType="close"></i>
+          </button>
+        </div>
+      </div>
+      <div style="width: 100%;height: calc(100% - 44px);">
+        <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+      </div>
+    </div>
+  </div>
+</div>

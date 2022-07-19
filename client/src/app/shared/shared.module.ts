@@ -24,9 +24,10 @@ import { EmptyTreeComponent } from './components/api/api-tree-menu/inner/empty-t
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {AngularSplitModule} from 'angular-split';
+import { RightPanelComponent } from './components/api/right-panel/right-panel.component';
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent, ApiTreeMenuComponent, EmptyTreeComponent],
+  declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent, ApiTreeMenuComponent, EmptyTreeComponent, RightPanelComponent],
   imports: [
     CommonModule
     , TranslateModule
@@ -61,7 +62,7 @@ import {AngularSplitModule} from 'angular-split';
     , MatInputModule
     , MatTooltipModule
     , NgxSpinnerModule
-    , AngularSplitModule
+    , AngularSplitModule, RightPanelComponent
   ]
 })
 export class SharedModule {}
