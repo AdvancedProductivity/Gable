@@ -19,6 +19,10 @@
         "EMPTY_TREE": "没有 API 集合",
         "EMPTY_TREE_ADVICE": "您可以点击右上角 + 按钮创建API集合",
         "ADD_COLLECTION_TIP": "创建API集合"
+      },
+      "HEADER": {
+        "ENV_SELECT": "选择环境",
+        "SAVE": "保存"
       }
     },
     "API_DOCUMENT": {

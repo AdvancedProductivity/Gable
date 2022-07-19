@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="content">
+    <div
+      class="left-group"
+      (mouseover)="showIcon=true"
+      (mouseleave)="updateName()"
+    >
+      <div
+        *ngIf="showEdit"
+        class="name-input"
+      >
+        <input
+          id="apiNameInput"
+          #apiNameInput
+          autofocus="autofocus"
+          onfocus="this.select()"
+          class="api-name-input"
+          (focusout)="showEdit=false"
+          (blur)="showEdit=false"
+          [(ngModel)]="apiName"
+        />
+      </div>
+      <div
+        *ngIf="!showEdit"
+        class="info"
+      >
+        <div>
+          <a class="collection">海外仓价卡</a>
+          /
+          <a class="api">
+            {{apiName}}
+          </a>
+        </div>
+        <div
+          class="edit-op"
+          *ngIf="showIcon"
+        >
+          <div>
+            <div
+              class="api-edit-icon-container"
+              (click)="editName()"
+            >
+              <mat-icon class="edit-op-icon" svgIcon="editApi"></mat-icon>
+            </div>
+            <div
+              class="api-edit-icon-container"
+              (click)="copyLink()"
+            >
+              <mat-icon class="edit-op-icon" svgIcon="api_link"></mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="opera-hub">
+      <div class="save-btn">
+        <button
+          style="line-height: 32px;"
+          mat-button
+          (click)="saveApiName()"
+        >
+          <span>
+            {{ 'PAGES.API_TEST.HEADER.SAVE' | translate }}
+          </span>
+        </button>
+      </div>
+      <mat-divider vertical></mat-divider>
+      <div class="env-select">
+        <ng-select
+          placeholder="{{ 'PAGES.API_TEST.HEADER.ENV_SELECT' | translate }}"
+          style="height: 32px"
+          (change)="selectChange($event)"
+        >
+          <ng-option [value]="0">No Environment</ng-option>
+          <ng-option [value]="1">evn 1</ng-option>
+          <ng-option [value]="5">evn 2</ng-option>
+          <ng-option [value]="6">evn 3</ng-option>
+        </ng-select>
+      </div>
+    </div>
+  </div>
+</div>

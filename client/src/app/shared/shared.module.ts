@@ -29,6 +29,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatTabsModule} from '@angular/material/tabs';
 import { NavComponent } from './components/api/nav/nav.component';
 import {NgxMatContextMenuTriggerModule} from '@w3soto/ngx-mat-context-menu-trigger';
+import { ApiHeaderOperationComponent } from './components/api/api-header-operation/api-header-operation.component';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import {NgxMatContextMenuTriggerModule} from '@w3soto/ngx-mat-context-menu-trigg
     , EmptyTreeComponent
     , RightPanelComponent
     , NavComponent
+    , ApiHeaderOperationComponent
   ],
   imports: [
     CommonModule
@@ -60,6 +63,7 @@ import {NgxMatContextMenuTriggerModule} from '@w3soto/ngx-mat-context-menu-trigg
     , AngularSplitModule
     , MatDividerModule
     , MatTabsModule
+    , NgSelectModule
     , NgxMatContextMenuTriggerModule
   ],
   exports: [
@@ -84,6 +88,8 @@ import {NgxMatContextMenuTriggerModule} from '@w3soto/ngx-mat-context-menu-trigg
     , RightPanelComponent
     , NgxMatContextMenuTriggerModule
     , NavComponent
+    , ApiHeaderOperationComponent
+    , NgSelectModule
   ]
 })
 export class SharedModule {}

@@ -2,5 +2,8 @@ export const iconArray = [
   {name: 'menu-add', file: 'add.svg'}
   , {name: 'document', file: 'doc.svg'}
   , {name: 'comment', file: 'comment.svg'}
+  , {name: 'apiSaveAs', file: 'save_api_as.svg'}
+  , {name: 'api_link', file: 'api_link.svg'}
+  , {name: 'editApi', file: 'editApi.svg'}
 ];
 
