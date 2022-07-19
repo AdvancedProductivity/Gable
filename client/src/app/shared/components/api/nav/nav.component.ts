@@ -7,8 +7,9 @@ import {MatMenuTrigger} from '@angular/material/menu';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
+  method = ['GET', 'POST', 'DELETE', 'PUT'];
   activeLink = '';
-  links: { name: string; isCursorIn: boolean }[] = [{name: 'A', isCursorIn: false}];
+  links: { name: string; isCursorIn: boolean; tag: string }[] = [{name: 'A', isCursorIn: false, tag: 'GET'}];
   constructor() { }
 
   ngOnInit(): void {
@@ -16,7 +17,7 @@ export class NavComponent implements OnInit {
 
   addLink(): void {
     const v = 'item_' + this.links.length;
-    this.links.push({name: v, isCursorIn: false});
+    this.links.push({name: v, isCursorIn: false, tag: this.method[this.links.length % 4]});
     this.activeLink = v;
   }
 
@@ -31,7 +32,7 @@ export class NavComponent implements OnInit {
       }
     });
     if (!have) {
-      this.links.push({name: l, isCursorIn: false});
+      this.links.push({name: l, isCursorIn: false, tag: this.method[this.links.length % 4]});
     }
     this.activeLink = l;
   }
