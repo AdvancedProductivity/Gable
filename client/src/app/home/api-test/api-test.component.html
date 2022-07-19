@@ -23,11 +23,15 @@
         </as-split-area>
         <as-split-area
           [size]="defaultRightSize"
-          [minSize]="60"
+          [minSize]="32"
           [maxSize]="800"
         >
           <div style="width: 100%;height: 100%;">
-            <app-right-panel></app-right-panel>
+            <app-right-panel
+              [width]="defaultRightSize"
+              (expandPanel)="doExpandPanel()"
+              (closePanel)="doClosePanel()"
+            ></app-right-panel>
           </div>
         </as-split-area>
       </as-split>

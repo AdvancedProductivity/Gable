@@ -25,6 +25,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {AngularSplitModule} from 'angular-split';
 import { RightPanelComponent } from './components/api/right-panel/right-panel.component';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective, BasicLayoutComponent, ApiTreeMenuComponent, EmptyTreeComponent, RightPanelComponent],
@@ -46,6 +47,7 @@ import { RightPanelComponent } from './components/api/right-panel/right-panel.co
     , MatTooltipModule
     , NgxSpinnerModule
     , AngularSplitModule
+    , MatDividerModule
   ],
   exports: [
     TranslateModule
@@ -61,8 +63,10 @@ import { RightPanelComponent } from './components/api/right-panel/right-panel.co
     , MatFormFieldModule
     , MatInputModule
     , MatTooltipModule
+    , MatDividerModule
     , NgxSpinnerModule
-    , AngularSplitModule, RightPanelComponent
+    , AngularSplitModule
+    , RightPanelComponent
   ]
 })
 export class SharedModule {}

@@ -12,7 +12,7 @@ export class ApiTestComponent implements OnInit {
   constructor(private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.defaultRightSize = 60;
+    this.defaultRightSize = 32;
     this.spinner.show();
   }
 
@@ -20,7 +20,15 @@ export class ApiTestComponent implements OnInit {
     this.spinner.hide();
   }
 
-  onRightDragEnd($event: IOutputData): void {
-    this.defaultRightSize = $event.sizes[1];
+  onRightDragEnd(data: IOutputData): void {
+    this.defaultRightSize = data.sizes[1];
+  }
+
+  doExpandPanel(): void {
+    this.defaultRightSize = 240;
+  }
+
+  doClosePanel(): void {
+    this.defaultRightSize = 32;
   }
 }

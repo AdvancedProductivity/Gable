@@ -20,6 +20,9 @@
   }
 
   .right {
+    border-right-color: #bbb;
+    border-right-width: 1px;
+    border-right-style: solid;
     flex: 1 1 auto;
     width: 0;
     min-height: 0;

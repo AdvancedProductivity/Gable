@@ -3,8 +3,9 @@ import { ElectronService } from './core/services';
 import { TranslateService } from '@ngx-translate/core';
 import { APP_CONFIG } from '../environments/environment';
 import {ConfigServiceImpl} from './core/services/impl/ConfigServiceImpl';
-import {MatIconRegistry} from "@angular/material/icon";
-import {DomSanitizer} from "@angular/platform-browser";
+import {MatIconRegistry} from '@angular/material/icon';
+import {DomSanitizer} from '@angular/platform-browser';
+import {iconArray} from './shared/icon';
 
 @Component({
   selector: 'app-root',
@@ -30,10 +31,12 @@ export class AppComponent {
     } else {
       console.log('Run in browser');
     }
-    this.iconRegistry.addSvgIcon(
-      'menu-add',
-      this.sanitizer.bypassSecurityTrustResourceUrl('./assets/svg/add.svg')
-    );
+    iconArray.forEach(item => {
+      this.iconRegistry.addSvgIcon(
+        item.name,
+        this.sanitizer.bypassSecurityTrustResourceUrl('./assets/svg/' + item.file)
+      );
+    });
   }
 
   private loadLanguage() {
