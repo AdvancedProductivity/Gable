@@ -64,7 +64,23 @@
           </span>
         </button>
       </div>
-      <mat-divider vertical></mat-divider>
+      <button class="btn-group" mat-icon-button style="" [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>dialpad</mat-icon>
+            <span>Redial</span>
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voice mail</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>notifications_off</mat-icon>
+            <span>Disable alerts</span>
+          </button>
+        </mat-menu>
+      </button>
       <div class="env-select">
         <ng-select
           placeholder="{{ 'PAGES.API_TEST.HEADER.ENV_SELECT' | translate }}"

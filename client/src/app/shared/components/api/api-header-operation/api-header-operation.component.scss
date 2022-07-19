@@ -90,13 +90,19 @@
     .opera-hub {
       display: flex;
       flex-direction: row;
-      width: 250px;
+      width: 282px;
 
       .save-btn {
         width: 67px;
         margin-right: 2px;
         background-color: #F2F2F2;
         border-radius: 4px;
+      }
+
+      .btn-group {
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
       }
 
       .env-select {
