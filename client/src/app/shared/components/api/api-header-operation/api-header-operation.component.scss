@@ -13,13 +13,12 @@
 
     .left-group {
       flex: 1;
+      padding-right: 25px;
 
       .name-input {
         .api-name-input {
           width: 100%;
-          max-width: 300px;
-          height: 26px;
-          margin-top: 3px;
+          height: 28px;
         }
 
         input:focus {
