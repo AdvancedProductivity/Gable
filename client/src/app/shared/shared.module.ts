@@ -34,6 +34,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import { HttpWorkBenchComponent } from './components/api/work-bench/http-work-bench/http-work-bench.component';
 import { RequestTabsComponent } from './components/api/work-bench/http-work-bench/inner/request-tabs/request-tabs.component';
 import { FormEditorComponent } from './components/api/work-bench/http-work-bench/inner/form-editor/form-editor.component';
+import {AgGridModule} from 'ag-grid-angular-legacy';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,10 @@ import { FormEditorComponent } from './components/api/work-bench/http-work-bench
     , EmptyTreeComponent
     , RightPanelComponent
     , NavComponent
-    , ApiHeaderOperationComponent, HttpWorkBenchComponent, RequestTabsComponent, FormEditorComponent
+    , ApiHeaderOperationComponent
+    , HttpWorkBenchComponent
+    , RequestTabsComponent
+    , FormEditorComponent
   ],
   imports: [
     CommonModule
@@ -69,6 +73,7 @@ import { FormEditorComponent } from './components/api/work-bench/http-work-bench
     , MatTabsModule
     , NgSelectModule
     , NgxMatContextMenuTriggerModule
+    , AgGridModule
   ],
   exports: [
     TranslateModule
@@ -93,7 +98,9 @@ import { FormEditorComponent } from './components/api/work-bench/http-work-bench
     , NgxMatContextMenuTriggerModule
     , NavComponent
     , ApiHeaderOperationComponent
-    , NgSelectModule, HttpWorkBenchComponent
+    , NgSelectModule
+    , HttpWorkBenchComponent
+    , AgGridModule
   ]
 })
 export class SharedModule {}

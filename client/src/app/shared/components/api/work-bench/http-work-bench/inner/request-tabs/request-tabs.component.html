@@ -18,8 +18,13 @@
     <div class="operation-hub"></div>
   </div>
   <div class="body">
-    <div>
-      <app-form-editor></app-form-editor>
+    <div class="content">
+      <app-form-editor [style.display]="curTab === 'Params' ? 'inline' : 'none'"></app-form-editor>
+      <app-form-editor [style.display]="curTab === 'Authorization' ? 'inline' : 'none'"></app-form-editor>
+      <app-form-editor [style.display]="curTab === 'Header' ? 'inline' : 'none'"></app-form-editor>
+      <app-form-editor [style.display]="curTab === 'Body' ? 'inline' : 'none'"></app-form-editor>
+      <app-form-editor [style.display]="curTab === 'Pre-Script' ? 'inline' : 'none'"></app-form-editor>
+      <app-form-editor [style.display]="curTab === 'Post-Script' ? 'inline' : 'none'"></app-form-editor>
     </div>
   </div>
 </div>

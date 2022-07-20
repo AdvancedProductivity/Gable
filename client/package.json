@@ -64,6 +64,8 @@
     "angular-split": "^13.2.0",
     "gsap": "^2.1.0",
     "monaco-editor": "0.33.0",
+    "ag-grid-angular-legacy": "^28.0.0",
+    "ag-grid-community": "^28.0.0",
     "ngx-perfect-scrollbar": "^10.1.1",
     "ngx-spinner": "^13.0.0",
     "rxjs": "7.5.5",
