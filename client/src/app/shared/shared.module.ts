@@ -31,6 +31,9 @@ import { NavComponent } from './components/api/nav/nav.component';
 import {NgxMatContextMenuTriggerModule} from '@w3soto/ngx-mat-context-menu-trigger';
 import { ApiHeaderOperationComponent } from './components/api/api-header-operation/api-header-operation.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { HttpWorkBenchComponent } from './components/api/work-bench/http-work-bench/http-work-bench.component';
+import { RequestTabsComponent } from './components/api/work-bench/http-work-bench/inner/request-tabs/request-tabs.component';
+import { FormEditorComponent } from './components/api/work-bench/http-work-bench/inner/form-editor/form-editor.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
     , EmptyTreeComponent
     , RightPanelComponent
     , NavComponent
-    , ApiHeaderOperationComponent
+    , ApiHeaderOperationComponent, HttpWorkBenchComponent, RequestTabsComponent, FormEditorComponent
   ],
   imports: [
     CommonModule
@@ -90,7 +93,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
     , NgxMatContextMenuTriggerModule
     , NavComponent
     , ApiHeaderOperationComponent
-    , NgSelectModule
+    , NgSelectModule, HttpWorkBenchComponent
   ]
 })
 export class SharedModule {}

@@ -1,0 +1,46 @@
+<div class="http-bench-container">
+  <as-split
+    direction="vertical"
+  >
+    <as-split-area
+      [size]="50"
+      [minSize]="25"
+    >
+      <div class="api-info-container">
+        <div class="api-info">
+          <div class="method-select">
+            <ng-select
+              placeholder="{{ 'PAGES.API_TEST.HEADER.ENV_SELECT' | translate }}"
+              style="height: 32px"
+              (change)="methodChange($event)"
+            >
+              <ng-option [value]="1">GET</ng-option>
+              <ng-option [value]="5">POST</ng-option>
+              <ng-option [value]="7">DELETE</ng-option>
+              <ng-option [value]="6">PUT</ng-option>
+            </ng-select>
+          </div>
+          <input id="url-editor"/>
+          <div class="space-1"></div>
+          <div class="runner-btn" matRipple>
+            <span>Send</span>
+          </div>
+          <div class="space"></div>
+        </div>
+        <div class="req">
+          <app-request-tabs></app-request-tabs>
+        </div>
+      </div>
+    </as-split-area>
+    <as-split-area
+      [size]="50"
+      [minSize]="25"
+    >
+      <div class="response">
+        <button class="btn" mat-icon-button (click)="doSomething()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </as-split-area>
+  </as-split>
+</div>

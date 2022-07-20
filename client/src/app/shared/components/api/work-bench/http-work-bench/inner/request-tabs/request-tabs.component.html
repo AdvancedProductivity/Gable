@@ -1,0 +1,25 @@
+<div class="req-container">
+  <div
+    class="tabs-container"
+  >
+    <nav
+      mat-tab-nav-bar
+      class="tabs-nav"
+    >
+      <a
+        *ngFor="let tab of tabs;let i = index"
+        mat-tab-link
+        class="tab"
+        [class.active] ="curTab === tab"
+        [active]="curTab === tab"
+        (click)="curTab = tab"
+      >{{ tab }}</a>
+    </nav>
+    <div class="operation-hub"></div>
+  </div>
+  <div class="body">
+    <div>
+      <app-form-editor></app-form-editor>
+    </div>
+  </div>
+</div>
