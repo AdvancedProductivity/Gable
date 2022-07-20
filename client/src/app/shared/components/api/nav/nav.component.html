@@ -2,8 +2,7 @@
   <nav mat-tab-nav-bar class="tabs">
     <div
       mat-tab-link
-      class="na-item"
-      [class.nav-border-right]="i !== links.length-1"
+      class="na-item nav-border-right"
       *ngFor="let link of links;let i = index"
       (mouseover)="link.isCursorIn = true"
       (mouseleave)="link.isCursorIn = false"
