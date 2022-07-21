@@ -1,0 +1,38 @@
+{
+  "PAGES": {
+    "HOME": {
+      "TITLE": "App works !",
+      "GO_TO_DETAIL": "Go to Detail"
+    },
+    "DETAIL": {
+      "TITLE": "Detail page !",
+      "BACK_TO_HOME": "Back to Home"
+    },
+    "NAV": {
+      "LANG_TIP": "更换语言"
+    },
+    "API_TEST": {
+      "NAME": "API 测试",
+      "TREE_MENU": {
+        "SEARCH_PLACE_HOLDER": "根据名称或者关键字搜索API",
+        "LOAD_MENU": "API 集合数据加载中...",
+        "EMPTY_TREE": "没有 API 集合",
+        "EMPTY_TREE_ADVICE": "您可以点击右上角 + 按钮创建API集合",
+        "ADD_COLLECTION_TIP": "创建API集合"
+      },
+      "HEADER": {
+        "ENV_SELECT": "选择环境",
+        "SAVE": "保存"
+      }
+    },
+    "API_DOCUMENT": {
+      "NAME": "API 文档"
+    },
+    "API_Mock": {
+      "NAME": "API Mock"
+    }
+  },
+  "OPERATION": {
+    "LOGIN": "登录"
+  }
+}
