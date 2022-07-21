@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/all")
-@Profile("SECURITY_MOCK")
+@Profile("test")
 public class NoPermissionController {
 
     @Resource

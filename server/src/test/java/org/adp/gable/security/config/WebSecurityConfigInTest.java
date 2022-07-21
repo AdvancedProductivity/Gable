@@ -22,7 +22,7 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebSecurity
-@Profile("SECURITY_MOCK")
+@Profile("test")
 public class WebSecurityConfigInTest extends WebSecurityConfig {
 
     @Bean

@@ -25,7 +25,7 @@ import javax.annotation.Resource;
  */
 @Configuration
 @EnableWebSecurity
-@Profile("!SECURITY_MOCK")
+@Profile("!test")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource

@@ -14,7 +14,7 @@ import javax.annotation.security.PermitAll;
  * */
 @RestController
 @RequestMapping("/api/user")
-@Profile("SECURITY_MOCK")
+@Profile("test")
 public class TestUserController {
 
     @GetMapping("testConfigP")

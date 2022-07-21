@@ -119,4 +119,4 @@ insert into sec_role_permission_relation (id, permission_code, role_id) VALUES
                                                                              ,((select nextval ('role_perm_relation_sequence')), 'sec_deleteRole', 0)
                                                                              ,((select nextval ('role_perm_relation_sequence')), 'sec_modifyPwd', 0)
 ;
-insert into sec_role_user_relation (id, role_id, user_id) VALUES ((select nextval ('role_user_relation_sequence')), 0,0)
+insert into sec_role_user_relation (id, role_id, user_id) VALUES ((select nextval ('role_user_relation_sequence')), 0,0);
