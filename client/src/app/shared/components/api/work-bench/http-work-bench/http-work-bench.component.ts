@@ -18,4 +18,11 @@ export class HttpWorkBenchComponent implements OnInit {
 
   methodChange(data: any): void {
   }
+
+  onSend() {
+    // @ts-ignore
+    gtag('event', 'run_test', {
+      type: 'Http',
+    });
+  }
 }
