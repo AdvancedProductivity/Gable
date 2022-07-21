@@ -1,4 +1,12 @@
 module.exports = {
+    plugins: [
+        [
+            '@vuepress/google-analytics',
+            {
+                'ga': 'G-N6TDNR9G7Q'
+            }
+        ]
+    ],
     port: 3005,
     base: '/Gable/',
     lang: 'zh-CN',
@@ -85,4 +93,4 @@ module.exports = {
             }
         }
     }
-}
+};

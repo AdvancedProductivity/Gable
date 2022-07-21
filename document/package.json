@@ -11,6 +11,7 @@
     "docs:build": "vuepress build docs"
   },
   "devDependencies": {
+    "@vuepress/plugin-google-analytics": "^1.9.7",
     "vuepress": "^1.9.7"
   }
 }
