@@ -20,6 +20,7 @@ export class HttpWorkBenchComponent implements OnInit {
   }
 
   onSend() {
+    console.log('zzq see click');
     // @ts-ignore
     gtag('event', 'run_test', {
       type: 'Http',
