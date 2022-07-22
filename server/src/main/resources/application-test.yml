@@ -1,5 +1,9 @@
 # copy from h2 config
 spring:
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
   datasource:
     url: jdbc:h2:file:${user.home}/.gable/gable-server-test;DB_CLOSE_ON_EXIT=FALSE;IFEXISTS=FALSE;DB_CLOSE_DELAY=-1;
     username: app
