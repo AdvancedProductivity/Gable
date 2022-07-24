@@ -22,6 +22,7 @@
       },
       "HEADER": {
         "ENV_SELECT": "选择环境",
+        "METHOD_SELECT": "Method",
         "SAVE": "保存"
       }
     },
