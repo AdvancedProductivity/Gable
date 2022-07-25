@@ -35,6 +35,9 @@ import { HttpWorkBenchComponent } from './components/api/work-bench/http-work-be
 import { RequestTabsComponent } from './components/api/work-bench/http-work-bench/inner/request-tabs/request-tabs.component';
 import { FormEditorComponent } from './components/api/work-bench/http-work-bench/inner/form-editor/form-editor.component';
 import {AgGridModule} from 'ag-grid-angular-legacy';
+import { QueryTableComponent } from './components/api/work-bench/http-work-bench/inner/query-table/query-table.component';
+import { CloseInputCellComponent }
+  from './components/api/work-bench/http-work-bench/inner/query-table/close-input-cell/close-input-cell.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,8 @@ import {AgGridModule} from 'ag-grid-angular-legacy';
     , HttpWorkBenchComponent
     , RequestTabsComponent
     , FormEditorComponent
+    , QueryTableComponent
+    , CloseInputCellComponent
   ],
   imports: [
     CommonModule

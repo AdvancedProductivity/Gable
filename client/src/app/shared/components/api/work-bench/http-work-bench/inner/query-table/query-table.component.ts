@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {ColDef, GridApi, ValueGetterParams, ValueSetterParams} from 'ag-grid-community';
 import PerfectScrollbar from 'perfect-scrollbar';
+import {CloseInputCellComponent} from './close-input-cell/close-input-cell.component';
 
 @Component({
-  selector: 'app-form-editor',
-  templateUrl: './form-editor.component.html',
-  styleUrls: ['./form-editor.component.scss']
+  selector: 'app-query-table',
+  templateUrl: './query-table.component.html',
+  styleUrls: ['./query-table.component.scss']
 })
-export class FormEditorComponent implements OnInit {
+export class QueryTableComponent implements OnInit {
   gridApi: GridApi;
   rowData: any[] = [
     {key: 'name', value: 'a', desc: 'a name'},
@@ -18,6 +19,8 @@ export class FormEditorComponent implements OnInit {
     {field: 'key', resizable: true, editable: true, cellStyle: {cursor: 'text'}},
     {
       headerName: 'value',
+      tooltipField: 'value',
+      tooltipValueGetter: (params) => 'Address: ' + params.value,
       valueGetter: (params: ValueGetterParams) => {
         if (params.data.value) {
           return params.data.value;
@@ -44,7 +47,7 @@ export class FormEditorComponent implements OnInit {
         return valueChanged;
       }, resizable: true, editable: true
     },
-    {field: 'desc', resizable: true, editable: true}
+    {field: 'desc', resizable: true, editable: true, cellRenderer: CloseInputCellComponent}
   ];
   frameworkComponents = {};
   defaultColDef = {
