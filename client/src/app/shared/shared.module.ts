@@ -39,6 +39,8 @@ import { QueryTableComponent } from './components/api/work-bench/http-work-bench
 import { CloseInputCellComponent }
   from './components/api/work-bench/http-work-bench/inner/query-table/close-input-cell/close-input-cell.component';
 import { CellContentComponent } from './components/api/work-bench/http-work-bench/inner/query-table/cell-content/cell-content.component';
+import { CheckBoxCellComponent } from './components/api/work-bench/http-work-bench/inner/query-table/check-box-cell/check-box-cell.component';
+import { CheckBoxCellEditorComponent } from './components/api/work-bench/http-work-bench/inner/query-table/check-box-cell-editor/check-box-cell-editor.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,7 @@ import { CellContentComponent } from './components/api/work-bench/http-work-benc
     , RequestTabsComponent
     , FormEditorComponent
     , QueryTableComponent
-    , CloseInputCellComponent, CellContentComponent
+    , CloseInputCellComponent, CellContentComponent, CheckBoxCellComponent, CheckBoxCellEditorComponent
   ],
   imports: [
     CommonModule

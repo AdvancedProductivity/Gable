@@ -3,6 +3,8 @@ import {ColDef, GridApi, ValueGetterParams, ValueSetterParams} from 'ag-grid-com
 import PerfectScrollbar from 'perfect-scrollbar';
 import {CloseInputCellComponent} from './close-input-cell/close-input-cell.component';
 import {CellContentComponent} from './cell-content/cell-content.component';
+import {CheckBoxCellComponent} from './check-box-cell/check-box-cell.component';
+import {CheckBoxCellEditorComponent} from './check-box-cell-editor/check-box-cell-editor.component';
 
 @Component({
   selector: 'app-query-table',
@@ -12,15 +14,27 @@ import {CellContentComponent} from './cell-content/cell-content.component';
 export class QueryTableComponent implements OnInit {
   gridApi: GridApi;
   rowData: any[] = [
-    {key: '1', value: '2', desc: '3'},
-    {key: '4', value: '5', desc: '6'},
-    {key: '', value: '', desc: ''}
+    {using: true, key: '1', value: '2', desc: '3'},
+    {using: true, key: '4', value: '5', desc: '6'},
+    {using: true, key: '', value: '', desc: ''}
   ];
 
   columnDefs: ColDef[] = [
     {
+      headerName: '',
+      field: 'using',
+      suppressSizeToFit: true,
+      resizable: false,
+      cellEditor: CheckBoxCellEditorComponent,
+      editable: true,
+      width: 60,
+      minWidth: 60,
+      maxWidth: 60,
+      cellRenderer: CheckBoxCellComponent,
+    },
+    {
       headerName: 'KEY',
-      valueGetter:  (params: ValueGetterParams) => {
+      valueGetter: (params: ValueGetterParams) => {
         if (params.data.key) {
           return params.data.key;
         } else {
@@ -129,6 +143,10 @@ export class QueryTableComponent implements OnInit {
         ps.update();
       }
     });
+  }
+
+  public getData(): any[] {
+    return this.rowData;
   }
 
   private handleAddRow() {
