@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ColDef, GridApi, ValueGetterParams, ValueSetterParams} from 'ag-grid-community';
 import PerfectScrollbar from 'perfect-scrollbar';
 import {CloseInputCellComponent} from './close-input-cell/close-input-cell.component';
+import {CellContentComponent} from './cell-content/cell-content.component';
 
 @Component({
   selector: 'app-query-table',
@@ -11,16 +12,40 @@ import {CloseInputCellComponent} from './close-input-cell/close-input-cell.compo
 export class QueryTableComponent implements OnInit {
   gridApi: GridApi;
   rowData: any[] = [
-    {key: 'name', value: 'a', desc: 'a name'},
-    {key: 'param', value: 'a', desc: 'a name'},
+    {key: '1', value: '2', desc: '3'},
+    {key: '4', value: '5', desc: '6'},
     {key: '', value: '', desc: ''}
   ];
+
   columnDefs: ColDef[] = [
-    {field: 'key', resizable: true, editable: true, cellStyle: {cursor: 'text'}},
     {
-      headerName: 'value',
-      tooltipField: 'value',
-      tooltipValueGetter: (params) => 'Address: ' + params.value,
+      headerName: 'KEY',
+      valueGetter:  (params: ValueGetterParams) => {
+        if (params.data.key) {
+          return params.data.key;
+        } else {
+          return undefined;
+        }
+      },
+      valueSetter: (params: ValueSetterParams) => {
+        console.log('zzq see setter', params);
+        const valueChanged = params.data.key !== params.newValue;
+        if (valueChanged) {
+          params.data.key = params.newValue;
+        }
+        this.handleAddRow();
+        return valueChanged;
+      },
+      cellRenderer: CellContentComponent,
+      cellRendererParams: {
+        hintStr: 'key'
+      },
+      resizable: true,
+      editable: true,
+      cellStyle: {cursor: 'text'}
+    },
+    {
+      headerName: 'VALUE',
       valueGetter: (params: ValueGetterParams) => {
         if (params.data.value) {
           return params.data.value;
@@ -29,25 +54,50 @@ export class QueryTableComponent implements OnInit {
         }
       },
       valueSetter: (params: ValueSetterParams) => {
-        console.log('zzq see params valueSetter ', params);
         const valueChanged = params.data.value !== params.newValue;
-
-        const lastValue = this.rowData[this.rowData.length - 1];
-        if (!lastValue.key || !lastValue.value) {
-          this.gridApi.applyTransaction({add: [{}]});
-        }
-        if (valueChanged && !params.newValue && !params.node.data.key && !params.node.data.desc) {
-          console.log('zzq see remove node', params.node.data);
-          setTimeout(() => {
-            this.gridApi.applyTransaction({remove: [this.rowData[params.node.rowIndex]]});
-          }, 300);
-        }else if (valueChanged) {
+        if (valueChanged) {
           params.data.value = params.newValue;
         }
+        this.handleAddRow();
         return valueChanged;
-      }, resizable: true, editable: true
+      },
+      cellRenderer: CellContentComponent,
+      cellRendererParams: {
+        hintStr: 'value'
+      },
+      resizable: true,
+      editable: true,
+      cellStyle: {cursor: 'text'}
     },
-    {field: 'desc', resizable: true, editable: true, cellRenderer: CloseInputCellComponent}
+    {
+      headerName: 'DESCRIPTION',
+      valueGetter: (params: ValueGetterParams) => {
+        if (params.data.desc) {
+          return params.data.desc;
+        } else {
+          return undefined;
+        }
+      },
+      valueSetter: (params: ValueSetterParams) => {
+        const valueChanged = params.data.desc !== params.newValue;
+        if (valueChanged) {
+          params.data.desc = params.newValue;
+        }
+        this.handleAddRow();
+        return valueChanged;
+      },
+      resizable: true,
+      editable: true,
+      cellRenderer: CloseInputCellComponent,
+      cellRendererParams: {
+        totalIndex: () => this.rowData.length,
+        remove: (index) => {
+          this.rowData.splice(index, 1);
+          this.gridApi.setRowData(this.rowData);
+        }
+      },
+      cellStyle: {cursor: 'text'}
+    }
   ];
   frameworkComponents = {};
   defaultColDef = {
@@ -79,5 +129,16 @@ export class QueryTableComponent implements OnInit {
         ps.update();
       }
     });
+  }
+
+  private handleAddRow() {
+    setTimeout(() => {
+      const lastValue = this.rowData[this.rowData.length - 1];
+      if (lastValue.key || lastValue.value || lastValue.desc) {
+        this.rowData.push({key: '', value: '', desc: ''});
+        this.gridApi.setRowData(this.rowData);
+      }
+     // this.gridApi.refreshCells({ force: true });
+    }, 100);
   }
 }

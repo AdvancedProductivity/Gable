@@ -38,6 +38,7 @@ import {AgGridModule} from 'ag-grid-angular-legacy';
 import { QueryTableComponent } from './components/api/work-bench/http-work-bench/inner/query-table/query-table.component';
 import { CloseInputCellComponent }
   from './components/api/work-bench/http-work-bench/inner/query-table/close-input-cell/close-input-cell.component';
+import { CellContentComponent } from './components/api/work-bench/http-work-bench/inner/query-table/cell-content/cell-content.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { CloseInputCellComponent }
     , RequestTabsComponent
     , FormEditorComponent
     , QueryTableComponent
-    , CloseInputCellComponent
+    , CloseInputCellComponent, CellContentComponent
   ],
   imports: [
     CommonModule

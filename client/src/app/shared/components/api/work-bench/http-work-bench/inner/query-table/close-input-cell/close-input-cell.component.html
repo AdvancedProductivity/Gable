@@ -1,1 +1,23 @@
-<div>{{ cellValue }}</div>
+<div
+  (mouseover)="isCursorIn=true"
+  (mouseleave)="isCursorIn=false"
+  class="cell-container"
+>
+  <div class="cell-content">
+  <span *ngIf="!showHint">
+    {{ cellValue }}
+  </span>
+  <span *ngIf="showHint" class="cell-hint">
+    description
+  </span>
+  </div>
+
+  <div
+    class="input-con-cell"
+    (click)="$event.cancelBubble=true;delete()"
+    (dblclick)="$event.cancelBubble=true;delete()"
+    *ngIf="isShowClose && isCursorIn"
+  >
+    <mat-icon class="input-con-cell-icon" svgIcon="closeNav"></mat-icon>
+  </div>
+</div>
