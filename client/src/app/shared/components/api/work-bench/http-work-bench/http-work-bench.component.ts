@@ -1,4 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {RequestTabsComponent} from './inner/request-tabs/request-tabs.component';
 
 @Component({
   selector: 'app-http-work-bench',
@@ -6,8 +7,12 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
   styleUrls: ['./http-work-bench.component.scss']
 })
 export class HttpWorkBenchComponent implements OnInit {
+  @ViewChild(RequestTabsComponent)
+  req!: RequestTabsComponent;
   @Output() run = new EventEmitter();
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
@@ -20,7 +25,9 @@ export class HttpWorkBenchComponent implements OnInit {
   }
 
   onSend() {
-    console.log('zzq see click');
+    const data: any = {};
+    data.req = this.req.getData();
+    console.log('zzq see data wait for send', data);
     // @ts-ignore
     gtag('event', 'run_test', {
       type: 'Http',
