@@ -1,23 +1,63 @@
 import { Component, OnInit } from '@angular/core';
 import {ColDef, GridApi, ValueGetterParams, ValueSetterParams} from 'ag-grid-community';
 import PerfectScrollbar from 'perfect-scrollbar';
+import {CheckBoxCellEditorComponent} from '../inner/check-box-cell-editor/check-box-cell-editor.component';
+import {CheckBoxCellComponent} from '../inner/check-box-cell/check-box-cell.component';
+import {CellContentComponent} from '../inner/cell-content/cell-content.component';
+import {CloseInputCellComponent} from '../inner/close-input-cell/close-input-cell.component';
+import {CellFileTextComponent} from '../inner/cell-file-text/cell-file-text.component';
 
 @Component({
   selector: 'app-form-editor',
   templateUrl: './form-editor.component.html',
   styleUrls: ['./form-editor.component.scss']
 })
-export class FormEditorComponent implements OnInit {
-  gridApi: GridApi;
+export class FormEditorComponent implements OnInit {  gridApi: GridApi;
   rowData: any[] = [
-    {key: 'name', value: 'a', desc: 'a name'},
-    {key: 'param', value: 'a', desc: 'a name'},
-    {key: '', value: '', desc: ''}
+    {using: true, key: '1', value: '2', desc: '3', type: 'text'},
+    {using: true, key: '4', value: '5', desc: '6', type: 'text'},
+    {using: true, key: '', value: '', desc: '', type: ''}
   ];
   columnDefs: ColDef[] = [
-    {field: 'key', resizable: true, editable: true, cellStyle: {cursor: 'text'}},
     {
-      headerName: 'value',
+      headerName: '',
+      field: 'using',
+      suppressSizeToFit: true,
+      resizable: false,
+      cellEditor: CheckBoxCellEditorComponent,
+      editable: true,
+      width: 60,
+      minWidth: 60,
+      maxWidth: 60,
+      cellRenderer: CheckBoxCellComponent,
+    },
+    {
+      headerName: 'KEY',
+      valueGetter: (params: ValueGetterParams) => {
+        if (params.data.key) {
+          return params.data.key;
+        } else {
+          return undefined;
+        }
+      },
+      valueSetter: (params: ValueSetterParams) => {
+        const valueChanged = params.data.key !== params.newValue;
+        if (valueChanged) {
+          params.data.key = params.newValue;
+        }
+        this.handleAddRow();
+        return valueChanged;
+      },
+      cellRenderer: CellFileTextComponent,
+      cellRendererParams: {
+        hintStr: 'key'
+      },
+      resizable: true,
+      editable: true,
+      cellStyle: {cursor: 'text'}
+    },
+    {
+      headerName: 'VALUE',
       valueGetter: (params: ValueGetterParams) => {
         if (params.data.value) {
           return params.data.value;
@@ -26,25 +66,50 @@ export class FormEditorComponent implements OnInit {
         }
       },
       valueSetter: (params: ValueSetterParams) => {
-        console.log('zzq see params valueSetter ', params);
         const valueChanged = params.data.value !== params.newValue;
-
-        const lastValue = this.rowData[this.rowData.length - 1];
-        if (!lastValue.key || !lastValue.value) {
-          this.gridApi.applyTransaction({add: [{}]});
-        }
-        if (valueChanged && !params.newValue && !params.node.data.key && !params.node.data.desc) {
-          console.log('zzq see remove node', params.node.data);
-          setTimeout(() => {
-            this.gridApi.applyTransaction({remove: [this.rowData[params.node.rowIndex]]});
-          }, 300);
-        }else if (valueChanged) {
+        if (valueChanged) {
           params.data.value = params.newValue;
         }
+        this.handleAddRow();
         return valueChanged;
-      }, resizable: true, editable: true
+      },
+      cellRenderer: CellContentComponent,
+      cellRendererParams: {
+        hintStr: 'value'
+      },
+      resizable: true,
+      editable: true,
+      cellStyle: {cursor: 'text'}
     },
-    {field: 'desc', resizable: true, editable: true}
+    {
+      headerName: 'DESCRIPTION',
+      valueGetter: (params: ValueGetterParams) => {
+        if (params.data.desc) {
+          return params.data.desc;
+        } else {
+          return undefined;
+        }
+      },
+      valueSetter: (params: ValueSetterParams) => {
+        const valueChanged = params.data.desc !== params.newValue;
+        if (valueChanged) {
+          params.data.desc = params.newValue;
+        }
+        this.handleAddRow();
+        return valueChanged;
+      },
+      resizable: true,
+      editable: true,
+      cellRenderer: CloseInputCellComponent,
+      cellRendererParams: {
+        totalIndex: () => this.rowData.length,
+        remove: (index) => {
+          this.rowData.splice(index, 1);
+          this.gridApi.setRowData(this.rowData);
+        }
+      },
+      cellStyle: {cursor: 'text'}
+    }
   ];
   frameworkComponents = {};
   defaultColDef = {
@@ -76,5 +141,20 @@ export class FormEditorComponent implements OnInit {
         ps.update();
       }
     });
+  }
+
+  public getData(): any[] {
+    return this.rowData;
+  }
+
+  private handleAddRow() {
+    setTimeout(() => {
+      const lastValue = this.rowData[this.rowData.length - 1];
+      if (lastValue.key || lastValue.value || lastValue.desc) {
+        this.rowData.push({key: '', value: '', desc: '', type: 'text'});
+        this.gridApi.setRowData(this.rowData);
+      }
+      // this.gridApi.refreshCells({ force: true });
+    }, 100);
   }
 }

@@ -2,15 +2,18 @@
   <ag-grid-angular
     style="width: 100%; height: 100%;"
     class="ag-theme-alpine"
-    id="firstGrid"
     (gridReady)="onFirstGridReady($event,gridContainer)"
     [undoRedoCellEditing]="true"
     [undoRedoCellEditingLimit]="20"
+    [enableFillHandle]="true"
+    [enableCellChangeFlash]="true"
     [pagination]="false"
+    [stopEditingWhenCellsLoseFocus]="true"
     [rowData]="rowData"
     [frameworkComponents]="frameworkComponents"
     [defaultColDef]="defaultColDef"
     [columnDefs]="columnDefs"
+    [headerHeight]="28"
   >
   </ag-grid-angular>
 </div>

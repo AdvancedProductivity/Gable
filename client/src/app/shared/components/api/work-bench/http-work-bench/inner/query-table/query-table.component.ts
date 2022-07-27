@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ColDef, GridApi, ValueGetterParams, ValueSetterParams} from 'ag-grid-community';
 import PerfectScrollbar from 'perfect-scrollbar';
-import {CloseInputCellComponent} from './close-input-cell/close-input-cell.component';
-import {CellContentComponent} from './cell-content/cell-content.component';
-import {CheckBoxCellComponent} from './check-box-cell/check-box-cell.component';
-import {CheckBoxCellEditorComponent} from './check-box-cell-editor/check-box-cell-editor.component';
+import {CloseInputCellComponent} from '../inner/close-input-cell/close-input-cell.component';
+import {CellContentComponent} from '../inner/cell-content/cell-content.component';
+import {CheckBoxCellComponent} from '../inner/check-box-cell/check-box-cell.component';
+import {CheckBoxCellEditorComponent} from '../inner/check-box-cell-editor/check-box-cell-editor.component';
 
 @Component({
   selector: 'app-query-table',
@@ -18,7 +18,6 @@ export class QueryTableComponent implements OnInit {
     {using: true, key: '4', value: '5', desc: '6'},
     {using: true, key: '', value: '', desc: ''}
   ];
-
   columnDefs: ColDef[] = [
     {
       headerName: '',
@@ -42,7 +41,6 @@ export class QueryTableComponent implements OnInit {
         }
       },
       valueSetter: (params: ValueSetterParams) => {
-        console.log('zzq see setter', params);
         const valueChanged = params.data.key !== params.newValue;
         if (valueChanged) {
           params.data.key = params.newValue;

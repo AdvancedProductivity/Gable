@@ -3,44 +3,42 @@ import {ICellRendererAngularComp} from 'ag-grid-angular-legacy';
 import {ICellRendererParams} from 'ag-grid-community';
 
 @Component({
-  selector: 'app-cell-content',
-  templateUrl: './cell-content.component.html',
-  styleUrls: ['./cell-content.component.scss']
+  selector: 'app-close-input-cell',
+  templateUrl: './close-input-cell.component.html',
+  styleUrls: ['./close-input-cell.component.scss']
 })
-export class CellContentComponent implements OnInit, ICellRendererAngularComp {
+export class CloseInputCellComponent implements OnInit,ICellRendererAngularComp {
   public cellValue: string;
-  gridApi: any;
   params: ICellRendererParams;
+  isCursorIn = false;
+  isShowClose = true;
   showHint = true;
-  hintStr = '';
-
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   agInit(params: ICellRendererParams): void {
     this.params = params;
-    this.gridApi= params.api;
     this.setValue(params);
   }
 
   refresh(params: ICellRendererParams<any>): boolean {
-    this.params = params;
-    this.gridApi.refreshCells();
     this.setValue(params);
     return true;
   }
 
+  delete(){
+    // @ts-ignore
+    this.params.remove(this.params.rowIndex);
+  }
+
   private setValue(params: ICellRendererParams) {
-    console.log('this.params: ', params);
     this.cellValue = params.value;
     if (this.cellValue) {
       this.showHint = false;
     }
     // @ts-ignore
-    this.hintStr = params.hintStr;
-
+    this.isShowClose = params.totalIndex() !== params.rowIndex + 1;
   }
 }

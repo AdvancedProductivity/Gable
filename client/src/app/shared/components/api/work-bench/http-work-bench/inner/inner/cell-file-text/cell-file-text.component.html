@@ -1,0 +1,18 @@
+<div class="cell-container"
+(mouseleave)="showSelect = false"
+(mouseover)="showSelect = true"
+>
+  <div class="left">
+    <div *ngIf="showHint" class="hint-str">{{hintStr}}</div>
+    <div *ngIf="!showHint">{{cellValue}}</div>
+  </div>
+  <div class="right" *ngIf="showSelect"
+       (click)="$event.cancelBubble=true"
+       (dblclick)="$event.cancelBubble=true"
+  >
+    <select [(ngModel)]="type" (ngModelChange)="onTypeChange($event)">
+      <option value="text">text</option>
+      <option value="file">file</option>
+    </select>
+  </div>
+</div>

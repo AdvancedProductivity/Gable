@@ -37,10 +37,11 @@ import { FormEditorComponent } from './components/api/work-bench/http-work-bench
 import {AgGridModule} from 'ag-grid-angular-legacy';
 import { QueryTableComponent } from './components/api/work-bench/http-work-bench/inner/query-table/query-table.component';
 import { CloseInputCellComponent }
-  from './components/api/work-bench/http-work-bench/inner/query-table/close-input-cell/close-input-cell.component';
-import { CellContentComponent } from './components/api/work-bench/http-work-bench/inner/query-table/cell-content/cell-content.component';
-import { CheckBoxCellComponent } from './components/api/work-bench/http-work-bench/inner/query-table/check-box-cell/check-box-cell.component';
-import { CheckBoxCellEditorComponent } from './components/api/work-bench/http-work-bench/inner/query-table/check-box-cell-editor/check-box-cell-editor.component';
+  from './components/api/work-bench/http-work-bench/inner/inner/close-input-cell/close-input-cell.component';
+import { CellContentComponent } from './components/api/work-bench/http-work-bench/inner/inner/cell-content/cell-content.component';
+import { CheckBoxCellComponent } from './components/api/work-bench/http-work-bench/inner/inner/check-box-cell/check-box-cell.component';
+import { CheckBoxCellEditorComponent } from './components/api/work-bench/http-work-bench/inner/inner/check-box-cell-editor/check-box-cell-editor.component';
+import { CellFileTextComponent } from './components/api/work-bench/http-work-bench/inner/inner/cell-file-text/cell-file-text.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { CheckBoxCellEditorComponent } from './components/api/work-bench/http-wo
     , RequestTabsComponent
     , FormEditorComponent
     , QueryTableComponent
-    , CloseInputCellComponent, CellContentComponent, CheckBoxCellComponent, CheckBoxCellEditorComponent
+    , CloseInputCellComponent, CellContentComponent, CheckBoxCellComponent, CheckBoxCellEditorComponent, CellFileTextComponent
   ],
   imports: [
     CommonModule

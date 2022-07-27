@@ -22,7 +22,6 @@ export class CheckBoxCellEditorComponent implements OnInit, ICellEditorAngularCo
   }
 
   agInit(params: ICellEditorParams): void {
-    console.log('zzq see edit value', params);
     this.params = params;
     this.vvvv = params.value;
   }
@@ -42,7 +41,6 @@ export class CheckBoxCellEditorComponent implements OnInit, ICellEditorAngularCo
     if (key === 'Enter') {
       this.vvvv = !this.vvvv;
     }
-    console.log('zzq see key', key, key === 'Enter');
   }
 
 }
