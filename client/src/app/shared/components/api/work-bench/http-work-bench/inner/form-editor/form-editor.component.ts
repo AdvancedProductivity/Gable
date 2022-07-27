@@ -6,6 +6,7 @@ import {CheckBoxCellComponent} from '../inner/check-box-cell/check-box-cell.comp
 import {CellContentComponent} from '../inner/cell-content/cell-content.component';
 import {CloseInputCellComponent} from '../inner/close-input-cell/close-input-cell.component';
 import {CellFileTextComponent} from '../inner/cell-file-text/cell-file-text.component';
+import {CellFileComponent} from "../inner/cell-file/cell-file.component";
 
 @Component({
   selector: 'app-form-editor',
@@ -16,7 +17,7 @@ export class FormEditorComponent implements OnInit {  gridApi: GridApi;
   rowData: any[] = [
     {using: true, key: '1', value: '2', desc: '3', type: 'text'},
     {using: true, key: '4', value: '5', desc: '6', type: 'text'},
-    {using: true, key: '', value: '', desc: '', type: ''}
+    {using: true, key: '', value: '', desc: '', type: 'text'}
   ];
   columnDefs: ColDef[] = [
     {
@@ -50,7 +51,10 @@ export class FormEditorComponent implements OnInit {  gridApi: GridApi;
       },
       cellRenderer: CellFileTextComponent,
       cellRendererParams: {
-        hintStr: 'key'
+        hintStr: 'key',
+        changeType: (index, newType) => {
+          this.rowData[index].type = newType;
+        }
       },
       resizable: true,
       editable: true,
@@ -59,11 +63,27 @@ export class FormEditorComponent implements OnInit {  gridApi: GridApi;
     {
       headerName: 'VALUE',
       valueGetter: (params: ValueGetterParams) => {
-        if (params.data.value) {
-          return params.data.value;
-        } else {
-          return undefined;
+        let v;
+        if (params.data.type === 'text') {
+          if (params.data.value) {
+            v = params.data.value;
+          } else {
+            v = undefined;
+          }
+        }else if (params.data.type === 'file'){
+          if (params.data.type === 'file') {
+            if (params.data.fileName) {
+              v = '';
+            } else {
+              v = undefined;
+            }
+          }
+        }else {
+          v = undefined;
         }
+        console.log('zzq see set value ', params.data);
+        console.log('zzq see set value return ' + params.node.rowIndex + ' ', v);
+        return v;
       },
       valueSetter: (params: ValueSetterParams) => {
         const valueChanged = params.data.value !== params.newValue;
@@ -73,12 +93,17 @@ export class FormEditorComponent implements OnInit {  gridApi: GridApi;
         this.handleAddRow();
         return valueChanged;
       },
-      cellRenderer: CellContentComponent,
+      cellRenderer: CellFileComponent,
       cellRendererParams: {
-        hintStr: 'value'
+        hintStr: 'value',
+        getTextType: (index) => this.rowData[index].type,
+        setFileInfo: (index, fileName, fileId) => {
+          this.rowData[index].fileName = fileName;
+          this.rowData[index].fileId = fileId;
+        }
       },
       resizable: true,
-      editable: true,
+      editable: (params) => params.data.type !== 'file',
       cellStyle: {cursor: 'text'}
     },
     {

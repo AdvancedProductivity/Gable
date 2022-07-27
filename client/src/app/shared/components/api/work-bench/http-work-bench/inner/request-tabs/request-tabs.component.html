@@ -20,11 +20,7 @@
   <div class="body">
     <div class="content">
       <app-query-table #query [style.display]="curTab === 'Params' ? 'inline' : 'none'"></app-query-table>
-      <app-form-editor [style.display]="curTab === 'Authorization' ? 'inline' : 'none'"></app-form-editor>
-      <app-form-editor [style.display]="curTab === 'Header' ? 'inline' : 'none'"></app-form-editor>
-      <app-form-editor [style.display]="curTab === 'Body' ? 'inline' : 'none'"></app-form-editor>
-      <app-form-editor [style.display]="curTab === 'Pre-Script' ? 'inline' : 'none'"></app-form-editor>
-      <app-form-editor [style.display]="curTab === 'Post-Script' ? 'inline' : 'none'"></app-form-editor>
+      <app-form-editor #formEditor [style.display]="curTab === 'Authorization' ? 'inline' : 'none'"></app-form-editor>
     </div>
   </div>
 </div>

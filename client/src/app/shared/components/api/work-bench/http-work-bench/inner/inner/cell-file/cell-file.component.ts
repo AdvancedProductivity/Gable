@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {ICellRendererParams} from 'ag-grid-community';
-import {GridApi} from 'ag-grid-community/dist/lib/gridApi';
+import {ICellRendererAngularComp} from 'ag-grid-angular-legacy';
 
 @Component({
-  selector: 'app-cell-file-text',
-  templateUrl: './cell-file-text.component.html',
-  styleUrls: ['./cell-file-text.component.scss']
+  selector: 'app-cell-file',
+  templateUrl: './cell-file.component.html',
+  styleUrls: ['./cell-file.component.scss']
 })
-export class CellFileTextComponent implements OnInit {
+export class CellFileComponent implements OnInit, ICellRendererAngularComp {
   public cellValue: string;
-  gridApi: GridApi<any>;
+  gridApi: any;
   params: ICellRendererParams;
   showHint = true;
-  type = 'text';
-  showSelect = false;
   hintStr = '';
+  isText = true;
 
   constructor() {
   }
@@ -28,16 +27,6 @@ export class CellFileTextComponent implements OnInit {
     this.setValue(params);
   }
 
-  onTypeChange(data: any) {
-    // @ts-ignore
-    this.params.changeType(this.params.rowIndex, data);
-    setTimeout(() => {
-      // this.gridApi.getRowNode()
-      this.gridApi.refreshCells();
-    }, 20);
-    console.log('zzq see change event', data, this.params);
-  }
-
   refresh(params: ICellRendererParams<any>): boolean {
     this.params = params;
     this.gridApi.refreshCells();
@@ -45,15 +34,22 @@ export class CellFileTextComponent implements OnInit {
     return true;
   }
 
+  fileChange(info: any): void {
+    const file = info.target.files[0];
+    console.log('zzq see file select', file);
+    // @ts-ignore
+    this.params.setFileInfo(this.params.rowIndex, file.name, file.lastModified);
+  }
+
   private setValue(params: ICellRendererParams) {
+    console.log('zzq see params set', params);
     this.cellValue = params.value;
     if (this.cellValue) {
       this.showHint = false;
     }
     // @ts-ignore
     this.hintStr = params.hintStr;
-
+    // @ts-ignore
+    this.isText = params.getTextType(params.rowIndex) !== 'file';
   }
-
-
 }

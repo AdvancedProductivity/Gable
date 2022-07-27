@@ -42,6 +42,7 @@ import { CellContentComponent } from './components/api/work-bench/http-work-benc
 import { CheckBoxCellComponent } from './components/api/work-bench/http-work-bench/inner/inner/check-box-cell/check-box-cell.component';
 import { CheckBoxCellEditorComponent } from './components/api/work-bench/http-work-bench/inner/inner/check-box-cell-editor/check-box-cell-editor.component';
 import { CellFileTextComponent } from './components/api/work-bench/http-work-bench/inner/inner/cell-file-text/cell-file-text.component';
+import { CellFileComponent } from './components/api/work-bench/http-work-bench/inner/inner/cell-file/cell-file.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { CellFileTextComponent } from './components/api/work-bench/http-work-ben
     , RequestTabsComponent
     , FormEditorComponent
     , QueryTableComponent
-    , CloseInputCellComponent, CellContentComponent, CheckBoxCellComponent, CheckBoxCellEditorComponent, CellFileTextComponent
+    , CloseInputCellComponent, CellContentComponent, CheckBoxCellComponent, CheckBoxCellEditorComponent, CellFileTextComponent, CellFileComponent
   ],
   imports: [
     CommonModule

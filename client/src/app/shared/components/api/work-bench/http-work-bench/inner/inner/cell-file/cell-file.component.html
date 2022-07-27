@@ -1,0 +1,7 @@
+<div *ngIf="isText">
+  <div *ngIf="showHint" class="hint-str">{{hintStr}}</div>
+  <div *ngIf="!showHint">{{cellValue}}</div>
+</div>
+<div *ngIf="!isText">
+  <input type="file" [(ngModel)]="cellValue" (change)="fileChange($event)">
+</div>
