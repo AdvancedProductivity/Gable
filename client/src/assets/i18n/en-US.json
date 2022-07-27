@@ -24,6 +24,9 @@
         "ENV_SELECT": "Select Environment",
         "METHOD_SELECT": "Method",
         "SAVE": "Save"
+      },
+      "REQ": {
+        "SELECT_FILE": "Select File"
       }
     },
     "API_DOCUMENT": {

@@ -24,6 +24,9 @@
         "ENV_SELECT": "选择环境",
         "METHOD_SELECT": "Method",
         "SAVE": "保存"
+      },
+      "REQ": {
+        "SELECT_FILE": "请选择文件"
       }
     },
     "API_DOCUMENT": {

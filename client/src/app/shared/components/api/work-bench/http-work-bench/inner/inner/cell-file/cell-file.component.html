@@ -2,6 +2,11 @@
   <div *ngIf="showHint" class="hint-str">{{hintStr}}</div>
   <div *ngIf="!showHint">{{cellValue}}</div>
 </div>
-<div *ngIf="!isText">
-  <input type="file" [(ngModel)]="cellValue" (change)="fileChange($event)">
+<div *ngIf="!isText" style="width: 100%;height: 100%">
+  <label class="file-input">
+    <div class="file-btn">
+      {{ showHint ? ('PAGES.API_TEST.REQ.SELECT_FILE' | translate) : cellValue }}
+    </div>
+    <input class="in" type="file" (change)="fileChange($event)">
+  </label>
 </div>

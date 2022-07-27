@@ -35,18 +35,22 @@ export class CellFileComponent implements OnInit, ICellRendererAngularComp {
   }
 
   fileChange(info: any): void {
+    if (info === undefined) {
+      return;
+    }
     const file = info.target.files[0];
-    console.log('zzq see file select', file);
+    console.log('zzq see file select', JSON.stringify({cellValue: this.cellValue}), file);
+    this.cellValue = file.name;
+    this.showHint = false;
     // @ts-ignore
     this.params.setFileInfo(this.params.rowIndex, file.name, file.lastModified);
   }
 
   private setValue(params: ICellRendererParams) {
-    console.log('zzq see params set', params);
+    console.log('zzq see setValue', JSON.stringify({cellValue: params.value}));
     this.cellValue = params.value;
-    if (this.cellValue) {
-      this.showHint = false;
-    }
+    this.showHint = !this.cellValue;
+    console.log('zzq see params set hint=' + this.showHint, this.cellValue);
     // @ts-ignore
     this.hintStr = params.hintStr;
     // @ts-ignore

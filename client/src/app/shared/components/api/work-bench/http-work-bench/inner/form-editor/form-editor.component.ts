@@ -73,7 +73,7 @@ export class FormEditorComponent implements OnInit {  gridApi: GridApi;
         }else if (params.data.type === 'file'){
           if (params.data.type === 'file') {
             if (params.data.fileName) {
-              v = '';
+              v = params.data.fileName;
             } else {
               v = undefined;
             }
@@ -81,8 +81,6 @@ export class FormEditorComponent implements OnInit {  gridApi: GridApi;
         }else {
           v = undefined;
         }
-        console.log('zzq see set value ', params.data);
-        console.log('zzq see set value return ' + params.node.rowIndex + ' ', v);
         return v;
       },
       valueSetter: (params: ValueSetterParams) => {
@@ -98,6 +96,7 @@ export class FormEditorComponent implements OnInit {  gridApi: GridApi;
         hintStr: 'value',
         getTextType: (index) => this.rowData[index].type,
         setFileInfo: (index, fileName, fileId) => {
+          console.log('form add file ', fileName, fileId);
           this.rowData[index].fileName = fileName;
           this.rowData[index].fileId = fileId;
         }

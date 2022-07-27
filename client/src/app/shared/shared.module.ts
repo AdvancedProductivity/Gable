@@ -40,6 +40,7 @@ import { CloseInputCellComponent }
   from './components/api/work-bench/http-work-bench/inner/inner/close-input-cell/close-input-cell.component';
 import { CellContentComponent } from './components/api/work-bench/http-work-bench/inner/inner/cell-content/cell-content.component';
 import { CheckBoxCellComponent } from './components/api/work-bench/http-work-bench/inner/inner/check-box-cell/check-box-cell.component';
+// eslint-disable-next-line max-len
 import { CheckBoxCellEditorComponent } from './components/api/work-bench/http-work-bench/inner/inner/check-box-cell-editor/check-box-cell-editor.component';
 import { CellFileTextComponent } from './components/api/work-bench/http-work-bench/inner/inner/cell-file-text/cell-file-text.component';
 import { CellFileComponent } from './components/api/work-bench/http-work-bench/inner/inner/cell-file/cell-file.component';
@@ -58,7 +59,12 @@ import { CellFileComponent } from './components/api/work-bench/http-work-bench/i
     , RequestTabsComponent
     , FormEditorComponent
     , QueryTableComponent
-    , CloseInputCellComponent, CellContentComponent, CheckBoxCellComponent, CheckBoxCellEditorComponent, CellFileTextComponent, CellFileComponent
+    , CloseInputCellComponent
+    , CellContentComponent
+    , CheckBoxCellComponent
+    , CheckBoxCellEditorComponent
+    , CellFileTextComponent
+    , CellFileComponent
   ],
   imports: [
     CommonModule
