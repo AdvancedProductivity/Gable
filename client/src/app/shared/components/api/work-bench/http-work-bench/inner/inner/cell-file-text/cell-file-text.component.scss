@@ -13,15 +13,30 @@
 
   }
 
-  .right {
-    width: 100px;
+  .right-select {
     height: 100%;
     position: absolute;
     top: 0;
     right: 0;
 
-    select{
+    select {
       outline: none;
+      border: none;
+    }
+
+    .file-select-item {
+      position: relative;
+      box-sizing: border-box;
+      height: 32px;
+      padding: 0px 16px;
+      color: #212121;
+      font-size: 12px;
+      font-family: "Inter",system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica,Arial,sans-serif;
+      display: flex;
+      align-items: center;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: pointer;
     }
   }
 }

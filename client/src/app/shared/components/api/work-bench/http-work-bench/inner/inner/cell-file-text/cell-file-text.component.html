@@ -6,13 +6,17 @@
     <div *ngIf="showHint" class="hint-str">{{hintStr}}</div>
     <div *ngIf="!showHint">{{cellValue}}</div>
   </div>
-  <div class="right" *ngIf="showSelect"
+  <div class="right-select" *ngIf="showSelect"
        (click)="$event.cancelBubble=true"
        (dblclick)="$event.cancelBubble=true"
   >
     <select [(ngModel)]="type" (ngModelChange)="onTypeChange($event)">
-      <option value="text">text</option>
-      <option value="file">file</option>
+      <option value="text">
+        Text
+      </option>
+      <option value="file">
+        File
+      </option>
     </select>
   </div>
 </div>
