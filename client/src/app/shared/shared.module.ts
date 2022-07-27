@@ -32,18 +32,26 @@ import {NgxMatContextMenuTriggerModule} from '@w3soto/ngx-mat-context-menu-trigg
 import { ApiHeaderOperationComponent } from './components/api/api-header-operation/api-header-operation.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import { HttpWorkBenchComponent } from './components/api/work-bench/http-work-bench/http-work-bench.component';
-import { RequestTabsComponent } from './components/api/work-bench/http-work-bench/inner/request-tabs/request-tabs.component';
-import { FormEditorComponent } from './components/api/work-bench/http-work-bench/inner/form-editor/form-editor.component';
+import { RequestTabsComponent } from './components/api/work-bench/http-work-bench/request-tabs/request-tabs.component';
 import {AgGridModule} from 'ag-grid-angular-legacy';
-import { QueryTableComponent } from './components/api/work-bench/http-work-bench/inner/query-table/query-table.component';
-import { CloseInputCellComponent }
-  from './components/api/work-bench/http-work-bench/inner/inner/close-input-cell/close-input-cell.component';
-import { CellContentComponent } from './components/api/work-bench/http-work-bench/inner/inner/cell-content/cell-content.component';
-import { CheckBoxCellComponent } from './components/api/work-bench/http-work-bench/inner/inner/check-box-cell/check-box-cell.component';
+import { QueryTableComponent } from './components/api/work-bench/http-work-bench/request-tabs/query-table/query-table.component';
+import { CellContentComponent } from './components/api/work-bench/http-work-bench/request-tabs/inner/cell-content/cell-content.component';
 // eslint-disable-next-line max-len
-import { CheckBoxCellEditorComponent } from './components/api/work-bench/http-work-bench/inner/inner/check-box-cell-editor/check-box-cell-editor.component';
-import { CellFileTextComponent } from './components/api/work-bench/http-work-bench/inner/inner/cell-file-text/cell-file-text.component';
-import { CellFileComponent } from './components/api/work-bench/http-work-bench/inner/inner/cell-file/cell-file.component';
+import { CheckBoxCellEditorComponent } from './components/api/work-bench/http-work-bench/request-tabs/inner/check-box-cell-editor/check-box-cell-editor.component';
+import { CellFileComponent } from './components/api/work-bench/http-work-bench/request-tabs/inner/cell-file/cell-file.component';
+import { TextBodyComponent } from './components/api/work-bench/http-work-bench/request-tabs/text-body/text-body.component';
+import {
+  FormEditorComponent
+} from './components/api/work-bench/http-work-bench/request-tabs/form-editor/form-editor.component';
+import {
+  CloseInputCellComponent
+} from './components/api/work-bench/http-work-bench/request-tabs/inner/close-input-cell/close-input-cell.component';
+import {
+  CheckBoxCellComponent
+} from './components/api/work-bench/http-work-bench/request-tabs/inner/check-box-cell/check-box-cell.component';
+import {
+  CellFileTextComponent
+} from './components/api/work-bench/http-work-bench/request-tabs/inner/cell-file-text/cell-file-text.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +73,7 @@ import { CellFileComponent } from './components/api/work-bench/http-work-bench/i
     , CheckBoxCellEditorComponent
     , CellFileTextComponent
     , CellFileComponent
+    , TextBodyComponent
   ],
   imports: [
     CommonModule

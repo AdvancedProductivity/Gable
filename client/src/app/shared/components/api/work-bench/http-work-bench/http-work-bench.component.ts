@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {RequestTabsComponent} from './inner/request-tabs/request-tabs.component';
+import {RequestTabsComponent} from './request-tabs/request-tabs.component';
 
 @Component({
   selector: 'app-http-work-bench',
