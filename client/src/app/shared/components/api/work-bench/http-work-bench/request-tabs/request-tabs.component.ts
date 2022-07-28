@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {QueryTableComponent} from './query-table/query-table.component';
-import {FormEditorComponent} from "./form-editor/form-editor.component";
+import {FormEditorComponent} from './form-editor/form-editor.component';
 
 @Component({
   selector: 'app-request-tabs',

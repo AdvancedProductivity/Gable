@@ -58,6 +58,7 @@ import { BodyContainerComponent } from './components/api/work-bench/http-work-be
 import {MatRadioModule} from '@angular/material/radio';
 import { NoneBodyComponent } from './components/api/work-bench/http-work-bench/request-tabs/none-body/none-body.component';
 import { GraphQLComponent } from './components/api/work-bench/http-work-bench/request-tabs/graph-ql/graph-ql.component';
+import { ResponseTabsComponent } from './components/api/work-bench/http-work-bench/response-tabs/response-tabs.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,7 @@ import { GraphQLComponent } from './components/api/work-bench/http-work-bench/re
     , CellFileComponent
     , TextBodyComponent
     , DevelopingComponent
-    , BodyContainerComponent, NoneBodyComponent, GraphQLComponent
+    , BodyContainerComponent, NoneBodyComponent, GraphQLComponent, ResponseTabsComponent
   ],
   imports: [
     CommonModule

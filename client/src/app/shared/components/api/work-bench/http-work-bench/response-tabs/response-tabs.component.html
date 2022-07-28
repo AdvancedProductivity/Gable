@@ -1,0 +1,63 @@
+<div class="resp-container">
+  <div
+    class="tabs-container"
+  >
+    <nav
+      mat-tab-nav-bar
+      class="tabs-nav"
+      style="border-bottom: none;"
+    >
+      <a
+        *ngFor="let tab of tabs;let i = index"
+        mat-tab-link
+        class="tab select-disable"
+        [class.active] ="curTab === tab"
+        [active]="curTab === tab"
+        (click)="curTab = tab"
+      >{{ tab }}</a>
+    </nav>
+    <div class="resp-summary-container">
+      <div class="resp-text-container">
+        <div class="resp-summary">
+          <div class="resp-item">
+            <mat-icon class="icon" svgIcon="newWork"></mat-icon>
+          </div>
+          <div class="resp-item">
+            <span>Status:</span>
+            <span class="value">200 ok</span>
+          </div>
+          <div class="resp-item">
+            <span>Time:</span>
+            <span class="value">465ms</span>
+          </div>
+          <div class="resp-item">
+            <span>Size:</span>
+            <span class="value">271 B</span>
+          </div>
+        </div>
+      </div>
+      <button class="resp-btn" mat-icon-button style="" [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>dialpad</mat-icon>
+            <span>Redial</span>
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voice mail</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>notifications_off</mat-icon>
+            <span>Disable alerts</span>
+          </button>
+        </mat-menu>
+      </button>
+    </div>
+  </div>
+  <div class="body">
+    <div class="content">
+
+    </div>
+  </div>
+</div>

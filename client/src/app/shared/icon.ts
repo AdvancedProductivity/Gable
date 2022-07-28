@@ -5,6 +5,7 @@ export const iconArray = [
   , {name: 'apiSaveAs', file: 'save_api_as.svg'}
   , {name: 'api_link', file: 'api_link.svg'}
   , {name: 'closeNav', file: 'closeNav.svg'}
+  , {name: 'newWork', file: 'newWork.svg'}
   , {name: 'editApi', file: 'editApi.svg'}
 ];
 
