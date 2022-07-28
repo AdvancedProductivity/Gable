@@ -1,0 +1,58 @@
+.developing-container {
+  justify-content: center;
+  align-content: center;
+
+  .tip {
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    word-break: normal;
+    font-size: 24px;
+    color: rgb(33, 33, 33);
+    letter-spacing: -0.72px;
+  }
+
+  .come-on {
+    margin-left: 16px;
+    color: #0265D2;
+    cursor: pointer;
+    font-size: 12px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+  }
+
+  .come-on:hover {
+    opacity: .8;
+  }
+  .comment{
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif;
+    color: rgb(33, 33, 33);
+    word-break: normal;
+
+    .learn-more {
+      margin-left: 16px;
+      color: #0265D2;
+      cursor: pointer;
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+      user-select: none;
+    }
+
+    .learn-more:hover {
+      opacity: .8;
+    }
+  }
+  div {
+    text-align: center;
+  }
+}

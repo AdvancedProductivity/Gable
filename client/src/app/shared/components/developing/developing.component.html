@@ -1,0 +1,10 @@
+<div class="full-flex-column developing-container">
+  <div>
+    <span class="tip">{{'MESSAGE.DEVELOPING' | translate}}</span>
+    <span class="come-on" (click)="onComeOnClick()">{{'OPERATION.COME_ON' | translate}}</span>
+  </div>
+  <div class="comment" *ngIf="link">
+    <span>{{'MESSAGE.FEATURE_HELPER' | translate}}</span>
+    <span class="learn-more" (click)="onLearnMoreClick()">{{'OPERATION.LEARN_MORE' | translate}}</span>
+  </div>
+</div>

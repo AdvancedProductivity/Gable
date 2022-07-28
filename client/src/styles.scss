@@ -12,3 +12,16 @@ html, body {
 @import 'ag-grid-community/dist/styles/ag-grid.css';
 @import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 @import 'ag-grid-community/dist/styles/ag-theme-alpine-dark.css';
+.full-flex-row {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.full-flex-column {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}

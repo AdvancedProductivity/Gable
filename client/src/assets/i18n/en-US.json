@@ -37,6 +37,14 @@
     }
   },
   "OPERATION": {
-    "LOGIN": "Login"
+    "LOGIN": "Login",
+    "LEARN_MORE": "Learn More",
+    "COME_ON": "Come On!"
+  },
+  "MESSAGE": {
+    "DEVELOPING": "This feature is developing",
+    "I_KNOW": "Got it",
+    "THANKS_FOR_COME_ON": "Thank you for your encouragement. I will try my best!",
+    "FEATURE_HELPER": "about the planning and design of this feature"
   }
 }

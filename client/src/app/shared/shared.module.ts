@@ -52,6 +52,8 @@ import {
 import {
   CellFileTextComponent
 } from './components/api/work-bench/http-work-bench/request-tabs/inner/cell-file-text/cell-file-text.component';
+import { DevelopingComponent } from './components/developing/developing.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,7 @@ import {
     , CheckBoxCellEditorComponent
     , CellFileTextComponent
     , CellFileComponent
-    , TextBodyComponent
+    , TextBodyComponent, DevelopingComponent
   ],
   imports: [
     CommonModule
@@ -82,6 +84,7 @@ import {
     , MonacoEditorModule
     , FormsModule
     , RouterModule
+    , MatSnackBarModule
     , MatListModule
     , MatIconModule
     , MatButtonModule
@@ -109,6 +112,7 @@ import {
     , MatButtonModule
     , MatSliderModule
     , MatTreeModule
+    , MatSnackBarModule
     , MonacoEditorModule
     , ApiTreeMenuComponent
     , MatFormFieldModule
