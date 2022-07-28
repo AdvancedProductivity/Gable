@@ -9,6 +9,38 @@
   flex-direction: row;
   justify-content: left;
 
+  .beautify-btn:hover{
+    opacity: .8;
+  }
+
+  .beautify-btn {
+    line-height: 30px;
+    color: #0265D2;
+    font-weight: 550;
+    cursor: pointer;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+  }
+
+  .ophub {
+    flex: 1;
+    justify-content: space-between;
+    .body-type {
+      margin-left: 10px;
+      width: 100px;
+      position: relative;
+      padding-top: 1px;
+
+      .ng-select.custom ::ng-deep .ng-select-container {
+        min-height: 28px;
+        height: 28px;
+      }
+    }
+  }
   .radio-item {
     display: inline-block;
     height: 100%;

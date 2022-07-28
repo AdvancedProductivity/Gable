@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {TextBodyComponent} from "../text-body/text-body.component";
 
 @Component({
   selector: 'app-body-container',
@@ -6,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./body-container.component.scss']
 })
 export class BodyContainerComponent implements OnInit {
+  @ViewChild(TextBodyComponent)
+  editorBody!: TextBodyComponent;
   curTyp = 'none';
+  rawType = 'json';
   types = [
     {name: 'none', type: 'none'}
     , {name: 'form-data', type: 'form_data'}
@@ -22,6 +26,12 @@ export class BodyContainerComponent implements OnInit {
   }
 
   onTypeChange(data: any): void {
-    console.log('zzq see change', data);
+  }
+
+  onBodyChange(data: any): void {
+    this.editorBody.setBodyLang(data);
+  }
+
+  onBeautify(): void {
   }
 }

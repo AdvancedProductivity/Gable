@@ -13,14 +13,31 @@
         <div class="radio-text">{{t.name}}</div>
       </label>
     </div>
-<!--    <mat-radio-group [(ngModel)]="curTyp">-->
-<!--      <mat-radio-button *ngFor="let t of types" class="radio-item" [value]="t.type">{{t.name}}</mat-radio-button>-->
-<!--    </mat-radio-group>-->
-    <div *ngIf="curTyp === 'raw'" style="width: 100px;height: 100%;background-color: pink"></div>
+    <div *ngIf="curTyp === 'raw'" class="full-flex-row ophub">
+      <div class="body-type">
+        <ng-select
+          class="custom"
+          [clearable]="false"
+          [(ngModel)]="rawType"
+          placeholder="{{ 'PAGES.API_TEST.HEADER.ENV_SELECT' | translate }}"
+          (change)="onBodyChange($event)"
+        >
+          <ng-option [value]="'json'">JSON</ng-option>
+          <ng-option [value]="'text'">Text</ng-option>
+          <ng-option [value]="'xml'">XML</ng-option>
+          <ng-option [value]="'html'">HTML</ng-option>
+        </ng-select>
+      </div>
+      <div style="height: 100%;margin-right: 10px">
+        <span class="beautify-btn" (click)="onBeautify()">{{'MESSAGE.BEAUTIFY' | translate}}</span>
+      </div>
+    </div>
   </div>
   <mat-divider></mat-divider>
   <div class="body-content">
-    <app-none-body *ngIf="curTyp === 'none'"></app-none-body>
-    <app-text-body *ngIf="curTyp === 'raw'"></app-text-body>
+    <app-none-body [style.display]="curTyp === 'none' ? 'inline' : 'none'"></app-none-body>
+    <app-text-body #editorBody [style.display]="curTyp === 'raw' ? 'inline' : 'none'"></app-text-body>
+    <app-form-editor [style.display]="curTyp === 'form_data' ? 'inline' : 'none'"></app-form-editor>
+    <app-query-table [style.display]="curTyp === 'urlencoded' ? 'inline' : 'none'"></app-query-table>
   </div>
 </div>

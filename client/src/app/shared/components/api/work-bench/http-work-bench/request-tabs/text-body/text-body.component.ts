@@ -14,4 +14,7 @@ export class TextBodyComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  setBodyLang(language): void {
+    this.editorOptions = {...this.editorOptions, language: language};
+  }
 }
