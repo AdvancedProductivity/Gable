@@ -57,6 +57,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { BodyContainerComponent } from './components/api/work-bench/http-work-bench/request-tabs/body-container/body-container.component';
 import {MatRadioModule} from '@angular/material/radio';
 import { NoneBodyComponent } from './components/api/work-bench/http-work-bench/request-tabs/none-body/none-body.component';
+import { GraphQLComponent } from './components/api/work-bench/http-work-bench/request-tabs/graph-ql/graph-ql.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,7 @@ import { NoneBodyComponent } from './components/api/work-bench/http-work-bench/r
     , CellFileComponent
     , TextBodyComponent
     , DevelopingComponent
-    , BodyContainerComponent, NoneBodyComponent
+    , BodyContainerComponent, NoneBodyComponent, GraphQLComponent
   ],
   imports: [
     CommonModule

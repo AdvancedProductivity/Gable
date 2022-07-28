@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./text-body.component.scss']
 })
 export class TextBodyComponent implements OnInit {
-  editorOptions = {theme: 'vs-light', language: 'json'};
+  editorOptions = {
+    theme: 'vs-light', fontSize: 12, glance: false, minimap: {enabled: false},
+    lineDecorationsWidth: 1, language: 'json'
+  };
   code = '{}';
 
   constructor() { }
@@ -15,6 +18,6 @@ export class TextBodyComponent implements OnInit {
   }
 
   setBodyLang(language): void {
-    this.editorOptions = {...this.editorOptions, language: language};
+    this.editorOptions = {...this.editorOptions, language};
   }
 }

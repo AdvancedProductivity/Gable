@@ -27,7 +27,9 @@
       },
       "REQ": {
         "SELECT_FILE": "请选择文件",
-        "NONE_BODY": "这个Http 请求没有 body"
+        "NONE_BODY": "这个Http 请求没有 body",
+        "GRAPHQL_QUERY": "查询",
+        "GRAPHQL_VAR": "参数"
       }
     },
     "API_DOCUMENT": {

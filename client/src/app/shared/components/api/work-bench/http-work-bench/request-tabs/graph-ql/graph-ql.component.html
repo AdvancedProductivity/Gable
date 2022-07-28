@@ -1,0 +1,37 @@
+<div class="graph-ql-container">
+  <as-split
+    direction="horizontal"
+  >
+    <as-split-area>
+      <div class="full-flex-column">
+        <div class="text ml">
+          {{'PAGES.API_TEST.REQ.GRAPHQL_QUERY' | translate}}
+        </div>
+        <div class="editor-body con-border mr">
+          <ngx-monaco-editor
+            [options]="queryEditorOptions"
+            [(ngModel)]="query"
+          >
+          </ngx-monaco-editor>
+        </div>
+      </div>
+    </as-split-area>
+    <as-split-area
+      [minSize]="20"
+      [maxSize]="80"
+    >
+      <div class="full-flex-column">
+        <div class="text ml">
+          {{'PAGES.API_TEST.REQ.GRAPHQL_VAR' | translate}}
+        </div>
+        <div class="editor-body con-border ml">
+          <ngx-monaco-editor
+            [options]="dataEditorOptions"
+            [(ngModel)]="data"
+          >
+          </ngx-monaco-editor>
+        </div>
+      </div>
+    </as-split-area>
+  </as-split>
+</div>

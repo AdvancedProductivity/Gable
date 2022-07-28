@@ -27,7 +27,9 @@
       },
       "REQ": {
         "SELECT_FILE": "Select File",
-        "NONE_BODY": "This request does not have a body"
+        "NONE_BODY": "This request does not have a body",
+        "GRAPHQL_QUERY": "QUERY",
+        "GRAPHQL_VAR": "GRAPHQL VARIABLES"
       }
     },
     "API_DOCUMENT": {
