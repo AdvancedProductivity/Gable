@@ -60,6 +60,7 @@ import { NoneBodyComponent } from './components/api/work-bench/http-work-bench/r
 import { GraphQLComponent } from './components/api/work-bench/http-work-bench/request-tabs/graph-ql/graph-ql.component';
 import { ResponseTabsComponent } from './components/api/work-bench/http-work-bench/response-tabs/response-tabs.component';
 import { BodyTextComponent } from './components/api/work-bench/http-work-bench/response-tabs/body-text/body-text.component';
+import { BodyHtmlComponent } from './components/api/work-bench/http-work-bench/response-tabs/body-text/body-html/body-html.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,7 @@ import { BodyTextComponent } from './components/api/work-bench/http-work-bench/r
     , CellFileComponent
     , TextBodyComponent
     , DevelopingComponent
-    , BodyContainerComponent, NoneBodyComponent, GraphQLComponent, ResponseTabsComponent, BodyTextComponent
+    , BodyContainerComponent, NoneBodyComponent, GraphQLComponent, ResponseTabsComponent, BodyTextComponent, BodyHtmlComponent
   ],
   imports: [
     CommonModule

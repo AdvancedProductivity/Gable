@@ -49,6 +49,8 @@
 
     .body-text {
       flex: 1;
+      align-items: stretch;
+      position: relative;
     }
   }
 }

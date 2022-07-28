@@ -4,20 +4,27 @@
 
     <div class="body-tabs">
       <div class="left-option">
-        <div class="item" [class.selected]="showType === 'Pretty'" (click)="showType = 'Pretty'">Pretty</div>
-        <div class="item" [class.selected]="showType === 'Raw'" (click)="showType = 'Raw'">Raw</div>
-        <div class="item" [class.selected]="showType === 'Preview'" (click)="showType = 'Preview'">Preview</div>
-        <div class="item" [class.selected]="showType === 'Tablefiy'" (click)="showType = 'Tablefiy'">Tablefiy</div>
+        <div class="item select-disable" [class.selected]="showType === 'Pretty'" (click)="showType = 'Pretty'">Pretty</div>
+        <div class="item select-disable" [class.selected]="showType === 'Raw'" (click)="showType = 'Raw'">Raw</div>
+        <div class="item select-disable" [class.selected]="showType === 'Preview'" (click)="showType = 'Preview'">Preview</div>
+        <div class="item select-disable" [class.selected]="showType === 'Tablefiy'" (click)="showType = 'Tablefiy'">Tablefiy</div>
       </div>
       <div class="right-option"></div>
 
     </div>
     <div class="body-text">
-      <ngx-monaco-editor
-        [options]="editorOptions"
-        [(ngModel)]="code"
+      <div style="width: 100%;height: 100%"
+           [style.display]="showType === 'Pretty' ? 'inline' : 'none'"
       >
-      </ngx-monaco-editor>
+        <ngx-monaco-editor
+          [options]="editorOptions"
+          [(ngModel)]="code"
+        >
+        </ngx-monaco-editor>
+      </div>
+      <app-body-html
+        [style.display]="showType === 'Preview' ? 'inline' : 'none'"
+      ></app-body-html>
     </div>
   </div>
 </div>
