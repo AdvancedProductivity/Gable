@@ -20,6 +20,7 @@
   </div>
   <mat-divider></mat-divider>
   <div class="body-content">
-    <app-text-body></app-text-body>
+    <app-none-body *ngIf="curTyp === 'none'"></app-none-body>
+    <app-text-body *ngIf="curTyp === 'raw'"></app-text-body>
   </div>
 </div>

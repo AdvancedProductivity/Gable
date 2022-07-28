@@ -26,7 +26,8 @@
         "SAVE": "Save"
       },
       "REQ": {
-        "SELECT_FILE": "Select File"
+        "SELECT_FILE": "Select File",
+        "NONE_BODY": "This request does not have a body"
       }
     },
     "API_DOCUMENT": {

@@ -26,7 +26,8 @@
         "SAVE": "保存"
       },
       "REQ": {
-        "SELECT_FILE": "请选择文件"
+        "SELECT_FILE": "请选择文件",
+        "NONE_BODY": "这个Http 请求没有 body"
       }
     },
     "API_DOCUMENT": {

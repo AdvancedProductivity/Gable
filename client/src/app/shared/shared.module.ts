@@ -56,6 +56,7 @@ import { DevelopingComponent } from './components/developing/developing.componen
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { BodyContainerComponent } from './components/api/work-bench/http-work-bench/request-tabs/body-container/body-container.component';
 import {MatRadioModule} from '@angular/material/radio';
+import { NoneBodyComponent } from './components/api/work-bench/http-work-bench/request-tabs/none-body/none-body.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,7 @@ import {MatRadioModule} from '@angular/material/radio';
     , CellFileComponent
     , TextBodyComponent
     , DevelopingComponent
-    , BodyContainerComponent
+    , BodyContainerComponent, NoneBodyComponent
   ],
   imports: [
     CommonModule
