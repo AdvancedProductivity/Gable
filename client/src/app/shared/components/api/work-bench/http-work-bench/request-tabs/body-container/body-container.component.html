@@ -1,0 +1,25 @@
+<div class="full-flex-column">
+  <div class="radio-c">
+    <div>
+      <label *ngFor="let t of types" class="radio-item">
+        <div class="radio-input">
+          <input type="radio"
+                 [name]="t.name"
+                 [value]="t.type"
+                 [(ngModel)]="curTyp"
+                 (ngModelChange)="onTypeChange($event)"
+          >
+        </div>
+        <div class="radio-text">{{t.name}}</div>
+      </label>
+    </div>
+<!--    <mat-radio-group [(ngModel)]="curTyp">-->
+<!--      <mat-radio-button *ngFor="let t of types" class="radio-item" [value]="t.type">{{t.name}}</mat-radio-button>-->
+<!--    </mat-radio-group>-->
+    <div *ngIf="curTyp === 'raw'" style="width: 100px;height: 100%;background-color: pink"></div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="body-content">
+    <app-text-body></app-text-body>
+  </div>
+</div>

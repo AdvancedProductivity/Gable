@@ -54,6 +54,8 @@ import {
 } from './components/api/work-bench/http-work-bench/request-tabs/inner/cell-file-text/cell-file-text.component';
 import { DevelopingComponent } from './components/developing/developing.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { BodyContainerComponent } from './components/api/work-bench/http-work-bench/request-tabs/body-container/body-container.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     , CheckBoxCellEditorComponent
     , CellFileTextComponent
     , CellFileComponent
-    , TextBodyComponent, DevelopingComponent
+    , TextBodyComponent
+    , DevelopingComponent
+    , BodyContainerComponent
   ],
   imports: [
     CommonModule
@@ -87,6 +91,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     , MatSnackBarModule
     , MatListModule
     , MatIconModule
+    , MatRadioModule
     , MatButtonModule
     , MatRippleModule
     , MatTreeModule
@@ -113,6 +118,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     , MatSliderModule
     , MatTreeModule
     , MatSnackBarModule
+    , MatRadioModule
     , MonacoEditorModule
     , ApiTreeMenuComponent
     , MatFormFieldModule

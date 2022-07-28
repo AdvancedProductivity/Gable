@@ -1,0 +1,41 @@
+.body-content{
+  flex: 1;
+  padding: 8px;
+}
+.radio-c {
+  height: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+
+  .radio-item {
+    display: inline-block;
+    height: 100%;
+    margin-left: 10px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .radio-text {
+    height: 30px;
+    display: inline-block;
+    font-size: 15px;
+    line-height: 30px;
+    /* don't know why the loss 3px height */
+    top: -3px;
+    position: relative;
+  }
+  .radio-input {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30px;
+    height: 100%;
+  }
+
+  .radio-item:hover {
+    opacity: .8;
+    color: grey;
+  }
+}
