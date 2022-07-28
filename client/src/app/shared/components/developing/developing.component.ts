@@ -18,7 +18,9 @@ export class DevelopingComponent implements OnInit {
 
   onComeOnClick(): void {
     this.trans.get(['MESSAGE.THANKS_FOR_COME_ON','MESSAGE.I_KNOW']).subscribe(res => {
-      this.snackBar.open(res['MESSAGE.THANKS_FOR_COME_ON'], res['MESSAGE.I_KNOW']);
+      this.snackBar.open(res['MESSAGE.THANKS_FOR_COME_ON'], res['MESSAGE.I_KNOW'], {
+        duration: 5 * 1000,
+      });
     });
   }
 

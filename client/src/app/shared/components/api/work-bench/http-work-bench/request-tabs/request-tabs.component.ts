@@ -12,8 +12,8 @@ export class RequestTabsComponent implements OnInit {
   query!: QueryTableComponent;
   @ViewChild(FormEditorComponent)
   formEditor!: FormEditorComponent;
-  tabs = ['Params', 'Authorization', 'Header', 'Body', 'Pre-Script', 'Post-Script'];
-  curTab = 'Params';
+  tabs = ['Query Param', 'Header', 'Body', 'Pre-Script', 'Post-Script'];
+  curTab = 'Query Param';
   constructor() { }
 
   ngOnInit(): void {
