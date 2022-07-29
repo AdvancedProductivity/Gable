@@ -27,7 +27,17 @@
             </ng-select>
           </div>
         </div>
-        <div class="opera-container"></div>
+        <div class="opera-container">
+          <div class="icon-con">
+            <div class="icon-item" (click)="doCopy()">
+              <mat-icon class="icon" svgIcon="copyI"></mat-icon>
+            </div>
+            <div class="icon-item" (click)="toggleSearch()">
+              <mat-icon class="icon" svgIcon="searchI"></mat-icon>
+            </div>
+          </div>
+          <div class="space"></div>
+        </div>
       </div>
 
     </div>
@@ -38,6 +48,7 @@
         <ngx-monaco-editor
           [options]="editorOptions"
           [(ngModel)]="code"
+          (init)="initEditor($event)"
         >
         </ngx-monaco-editor>
       </div>

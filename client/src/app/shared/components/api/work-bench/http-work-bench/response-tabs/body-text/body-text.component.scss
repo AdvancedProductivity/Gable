@@ -49,9 +49,39 @@
         justify-content: space-between;
 
         .opera-container {
-          background-color: cadetblue;
           height: 100%;
-          width: 100px;
+          display: flex;
+          flex-direction: row;
+
+          .icon-con {
+            display: flex;
+            flex-direction: row;
+            flex: 1;
+            height: 100%;
+
+            .icon-item:hover{
+              background-color: rgb(230, 230, 230);
+              color: rgb(33, 33, 33);
+            }
+            .icon-item{
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              margin-right: 10px;
+              padding: 10px;
+              cursor: pointer;
+
+              .icon {
+                width: 16px;
+                height: 16px;
+              }
+            }
+          }
+
+          .space {
+            width: 15px;
+            height: 100%;
+          }
         }
 
         .opera-container-left {

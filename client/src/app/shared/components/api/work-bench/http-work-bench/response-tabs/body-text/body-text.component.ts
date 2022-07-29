@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MonacoStandaloneCodeEditor} from "@materia-ui/ngx-monaco-editor";
 
 @Component({
   selector: 'app-body-text',
@@ -13,6 +14,7 @@ export class BodyTextComponent implements OnInit {
   };
   code = '{}';
   showType = 'Pretty';
+  editor: MonacoStandaloneCodeEditor;
 
   constructor() {
   }
@@ -21,5 +23,21 @@ export class BodyTextComponent implements OnInit {
   }
 
   onBodyTypeChange($event: any): void {
+  }
+
+  doCopy(): void {
+  }
+
+  toggleSearch() {
+    if (this.showType !== 'Pretty' || !this.editor) {
+      return;
+    }
+    this.editor.focus();
+    this.editor.getAction('actions.find').run();
+
+  }
+
+  initEditor(e: MonacoStandaloneCodeEditor) {
+    this.editor = e;
   }
 }
