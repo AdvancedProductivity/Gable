@@ -42,8 +42,29 @@
         }
       }
       .right-option {
-        background-color: cadetblue;
+        height: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
 
+        .opera-container {
+          background-color: cadetblue;
+          height: 100%;
+          width: 100px;
+        }
+
+        .opera-container-left {
+          height: 100%;
+          width: 100px;
+          margin-left: 16px;
+
+          .ng-select.type-select ::ng-deep .ng-select-container {
+            margin-top: 2px;
+            min-height: 28px;
+            height: 28px;
+          }
+        }
       }
     }
 

@@ -9,7 +9,26 @@
         <div class="item select-disable" [class.selected]="showType === 'Preview'" (click)="showType = 'Preview'">Preview</div>
         <div class="item select-disable" [class.selected]="showType === 'Tablefiy'" (click)="showType = 'Tablefiy'">Tablefiy</div>
       </div>
-      <div class="right-option"></div>
+      <div class="right-option">
+        <div class="opera-container-left">
+          <div
+            [style.display]="showType === 'Pretty' ? 'inline' : 'none'"
+          >
+            <ng-select
+              class="type-select"
+              [clearable]="false"
+              [(ngModel)]="bodyType"
+              (change)="onBodyTypeChange($event)"
+            >
+              <ng-option [value]="'json'">JSON</ng-option>
+              <ng-option [value]="'text'">Text</ng-option>
+              <ng-option [value]="'xml'">XML</ng-option>
+              <ng-option [value]="'html'">HTML</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="opera-container"></div>
+      </div>
 
     </div>
     <div class="body-text">
