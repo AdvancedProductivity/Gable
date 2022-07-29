@@ -61,6 +61,9 @@ import { GraphQLComponent } from './components/api/work-bench/http-work-bench/re
 import { ResponseTabsComponent } from './components/api/work-bench/http-work-bench/response-tabs/response-tabs.component';
 import { BodyTextComponent } from './components/api/work-bench/http-work-bench/response-tabs/body-text/body-text.component';
 import { BodyHtmlComponent } from './components/api/work-bench/http-work-bench/response-tabs/body-text/body-html/body-html.component';
+import { ResponseCookiesComponent } from './components/api/work-bench/http-work-bench/response-cookies/response-cookies.component';
+import { ResponseHeadersComponent } from './components/api/work-bench/http-work-bench/response-headers/response-headers.component';
+import { ResponseKeyValueComponent } from './components/api/work-bench/http-work-bench/response-key-value/response-key-value.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +87,7 @@ import { BodyHtmlComponent } from './components/api/work-bench/http-work-bench/r
     , CellFileComponent
     , TextBodyComponent
     , DevelopingComponent
-    , BodyContainerComponent, NoneBodyComponent, GraphQLComponent, ResponseTabsComponent, BodyTextComponent, BodyHtmlComponent
+    , BodyContainerComponent, NoneBodyComponent, GraphQLComponent, ResponseTabsComponent, BodyTextComponent, BodyHtmlComponent, ResponseCookiesComponent, ResponseHeadersComponent, ResponseKeyValueComponent
   ],
   imports: [
     CommonModule
