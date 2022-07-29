@@ -30,6 +30,12 @@
         "NONE_BODY": "这个Http 请求没有 body",
         "GRAPHQL_QUERY": "查询",
         "GRAPHQL_VAR": "参数"
+      },
+      "RESP": {
+        "EMPTY_COOKIE_HEADER": "没有从响应中接收到 Cookie",
+        "EMPTY_HEADERS_HEADER": "没有从响应中接收到 Header",
+        "EMPTY_COOKIE_TIP": "所有收到的 cookie 都会在这里展示",
+        "EMPTY_HEADERS_TIP": "所有收到的 header 都会在这里展示"
       }
     },
     "API_DOCUMENT": {

@@ -1,0 +1,30 @@
+.resp-empty-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .tip-text {
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica, Arial, sans-serif;
+    color: rgb(107, 107, 107);
+    margin-top: 10px;
+    max-width: 80ch;
+    font-size: 12px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.6;
+  }
+
+  .tip-header{
+    margin: 0px;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    word-break: normal;
+    font-size: 16px;
+    line-height: 1.44;
+    color: rgb(33, 33, 33);
+    letter-spacing: -0.12px;
+  }
+}

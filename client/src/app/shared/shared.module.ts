@@ -61,9 +61,13 @@ import { GraphQLComponent } from './components/api/work-bench/http-work-bench/re
 import { ResponseTabsComponent } from './components/api/work-bench/http-work-bench/response-tabs/response-tabs.component';
 import { BodyTextComponent } from './components/api/work-bench/http-work-bench/response-tabs/body-text/body-text.component';
 import { BodyHtmlComponent } from './components/api/work-bench/http-work-bench/response-tabs/body-text/body-html/body-html.component';
-import { ResponseCookiesComponent } from './components/api/work-bench/http-work-bench/response-cookies/response-cookies.component';
-import { ResponseHeadersComponent } from './components/api/work-bench/http-work-bench/response-headers/response-headers.component';
-import { ResponseKeyValueComponent } from './components/api/work-bench/http-work-bench/response-key-value/response-key-value.component';
+import { EmptyResponseComponent } from './components/api/work-bench/http-work-bench/response-tabs/empty-response/empty-response.component';
+// eslint-disable-next-line max-len
+import {ResponseHeadersComponent} from './components/api/work-bench/http-work-bench/response-tabs/response-headers/response-headers.component';
+// eslint-disable-next-line max-len
+import {ResponseKeyValueComponent} from './components/api/work-bench/http-work-bench/response-tabs/response-key-value/response-key-value.component';
+// eslint-disable-next-line max-len
+import {ResponseCookiesComponent} from './components/api/work-bench/http-work-bench/response-tabs/response-cookies/response-cookies.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +91,16 @@ import { ResponseKeyValueComponent } from './components/api/work-bench/http-work
     , CellFileComponent
     , TextBodyComponent
     , DevelopingComponent
-    , BodyContainerComponent, NoneBodyComponent, GraphQLComponent, ResponseTabsComponent, BodyTextComponent, BodyHtmlComponent, ResponseCookiesComponent, ResponseHeadersComponent, ResponseKeyValueComponent
+    , BodyContainerComponent
+    , NoneBodyComponent
+    , GraphQLComponent
+    , ResponseTabsComponent
+    , BodyTextComponent
+    , BodyHtmlComponent
+    , EmptyResponseComponent
+    , ResponseHeadersComponent
+    , ResponseKeyValueComponent
+    , ResponseCookiesComponent
   ],
   imports: [
     CommonModule

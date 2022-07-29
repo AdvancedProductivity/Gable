@@ -30,6 +30,12 @@
         "NONE_BODY": "This request does not have a body",
         "GRAPHQL_QUERY": "QUERY",
         "GRAPHQL_VAR": "GRAPHQL VARIABLES"
+      },
+      "RESP": {
+        "EMPTY_COOKIE_HEADER": "No cookies received from the server",
+        "EMPTY_HEADERS_HEADER": "No headers received from the server",
+        "EMPTY_COOKIE_TIP": "All your cookies and their associated domains will appear here.",
+        "EMPTY_HEADERS_TIP": "All your headers will appear here."
       }
     },
     "API_DOCUMENT": {
