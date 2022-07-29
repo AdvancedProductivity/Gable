@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MonacoStandaloneCodeEditor} from "@materia-ui/ngx-monaco-editor";
+import {MonacoStandaloneCodeEditor} from '@materia-ui/ngx-monaco-editor';
 
 @Component({
   selector: 'app-body-text',
