@@ -9,13 +9,9 @@
     >
       <as-split-area>
         <div style="width: 100%;height: 100%;">
-          <app-api-header-operation></app-api-header-operation>
-          <mat-divider></mat-divider>
-          <div style="width: 100%;height: calc(100% - 41px);">
-            <app-http-work-bench
-              (run)="run()"
-            ></app-http-work-bench>
-          </div>
+          <app-http-work-bench
+            (run)="run()"
+          ></app-http-work-bench>
         </div>
       </as-split-area>
       <as-split-area
