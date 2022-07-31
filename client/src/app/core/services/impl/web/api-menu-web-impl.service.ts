@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {ApiMenuService} from '../../ServiceDefine';
-import {Observable, from} from 'rxjs';
+import {Observable, from, Subject, of} from 'rxjs';
 import {ApiMenuCollection, ApiMenuItem} from '../../entity/ApiMenu';
 import {db} from '../../db';
 
@@ -8,16 +8,33 @@ import {db} from '../../db';
   providedIn: 'root'
 })
 export class ApiMenuWebImplService implements ApiMenuService{
-
+  menuActions: any;
+  private subject = new Subject<any>();
+  private cache: ApiMenuCollection[];
   constructor() { }
+
+  actions(): Observable<any> {
+    return this.subject.asObservable();
+  }
 
   getMenus(): Observable<ApiMenuCollection[]> {
     return from(this.getMenu());
   }
 
+  addCollection(collectionName): Observable<void> {
+    return from(this.addCollectionToDb(collectionName));
+  }
+
+  async addCollectionToDb(name: string): Promise<any> {
+    const collectionId = await db.apiMenus.add({name, apiCount: 0, type: 'c'});
+    const collection = {id: collectionId, name, apiCount: 0, type: 'c', children: []};
+    this.cache.push(collection);
+    this.subject.next({name: 'add', data: collection});
+    return new Promise(resolve => {});
+  }
+
   async getMenu(): Promise<ApiMenuCollection[]> {
     const collections = await db.apiMenus.toArray();
-    console.log('zzq see collection array', collections);
     const allItems = await db.apiMenuItems.toArray();
     const map = new Map<number, ApiMenuItem[]>();
     allItems.forEach(item => {
@@ -36,6 +53,7 @@ export class ApiMenuWebImplService implements ApiMenuService{
         item.children = [];
       }
     });
+    this.cache = collections;
     return new Promise(resolve => {
       resolve(collections);
     });

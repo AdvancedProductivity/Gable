@@ -31,10 +31,10 @@
       <mat-tree-node
         *matTreeNodeDef="let node"
         [style.display]="node.visible ? 'inline' : 'none'"
-        (click)="onSelected(node, false)">
+        (click)="onSelected(node)">
         <!-- use a disabled button to provide padding for tree leaf -->
         <div class="menu-item"
-             [class.selected]="node.name === selectedId"
+             [class.selected]="node.id === selectedId"
              [class.bk]="node.isIn || node.operating"
              (mouseover)="node.isIn = true"
              (mouseleave)="node.isIn = false"
@@ -61,9 +61,9 @@
       <!-- This is the tree node template for expandable nodes -->
       <mat-tree-node *matTreeNodeDef="let node;when: hasChild">
         <div class="menu-item"
-             [class.selected]="node.name === selectedId"
+             [class.selected]="node.id === selectedId"
              [class.bk]="node.isIn || node.operating"
-             (click)="onSelected(node, true);"
+             (click)="onSelected(node);"
              (dblclick)="onDbClick(node)"
              (mouseover)="node.isIn = true"
              (mouseleave)="node.isIn = false"

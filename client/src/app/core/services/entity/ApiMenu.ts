@@ -1,6 +1,7 @@
 export interface ApiMenuCollection{
   id?: number;
   name: string;
+  type: string;
   apiCount?: number;
   children?: ApiMenuItem[];
 }
@@ -11,4 +12,13 @@ export interface ApiMenuItem extends ApiMenuCollection{
   type: string;
   collectionId: number;
   defineId: number;
+}
+
+export interface OpeningNavTab{
+  tabId: string;
+  id: number;
+  name: string;
+  tag: string;
+  type: string;
+  opening: boolean;
 }

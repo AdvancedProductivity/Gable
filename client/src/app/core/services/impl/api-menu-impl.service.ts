@@ -26,4 +26,20 @@ export class ApiMenuServiceImpl implements ApiMenuService{
       return this.webImpl.getMenus();
     }
   }
+
+  actions(): Observable<any> {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.actions();
+    } else {
+      return this.webImpl.actions();
+    }
+  }
+
+  addCollection(collectionName): Observable<void> {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.addCollection(collectionName);
+    } else {
+      return this.webImpl.addCollection(collectionName);
+    }
+  }
 }

@@ -3,11 +3,11 @@
     <div
       mat-tab-link
       class="na-item nav-border-right"
-      *ngFor="let link of links;let i = index"
+      *ngFor="let link of navs;let i = index"
       (mouseover)="link.isCursorIn = true"
       (mouseleave)="link.isCursorIn = false"
-      (click)="activeLink = link.name"
-      [active]="activeLink === link.name"
+      (click)="switchNav(link)"
+      [active]="link.opening"
       [ngxMatContextMenuTriggerData]="{content: link}"
       [ngxMatContextMenuTriggerFor]="context_menu"
     >
@@ -18,7 +18,7 @@
       <div  class="nat-content-space">
         <div
           class="nav-item-icon-box"
-          (click)="$event.cancelBubble=true;close(link.name)"
+          (click)="$event.cancelBubble=true;close(link)"
           *ngIf="link.isCursorIn"
         >
           <mat-icon class="nav-item-icon" svgIcon="closeNav"></mat-icon>
@@ -41,7 +41,7 @@
 
   <mat-menu #context_menu>
     <ng-template matMenuContent let-content="content">
-      <button mat-menu-item (click)="close(content.name)">
+      <button mat-menu-item (click)="close(content)">
         Close This Tab-{{content.name}}
       </button>
       <button mat-menu-item>
