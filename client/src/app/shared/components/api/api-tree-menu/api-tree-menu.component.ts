@@ -3,33 +3,9 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {debounceTime, distinctUntilChanged, Subject} from "rxjs";
+import {ApiMenuServiceImpl} from '../../../../core/services/impl/api-menu-impl.service';
+import {ApiMenuCollection} from "../../../../core/services/entity/ApiMenu";
 
-/**
- * Food data with nested structure.
- * Each node has a name and an optional list of children.
- */
-interface FoodNode {
-  name: string;
-  children?: FoodNode[];
-}
-
-const TREE_DATA: FoodNode[] = [
-  {
-    name: 'FruitFruitFruitFruitFruitFruitFruitFruitFruitFruitFruitFruitFruitFruitFrui',
-    children: [
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Fruit loops'}
-    ],
-  },
-  {
-    name: 'Vegetables',
-    children: [
-      {name: 'Broccoli'}, {name: 'Brussels sprouts'},
-      {name: 'Pumpkins'}, {name: 'Carrots'}
-    ],
-  },
-];
 
 /** Flat node with expandable and level information */
 interface ExampleFlatNode {
@@ -60,7 +36,7 @@ export class ApiTreeMenuComponent implements OnInit {
   );
 
   treeFlattener = new MatTreeFlattener(
-    (node: FoodNode, level: number) => ({
+    (node: ApiMenuCollection, level: number) => ({
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
       visible: true,
@@ -73,7 +49,7 @@ export class ApiTreeMenuComponent implements OnInit {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor() {
+  constructor(private menuService: ApiMenuServiceImpl) {
   }
 
   ngOnInit(): void {
@@ -85,16 +61,17 @@ export class ApiTreeMenuComponent implements OnInit {
           this.clearFilter();
         }
       });
-    setTimeout(() => {
-      const treeData = this.getMenus();
-      if (Array.isArray(treeData) && treeData.length === 0) {
+
+    this.menuService.getMenus().subscribe(res => {
+      console.log('zzq see get  menu', res);
+      this.dataSource.data = res;
+      if (Array.isArray(res) && res.length === 0) {
         this.empty = true;
       } else {
         this.empty = false;
       }
-      this.dataSource.data = TREE_DATA;
       this.ready.next({});
-    }, 2000);
+    });
   }
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
@@ -127,6 +104,10 @@ export class ApiTreeMenuComponent implements OnInit {
     this.treeControl.dataNodes.forEach(x => x.visible = true);
   }
 
+  addCollection(): void {
+
+  }
+
   private filterByName(term: string): void {
     const filteredItems = this.treeControl.dataNodes.filter(
       x => x.name.toLowerCase().indexOf(term.toLowerCase()) === -1
@@ -141,12 +122,5 @@ export class ApiTreeMenuComponent implements OnInit {
     visibleItems.map( x => {
       x.visible = true;
     });
-  }
-
-  private getMenus() {
-    for (let i = 0; i < 400; i++) {
-      TREE_DATA[0].children.push({name: 'idnex_' + i});
-    }
-    return TREE_DATA;
   }
 }
