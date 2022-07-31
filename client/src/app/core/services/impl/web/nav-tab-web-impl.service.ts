@@ -41,7 +41,7 @@ export class NavTabWebImplService implements NavTabService{
         if (item.opening) {
           this.lastOpening = item.tabId;
           // initial the test dashboard view
-          this.showingSubject.next({id: item.id, type: item.type});
+          this.showingSubject.next({id: item.id, type: item.type, isEditing: false});
         }
       });
     }
@@ -50,31 +50,35 @@ export class NavTabWebImplService implements NavTabService{
     });
   }
 
-  openTabs(tab: OpeningNavTab): void {
+  openTabs(tab: OpeningNavTab, created?: boolean): void {
     const key = tab.id + '_' + tab.type;
     if (this.lastOpening === key) {
       return;
     }
-    // modify the test dashboard view
-    this.showingSubject.next({id: tab.id, type: tab.type});
     if (this.lastOpening) {
       db.openingTabs.update(this.lastOpening, {opening: false});
     }
     const last = this.cacheMap.get(this.lastOpening);
     if (last) {
       last.opening = false;
-      db.openingTabs.update(this.lastOpening, {opening: false}).then(res => {});
+      db.openingTabs.update(this.lastOpening, {opening: false}).then(res => {
+      });
     }
     if (this.cacheMap.has(key)) {
       this.cacheMap.get(key).opening = true;
       this.lastOpening = key;
-      db.openingTabs.update(this.lastOpening, {opening: true}).then(res => {});
+      db.openingTabs.update(this.lastOpening, {opening: true}).then(res => {
+      });
+      // modify the test dashboard view
+      this.showingSubject.next({id: tab.id, type: tab.type, isEditing: false});
     } else {
       this.lastOpening = key;
       tab.opening = true;
       tab.tabId = key;
       this.cache.push(tab);
       db.openingTabs.add(tab, key).then(res => {
+        // modify the test dashboard view
+        this.showingSubject.next({id: tab.id, type: tab.type, isEditing: created});
         this.cacheMap.set(key, tab);
       });
     }

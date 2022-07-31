@@ -30,6 +30,7 @@ export class ApiMenuWebImplService implements ApiMenuService{
     const collectionId = await db.apiMenus.add({name, apiCount: 0, type: 'c'});
     const collection = {id: collectionId, name, apiCount: 0, type: 'c', children: []};
     this.cache.push(collection);
+    this.cacheMap.set(collectionId, collection);
     this.subject.next({name: 'add', data: collection});
     return new Promise(resolve => {});
   }
@@ -69,12 +70,14 @@ export class ApiMenuWebImplService implements ApiMenuService{
   }
 
   updateCollectionName(id: number, newName: string) {
+    console.log('zzq see updat collection name: ', id, newName);
     const oldData = this.cacheMap.get(id);
     if (oldData.name === newName) {
       return;
     }
     oldData.name = newName;
     this.subject.next({name: 'rename', data: null});
-    db.apiMenus.update(id, {name: newName}).then(res => {});
+    db.apiMenus.update(id, {name: newName}).then(res => {
+    });
   }
 }

@@ -24,11 +24,18 @@ export class CollectionWorkBenchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  setCollectionData(id: number) {
+  /**
+   * @param id collection id
+   * @param isEdit will be true while add new collection
+   * */
+  setCollectionData(id: number, isEdit: boolean = false) {
     this.menuService.getCollectionData(id).subscribe((collectionData: ApiMenuCollection) => {
       this.collectionNameCopy = collectionData.name;
       this.collectionName = collectionData.name;
       this.collectionId = collectionData.id;
+      if (isEdit) {
+        this.editCollectionName();
+      }
     });
   }
 

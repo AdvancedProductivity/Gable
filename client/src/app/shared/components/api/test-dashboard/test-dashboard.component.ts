@@ -25,7 +25,7 @@ export class TestDashboardComponent implements OnInit, OnDestroy {
     this.showingTabData = this.navTabImplService.getShowingTab().subscribe((res: DashBoardShowingMetadata) => {
       this.data = res;
       if (res.type === 'collection') {
-        this.collection.setCollectionData(res.id);
+        this.collection.setCollectionData(res.id, res.isEditing);
       }
     });
   }

@@ -40,11 +40,11 @@ export class NavTabImplService implements NavTabService{
     }
   }
 
-  openTabs(tab: OpeningNavTab): void {
+  openTabs(tab: OpeningNavTab, created?: boolean): void {
     if (this.electronService.isElectron) {
-      return this.electronImpl.openTabs(tab);
+      return this.electronImpl.openTabs(tab, created);
     }
-    return this.webImpl.openTabs(tab);
+    return this.webImpl.openTabs(tab, created);
   }
 
   closeTab(id: string): void {

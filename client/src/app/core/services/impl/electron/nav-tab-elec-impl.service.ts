@@ -18,7 +18,7 @@ export class NavTabElecImplService  implements NavTabService{
     return undefined;
   }
 
-  openTabs(tab: OpeningNavTab): void {
+  openTabs(tab: OpeningNavTab, created?: boolean): void {
   }
 
   closeTab(id: string): void {

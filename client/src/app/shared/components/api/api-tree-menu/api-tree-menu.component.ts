@@ -74,7 +74,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
     });
     this.subscription = this.menuService.actions().subscribe(res => {
       if (res.name === 'add') {
-        this.selectMenu.next({name: res.data.name, id: res.data.id, type: 'collection'});
+        this.selectMenu.next({name: res.data.name, id: res.data.id, type: 'collection', isCreated: true});
         this.dataSource.data = this.menuData;
         this.handleShowingStatus();
       }else if (res.name === 'rename') {
@@ -92,7 +92,6 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
 
 
   onSelected(node): void {
-    console.log('zzq se ', node);
     if (this.haveOperating) {
       return;
     }
@@ -100,7 +99,12 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
     if (!this.treeControl.isExpanded(node)) {
       this.treeControl.toggle(node);
     }
-    this.selectMenu.next({name: node.name, id: node.id, type: node.type === 'c' ? 'collection' : 'http'});
+    this.selectMenu.next({
+      name: node.name,
+      id: node.id,
+      type: node.type === 'c' ? 'collection' : 'http',
+      isCreated: false
+    });
   }
 
   onDbClick(node): void {

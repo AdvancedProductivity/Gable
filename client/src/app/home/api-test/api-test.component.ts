@@ -31,8 +31,7 @@ export class ApiTestComponent implements OnInit {
   }
 
   onMenuSelected(data: any) {
-    console.log('zzq see export data', data);
-    this.navTabImplService.openTabs(data);
+    this.navTabImplService.openTabs(data, data.isCreated);
     this.dashboardComponent.setData(data);
     this.nav.showLink(data.name);
   }

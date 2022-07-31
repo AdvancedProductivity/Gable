@@ -26,7 +26,6 @@ export class NavComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs = this.navTabImplService.getTabsData().subscribe(res => {
-      console.log('zzq see nav init');
       this.navs = res;
     });
   }
@@ -44,6 +43,5 @@ export class NavComponent implements OnInit, OnDestroy {
 
   switchNav(link) {
     this.navTabImplService.openTabs(link);
-    console.log('zzq see opening', link);
   }
 }

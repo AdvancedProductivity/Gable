@@ -25,5 +25,6 @@ export interface OpeningNavTab{
 
 export interface DashBoardShowingMetadata {
   id: number;
+  isEditing: boolean;
   type: string;
 }
