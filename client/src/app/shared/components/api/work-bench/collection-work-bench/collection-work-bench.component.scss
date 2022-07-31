@@ -1,15 +1,12 @@
-.container {
+.collection-bench {
   width: 100%;
-  height: 40px;
-  min-width: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  height: 100%;
 
-  .content {
+  .name-bar {
+    width: 100%;
     height: 32px;
     display: flex;
-    padding-left: 12px;
+    flex-direction: row;
 
     .left-group {
       flex: 1;
@@ -85,40 +82,5 @@
         }
       }
     }
-
-    .opera-hub {
-      display: flex;
-      flex-direction: row;
-      width: 282px;
-
-      .save-btn {
-        width: 67px;
-        margin-right: 2px;
-        background-color: #F2F2F2;
-        border-radius: 4px;
-      }
-
-      .btn-group {
-        width: 32px;
-        height: 32px;
-        line-height: 32px;
-      }
-
-      .env-select {
-        margin-left: 2px;
-        width: 170px;
-        height: 28px;
-        max-height: 28px;
-        margin-top: -2px;
-        position: relative;
-      }
-    }
   }
-}
-
-
-:host .ng-select-container {
-  color: rgba(0, 0, 0, 0.87);
-  align-items: baseline;
-  min-height: 32px;
 }

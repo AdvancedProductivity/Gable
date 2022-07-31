@@ -1,0 +1,42 @@
+<div class="dashboard">
+  <div
+    class="http"
+    [style.display]="data?.type === 'http' ? 'block': 'none'"
+  >
+    <as-split
+      direction="horizontal" [unit]="'pixel'"
+      (dragEnd)="onRightDragEnd($event)"
+    >
+      <as-split-area>
+        <div style="width: 100%;height: 100%;">
+          <app-api-header-operation></app-api-header-operation>
+          <mat-divider></mat-divider>
+          <div style="width: 100%;height: calc(100% - 41px);">
+            <app-http-work-bench
+              (run)="run()"
+            ></app-http-work-bench>
+          </div>
+        </div>
+      </as-split-area>
+      <as-split-area
+        [size]="defaultRightSize"
+        [minSize]="32"
+        [maxSize]="800"
+      >
+        <div style="width: 100%;height: 100%;">
+          <app-right-panel
+            [width]="defaultRightSize"
+            (expandPanel)="doExpandPanel()"
+            (closePanel)="doClosePanel()"
+          ></app-right-panel>
+        </div>
+      </as-split-area>
+    </as-split>
+  </div>
+  <div
+    class="collection"
+    [style.display]="data?.type === 'collection' ? 'block': 'none'"
+  >
+    <app-collection-work-bench></app-collection-work-bench>
+  </div>
+</div>

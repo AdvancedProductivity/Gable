@@ -68,6 +68,8 @@ import {ResponseHeadersComponent} from './components/api/work-bench/http-work-be
 import {ResponseKeyValueComponent} from './components/api/work-bench/http-work-bench/response-tabs/response-key-value/response-key-value.component';
 // eslint-disable-next-line max-len
 import {ResponseCookiesComponent} from './components/api/work-bench/http-work-bench/response-tabs/response-cookies/response-cookies.component';
+import { TestDashboardComponent } from './components/api/test-dashboard/test-dashboard.component';
+import { CollectionWorkBenchComponent } from './components/api/work-bench/collection-work-bench/collection-work-bench.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +102,7 @@ import {ResponseCookiesComponent} from './components/api/work-bench/http-work-be
     , EmptyResponseComponent
     , ResponseHeadersComponent
     , ResponseKeyValueComponent
-    , ResponseCookiesComponent
+    , ResponseCookiesComponent, TestDashboardComponent, CollectionWorkBenchComponent
   ],
   imports: [
     CommonModule
@@ -156,7 +158,7 @@ import {ResponseCookiesComponent} from './components/api/work-bench/http-work-be
     , ApiHeaderOperationComponent
     , NgSelectModule
     , HttpWorkBenchComponent
-    , AgGridModule
+    , AgGridModule, TestDashboardComponent
   ]
 })
 export class SharedModule {}

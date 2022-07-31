@@ -99,7 +99,7 @@ export class ApiTreeMenuComponent implements OnInit {
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
 
-  onSelected(node): void {
+  onSelected(node, isCollection: boolean): void {
     if (this.haveOperating) {
       return;
     }
@@ -107,7 +107,7 @@ export class ApiTreeMenuComponent implements OnInit {
     if (!this.treeControl.isExpanded(node)) {
       this.treeControl.toggle(node);
     }
-    this.selectMenu.next(node);
+    this.selectMenu.next({name: node.name, id: 1, type: isCollection ? 'collection' : 'http'});
   }
 
   onDbClick(node): void {

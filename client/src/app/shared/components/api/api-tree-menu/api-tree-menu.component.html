@@ -30,12 +30,11 @@
       <mat-tree-node
         *matTreeNodeDef="let node"
         [style.display]="node.visible ? 'inline' : 'none'"
-        (click)="onSelected(node)">
+        (click)="onSelected(node, false)">
         <!-- use a disabled button to provide padding for tree leaf -->
         <div class="menu-item"
              [class.selected]="node.name === selectedId"
              [class.bk]="node.isIn || node.operating"
-             (click)="onSelected(node);"
              (mouseover)="node.isIn = true"
              (mouseleave)="node.isIn = false"
         >
@@ -63,7 +62,7 @@
         <div class="menu-item"
              [class.selected]="node.name === selectedId"
              [class.bk]="node.isIn || node.operating"
-             (click)="onSelected(node);"
+             (click)="onSelected(node, true);"
              (dblclick)="onDbClick(node)"
              (mouseover)="node.isIn = true"
              (mouseleave)="node.isIn = false"

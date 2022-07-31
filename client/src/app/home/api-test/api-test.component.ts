@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {NavComponent} from '../../shared/components/api/nav/nav.component';
+import {TestDashboardComponent} from '../../shared/components/api/test-dashboard/test-dashboard.component';
 
 @Component({
   selector: 'app-api-test',
@@ -9,12 +10,11 @@ import {NavComponent} from '../../shared/components/api/nav/nav.component';
 })
 export class ApiTestComponent implements OnInit {
   @ViewChild('apiNav', {static: false}) nav: NavComponent;
-  defaultRightSize = 32;
+  @ViewChild('dashboardComponent', {static: true}) dashboardComponent: TestDashboardComponent;
 
   constructor(private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.defaultRightSize = 32;
     this.spinner.show();
   }
 
@@ -22,23 +22,13 @@ export class ApiTestComponent implements OnInit {
     this.spinner.hide();
   }
 
-  onRightDragEnd(data: any): void {
-    this.defaultRightSize = data.sizes[1];
-  }
-
-  doExpandPanel(): void {
-    this.defaultRightSize = 240;
-  }
-
-  doClosePanel(): void {
-    this.defaultRightSize = 32;
-  }
-
   addLink(): void {
     this.nav.addLink();
   }
 
   onMenuSelected(data: any) {
+    console.log('zzq see export data', data);
+    this.dashboardComponent.setData(data);
     this.nav.showLink(data.name);
   }
 }

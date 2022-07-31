@@ -1,0 +1,50 @@
+<div class="collection-bench">
+
+  <div class="name-bar">
+    <div style="width: 16px;height: 100%"></div>
+    <div
+      class="left-group"
+      (mouseover)="showIcon=true"
+      (mouseleave)="updateCollectionName()"
+    >
+      <div
+        *ngIf="showEdit"
+        class="name-input"
+      >
+        <input
+          id="collectionNameInput"
+          autofocus="autofocus"
+          onfocus="this.select()"
+          class="api-name-input"
+          (focusout)="showEdit=false"
+          (blur)="showEdit=false"
+          [(ngModel)]="collectionName"
+        />
+      </div>
+      <div
+        *ngIf="!showEdit"
+        class="info"
+      >
+        <div>
+          <a class="api">
+            {{collectionName}}
+          </a>
+        </div>
+        <div
+          class="edit-op"
+          *ngIf="showIcon"
+        >
+          <div>
+            <div
+              class="api-edit-icon-container"
+              (click)="editCollectionName()"
+            >
+              <mat-icon class="edit-op-icon" svgIcon="editApi"></mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</div>
