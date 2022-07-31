@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {NavTabService} from '../../ServiceDefine';
 import {Observable} from 'rxjs';
-import {OpeningNavTab} from '../../entity/ApiMenu';
+import {DashBoardShowingMetadata, OpeningNavTab} from '../../entity/ApiMenu';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +25,12 @@ export class NavTabElecImplService  implements NavTabService{
   }
 
   closeAllTab(): void {
+  }
+
+  getShowingTab(): Observable<DashBoardShowingMetadata> {
+    return undefined;
+  }
+
+  updateTabName(id: number, type: string, newName: string) {
   }
 }

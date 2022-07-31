@@ -4,7 +4,7 @@ import {NavTabService} from '../ServiceDefine';
 import {NavTabElecImplService} from './electron/nav-tab-elec-impl.service';
 import {NavTabWebImplService} from './web/nav-tab-web-impl.service';
 import {Observable} from 'rxjs';
-import {OpeningNavTab} from '../entity/ApiMenu';
+import {DashBoardShowingMetadata, OpeningNavTab} from '../entity/ApiMenu';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,14 @@ export class NavTabImplService implements NavTabService{
     }
   }
 
+  getShowingTab(): Observable<DashBoardShowingMetadata> {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.getShowingTab();
+    }else {
+      return this.webImpl.getShowingTab();
+    }
+  }
+
   openTabs(tab: OpeningNavTab): void {
     if (this.electronService.isElectron) {
       return this.electronImpl.openTabs(tab);
@@ -51,5 +59,12 @@ export class NavTabImplService implements NavTabService{
       return this.electronImpl.closeAllTab();
     }
     return this.webImpl.closeAllTab();
+  }
+
+  updateTabName(id: number, type: string, newName: string) {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.updateTabName(id, type, newName);
+    }
+    return this.webImpl.updateTabName(id, type, newName);
   }
 }

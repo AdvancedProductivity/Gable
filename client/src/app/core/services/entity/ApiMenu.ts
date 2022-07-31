@@ -22,3 +22,8 @@ export interface OpeningNavTab{
   type: string;
   opening: boolean;
 }
+
+export interface DashBoardShowingMetadata {
+  id: number;
+  type: string;
+}

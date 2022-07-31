@@ -42,4 +42,20 @@ export class ApiMenuServiceImpl implements ApiMenuService{
       return this.webImpl.addCollection(collectionName);
     }
   }
+
+  getCollectionData(id: number): Observable<ApiMenuCollection> {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.getCollectionData(id);
+    } else {
+      return this.webImpl.getCollectionData(id);
+    }
+  }
+
+  updateCollectionName(id: number, newName: string) {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.updateCollectionName(id, newName);
+    } else {
+      return this.webImpl.updateCollectionName(id, newName);
+    }
+  }
 }

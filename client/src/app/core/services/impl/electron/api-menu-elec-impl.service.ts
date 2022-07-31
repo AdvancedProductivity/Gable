@@ -21,4 +21,12 @@ export class ApiMenuElecImplService implements ApiMenuService{
   addCollection(collectionName): Observable<void> {
     return undefined;
   }
+
+  getCollectionData(id: number): Observable<ApiMenuCollection> {
+    return undefined;
+  }
+
+  updateCollectionName(id: number, newName: string) {
+    return undefined;
+  }
 }

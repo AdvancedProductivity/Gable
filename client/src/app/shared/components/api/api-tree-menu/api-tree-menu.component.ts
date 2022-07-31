@@ -77,6 +77,8 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
         this.selectMenu.next({name: res.data.name, id: res.data.id, type: 'collection'});
         this.dataSource.data = this.menuData;
         this.handleShowingStatus();
+      }else if (res.name === 'rename') {
+        this.dataSource.data = this.menuData;
       }
     });
   }

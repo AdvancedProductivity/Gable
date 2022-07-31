@@ -11,6 +11,7 @@ export class ApiMenuWebImplService implements ApiMenuService{
   menuActions: any;
   private subject = new Subject<any>();
   private cache: ApiMenuCollection[];
+  private cacheMap = new Map<number, ApiMenuCollection>();
   constructor() { }
 
   actions(): Observable<any> {
@@ -52,10 +53,28 @@ export class ApiMenuWebImplService implements ApiMenuService{
       } else {
         item.children = [];
       }
+      this.cacheMap.set(item.id, item);
     });
     this.cache = collections;
     return new Promise(resolve => {
       resolve(collections);
     });
+  }
+
+  getCollectionData(id: number): Observable<ApiMenuCollection> {
+    if (this.cacheMap.has(id)) {
+      return of(this.cacheMap.get(id));
+    }
+    return from(db.apiMenus.get(id));
+  }
+
+  updateCollectionName(id: number, newName: string) {
+    const oldData = this.cacheMap.get(id);
+    if (oldData.name === newName) {
+      return;
+    }
+    oldData.name = newName;
+    this.subject.next({name: 'rename', data: null});
+    db.apiMenus.update(id, {name: newName}).then(res => {});
   }
 }

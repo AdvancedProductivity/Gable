@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {NavTabService} from '../../ServiceDefine';
 import {from, Observable, of, Subject} from 'rxjs';
-import {OpeningNavTab} from '../../entity/ApiMenu';
+import {DashBoardShowingMetadata, OpeningNavTab} from '../../entity/ApiMenu';
 import {db} from '../../db';
 
 @Injectable({
@@ -12,12 +12,17 @@ export class NavTabWebImplService implements NavTabService{
   cache: OpeningNavTab[];
   cacheMap: Map<string, OpeningNavTab>;
   private subject = new Subject<OpeningNavTab[]>();
+  private showingSubject = new Subject<DashBoardShowingMetadata>();
   constructor() {
     this.cacheMap = new Map<string, OpeningNavTab>();
   }
 
   getOpeningTab(): Observable<string> {
     return of(this.lastOpening);
+  }
+
+  getShowingTab(): Observable<DashBoardShowingMetadata> {
+    return this.showingSubject.asObservable();
   }
 
   getTabsData(): Observable<OpeningNavTab[]> {
@@ -29,15 +34,14 @@ export class NavTabWebImplService implements NavTabService{
   }
 
   async getTabsDataDb(): Promise<OpeningNavTab[]> {
-    console.log('2');
     if (this.cache === undefined) {
       this.cache = await db.openingTabs.toArray();
-      console.log('zzq see get openging tabs', this.cache);
       this.cache.forEach(item => {
         this.cacheMap.set(item.tabId, item);
         if (item.opening) {
           this.lastOpening = item.tabId;
-          console.log('zzqsee last opening', this.lastOpening);
+          // initial the test dashboard view
+          this.showingSubject.next({id: item.id, type: item.type});
         }
       });
     }
@@ -48,10 +52,11 @@ export class NavTabWebImplService implements NavTabService{
 
   openTabs(tab: OpeningNavTab): void {
     const key = tab.id + '_' + tab.type;
-    console.log('handle id', key);
     if (this.lastOpening === key) {
       return;
     }
+    // modify the test dashboard view
+    this.showingSubject.next({id: tab.id, type: tab.type});
     if (this.lastOpening) {
       db.openingTabs.update(this.lastOpening, {opening: false});
     }
@@ -109,5 +114,15 @@ export class NavTabWebImplService implements NavTabService{
     this.cacheMap.clear();
     this.subject.next(this.cache);
     db.openingTabs.bulkDelete(ids);
+  }
+
+  updateTabName(id: number, type: string, newName: string) {
+    const key = id + '_' + type;
+    const oldData = this.cacheMap.get(key);
+    if (oldData && oldData.name !== newName) {
+      oldData.name = newName;
+      db.openingTabs.update(key, {name: newName}).then(res => {});
+      this.subject.next(this.cache);
+    }
   }
 }

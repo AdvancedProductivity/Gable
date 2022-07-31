@@ -5,7 +5,7 @@
     <div
       class="left-group"
       (mouseover)="showIcon=true"
-      (mouseleave)="updateCollectionName()"
+      (mouseleave)="showIcon = false"
     >
       <div
         *ngIf="showEdit"
@@ -16,8 +16,9 @@
           autofocus="autofocus"
           onfocus="this.select()"
           class="api-name-input"
-          (focusout)="showEdit=false"
-          (blur)="showEdit=false"
+          (focusout)="updateCollectionName()"
+          (blur)="updateCollectionName()"
+          (keydown.enter)="updateCollectionName()"
           [(ngModel)]="collectionName"
         />
       </div>
