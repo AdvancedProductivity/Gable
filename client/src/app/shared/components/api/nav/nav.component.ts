@@ -35,11 +35,10 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   closeAllTabs(): void {
-    this.navs = [];
+    this.navTabImplService.closeAllTab();
   }
 
   close(tab: OpeningNavTab): void {
-    console.log('zzq see close data', tab);
     this.navTabImplService.closeTab(tab.tabId);
   }
 

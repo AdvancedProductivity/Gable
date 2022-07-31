@@ -45,4 +45,11 @@ export class NavTabImplService implements NavTabService{
     }
     return this.webImpl.closeTab(id);
   }
+
+  closeAllTab(): void {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.closeAllTab();
+    }
+    return this.webImpl.closeAllTab();
+  }
 }

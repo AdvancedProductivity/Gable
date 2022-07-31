@@ -102,4 +102,12 @@ export class NavTabWebImplService implements NavTabService{
     this.subject.next(this.cache);
     db.openingTabs.delete(id).then(res => {});
   }
+
+  closeAllTab(): void {
+    const ids = this.cache.map(item => item.tabId);
+    this.cache = [];
+    this.cacheMap.clear();
+    this.subject.next(this.cache);
+    db.openingTabs.bulkDelete(ids);
+  }
 }

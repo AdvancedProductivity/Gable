@@ -23,4 +23,7 @@ export class NavTabElecImplService  implements NavTabService{
 
   closeTab(id: string): void {
   }
+
+  closeAllTab(): void {
+  }
 }

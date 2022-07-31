@@ -16,4 +16,5 @@ export interface NavTabService {
   getTabsData(): Observable<OpeningNavTab[]>;
 
   closeTab(id: string): void;
+  closeAllTab(): void;
 }
