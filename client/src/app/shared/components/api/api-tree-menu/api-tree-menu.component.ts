@@ -128,6 +128,10 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
     this.menuService.addCollection('New Collection');
   }
 
+  addHttp(id: any): void {
+    console.log('add http for id: ', id);
+  }
+
   private filterByName(term: string): void {
     const filteredItems = this.treeControl.dataNodes.filter(
       x => x.name.toLowerCase().indexOf(term.toLowerCase()) === -1
