@@ -4,7 +4,7 @@ import {NavTabService} from '../ServiceDefine';
 import {NavTabElecImplService} from './electron/nav-tab-elec-impl.service';
 import {NavTabWebImplService} from './web/nav-tab-web-impl.service';
 import {Observable} from 'rxjs';
-import {DashBoardShowingMetadata, OpeningNavTab} from '../entity/ApiMenu';
+import {DashBoardShowingMetadata, MenuSelectedEvent, OpeningNavTab} from '../entity/ApiMenu';
 
 @Injectable({
   providedIn: 'root'
@@ -40,11 +40,11 @@ export class NavTabImplService implements NavTabService{
     }
   }
 
-  openTabs(tab: OpeningNavTab | any, created?: boolean): void {
+  openTabs(tab: OpeningNavTab | any, fromMenu: boolean, created?: boolean): void {
     if (this.electronService.isElectron) {
-      return this.electronImpl.openTabs(tab, created);
+      return this.electronImpl.openTabs(tab, fromMenu, created);
     }
-    return this.webImpl.openTabs(tab, created);
+    return this.webImpl.openTabs(tab, fromMenu, created);
   }
 
   closeTab(id: string): void {
@@ -66,5 +66,12 @@ export class NavTabImplService implements NavTabService{
       return this.electronImpl.updateTabName(id, type, newName);
     }
     return this.webImpl.updateTabName(id, type, newName);
+  }
+
+  getFocusMenu(): Observable<MenuSelectedEvent> {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.getFocusMenu();
+    }
+    return this.webImpl.getFocusMenu();
   }
 }

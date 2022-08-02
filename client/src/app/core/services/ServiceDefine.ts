@@ -1,5 +1,12 @@
 import {Observable} from 'rxjs';
-import {ApiMenuCollection, ApiMenuItem, DashBoardShowingMetadata, MenuEvent, OpeningNavTab} from './entity/ApiMenu';
+import {
+  ApiMenuCollection,
+  ApiMenuItem,
+  DashBoardShowingMetadata,
+  MenuEvent,
+  MenuSelectedEvent,
+  OpeningNavTab
+} from './entity/ApiMenu';
 
 export interface ApiMenuService{
 
@@ -21,11 +28,13 @@ export interface ApiMenuService{
 }
 
 export interface NavTabService {
-  openTabs(tab: OpeningNavTab): void;
+  openTabs(tab: OpeningNavTab, fromMenu: boolean): void;
 
   getTabsData(): Observable<OpeningNavTab[]>;
 
   getShowingTab(): Observable<DashBoardShowingMetadata>;
+
+  getFocusMenu(): Observable<MenuSelectedEvent>;
 
   updateTabName(id: number, type: string, newName: string);
 

@@ -39,6 +39,6 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   switchNav(link) {
-    this.navTabImplService.openTabs(link);
+    this.navTabImplService.openTabs(link, false);
   }
 }

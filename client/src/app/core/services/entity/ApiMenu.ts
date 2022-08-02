@@ -24,11 +24,13 @@ export interface ApiMenuItem extends ApiMenuCollection{
  * */
 export interface OpeningNavTab{
   id?: number;
+  collectionId?: number;
   tabId: string;
   name: string;
   type: string;
   tag: string;
   opening: boolean;
+  isCursorIn?: boolean;
 }
 
 /**
@@ -49,4 +51,11 @@ export interface DashBoardShowingMetadata {
 export interface MenuEvent{
   name: string;
   data: any;
+}
+
+export interface MenuSelectedEvent {
+  fromMenu: boolean;
+  isCollection: boolean;
+  apiId: number;
+  collectionId: number;
 }

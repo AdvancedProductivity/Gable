@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {NavTabService} from '../../ServiceDefine';
 import {from, Observable, of, Subject} from 'rxjs';
-import {DashBoardShowingMetadata, OpeningNavTab} from '../../entity/ApiMenu';
+import {DashBoardShowingMetadata, MenuSelectedEvent, OpeningNavTab} from '../../entity/ApiMenu';
 import {db} from '../../db';
 
 @Injectable({
@@ -12,6 +12,7 @@ export class NavTabWebImplService implements NavTabService{
   cache: OpeningNavTab[];
   cacheMap: Map<string, OpeningNavTab>;
   private subject = new Subject<OpeningNavTab[]>();
+  private focusSubject = new Subject<MenuSelectedEvent>();
   private showingSubject = new Subject<DashBoardShowingMetadata>();
   constructor() {
     this.cacheMap = new Map<string, OpeningNavTab>();
@@ -23,6 +24,10 @@ export class NavTabWebImplService implements NavTabService{
 
   getShowingTab(): Observable<DashBoardShowingMetadata> {
     return this.showingSubject.asObservable();
+  }
+
+  getFocusMenu(): Observable<MenuSelectedEvent> {
+    return this.focusSubject.asObservable();
   }
 
   getTabsData(): Observable<OpeningNavTab[]> {
@@ -42,6 +47,13 @@ export class NavTabWebImplService implements NavTabService{
           this.lastOpening = item.tabId;
           // initial the test dashboard view
           this.showingSubject.next({id: item.id, type: item.type, isEditing: false});
+          const isCol = item.type === 'collection';
+          this.focusSubject.next({
+            isCollection: isCol,
+            fromMenu: false,
+            collectionId: isCol ? item.id : item.collectionId,
+            apiId: item.id}
+          );
         }
       });
     }
@@ -50,7 +62,7 @@ export class NavTabWebImplService implements NavTabService{
     });
   }
 
-  openTabs(tab: OpeningNavTab, created?: boolean): void {
+  openTabs(tab: OpeningNavTab, fromMenu: boolean, created?: boolean): void {
     const key = tab.id + '_' + tab.type;
     if (this.lastOpening === key) {
       return;
@@ -83,6 +95,13 @@ export class NavTabWebImplService implements NavTabService{
       });
     }
     this.subject.next(this.cache);
+    const isCol = tab.type === 'collection';
+    this.focusSubject.next({
+      isCollection: isCol,
+      fromMenu,
+      collectionId: isCol ? tab.id : tab.collectionId,
+      apiId: tab.id
+    });
   }
 
   closeTab(id: string): void {
@@ -101,14 +120,13 @@ export class NavTabWebImplService implements NavTabService{
     this.cache = newArr;
     if (isOpening && this.cache.length > 0) {
       if (index === 0) {
-        this.openTabs(this.cache[0]);
+        this.openTabs(this.cache[0], false);
       }else if (index >= this.cache.length) {
-        this.openTabs(this.cache[this.cache.length - 1]);
+        this.openTabs(this.cache[this.cache.length - 1], false);
       }else {
-        this.openTabs(this.cache[index - 1]);
+        this.openTabs(this.cache[index - 1], false);
       }
     }
-    this.subject.next(this.cache);
     db.openingTabs.delete(id).then(res => {});
   }
 

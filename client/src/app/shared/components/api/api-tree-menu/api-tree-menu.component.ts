@@ -1,16 +1,18 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {debounceTime, distinctUntilChanged, Subject, Subscription} from 'rxjs';
 import {ApiMenuServiceImpl} from '../../../../core/services/impl/api-menu-impl.service';
-import {ApiMenuCollection, MenuEvent} from '../../../../core/services/entity/ApiMenu';
+import {ApiMenuCollection, MenuEvent, MenuSelectedEvent} from '../../../../core/services/entity/ApiMenu';
 import {NavTabImplService} from '../../../../core/services/impl/nav-tab-impl.service';
+import {PerfectScrollbarComponent, PerfectScrollbarDirective} from "ngx-perfect-scrollbar";
 
 
 /** Flat node with expandable and level information */
 interface ExampleFlatNode {
   id: number;
+  collectionId: number;
   expandable: boolean;
   name: string;
   visible: boolean;
@@ -25,11 +27,14 @@ interface ExampleFlatNode {
 export class ApiTreeMenuComponent implements OnInit, OnDestroy {
   @Output()
   ready = new EventEmitter();
+  @ViewChild(PerfectScrollbarDirective, { static: false }) ps?: PerfectScrollbarDirective;
   subscription: Subscription;
+  focusSubscription: Subscription;
   menuData: ApiMenuCollection[];
   selectedId: number;
-  haveOperating = false;
   isSelectCollection = false;
+  focusEvent: MenuSelectedEvent;
+  haveOperating = false;
   searchText = '';
   empty = true;
   subject = new Subject<string>();
@@ -39,14 +44,19 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
   );
 
   treeFlattener = new MatTreeFlattener(
-    (node: ApiMenuCollection, level: number) => ({
-      expandable: (!!node.children && node.children.length > 0) || node.type === 'c',
-      name: node.name,
-      visible: true,
-      level,
-      id: node.id,
-      type: node.type,
-    }),
+    (node: ApiMenuCollection, level: number) => {
+      // @ts-ignore
+      const cId = node.collectionId;
+      return {
+        expandable: (!!node.children && node.children.length > 0) || node.type === 'c',
+        name: node.name,
+        visible: true,
+        level,
+        id: node.id,
+        collectionId: cId,
+        type: node.type,
+      };
+    },
     node => node.level,
     node => node.expandable,
     node => node.children,
@@ -72,9 +82,11 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
       this.menuData = res;
       this.dataSource.data = this.menuData;
       this.handleShowingStatus();
+      this.handleShowing();
       this.ready.next({});
     });
     this.subscription = this.menuService.actions().subscribe(this.menuEventHandler);
+    this.focusSubscription = this.navTabImplService.getFocusMenu().subscribe(this.handleFocusSelect);
   }
 
   ngOnDestroy(): void {
@@ -97,8 +109,9 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
     this.navTabImplService.openTabs({
       name: node.name,
       id: node.id,
+      collectionId: node.collectionId,
       type: this.isSelectCollection ? 'collection' : 'http',
-    }, false);
+    }, true, false);
   }
 
   onDbClick(node): void {
@@ -170,22 +183,102 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
     }
     if (res.name === 'add') {
       this.dataSource.data = this.menuData;
+      const newId = res.data.id;
       this.navTabImplService.openTabs({
         name: res.data.name,
-        id: res.data.id,
+        id: newId,
         type: 'collection',
-      }, true);
+      }, true, true);
       this.handleShowingStatus();
     } else if (res.name === 'rename') {
       this.dataSource.data = this.menuData;
     } else if (res.name === 'addHttp') {
       this.dataSource.data = this.menuData;
-      this.dataSource.data = this.menuData;
+      const newId = res.data.id;
       this.navTabImplService.openTabs({
         name: res.data.name,
-        id: res.data.id,
+        id: newId,
+        collectionId: res.data.collectionId,
         type: 'http',
-      }, true);
+      }, true, true);
     }
   };
+
+  private handleFocusSelect = (event: MenuSelectedEvent) => {
+    this.focusEvent = event;
+    this.handleShowing();
+  };
+
+  private handleShowing() {
+    if (!this.focusEvent || !this.menuData) {
+      console.log('ignore menu focus');
+      return;
+    }
+    this.isSelectCollection = this.focusEvent.isCollection;
+    if (this.focusEvent.isCollection) {
+      this.selectedId = this.focusEvent.apiId;
+    } else {
+      this.selectedId = this.focusEvent.apiId;
+      let node;
+      try {
+        this.treeControl.dataNodes.forEach(item => {
+          // @ts-ignore
+          if (item.type === 'c' && item.id === this.focusEvent.collectionId) {
+            node = item;
+            throw new Error();
+          }
+        });
+      } catch (e) {
+      }
+      if (node && !this.treeControl.isExpanded(node)) {
+        this.treeControl.toggle(node);
+      }
+    }
+    this.handleScroll();
+  }
+
+  /**
+   * calculate the height need to scroll.
+   * */
+  private handleScroll() {
+    if (this.focusEvent.fromMenu) {
+      console.log('ignore scroll');
+      return;
+    }
+    setTimeout(() => {
+      let index = 0;
+      try {
+        let curIsExpand = true;
+        this.treeControl.dataNodes.forEach(item => {
+          // @ts-ignore
+          const type = item.type;
+          if (type === 'c') {
+            if (this.focusEvent.isCollection) {
+              if (item.id === this.focusEvent.collectionId) {
+                throw new Error();
+              } else {
+                curIsExpand = this.treeControl.isExpanded(item);
+                index++;
+              }
+            } else {
+              curIsExpand = this.treeControl.isExpanded(item);
+              index++;
+            }
+          } else {
+            if (this.focusEvent.isCollection) {
+              if (curIsExpand) {
+                index++;
+              }
+            } else {
+              if (curIsExpand && item.id === this.focusEvent.apiId) {
+                throw new Error();
+              }
+            }
+          }
+        });
+      } catch (e) {
+      }
+      this.ps.scrollToY(index * 40);
+    }, 20);
+  }
 }

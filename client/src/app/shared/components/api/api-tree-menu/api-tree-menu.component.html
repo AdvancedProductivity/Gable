@@ -20,81 +20,83 @@
       <mat-icon style="width: 40px;height: 40px" svgIcon="menu-add"></mat-icon>
     </button>
   </div>
-  <perfect-scrollbar class="tree-container">
-    <app-empty-tree *ngIf="empty"></app-empty-tree>
-    <mat-tree
-      *ngIf="!empty"
-      [dataSource]="dataSource"
-      [treeControl]="treeControl"
-    >
-      <!-- This is the tree node template for leaf nodes -->
-      <mat-tree-node
-        *matTreeNodeDef="let node"
-        [style.display]="node.visible ? 'inline' : 'none'"
-        (click)="onSelected(node)">
-        <!-- use a disabled button to provide padding for tree leaf -->
-        <div class="menu-item"
-             [class.selected]="!isSelectCollection && node.id === selectedId"
-             [class.bk]="node.isIn || node.operating"
-             (mouseover)="node.isIn = true"
-             (mouseleave)="node.isIn = false"
-        >
-          <button mat-icon-button disabled></button>
-          <div
-            style="height: 100%;flex: 1"
-            class="menu_ellipsis"
+  <div class="tree-container">
+    <div [perfectScrollbar] #ps class="tree-con">
+      <app-empty-tree *ngIf="empty"></app-empty-tree>
+      <mat-tree
+        *ngIf="!empty"
+        [dataSource]="dataSource"
+        [treeControl]="treeControl"
+      >
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node
+          *matTreeNodeDef="let node"
+          [style.display]="node.visible ? 'inline' : 'none'"
+          (click)="onSelected(node)">
+          <!-- use a disabled button to provide padding for tree leaf -->
+          <div class="menu-item"
+               [class.gable-menu-selected]="!isSelectCollection && node.id === selectedId"
+               [class.bk]="node.isIn || node.operating"
+               (mouseover)="node.isIn = true"
+               (mouseleave)="node.isIn = false"
           >
-            <span>{{ node.name }}</span>
+            <button mat-icon-button disabled></button>
+            <div
+              style="height: 100%;flex: 1"
+              class="menu_ellipsis"
+            >
+              <span>{{ node.name }}</span>
+            </div>
+            <button
+              mat-icon-button
+              *ngIf="node.isIn || node.operating"
+              [matMenuTriggerFor]="leafMenu"
+              (onMenuOpen)="node.operating = true;haveOperating=true"
+              (onMenuClose)="node.operating = false;haveOperating=false"
+              [matMenuTriggerData]="node"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
           </div>
-          <button
-            mat-icon-button
-            *ngIf="node.isIn || node.operating"
-            [matMenuTriggerFor]="leafMenu"
-            (onMenuOpen)="node.operating = true;haveOperating=true"
-            (onMenuClose)="node.operating = false;haveOperating=false"
-            [matMenuTriggerData]="node"
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild">
+          <div class="menu-item"
+               [class.gable-menu-selected]="isSelectCollection && node.id === selectedId"
+               [class.bk]="node.isIn || node.operating"
+               (click)="onSelected(node);"
+               (dblclick)="onDbClick(node)"
+               (mouseover)="node.isIn = true"
+               (mouseleave)="node.isIn = false"
           >
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </div>
-      </mat-tree-node>
-      <!-- This is the tree node template for expandable nodes -->
-      <mat-tree-node *matTreeNodeDef="let node;when: hasChild">
-        <div class="menu-item"
-             [class.selected]="isSelectCollection && node.id === selectedId"
-             [class.bk]="node.isIn || node.operating"
-             (click)="onSelected(node);"
-             (dblclick)="onDbClick(node)"
-             (mouseover)="node.isIn = true"
-             (mouseleave)="node.isIn = false"
-        >
-          <button mat-icon-button matTreeNodeToggle
-                  [attr.aria-label]="'Toggle ' + node.name">
-            <mat-icon class="mat-icon-rtl-mirror">
-              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-            </mat-icon>
-          </button>
-          <div
-            style="height: 100%;flex: 1"
-            class="menu_ellipsis"
-          >
-            <span>{{ node.name }}</span>
+            <button mat-icon-button matTreeNodeToggle
+                    [attr.aria-label]="'Toggle ' + node.name">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+            <div
+              style="height: 100%;flex: 1"
+              class="menu_ellipsis"
+            >
+              <span>{{ node.name }}</span>
+            </div>
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="groupMenu"
+              *ngIf="node.isIn || node.operating"
+              (onMenuOpen)="node.operating = true;haveOperating=true"
+              (onMenuClose)="node.operating = false;haveOperating=false"
+              [matMenuTriggerData]="node"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
           </div>
-          <button
-            mat-icon-button
-            [matMenuTriggerFor]="groupMenu"
-            *ngIf="node.isIn || node.operating"
-            (onMenuOpen)="node.operating = true;haveOperating=true"
-            (onMenuClose)="node.operating = false;haveOperating=false"
-            [matMenuTriggerData]="node"
-          >
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </div>
-      </mat-tree-node>
-    </mat-tree>
+        </mat-tree-node>
+      </mat-tree>
 
-  </perfect-scrollbar>
+    </div>
+  </div>
   <mat-menu #groupMenu="matMenu">
     <ng-template matMenuContent let-name="name" let-id="id">
       <button mat-menu-item (click)="addHttp(id)">

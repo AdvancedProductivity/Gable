@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {NavTabService} from '../../ServiceDefine';
 import {Observable} from 'rxjs';
-import {DashBoardShowingMetadata, OpeningNavTab} from '../../entity/ApiMenu';
+import {DashBoardShowingMetadata, MenuSelectedEvent, OpeningNavTab} from '../../entity/ApiMenu';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class NavTabElecImplService  implements NavTabService{
     return undefined;
   }
 
-  openTabs(tab: OpeningNavTab, created?: boolean): void {
+  openTabs(tab: OpeningNavTab, fromMenu: boolean, created?: boolean): void {
   }
 
   closeTab(id: string): void {
@@ -32,5 +32,9 @@ export class NavTabElecImplService  implements NavTabService{
   }
 
   updateTabName(id: number, type: string, newName: string) {
+  }
+
+  getFocusMenu(): Observable<MenuSelectedEvent> {
+    return undefined;
   }
 }
