@@ -11,13 +11,12 @@
     </ngx-spinner>
     <app-api-tree-menu
       (ready)="onMenuReady($event)"
-      (selectMenu)="onMenuSelected($event)"
     >
     </app-api-tree-menu>
   </div>
   <mat-divider vertical></mat-divider>
   <div class="right">
-    <app-api-nav #apiNav></app-api-nav>
+    <app-api-nav></app-api-nav>
     <mat-divider></mat-divider>
     <div class="main-test">
       <app-test-dashboard #dashboardComponent></app-test-dashboard>

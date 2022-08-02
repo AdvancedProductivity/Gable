@@ -30,9 +30,6 @@ export class NavComponent implements OnInit, OnDestroy {
     });
   }
 
-  showLink(l: string) {
-  }
-
   closeAllTabs(): void {
     this.navTabImplService.closeAllTab();
   }

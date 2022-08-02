@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ApiMenuService} from '../../ServiceDefine';
 import {Observable, from, Subject, of} from 'rxjs';
-import {ApiMenuCollection, ApiMenuItem} from '../../entity/ApiMenu';
+import {ApiMenuCollection, ApiMenuItem, MenuEvent} from '../../entity/ApiMenu';
 import {db} from '../../db';
 
 @Injectable({
@@ -9,13 +9,13 @@ import {db} from '../../db';
 })
 export class ApiMenuWebImplService implements ApiMenuService{
   menuActions: any;
-  private subject = new Subject<any>();
+  private menuActionListener = new Subject<MenuEvent>();
   private cache: ApiMenuCollection[];
   private cacheMap = new Map<number, ApiMenuCollection>();
   constructor() { }
 
-  actions(): Observable<any> {
-    return this.subject.asObservable();
+  actions(): Observable<MenuEvent> {
+    return this.menuActionListener.asObservable();
   }
 
   getMenus(): Observable<ApiMenuCollection[]> {
@@ -31,7 +31,7 @@ export class ApiMenuWebImplService implements ApiMenuService{
     const collection = {id: collectionId, name, apiCount: 0, type: 'c', children: []};
     this.cache.push(collection);
     this.cacheMap.set(collectionId, collection);
-    this.subject.next({name: 'add', data: collection});
+    this.menuActionListener.next({name: 'add', data: collection});
     return new Promise(resolve => {});
   }
 
@@ -70,13 +70,12 @@ export class ApiMenuWebImplService implements ApiMenuService{
   }
 
   updateCollectionName(id: number, newName: string) {
-    console.log('zzq see updat collection name: ', id, newName);
     const oldData = this.cacheMap.get(id);
     if (oldData.name === newName) {
       return;
     }
     oldData.name = newName;
-    this.subject.next({name: 'rename', data: null});
+    this.menuActionListener.next({name: 'rename', data: null});
     db.apiMenus.update(id, {name: newName}).then(res => {
     });
   }

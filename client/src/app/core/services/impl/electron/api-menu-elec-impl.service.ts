@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {ApiMenuService} from '../../ServiceDefine';
-import {ApiMenuCollection} from '../../entity/ApiMenu';
+import {ApiMenuCollection, MenuEvent} from '../../entity/ApiMenu';
 import {Observable, Subject} from 'rxjs';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class ApiMenuElecImplService implements ApiMenuService{
   private subject = new Subject<any>();
   constructor() { }
 
-  actions(): Observable<any> {
+  actions(): Observable<MenuEvent> {
     return this.subject.asObservable();
   }
 

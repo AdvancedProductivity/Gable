@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {NavComponent} from '../../shared/components/api/nav/nav.component';
 import {TestDashboardComponent} from '../../shared/components/api/test-dashboard/test-dashboard.component';
 import {NavTabImplService} from '../../core/services/impl/nav-tab-impl.service';
 
@@ -10,7 +9,6 @@ import {NavTabImplService} from '../../core/services/impl/nav-tab-impl.service';
   styleUrls: ['./api-test.component.scss']
 })
 export class ApiTestComponent implements OnInit {
-  @ViewChild('apiNav', {static: false}) nav: NavComponent;
   @ViewChild('dashboardComponent', {static: true}) dashboardComponent: TestDashboardComponent;
 
   constructor(
@@ -26,13 +24,14 @@ export class ApiTestComponent implements OnInit {
     this.spinner.hide();
   }
 
-  addLink(): void {
-    // this.nav.addLink();
-  }
-
-  onMenuSelected(data: any) {
-    this.navTabImplService.openTabs(data, data.isCreated);
-    this.dashboardComponent.setData(data);
-    this.nav.showLink(data.name);
-  }
+  // onMenuSelected(data: NavChangeEvent) {
+  //   let openTab: OpeningNavTab;
+  //
+  //   const da = {
+  //     name: data.name,
+  //     type: data.type,
+  //     id: data.id,
+  //   };
+  //   this.navTabImplService.openTabs(openTab, data.isCreated);
+  // }
 }

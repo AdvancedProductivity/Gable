@@ -4,7 +4,8 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {debounceTime, distinctUntilChanged, Subject, Subscription} from 'rxjs';
 import {ApiMenuServiceImpl} from '../../../../core/services/impl/api-menu-impl.service';
-import {ApiMenuCollection} from '../../../../core/services/entity/ApiMenu';
+import {ApiMenuCollection, MenuEvent} from '../../../../core/services/entity/ApiMenu';
+import {NavTabImplService} from '../../../../core/services/impl/nav-tab-impl.service';
 
 
 /** Flat node with expandable and level information */
@@ -22,8 +23,6 @@ interface ExampleFlatNode {
   styleUrls: ['./api-tree-menu.component.scss']
 })
 export class ApiTreeMenuComponent implements OnInit, OnDestroy {
-  @Output()
-  selectMenu = new EventEmitter();
   @Output()
   ready = new EventEmitter();
   subscription: Subscription;
@@ -54,7 +53,9 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor(private menuService: ApiMenuServiceImpl) {
+  constructor(
+    private menuService: ApiMenuServiceImpl,
+    private navTabImplService: NavTabImplService) {
   }
 
   ngOnInit(): void {
@@ -72,15 +73,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
       this.handleShowingStatus();
       this.ready.next({});
     });
-    this.subscription = this.menuService.actions().subscribe(res => {
-      if (res.name === 'add') {
-        this.selectMenu.next({name: res.data.name, id: res.data.id, type: 'collection', isCreated: true});
-        this.dataSource.data = this.menuData;
-        this.handleShowingStatus();
-      }else if (res.name === 'rename') {
-        this.dataSource.data = this.menuData;
-      }
-    });
+    this.subscription = this.menuService.actions().subscribe(this.menuEventHandler);
   }
 
   ngOnDestroy(): void {
@@ -99,12 +92,11 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
     if (!this.treeControl.isExpanded(node)) {
       this.treeControl.toggle(node);
     }
-    this.selectMenu.next({
+    this.navTabImplService.openTabs({
       name: node.name,
       id: node.id,
       type: node.type === 'c' ? 'collection' : 'http',
-      isCreated: false
-    });
+    }, false);
   }
 
   onDbClick(node): void {
@@ -124,12 +116,15 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
     this.treeControl.dataNodes.forEach(x => x.visible = true);
   }
 
+  /**
+   * add collection menu
+   *
+   * the status flow
+   * treeMenu -> menuService -> menuActionListener send add event -> treeMenu ReRender
+   * -> NavTabImplService open tabs
+   * */
   addCollection(): void {
     this.menuService.addCollection('New Collection');
-  }
-
-  addHttp(id: any): void {
-    console.log('add http for id: ', id);
   }
 
   private filterByName(term: string): void {
@@ -155,4 +150,18 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
       this.empty = false;
     }
   }
+
+  private menuEventHandler = (res: MenuEvent) => {
+    if (res.name === 'add') {
+      this.dataSource.data = this.menuData;
+      this.navTabImplService.openTabs({
+        name: res.data.name,
+        id: res.data.id,
+        type: 'collection',
+      }, true);
+      this.handleShowingStatus();
+    } else if (res.name === 'rename') {
+      this.dataSource.data = this.menuData;
+    }
+  };
 }

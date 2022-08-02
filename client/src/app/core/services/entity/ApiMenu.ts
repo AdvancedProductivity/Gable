@@ -18,8 +18,8 @@ export interface OpeningNavTab{
   tabId: string;
   id: number;
   name: string;
-  tag: string;
   type: string;
+  tag: string;
   opening: boolean;
 }
 
@@ -27,4 +27,9 @@ export interface DashBoardShowingMetadata {
   id: number;
   isEditing: boolean;
   type: string;
+}
+
+export interface MenuEvent{
+  name: string;
+  data: any;
 }

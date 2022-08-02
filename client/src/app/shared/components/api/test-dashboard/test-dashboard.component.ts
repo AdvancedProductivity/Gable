@@ -50,8 +50,4 @@ export class TestDashboardComponent implements OnInit, OnDestroy {
 
   run(): void {
   }
-
-  setData(data: any) {
-    this.data = data;
-  }
 }
