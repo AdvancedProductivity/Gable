@@ -29,6 +29,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
   menuData: ApiMenuCollection[];
   selectedId: number;
   haveOperating = false;
+  isSelectCollection = false;
   searchText = '';
   empty = true;
   subject = new Subject<string>();
@@ -92,10 +93,11 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
     if (!this.treeControl.isExpanded(node)) {
       this.treeControl.toggle(node);
     }
+    this.isSelectCollection = node.type === 'c';
     this.navTabImplService.openTabs({
       name: node.name,
       id: node.id,
-      type: node.type === 'c' ? 'collection' : 'http',
+      type: this.isSelectCollection ? 'collection' : 'http',
     }, false);
   }
 
