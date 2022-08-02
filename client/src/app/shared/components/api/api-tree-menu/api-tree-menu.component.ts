@@ -6,7 +6,7 @@ import {debounceTime, distinctUntilChanged, Subject, Subscription} from 'rxjs';
 import {ApiMenuServiceImpl} from '../../../../core/services/impl/api-menu-impl.service';
 import {ApiMenuCollection, MenuEvent, MenuSelectedEvent} from '../../../../core/services/entity/ApiMenu';
 import {NavTabImplService} from '../../../../core/services/impl/nav-tab-impl.service';
-import {PerfectScrollbarComponent, PerfectScrollbarDirective} from "ngx-perfect-scrollbar";
+import {PerfectScrollbarDirective} from 'ngx-perfect-scrollbar';
 
 
 /** Flat node with expandable and level information */
@@ -82,7 +82,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
       this.menuData = res;
       this.dataSource.data = this.menuData;
       this.handleShowingStatus();
-      this.handleShowing();
+      this.handleExpandAndScroll();
       this.ready.next({});
     });
     this.subscription = this.menuService.actions().subscribe(this.menuEventHandler);
@@ -192,6 +192,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
       this.handleShowingStatus();
     } else if (res.name === 'rename') {
       this.dataSource.data = this.menuData;
+      this.handleExpandAndScroll();
     } else if (res.name === 'addHttp') {
       this.dataSource.data = this.menuData;
       const newId = res.data.id;
@@ -206,10 +207,10 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
 
   private handleFocusSelect = (event: MenuSelectedEvent) => {
     this.focusEvent = event;
-    this.handleShowing();
+    this.handleExpandAndScroll();
   };
 
-  private handleShowing() {
+  private handleExpandAndScroll() {
     if (!this.focusEvent || !this.menuData) {
       console.log('ignore menu focus');
       return;
