@@ -14,6 +14,7 @@ export class ApiHeaderOperationComponent implements OnInit {
   collectionId: number;
   showIcon = false;
   showEdit = false;
+  collectionName = '';
   apiName = '';
   apiNameCopy = '';
 
@@ -27,6 +28,9 @@ export class ApiHeaderOperationComponent implements OnInit {
   }
 
   setInitStatus(id: number, collectionId: number, name: string, isEdit: boolean) {
+    this.menuService.getCollectionName(collectionId).subscribe(res => {
+      this.collectionName = res;
+    });
     this.apiId = id;
     this.apiName = name;
     this.collectionId = collectionId;

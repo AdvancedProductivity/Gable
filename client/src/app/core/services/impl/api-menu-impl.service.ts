@@ -88,4 +88,12 @@ export class ApiMenuServiceImpl implements ApiMenuService{
       return this.webImpl.updateApiName(id, collectionId, newName);
     }
   }
+
+  getCollectionName(collectionId): Observable<string> {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.getCollectionName(collectionId);
+    } else {
+      return this.webImpl.getCollectionName(collectionId);
+    }
+  }
 }

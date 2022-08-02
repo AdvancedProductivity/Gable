@@ -38,6 +38,10 @@ export class ApiMenuElecImplService implements ApiMenuService{
     return undefined;
   }
 
+  getCollectionName(id: number): Observable<string> {
+    return undefined;
+  }
+
   updateApiName(id: number, collectionId: number, newName: string) {
   }
 }

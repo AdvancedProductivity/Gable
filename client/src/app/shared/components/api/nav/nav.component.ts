@@ -18,12 +18,6 @@ export class NavComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnDestroy(): void {
-    if (!this.subs) {
-      this.subs.unsubscribe();
-    }
-  }
-
   ngOnInit(): void {
     this.subs = this.navTabImplService.getTabsData().subscribe(res => {
       this.navs = res;
@@ -40,5 +34,11 @@ export class NavComponent implements OnInit, OnDestroy {
 
   switchNav(link) {
     this.navTabImplService.openTabs(link, false);
+  }
+
+  ngOnDestroy(): void {
+    if (!this.subs) {
+      this.subs.unsubscribe();
+    }
   }
 }

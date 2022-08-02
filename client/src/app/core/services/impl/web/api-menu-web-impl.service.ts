@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ApiMenuService} from '../../ServiceDefine';
-import {from, Observable, of, Subject} from 'rxjs';
+import {from, map, Observable, of, Subject} from 'rxjs';
 import {ApiMenuCollection, ApiMenuItem, MenuEvent} from '../../entity/ApiMenu';
 import {db} from '../../db';
 
@@ -64,19 +64,19 @@ export class ApiMenuWebImplService implements ApiMenuService{
   async getMenu(): Promise<ApiMenuCollection[]> {
     const collections = await db.apiMenus.toArray();
     const allItems = await db.apiMenuItems.toArray();
-    const map = new Map<number, ApiMenuItem[]>();
+    const collectionMap = new Map<number, ApiMenuItem[]>();
     allItems.forEach(item => {
-      if (map.has(item.collectionId)) {
-        map.get(item.collectionId).push(item);
+      if (collectionMap.has(item.collectionId)) {
+        collectionMap.get(item.collectionId).push(item);
       }else {
         const arr = [];
         arr.push(item);
-        map.set(item.collectionId, arr);
+        collectionMap.set(item.collectionId, arr);
       }
     });
     collections.forEach(item => {
-      if (map.has(item.id)) {
-        item.children = map.get(item.id);
+      if (collectionMap.has(item.id)) {
+        item.children = collectionMap.get(item.id);
       } else {
         item.children = [];
       }
@@ -131,5 +131,14 @@ export class ApiMenuWebImplService implements ApiMenuService{
     this.menuActionListener.next({name: 'rename', data: null});
     db.apiMenuItems.update(id, {name: newName}).then(res => {
     });
+  }
+
+  getCollectionName(id: number): Observable<string> {
+    if (this.cacheMap.has(id)) {
+      return of(this.cacheMap.get(id).name);
+    }
+    return from(db.apiMenus.get(id)).pipe(
+      map(item => item.name)
+    );
   }
 }
