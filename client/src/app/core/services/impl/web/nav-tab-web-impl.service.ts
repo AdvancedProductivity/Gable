@@ -118,6 +118,7 @@ export class NavTabWebImplService implements NavTabService{
       }
     });
     this.cache = newArr;
+    this.subject.next(this.cache);
     if (isOpening && this.cache.length > 0) {
       if (index === 0) {
         this.openTabs(this.cache[0], false);
