@@ -15,8 +15,9 @@
           autofocus="autofocus"
           onfocus="this.select()"
           class="api-name-input"
-          (focusout)="showEdit=false"
-          (blur)="showEdit=false"
+          (keydown.enter)="updateApiName()"
+          (focusout)="updateApiName()"
+          (blur)="updateApiName()"
           [(ngModel)]="apiName"
         />
       </div>

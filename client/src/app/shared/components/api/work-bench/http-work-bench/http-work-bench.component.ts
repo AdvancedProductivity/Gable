@@ -26,7 +26,7 @@ export class HttpWorkBenchComponent implements OnInit {
 
   setApiData(id: number, isEdit: boolean = false) {
     this.menuService.getApiData(id).subscribe((api: ApiMenuItem) => {
-      this.header.setInitStatus(api.id, api.name, isEdit);
+      this.header.setInitStatus(api.id, api.collectionId, api.name, isEdit);
     });
   }
 

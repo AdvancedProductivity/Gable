@@ -55,7 +55,6 @@ export class ApiMenuWebImplService implements ApiMenuService{
     };
     apiData.id = await db.apiMenuItems.add(apiData);
     const collectionData = this.cacheMap.get(collectionId);
-    console.log('http api add to ', collectionData);
     collectionData.children.push(apiData);
     this.menuActionListener.next({name: 'addHttp', data: apiData});
     return new Promise(resolve => {
@@ -108,6 +107,29 @@ export class ApiMenuWebImplService implements ApiMenuService{
     oldData.name = newName;
     this.menuActionListener.next({name: 'rename', data: null});
     db.apiMenus.update(id, {name: newName}).then(res => {
+    });
+  }
+
+  updateApiName(id: number, collectionId: number, newName: string) {
+    const oldData = this.cacheMap.get(collectionId);
+    if (!oldData) {
+      return;
+    }
+    let waitForRename;
+    oldData.children.forEach(item => {
+      if (item.id === id) {
+        waitForRename = item;
+      }
+    });
+    if (!waitForRename) {
+      return;
+    }
+    if (waitForRename.name === newName) {
+      return;
+    }
+    waitForRename.name = newName;
+    this.menuActionListener.next({name: 'rename', data: null});
+    db.apiMenuItems.update(id, {name: newName}).then(res => {
     });
   }
 }

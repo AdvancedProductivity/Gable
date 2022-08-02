@@ -16,6 +16,8 @@ export interface ApiMenuService{
   addHttp(apiName: string, collectionId: number): Observable<void>;
 
   updateCollectionName(id: number, newName: string);
+
+  updateApiName(id: number, collectionId: number, newName: string);
 }
 
 export interface NavTabService {

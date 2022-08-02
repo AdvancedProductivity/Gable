@@ -165,6 +165,9 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
   }
 
   private menuEventHandler = (res: MenuEvent) => {
+    if (this.haveOperating) {
+      this.haveOperating = false;
+    }
     if (res.name === 'add') {
       this.dataSource.data = this.menuData;
       this.navTabImplService.openTabs({

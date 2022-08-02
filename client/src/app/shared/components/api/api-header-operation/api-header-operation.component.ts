@@ -1,4 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {ApiMenuServiceImpl} from "../../../../core/services/impl/api-menu-impl.service";
+import {NavTabImplService} from "../../../../core/services/impl/nav-tab-impl.service";
 
 @Component({
   selector: 'app-api-header-operation',
@@ -8,19 +10,27 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 export class ApiHeaderOperationComponent implements OnInit {
   @ViewChild('apiNameInput', {static: false})
   input: HTMLElement;
-
+  apiId: number;
+  collectionId: number;
   showIcon = false;
   showEdit = false;
-  apiName = '查询列表';
+  apiName = '';
+  apiNameCopy = '';
 
-  constructor() {
+  constructor(
+    private menuService: ApiMenuServiceImpl,
+    private navTabImplService: NavTabImplService
+  ) {
   }
 
   ngOnInit(): void {
   }
 
-  setInitStatus(id: number, name: string, isEdit: boolean) {
+  setInitStatus(id: number, collectionId: number, name: string, isEdit: boolean) {
+    this.apiId = id;
     this.apiName = name;
+    this.collectionId = collectionId;
+    this.apiNameCopy = name;
     if (isEdit) {
       this.editName();
     }
@@ -52,5 +62,18 @@ export class ApiHeaderOperationComponent implements OnInit {
   }
 
   copyLink(): void {
+  }
+
+  updateApiName() {
+    this.showEdit = false;
+    if (!this.apiName) {
+      this.apiName = this.apiNameCopy;
+      return;
+    }
+    this.apiNameCopy = this.apiName;
+    // update tree‘s name
+    this.menuService.updateApiName(this.apiId, this.collectionId, this.apiName);
+    // update tab's name
+    this.navTabImplService.updateTabName(this.apiId, 'http', this.apiName);
   }
 }
