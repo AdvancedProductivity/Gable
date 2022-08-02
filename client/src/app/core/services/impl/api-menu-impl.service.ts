@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ApiMenuCollection} from '../entity/ApiMenu';
+import {ApiMenuCollection, ApiMenuItem} from '../entity/ApiMenu';
 import {Observable} from 'rxjs';
 import {ElectronService} from '../electron/electron.service';
 import {ApiMenuWebImplService} from './web/api-menu-web-impl.service';
@@ -35,6 +35,9 @@ export class ApiMenuServiceImpl implements ApiMenuService{
     }
   }
 
+  /**
+   * add collection. this is a menu which can expand
+   * */
   addCollection(collectionName): Observable<void> {
     if (this.electronService.isElectron) {
       return this.electronImpl.addCollection(collectionName);
@@ -43,11 +46,30 @@ export class ApiMenuServiceImpl implements ApiMenuService{
     }
   }
 
+  /**
+   * add http api. this is a menu which is leaf
+   * */
+  addHttp(apiName: string, collectionId: number): Observable<void> {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.addHttp(apiName, collectionId);
+    } else {
+      return this.webImpl.addHttp(apiName, collectionId);
+    }
+  }
+
   getCollectionData(id: number): Observable<ApiMenuCollection> {
     if (this.electronService.isElectron) {
       return this.electronImpl.getCollectionData(id);
     } else {
       return this.webImpl.getCollectionData(id);
+    }
+  }
+
+  getApiData(id: number): Observable<ApiMenuItem> {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.getApiData(id);
+    } else {
+      return this.webImpl.getApiData(id);
     }
   }
 

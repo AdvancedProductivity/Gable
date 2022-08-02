@@ -1,5 +1,8 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {RequestTabsComponent} from './request-tabs/request-tabs.component';
+import {ApiMenuServiceImpl} from "../../../../../core/services/impl/api-menu-impl.service";
+import {ApiMenuCollection, ApiMenuItem} from "../../../../../core/services/entity/ApiMenu";
+import {ApiHeaderOperationComponent} from "../../api-header-operation/api-header-operation.component";
 
 @Component({
   selector: 'app-http-work-bench',
@@ -9,12 +12,22 @@ import {RequestTabsComponent} from './request-tabs/request-tabs.component';
 export class HttpWorkBenchComponent implements OnInit {
   @ViewChild(RequestTabsComponent)
   req!: RequestTabsComponent;
+  @ViewChild(ApiHeaderOperationComponent)
+  header!: ApiHeaderOperationComponent;
   @Output() run = new EventEmitter();
 
-  constructor() {
+  constructor(
+    private menuService: ApiMenuServiceImpl
+  ) {
   }
 
   ngOnInit(): void {
+  }
+
+  setApiData(id: number, isEdit: boolean = false) {
+    this.menuService.getApiData(id).subscribe((api: ApiMenuItem) => {
+      this.header.setInitStatus(api.id, api.name, isEdit);
+    });
   }
 
   doSomething(): void {

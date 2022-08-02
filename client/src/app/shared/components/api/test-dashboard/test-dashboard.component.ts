@@ -3,6 +3,7 @@ import {NavTabImplService} from '../../../../core/services/impl/nav-tab-impl.ser
 import {Subscription} from 'rxjs';
 import {DashBoardShowingMetadata} from '../../../../core/services/entity/ApiMenu';
 import {CollectionWorkBenchComponent} from '../work-bench/collection-work-bench/collection-work-bench.component';
+import {HttpWorkBenchComponent} from "../work-bench/http-work-bench/http-work-bench.component";
 
 @Component({
   selector: 'app-test-dashboard',
@@ -11,6 +12,7 @@ import {CollectionWorkBenchComponent} from '../work-bench/collection-work-bench/
 })
 export class TestDashboardComponent implements OnInit, OnDestroy {
   @ViewChild('collection', {static: true}) collection: CollectionWorkBenchComponent;
+  @ViewChild('http', {static: true}) http: HttpWorkBenchComponent;
   defaultRightSize = 32;
   data: DashBoardShowingMetadata;
   showingTabData: Subscription;
@@ -26,6 +28,8 @@ export class TestDashboardComponent implements OnInit, OnDestroy {
       this.data = res;
       if (res.type === 'collection') {
         this.collection.setCollectionData(res.id, res.isEditing);
+      }else if (res.type === 'http') {
+        this.http.setApiData(res.id, res.isEditing);
       }
     });
   }

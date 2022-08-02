@@ -121,10 +121,21 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
    *
    * the status flow
    * treeMenu -> menuService -> menuActionListener send add event -> treeMenu ReRender
-   * -> NavTabImplService open tabs
+   * -> NavTabImplService open tabs -> collection workbench render
    * */
   addCollection(): void {
     this.menuService.addCollection('New Collection');
+  }
+
+  /**
+   * add Http Test
+   *
+   * the status flow
+   * treeMenu -> menuService -> menuActionListener send add Http event -> treeMenu ReRender
+   * -> NavTabImplService open tabs -> http workbench render
+   * */
+  addHttp(id: any): void {
+    this.menuService.addHttp('New Request', id);
   }
 
   private filterByName(term: string): void {
@@ -162,6 +173,14 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
       this.handleShowingStatus();
     } else if (res.name === 'rename') {
       this.dataSource.data = this.menuData;
+    } else if (res.name === 'addHttp') {
+      this.dataSource.data = this.menuData;
+      this.dataSource.data = this.menuData;
+      this.navTabImplService.openTabs({
+        name: res.data.name,
+        id: res.data.id,
+        type: 'http',
+      }, true);
     }
   };
 }

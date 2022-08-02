@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiMenuService} from '../../ServiceDefine';
-import {Observable, from, Subject, of} from 'rxjs';
+import {from, Observable, of, Subject} from 'rxjs';
 import {ApiMenuCollection, ApiMenuItem, MenuEvent} from '../../entity/ApiMenu';
 import {db} from '../../db';
 
@@ -35,6 +35,33 @@ export class ApiMenuWebImplService implements ApiMenuService{
     return new Promise(resolve => {});
   }
 
+  addHttp(apiName, collectionId): Observable<void> {
+    return from(this.addHttpApiToDb(apiName, collectionId));
+  }
+
+  async addHttpApiToDb(name: string, collectionId: number): Promise<any> {
+    const data = {
+      method: 'GET',
+      url: '',
+    };
+    const defineId = await db.apiDefines.add({type: 'http', define: JSON.stringify(data)});
+    const apiData: ApiMenuItem = {
+      name,
+      type: 'http',
+      collectionId,
+      tag: 'GET',
+      defineId,
+      version: 0
+    };
+    apiData.id = await db.apiMenuItems.add(apiData);
+    const collectionData = this.cacheMap.get(collectionId);
+    console.log('http api add to ', collectionData);
+    collectionData.children.push(apiData);
+    this.menuActionListener.next({name: 'addHttp', data: apiData});
+    return new Promise(resolve => {
+    });
+  }
+
   async getMenu(): Promise<ApiMenuCollection[]> {
     const collections = await db.apiMenus.toArray();
     const allItems = await db.apiMenuItems.toArray();
@@ -67,6 +94,10 @@ export class ApiMenuWebImplService implements ApiMenuService{
       return of(this.cacheMap.get(id));
     }
     return from(db.apiMenus.get(id));
+  }
+
+  getApiData(id: number): Observable<ApiMenuItem> {
+    return from(db.apiMenuItems.get(id));
   }
 
   updateCollectionName(id: number, newName: string) {

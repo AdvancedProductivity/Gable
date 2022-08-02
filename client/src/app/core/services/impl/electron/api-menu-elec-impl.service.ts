@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {ApiMenuService} from '../../ServiceDefine';
-import {ApiMenuCollection, MenuEvent} from '../../entity/ApiMenu';
+import {ApiMenuCollection, ApiMenuItem, MenuEvent} from '../../entity/ApiMenu';
 import {Observable, Subject} from 'rxjs';
 
 @Injectable({
@@ -27,6 +27,14 @@ export class ApiMenuElecImplService implements ApiMenuService{
   }
 
   updateCollectionName(id: number, newName: string) {
+    return undefined;
+  }
+
+  addHttp(apiName: string, collectionId: number): Observable<void> {
+    return undefined;
+  }
+
+  getApiData(id: number): Observable<ApiMenuItem> {
     return undefined;
   }
 }

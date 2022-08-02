@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs';
-import {ApiMenuCollection, DashBoardShowingMetadata, MenuEvent, OpeningNavTab} from './entity/ApiMenu';
+import {ApiMenuCollection, ApiMenuItem, DashBoardShowingMetadata, MenuEvent, OpeningNavTab} from './entity/ApiMenu';
 
 export interface ApiMenuService{
 
@@ -10,6 +10,10 @@ export interface ApiMenuService{
   actions: () => Observable<MenuEvent>;
 
   getCollectionData(id: number): Observable<ApiMenuCollection>;
+
+  getApiData(id: number): Observable<ApiMenuItem>;
+
+  addHttp(apiName: string, collectionId: number): Observable<void>;
 
   updateCollectionName(id: number, newName: string);
 }

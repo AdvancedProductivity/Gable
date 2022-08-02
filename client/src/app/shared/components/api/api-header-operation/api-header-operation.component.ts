@@ -19,6 +19,13 @@ export class ApiHeaderOperationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  setInitStatus(id: number, name: string, isEdit: boolean) {
+    this.apiName = name;
+    if (isEdit) {
+      this.editName();
+    }
+  }
+
   selectChange(data: any): void {
     if (data === undefined) {
       return;
