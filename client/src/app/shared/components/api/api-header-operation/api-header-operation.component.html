@@ -26,7 +26,9 @@
         class="info"
       >
         <div>
-          <a class="collection">{{ collectionName }}</a>
+          <a class="collection">
+            {{ collectionName }}
+          </a>
           /
           <a class="api">
             {{apiName}}
@@ -85,7 +87,7 @@
       <div class="env-select">
         <ng-select
           placeholder="{{ 'PAGES.API_TEST.HEADER.ENV_SELECT' | translate }}"
-          style="height: 32px"
+          class="env-custom"
           (change)="selectChange($event)"
         >
           <ng-option [value]="0">No Environment</ng-option>

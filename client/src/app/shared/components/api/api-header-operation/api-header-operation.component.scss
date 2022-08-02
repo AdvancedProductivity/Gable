@@ -104,13 +104,11 @@
         line-height: 32px;
       }
 
-      .env-select {
-        margin-left: 2px;
+      .ng-select.env-custom ::ng-deep .ng-select-container {
+        min-height: 32px;
+        height: 32px;
         width: 170px;
-        height: 28px;
-        max-height: 28px;
-        margin-top: -2px;
-        position: relative;
+        margin-left: 2px;
       }
     }
   }
