@@ -4,20 +4,14 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {debounceTime, distinctUntilChanged, Subject, Subscription} from 'rxjs';
 import {ApiMenuServiceImpl} from '../../../../core/services/impl/api-menu-impl.service';
-import {ApiMenuCollection, MenuEvent, MenuSelectedEvent} from '../../../../core/services/entity/ApiMenu';
+import {
+  ApiMenuCollection,
+  MenuEvent,
+  MenuSelectedEvent,
+  MatApiFlatNode
+} from '../../../../core/services/entity/ApiMenu';
 import {NavTabImplService} from '../../../../core/services/impl/nav-tab-impl.service';
 import {PerfectScrollbarDirective} from 'ngx-perfect-scrollbar';
-
-
-/** Flat node with expandable and level information */
-interface ExampleFlatNode {
-  id: number;
-  collectionId: number;
-  expandable: boolean;
-  name: string;
-  visible: boolean;
-  level: number;
-}
 
 @Component({
   selector: 'app-api-tree-menu',
@@ -38,22 +32,21 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
   searchText = '';
   empty = true;
   subject = new Subject<string>();
-  treeControl = new FlatTreeControl<ExampleFlatNode>(
+  treeControl = new FlatTreeControl<MatApiFlatNode>(
     node => node.level,
     node => node.expandable,
   );
 
   treeFlattener = new MatTreeFlattener(
-    (node: ApiMenuCollection, level: number) => {
-      // @ts-ignore
-      const cId = node.collectionId;
+    (node: any, level: number) => {
+      const isC = node.type === 'c';
       return {
-        expandable: (!!node.children && node.children.length > 0) || node.type === 'c',
+        expandable: (!!node.children && node.children.length > 0) || isC,
         name: node.name,
         visible: true,
         level,
         id: node.id,
-        collectionId: cId,
+        collectionId: isC ? node.id : node.collectionId,
         type: node.type,
       };
     },
@@ -94,7 +87,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+  hasChild = (_: number, node: MatApiFlatNode) => node.expandable;
 
 
   onSelected(node): void {

@@ -59,3 +59,13 @@ export interface MenuSelectedEvent {
   apiId: number;
   collectionId: number;
 }
+
+/** Flat node with expandable and level information */
+export interface MatApiFlatNode {
+  id: number;
+  collectionId: number;
+  expandable: boolean;
+  name: string;
+  visible: boolean;
+  level: number;
+}
