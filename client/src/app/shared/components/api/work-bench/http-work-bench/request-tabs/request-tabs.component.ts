@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {QueryTableComponent} from './query-table/query-table.component';
 import {FormEditorComponent} from './form-editor/form-editor.component';
 import {ApiKeyValueChangeEvent} from "../../../../../../core/services/entity/ApiPart";
@@ -9,15 +9,17 @@ import {ApiKeyValueChangeEvent} from "../../../../../../core/services/entity/Api
   styleUrls: ['./request-tabs.component.scss']
 })
 export class RequestTabsComponent implements OnInit {
-  @ViewChild(QueryTableComponent)
-  query!: QueryTableComponent;
+  @ViewChild('query', {static: true}) query: QueryTableComponent;
   @ViewChild(FormEditorComponent)
   formEditor!: FormEditorComponent;
   tabs = ['Query Param', 'Header', 'Body', 'Pre-Script', 'Post-Script'];
   curTab = 'Query Param';
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
+    this.query.setData(null);
   }
 
   public getData(): any {

@@ -16,11 +16,7 @@ export class QueryTableComponent implements OnInit {
   @Input() field: string;
   @Output() dataChange = new EventEmitter<ApiKeyValueChangeEvent>();
   gridApi: GridApi;
-  rowData: ApiKeyValue[] = [
-    {using: true, key: '1', value: '2', desc: '3'},
-    {using: true, key: '4', value: '5', desc: '6'},
-    {using: true, key: '', value: '', desc: ''}
-  ];
+  rowData: ApiKeyValue[];
   columnDefs: ColDef[] = [
     {
       headerName: '',
@@ -153,6 +149,14 @@ export class QueryTableComponent implements OnInit {
         ps.update();
       }
     });
+  }
+
+  public setData(data: ApiKeyValue[]): void {
+    if (!data) {
+      this.rowData = [new ApiKeyValue()];
+    } else {
+      this.rowData = data;
+    }
   }
 
   public getData(): any[] {
