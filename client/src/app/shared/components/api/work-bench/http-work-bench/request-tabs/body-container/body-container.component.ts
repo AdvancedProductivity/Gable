@@ -43,4 +43,8 @@ export class BodyContainerComponent implements OnInit {
   onFormChange(data: ApiFormKeyValueChangeEvent) {
     console.log(data.field + ' changed', data.data);
   }
+
+  onBodyContentChange(newContent: string) {
+    console.log('body content changed', newContent);
+  }
 }

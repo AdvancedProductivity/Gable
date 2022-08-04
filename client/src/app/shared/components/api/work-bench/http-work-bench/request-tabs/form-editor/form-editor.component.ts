@@ -13,8 +13,9 @@ import {ApiFormKeyValue, ApiFormKeyValueChangeEvent} from '../../../../../../../
   templateUrl: './form-editor.component.html',
   styleUrls: ['./form-editor.component.scss']
 })
-export class FormEditorComponent implements OnInit {  gridApi: GridApi;
+export class FormEditorComponent implements OnInit {
   @Output() dataChange = new EventEmitter<ApiFormKeyValueChangeEvent>();
+  gridApi: GridApi;
   rowData: ApiFormKeyValue[] = [
     {using: true, key: '1', value: '2', desc: '3', type: 'text'},
     {using: true, key: '4', value: '5', desc: '6', type: 'text'},

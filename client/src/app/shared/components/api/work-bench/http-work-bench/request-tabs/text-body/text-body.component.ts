@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {MonacoStandaloneCodeEditor} from '@materia-ui/ngx-monaco-editor';
-import {debounceTime, distinctUntilChanged, Subject} from "rxjs";
+import {debounceTime, distinctUntilChanged, Subject} from 'rxjs';
 
 @Component({
   selector: 'app-text-body',
@@ -8,6 +8,7 @@ import {debounceTime, distinctUntilChanged, Subject} from "rxjs";
   styleUrls: ['./text-body.component.scss']
 })
 export class TextBodyComponent implements OnInit, OnDestroy {
+  @Output() contentChange = new EventEmitter<string>();
   editorOptions = {
     theme: 'vs-light', fontSize: 12, glance: false, minimap: {enabled: false},
     lineDecorationsWidth: 1, language: 'json'
@@ -20,8 +21,9 @@ export class TextBodyComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.contentSubject.pipe(debounceTime(500))
+    this.contentSubject.pipe(debounceTime(1000))
       .subscribe(() => {
+        this.contentChange.next(this.code);
       });
   }
 

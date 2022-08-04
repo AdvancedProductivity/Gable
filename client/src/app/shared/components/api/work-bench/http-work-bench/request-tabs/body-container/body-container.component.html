@@ -36,7 +36,11 @@
   <mat-divider></mat-divider>
   <div class="body-content">
     <app-none-body [style.display]="curTyp === 'none' ? 'inline' : 'none'"></app-none-body>
-    <app-text-body #editorBody [style.display]="curTyp === 'raw' ? 'inline' : 'none'"></app-text-body>
+    <app-text-body
+      #editorBody
+      [style.display]="curTyp === 'raw' ? 'inline' : 'none'"
+      (contentChange)="onBodyContentChange($event)"
+    ></app-text-body>
     <app-form-editor
       (dataChange)="onFormChange($event)"
       [style.display]="curTyp === 'form_data' ? 'inline' : 'none'"
