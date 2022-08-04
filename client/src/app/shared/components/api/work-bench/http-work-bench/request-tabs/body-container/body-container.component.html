@@ -37,7 +37,10 @@
   <div class="body-content">
     <app-none-body [style.display]="curTyp === 'none' ? 'inline' : 'none'"></app-none-body>
     <app-text-body #editorBody [style.display]="curTyp === 'raw' ? 'inline' : 'none'"></app-text-body>
-    <app-form-editor [style.display]="curTyp === 'form_data' ? 'inline' : 'none'"></app-form-editor>
+    <app-form-editor
+      (dataChange)="onFormChange($event)"
+      [style.display]="curTyp === 'form_data' ? 'inline' : 'none'"
+    ></app-form-editor>
     <app-query-table
       field="header"
       (dataChange)="onPartChange($event)"

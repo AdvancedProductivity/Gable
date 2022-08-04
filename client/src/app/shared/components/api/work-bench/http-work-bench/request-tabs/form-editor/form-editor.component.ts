@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ColDef, GridApi, ValueGetterParams, ValueSetterParams} from 'ag-grid-community';
 import PerfectScrollbar from 'perfect-scrollbar';
 import {CheckBoxCellEditorComponent} from '../inner/check-box-cell-editor/check-box-cell-editor.component';
 import {CheckBoxCellComponent} from '../inner/check-box-cell/check-box-cell.component';
-import {CellContentComponent} from '../inner/cell-content/cell-content.component';
 import {CloseInputCellComponent} from '../inner/close-input-cell/close-input-cell.component';
 import {CellFileTextComponent} from '../inner/cell-file-text/cell-file-text.component';
-import {CellFileComponent} from "../inner/cell-file/cell-file.component";
+import {CellFileComponent} from '../inner/cell-file/cell-file.component';
+import {ApiFormKeyValue, ApiFormKeyValueChangeEvent} from '../../../../../../../core/services/entity/ApiPart';
 
 @Component({
   selector: 'app-form-editor',
@@ -14,7 +14,8 @@ import {CellFileComponent} from "../inner/cell-file/cell-file.component";
   styleUrls: ['./form-editor.component.scss']
 })
 export class FormEditorComponent implements OnInit {  gridApi: GridApi;
-  rowData: any[] = [
+  @Output() dataChange = new EventEmitter<ApiFormKeyValueChangeEvent>();
+  rowData: ApiFormKeyValue[] = [
     {using: true, key: '1', value: '2', desc: '3', type: 'text'},
     {using: true, key: '4', value: '5', desc: '6', type: 'text'},
     {using: true, key: '', value: '', desc: '', type: 'text'}
@@ -30,6 +31,14 @@ export class FormEditorComponent implements OnInit {  gridApi: GridApi;
       width: 60,
       minWidth: 60,
       maxWidth: 60,
+      valueSetter: (params: ValueSetterParams) => {
+        const valueChanged = params.data.using !== params.newValue;
+        if (valueChanged) {
+          params.data.using = params.newValue;
+          this.dataChange.next({field: 'form', data: this.rowData});
+        }
+        return valueChanged;
+      },
       cellRenderer: CheckBoxCellComponent,
     },
     {
@@ -130,6 +139,7 @@ export class FormEditorComponent implements OnInit {  gridApi: GridApi;
         remove: (index) => {
           this.rowData.splice(index, 1);
           this.gridApi.setRowData(this.rowData);
+          this.dataChange.next({field: 'form', data: this.rowData});
         }
       },
       cellStyle: {cursor: 'text'}
@@ -175,9 +185,10 @@ export class FormEditorComponent implements OnInit {  gridApi: GridApi;
     setTimeout(() => {
       const lastValue = this.rowData[this.rowData.length - 1];
       if (lastValue.key || lastValue.value || lastValue.desc) {
-        this.rowData.push({key: '', value: '', desc: '', type: 'text'});
+        this.rowData.push({key: '', value: '', desc: '', type: 'text', using: true});
         this.gridApi.setRowData(this.rowData);
       }
+      this.dataChange.next({field: 'form', data: this.rowData});
       // this.gridApi.refreshCells({ force: true });
     }, 100);
   }
