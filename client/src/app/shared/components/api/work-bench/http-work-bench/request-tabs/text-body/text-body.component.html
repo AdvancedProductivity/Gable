@@ -1,5 +1,6 @@
 <div class="http-body-container">
   <ngx-monaco-editor
+    (init)="initEditor($event)"
     [options]="editorOptions"
     [(ngModel)]="code"
   >
