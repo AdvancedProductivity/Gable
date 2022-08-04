@@ -50,6 +50,9 @@
       (dataChange)="onPartChange($event)"
       [style.display]="curTyp === 'urlencoded' ? 'inline' : 'none'"
     ></app-query-table>
-    <app-graph-ql [style.display]="curTyp === 'graphQL' ? 'inline' : 'none'"></app-graph-ql>
+    <app-graph-ql
+      [style.display]="curTyp === 'graphQL' ? 'inline' : 'none'"
+      (contentChange)="onGraphChange($event)"
+    ></app-graph-ql>
   </div>
 </div>

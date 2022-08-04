@@ -1,6 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {TextBodyComponent} from '../text-body/text-body.component';
-import {ApiFormKeyValueChangeEvent, ApiKeyValueChangeEvent} from '../../../../../../../core/services/entity/ApiPart';
+import {
+  ApiFormKeyValueChangeEvent,
+  ApiKeyValueChangeEvent,
+  GraphQlPartChangeEvent
+} from '../../../../../../../core/services/entity/ApiPart';
 
 @Component({
   selector: 'app-body-container',
@@ -46,5 +50,9 @@ export class BodyContainerComponent implements OnInit {
 
   onBodyContentChange(newContent: string) {
     console.log('body content changed', newContent);
+  }
+
+  onGraphChange(newContent: GraphQlPartChangeEvent) {
+    console.log('graph ql %s change', newContent.type, newContent.content);
   }
 }

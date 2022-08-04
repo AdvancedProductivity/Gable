@@ -20,3 +20,13 @@ export class ApiFormKeyValueChangeEvent {
   field: string;
   data: ApiFormKeyValue[];
 }
+
+export class GraphQlPart{
+  query: string;
+  data: string;
+}
+
+export class GraphQlPartChangeEvent {
+  type: string;
+  content: string;
+}
