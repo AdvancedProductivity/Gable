@@ -33,6 +33,14 @@ export class QueryTableComponent implements OnInit {
       minWidth: 60,
       maxWidth: 60,
       cellRenderer: CheckBoxCellComponent,
+      valueSetter: (params: ValueSetterParams) => {
+        const valueChanged = params.data.using !== params.newValue;
+        if (valueChanged) {
+          params.data.using = params.newValue;
+          this.dataChange.next({field: this.field, data: this.rowData});
+        }
+        return valueChanged;
+      }
     },
     {
       headerName: 'KEY',
