@@ -19,8 +19,18 @@
   </div>
   <div class="body">
     <div class="content">
-      <app-query-table #query [style.display]="curTab === 'Query Param' ? 'inline' : 'none'"></app-query-table>
-      <app-query-table #header [style.display]="curTab === 'Header' ? 'inline' : 'none'"></app-query-table>
+      <app-query-table
+        #query
+        [style.display]="curTab === 'Query Param' ? 'inline' : 'none'"
+        field="query"
+        (dataChange)="onPartChange($event)"
+      ></app-query-table>
+      <app-query-table
+        #header
+        [style.display]="curTab === 'Header' ? 'inline' : 'none'"
+        field="header"
+        (dataChange)="onPartChange($event)"
+      ></app-query-table>
       <app-body-container
         [style.display]="curTab === 'Body' ? 'inline' : 'none'"
       ></app-body-container>

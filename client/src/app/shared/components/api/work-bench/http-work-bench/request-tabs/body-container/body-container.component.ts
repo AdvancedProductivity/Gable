@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {TextBodyComponent} from "../text-body/text-body.component";
+import {ApiKeyValueChangeEvent} from "../../../../../../../core/services/entity/ApiPart";
 
 @Component({
   selector: 'app-body-container',
@@ -33,5 +34,9 @@ export class BodyContainerComponent implements OnInit {
   }
 
   onBeautify(): void {
+  }
+
+  onPartChange(data: ApiKeyValueChangeEvent) {
+    console.log(data.field + ' changed', data.data);
   }
 }

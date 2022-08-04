@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {QueryTableComponent} from './query-table/query-table.component';
 import {FormEditorComponent} from './form-editor/form-editor.component';
+import {ApiKeyValueChangeEvent} from "../../../../../../core/services/entity/ApiPart";
 
 @Component({
   selector: 'app-request-tabs',
@@ -26,4 +27,7 @@ export class RequestTabsComponent implements OnInit {
     return data;
   }
 
+  onPartChange(data: ApiKeyValueChangeEvent) {
+    console.log(data.field + ' changed', data.data);
+  }
 }

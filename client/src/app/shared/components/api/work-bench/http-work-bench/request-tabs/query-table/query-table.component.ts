@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ColDef, GridApi, ValueGetterParams, ValueSetterParams} from 'ag-grid-community';
 import PerfectScrollbar from 'perfect-scrollbar';
 import {CloseInputCellComponent} from '../inner/close-input-cell/close-input-cell.component';
 import {CellContentComponent} from '../inner/cell-content/cell-content.component';
 import {CheckBoxCellComponent} from '../inner/check-box-cell/check-box-cell.component';
 import {CheckBoxCellEditorComponent} from '../inner/check-box-cell-editor/check-box-cell-editor.component';
+import {ApiKeyValue, ApiKeyValueChangeEvent} from '../../../../../../../core/services/entity/ApiPart';
 
 @Component({
   selector: 'app-query-table',
@@ -12,8 +13,10 @@ import {CheckBoxCellEditorComponent} from '../inner/check-box-cell-editor/check-
   styleUrls: ['./query-table.component.scss']
 })
 export class QueryTableComponent implements OnInit {
+  @Input() field: string;
+  @Output() dataChange = new EventEmitter<ApiKeyValueChangeEvent>();
   gridApi: GridApi;
-  rowData: any[] = [
+  rowData: ApiKeyValue[] = [
     {using: true, key: '1', value: '2', desc: '3'},
     {using: true, key: '4', value: '5', desc: '6'},
     {using: true, key: '', value: '', desc: ''}
@@ -106,6 +109,7 @@ export class QueryTableComponent implements OnInit {
         remove: (index) => {
           this.rowData.splice(index, 1);
           this.gridApi.setRowData(this.rowData);
+          this.dataChange.next({field: this.field, data: this.rowData});
         }
       },
       cellStyle: {cursor: 'text'}
@@ -151,10 +155,11 @@ export class QueryTableComponent implements OnInit {
     setTimeout(() => {
       const lastValue = this.rowData[this.rowData.length - 1];
       if (lastValue.key || lastValue.value || lastValue.desc) {
-        this.rowData.push({key: '', value: '', desc: ''});
+        this.rowData.push({key: '', value: '', desc: '', using: true});
         this.gridApi.setRowData(this.rowData);
       }
-     // this.gridApi.refreshCells({ force: true });
+      this.dataChange.next({field: this.field, data: this.rowData});
+      // this.gridApi.refreshCells({ force: true });
     }, 100);
   }
 }
