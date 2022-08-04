@@ -29,9 +29,9 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
   isSelectCollection = false;
   focusEvent: MenuSelectedEvent;
   haveOperating = false;
-  searchText = '';
   empty = true;
-  subject = new Subject<string>();
+  searchText = '';
+  searchTextSubject = new Subject<string>();
   treeControl = new FlatTreeControl<MatApiFlatNode>(
     node => node.level,
     node => node.expandable,
@@ -63,13 +63,9 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subject.pipe(debounceTime(500), distinctUntilChanged())
+    this.searchTextSubject.pipe(debounceTime(500), distinctUntilChanged())
       .subscribe(value => {
-        if (value) {
-          this.filterByName(value);
-        } else {
-          this.clearFilter();
-        }
+        this.handleSearchChange(value);
       });
     this.menuService.getMenus().subscribe(res => {
       this.menuData = res;
@@ -86,6 +82,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+    this.searchTextSubject.unsubscribe();
   }
   hasChild = (_: number, node: MatApiFlatNode) => node.expandable;
 
@@ -117,7 +114,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
     if (this.empty) {
       return;
     }
-    this.subject.next(data);
+    this.searchTextSubject.next(data);
   }
 
   clearFilter(): void {
@@ -274,5 +271,13 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
       }
       this.ps.scrollToY(index * 40);
     }, 20);
+  }
+
+  private handleSearchChange(str: string) {
+    if (str) {
+      this.filterByName(str);
+    } else {
+      this.clearFilter();
+    }
   }
 }
