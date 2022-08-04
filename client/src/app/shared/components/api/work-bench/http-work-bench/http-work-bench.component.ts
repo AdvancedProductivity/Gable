@@ -46,4 +46,8 @@ export class HttpWorkBenchComponent implements OnInit {
       type: 'Http',
     });
   }
+
+  onReqTabChanged(tabKey: string) {
+    console.log('see tab changed to be ', tabKey);
+  }
 }

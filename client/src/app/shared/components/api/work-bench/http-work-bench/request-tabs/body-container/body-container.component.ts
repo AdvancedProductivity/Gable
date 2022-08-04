@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {TextBodyComponent} from '../text-body/text-body.component';
 import {
   ApiFormKeyValueChangeEvent,
@@ -11,7 +11,9 @@ import {
   templateUrl: './body-container.component.html',
   styleUrls: ['./body-container.component.scss']
 })
-export class BodyContainerComponent implements OnInit {
+export class BodyContainerComponent implements OnInit, OnDestroy {
+  @Output() bodyTypeChange = new EventEmitter<string>();
+  @Output() bodyTextTypeChange = new EventEmitter<string>();
   @ViewChild(TextBodyComponent)
   editorBody!: TextBodyComponent;
   curTyp = 'none';
@@ -31,10 +33,12 @@ export class BodyContainerComponent implements OnInit {
   }
 
   onTypeChange(data: any): void {
+    this.bodyTypeChange.next(data);
   }
 
-  onBodyChange(data: any): void {
+  onBodyChange(data: string): void {
     this.editorBody.setBodyLang(data);
+    this.bodyTextTypeChange.next(data);
   }
 
   onBeautify(): void {
@@ -54,5 +58,10 @@ export class BodyContainerComponent implements OnInit {
 
   onGraphChange(newContent: GraphQlPartChangeEvent) {
     console.log('graph ql %s change', newContent.type, newContent.content);
+  }
+
+  ngOnDestroy(): void {
+    this.bodyTypeChange.unsubscribe();
+    this.bodyTextTypeChange.unsubscribe();
   }
 }

@@ -12,7 +12,7 @@
         class="tab select-disable"
         [class.active] ="curTab === tab"
         [active]="curTab === tab"
-        (click)="curTab = tab"
+        (click)="selectTab(tab)"
       >{{ tab }}</a>
     </nav>
     <div class="operation-hub"></div>
@@ -32,6 +32,8 @@
         (dataChange)="onPartChange($event)"
       ></app-query-table>
       <app-body-container
+        (bodyTextTypeChange)="onBodyTextTypeChange($event)"
+        (bodyTypeChange)="onBodyTypeChange($event)"
         [style.display]="curTab === 'Body' ? 'inline' : 'none'"
       ></app-body-container>
       <app-developing
