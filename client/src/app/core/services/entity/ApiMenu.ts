@@ -33,15 +33,6 @@ export interface OpeningNavTab{
   isCursorIn?: boolean;
 }
 
-/**
- * indexDb define. record the api define as json
- * */
-export interface ApiDefine {
-  id?: number;
-  type: string;
-  define: string;
-}
-
 export interface DashBoardShowingMetadata {
   id: number;
   isEditing: boolean;

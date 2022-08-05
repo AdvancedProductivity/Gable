@@ -52,9 +52,6 @@ export class ApiMenuWebImplService implements ApiMenuService{
     };
     const newHttp = initHttpApi();
     const httpId = await db.httpApi.add(newHttp);
-    await db.apiDefines.add({type: 'http', id: httpId, define: JSON.stringify(data)}).then(res => {
-      console.log('add http api ', httpId);
-    });
     newHttp.id = httpId;
     this.httpApiService.addApiDefine(newHttp);
     await db.httpApiCache.add(newHttp).then(res => {
@@ -64,9 +61,9 @@ export class ApiMenuWebImplService implements ApiMenuService{
       name,
       type: 'http',
       collectionId,
-      tag: 'GET',
+      tag: newHttp.method,
       defineId: httpId,
-      version: 0
+      version: newHttp.version
     };
     apiData.id = await db.apiMenuItems.add(apiData);
     const collectionData = this.cacheMap.get(collectionId);

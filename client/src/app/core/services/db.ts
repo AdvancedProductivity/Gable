@@ -1,12 +1,11 @@
 import Dexie, { Table } from 'dexie';
-import {ApiDefine, ApiMenuCollection, ApiMenuItem, OpeningNavTab} from './entity/ApiMenu';
+import {ApiMenuCollection, ApiMenuItem, OpeningNavTab} from './entity/ApiMenu';
 import {HttpApi} from './entity/HttpApi';
 
 
 export class AppDB extends Dexie {
   apiMenus!: Table<ApiMenuCollection, number>;
   apiMenuItems!: Table<ApiMenuItem, number>;
-  apiDefines!: Table<ApiDefine, number>;
   openingTabs!: Table<OpeningNavTab, string>;
   httpApi!: Table<HttpApi, number>;
   httpApiCache!: Table<HttpApi, number>;

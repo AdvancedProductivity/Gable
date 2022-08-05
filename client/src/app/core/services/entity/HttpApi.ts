@@ -19,6 +19,7 @@ export class HttpApi {
   bodyTextType: string;
   bodyGraphQlQuery: string;
   bodyGraphQlVar: any;
+  version: number;
 }
 
 /**
@@ -49,6 +50,7 @@ export const initHttpApi = (): HttpApi => {
   httpApi.bodyTextType = 'json';
   httpApi.bodyGraphQlQuery = '';
   httpApi.bodyGraphQlVar = '';
+  httpApi.version = new Date().getTime();
   return httpApi;
 };
 
