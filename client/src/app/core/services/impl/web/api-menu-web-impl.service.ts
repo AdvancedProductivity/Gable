@@ -45,6 +45,29 @@ export class ApiMenuWebImplService implements ApiMenuService{
     return from(this.addHttpApiToDb(apiName, collectionId));
   }
 
+  upgradeHttpDefine(coId: number, id: number, httpDefineId: number): Observable<void> {
+    this.httpApiService.getCache(httpDefineId).subscribe(apiCache => {
+      db.httpApi.update(httpDefineId, apiCache).then(r => {
+        console.log('persistence cache finished', r);
+      });
+      db.apiMenuItems.update(id, {tag: apiCache.method, version: apiCache.version}).then(mr => {
+        console.log('menu item update finished', mr);
+      });
+      this.cacheMap.forEach(item => {
+        if (item.id === coId) {
+          item.children.forEach(menu => {
+            if (menu.id === id) {
+              menu.tag = apiCache.method;
+              menu.version = apiCache.version;
+              console.log('update menu in tree finished');
+            }
+          });
+        }
+      });
+    });
+    return of(null);
+  }
+
   async addHttpApiToDb(name: string, collectionId: number): Promise<any> {
     const newHttp = initHttpApi();
     const httpId = await db.httpApi.add(newHttp);

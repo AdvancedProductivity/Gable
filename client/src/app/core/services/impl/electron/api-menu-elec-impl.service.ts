@@ -44,4 +44,8 @@ export class ApiMenuElecImplService implements ApiMenuService{
 
   updateApiName(id: number, collectionId: number, newName: string) {
   }
+
+  upgradeHttpDefine(coId: number, id: number, httpDefineId: number): Observable<void> {
+    return undefined;
+  }
 }

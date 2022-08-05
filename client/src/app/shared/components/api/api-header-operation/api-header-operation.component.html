@@ -60,6 +60,7 @@
         <button
           style="line-height: 32px;"
           mat-button
+          [disabled]="oldVersion === newVersion"
           (click)="saveApiName()"
         >
           <span>

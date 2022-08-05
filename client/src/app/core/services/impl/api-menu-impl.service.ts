@@ -96,4 +96,17 @@ export class ApiMenuServiceImpl implements ApiMenuService{
       return this.webImpl.getCollectionName(collectionId);
     }
   }
+
+  /**
+   * @param id menu id
+   * @param coId collection id
+   * @param httpDefineId http id
+   * */
+  upgradeHttpDefine(coId: number, id: number, httpDefineId: number): Observable<void> {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.upgradeHttpDefine(coId, id, httpDefineId);
+    } else {
+      return this.webImpl.upgradeHttpDefine(coId, id, httpDefineId);
+    }
+  }
 }

@@ -10,8 +10,11 @@ import {NavTabImplService} from '../../../../core/services/impl/nav-tab-impl.ser
 export class ApiHeaderOperationComponent implements OnInit {
   @ViewChild('apiNameInput', {static: false})
   input: HTMLElement;
+  defineId: number;
   apiId: number;
   collectionId: number;
+  oldVersion: number;
+  newVersion: number;
   showIcon = false;
   showEdit = false;
   collectionName = '';
@@ -30,11 +33,13 @@ export class ApiHeaderOperationComponent implements OnInit {
   /**
    * set the http header bar name,collection name ...
    * */
-  setInitStatus(id: number, collectionId: number, name: string, isEdit: boolean) {
+  setInitStatus(id: number, collectionId: number, name: string, isEdit: boolean, version: number, defineId: number) {
     this.menuService.getCollectionName(collectionId).subscribe(res => {
       this.collectionName = res;
     });
+    this.oldVersion = version;
     this.apiId = id;
+    this.defineId = defineId;
     this.apiName = name;
     this.collectionId = collectionId;
     this.apiNameCopy = name;
@@ -57,6 +62,10 @@ export class ApiHeaderOperationComponent implements OnInit {
     }, 5);
   }
 
+  setCacheVersion(version: number) {
+    this.newVersion = version;
+  }
+
   updateName(): void {
     this.showIcon = false;
   }
@@ -66,6 +75,9 @@ export class ApiHeaderOperationComponent implements OnInit {
       this.showEdit = false;
       return;
     }
+    this.menuService.upgradeHttpDefine(this.collectionId, this.apiId, this.defineId).subscribe(res => {
+      this.oldVersion = this.newVersion;
+    });
   }
 
   copyLink(): void {
