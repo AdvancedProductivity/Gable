@@ -12,6 +12,9 @@ export class HttpApiElecImplService {
   public addApiDefine(data: HttpApiHistoryCache): void {
   }
 
+  public updateCache(data: HttpApiHistoryCache): void {
+  }
+
   public getCache(id: number): Observable<HttpApiHistoryCache> {
     return undefined;
   }

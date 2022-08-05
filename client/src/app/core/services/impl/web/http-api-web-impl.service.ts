@@ -21,6 +21,13 @@ export class HttpApiWebImplService {
     return from(this.getFromCache(id));
   }
 
+  public updateCache(data: HttpApiHistoryCache): void {
+    this.cacheMap.set(data.id, data);
+    db.httpApiCache.update(data.id, data).then(res => {
+      console.log('update api define finished ', res);
+    });
+  }
+
   private async getFromCache(id: number): Promise<HttpApiHistoryCache> {
     const data = await db.httpApiCache.get(id);
     if (data) {

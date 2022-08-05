@@ -109,5 +109,7 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   };
 
   private doHttpApiUpdateCache() {
+    this.httpApi.version = new Date().getTime();
+    this.httpApiService.updateCache(this.httpApi);
   }
 }

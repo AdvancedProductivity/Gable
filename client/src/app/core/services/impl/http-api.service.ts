@@ -24,6 +24,14 @@ export class HttpApiService {
     }
   }
 
+  public updateCache(data: HttpApiHistoryCache): void {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.updateCache(data);
+    } else {
+      return this.webImpl.updateCache(data);
+    }
+  }
+
   public getCache(id: number): Observable<HttpApiHistoryCache> {
     if (this.electronService.isElectron) {
       return this.electronImpl.getCache(id);
