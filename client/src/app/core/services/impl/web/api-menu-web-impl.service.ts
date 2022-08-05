@@ -3,6 +3,8 @@ import {ApiMenuService} from '../../ServiceDefine';
 import {from, map, Observable, of, Subject} from 'rxjs';
 import {ApiMenuCollection, ApiMenuItem, MenuEvent} from '../../entity/ApiMenu';
 import {db} from '../../db';
+import {initHttpApi} from '../../entity/HttpApi';
+import {HttpApiService} from '../http-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,11 @@ export class ApiMenuWebImplService implements ApiMenuService{
   private menuActionListener = new Subject<MenuEvent>();
   private cache: ApiMenuCollection[];
   private cacheMap = new Map<number, ApiMenuCollection>();
-  constructor() { }
+
+  constructor(
+    private httpApiService: HttpApiService
+  ) {
+  }
 
   actions(): Observable<MenuEvent> {
     return this.menuActionListener.asObservable();
@@ -44,13 +50,22 @@ export class ApiMenuWebImplService implements ApiMenuService{
       method: 'GET',
       url: '',
     };
-    const defineId = await db.apiDefines.add({type: 'http', define: JSON.stringify(data)});
+    const newHttp = initHttpApi();
+    const httpId = await db.httpApi.add(newHttp);
+    await db.apiDefines.add({type: 'http', id: httpId, define: JSON.stringify(data)}).then(res => {
+      console.log('add http api ', httpId);
+    });
+    newHttp.id = httpId;
+    this.httpApiService.addApiDefine(newHttp);
+    await db.httpApiCache.add(newHttp).then(res => {
+      console.log('add http api ', httpId);
+    });
     const apiData: ApiMenuItem = {
       name,
       type: 'http',
       collectionId,
       tag: 'GET',
-      defineId,
+      defineId: httpId,
       version: 0
     };
     apiData.id = await db.apiMenuItems.add(apiData);

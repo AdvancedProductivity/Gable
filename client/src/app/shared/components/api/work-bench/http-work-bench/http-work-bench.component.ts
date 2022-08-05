@@ -4,8 +4,9 @@ import {ApiMenuServiceImpl} from '../../../../../core/services/impl/api-menu-imp
 import {ApiMenuItem} from '../../../../../core/services/entity/ApiMenu';
 import {ApiHeaderOperationComponent} from '../../api-header-operation/api-header-operation.component';
 import {debounceTime, Subject} from 'rxjs';
-import {initHttpApi} from '../../../../../core/services/entity/HttpApi';
+import {HttpApi, initHttpApi} from '../../../../../core/services/entity/HttpApi';
 import {HttpComponentHotDataUpdateEvent} from '../../../../../core/services/entity/ApiPart';
+import {HttpApiService} from "../../../../../core/services/impl/http-api.service";
 
 @Component({
   selector: 'app-http-work-bench',
@@ -19,10 +20,11 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   urlSubject = new Subject<void>();
   url: string;
   curMethod: string;
-  httpApi = initHttpApi();
+  httpApi: HttpApi;
 
   constructor(
-    private menuService: ApiMenuServiceImpl
+    private menuService: ApiMenuServiceImpl,
+    private httpApiService: HttpApiService
   ) {
   }
 
@@ -35,9 +37,12 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
     this.menuService.getApiData(id).subscribe((api: ApiMenuItem) => {
       this.header.setInitStatus(api.id, api.collectionId, api.name, isEdit);
     });
-    this.req.setHttpData(this.httpApi);
-    this.curMethod = this.httpApi.method;
-    this.url = this.httpApi.url;
+    this.httpApiService.getCache(id).subscribe(res => {
+      this.httpApi = res;
+      this.req.setHttpData(res);
+      this.curMethod = res.method;
+      this.url = res.url;
+    });
   }
 
   doSomething(): void {

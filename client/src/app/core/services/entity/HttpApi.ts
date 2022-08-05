@@ -1,4 +1,8 @@
+/**
+ * record the http api’s define
+ * */
 export class HttpApi {
+  id?: number;
   protocol: string;
   method: string;
   host: string;
@@ -15,6 +19,16 @@ export class HttpApi {
   bodyTextType: string;
   bodyGraphQlQuery: string;
   bodyGraphQlVar: any;
+}
+
+/**
+ * record the http api’s cache。 is like HttpApi
+ * */
+export class HttpApiHistoryCache extends HttpApi {
+}
+
+export class HttpApiHistory extends HttpApi {
+  apiId: number;
 }
 
 export const initHttpApi = (): HttpApi => {
