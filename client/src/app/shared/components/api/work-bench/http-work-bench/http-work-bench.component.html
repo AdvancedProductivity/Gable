@@ -17,13 +17,13 @@
                 style="height: 32px"
                 (change)="methodChange($event)"
               >
-                <ng-option [value]="1">GET</ng-option>
-                <ng-option [value]="5">POST</ng-option>
-                <ng-option [value]="7">DELETE</ng-option>
-                <ng-option [value]="6">PUT</ng-option>
+                <ng-option [value]="'GET'">GET</ng-option>
+                <ng-option [value]="'POST'">POST</ng-option>
+                <ng-option [value]="'DELETE'">DELETE</ng-option>
+                <ng-option [value]="'PUT'">PUT</ng-option>
               </ng-select>
             </div>
-            <input id="url-editor"/>
+            <input id="url-editor" [(ngModel)]="url" (ngModelChange)="onUrlChange()"/>
             <div class="space-1"></div>
             <div class="runner-btn" matRipple (click)="onSend()">
               <span>Send</span>
