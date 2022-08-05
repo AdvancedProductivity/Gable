@@ -6,6 +6,7 @@ export class HttpApi {
   protocol: string;
   method: string;
   host: string;
+  hostArr: string[];
   port: string;
   path: string;
   pathArray: string[];
@@ -37,6 +38,7 @@ export const initHttpApi = (): HttpApi => {
   httpApi.protocol = 'http';
   httpApi.method = 'GET';
   httpApi.host = 'localhost';
+  httpApi.hostArr = ['localhost'];
   httpApi.port = '80';
   httpApi.path = '';
   httpApi.pathArray = [];
