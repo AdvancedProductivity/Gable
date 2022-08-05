@@ -30,6 +30,19 @@ export class NavTabWebImplService implements NavTabService{
     return this.focusSubject.asObservable();
   }
 
+  changeTab(type: string, id: number, newTag: string): void {
+    const key = id + '_' + type;
+    this.cache.forEach(item => {
+      if (item.tabId === key) {
+        item.tag = newTag;
+      }
+    });
+    this.subject.next(this.cache);
+    db.openingTabs.update(key, {tag: newTag}).then(r => {
+      console.log('update nav tab tag', r);
+    });
+  }
+
   getTabsData(): Observable<OpeningNavTab[]> {
     const o = this.subject.asObservable();
     this.getTabsDataDb().then(res => {

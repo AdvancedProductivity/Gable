@@ -74,4 +74,11 @@ export class NavTabImplService implements NavTabService{
     }
     return this.webImpl.getFocusMenu();
   }
+
+  changeTab(type: string, id: number, newTag: string): void {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.changeTab(type, id, newTag);
+    }
+    return this.webImpl.changeTab(type, id, newTag);
+  }
 }

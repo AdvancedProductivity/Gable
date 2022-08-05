@@ -5,6 +5,7 @@ import {ApiMenuCollection, ApiMenuItem, MenuEvent} from '../../entity/ApiMenu';
 import {db} from '../../db';
 import {initHttpApi} from '../../entity/HttpApi';
 import {HttpApiService} from '../http-api.service';
+import {NavTabImplService} from "../nav-tab-impl.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class ApiMenuWebImplService implements ApiMenuService{
   private cacheMap = new Map<number, ApiMenuCollection>();
 
   constructor(
-    private httpApiService: HttpApiService
+    private httpApiService: HttpApiService,
+    private navTabImplService: NavTabImplService
   ) {
   }
 
@@ -53,6 +55,7 @@ export class ApiMenuWebImplService implements ApiMenuService{
       db.apiMenuItems.update(id, {tag: apiCache.method, version: apiCache.version}).then(mr => {
         console.log('menu item update finished', mr);
       });
+      this.navTabImplService.changeTab('http', id, apiCache.method);
       this.cacheMap.forEach(item => {
         if (item.id === coId) {
           item.children.forEach(menu => {

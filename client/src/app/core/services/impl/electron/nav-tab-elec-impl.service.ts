@@ -37,4 +37,8 @@ export class NavTabElecImplService  implements NavTabService{
   getFocusMenu(): Observable<MenuSelectedEvent> {
     return undefined;
   }
+
+  changeTab(type: string, id: number, newTag: string): void {
+
+  }
 }

@@ -46,6 +46,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
         visible: true,
         level,
         id: node.id,
+        tag: node.tag,
         collectionId: isC ? node.id : node.collectionId,
         type: node.type,
       };
@@ -91,6 +92,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
     if (this.haveOperating) {
       return;
     }
+    console.log('select node', node);
     this.selectedId = node.id;
     if (!this.treeControl.isExpanded(node)) {
       this.treeControl.toggle(node);
@@ -99,6 +101,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
     this.navTabImplService.openTabs({
       name: node.name,
       id: node.id,
+      tag: node.tag,
       collectionId: node.collectionId,
       type: this.isSelectCollection ? 'collection' : 'http',
     }, true, false);
@@ -189,6 +192,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
       this.navTabImplService.openTabs({
         name: res.data.name,
         id: newId,
+        tag: res.data.tag,
         collectionId: res.data.collectionId,
         type: 'http',
       }, true, true);
