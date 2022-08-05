@@ -30,3 +30,8 @@ export class GraphQlPartChangeEvent {
   type: string;
   content: string;
 }
+
+export class HttpComponentHotDataUpdateEvent {
+  action: string;
+  data: any;
+}

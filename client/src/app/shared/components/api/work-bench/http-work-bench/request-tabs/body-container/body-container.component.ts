@@ -3,12 +3,12 @@ import {TextBodyComponent} from '../text-body/text-body.component';
 import {
   ApiFormKeyValueChangeEvent,
   ApiKeyValueChangeEvent,
-  GraphQlPartChangeEvent
+  GraphQlPartChangeEvent, HttpComponentHotDataUpdateEvent
 } from '../../../../../../../core/services/entity/ApiPart';
-import {HttpApi} from "../../../../../../../core/services/entity/HttpApi";
-import {FormEditorComponent} from "../form-editor/form-editor.component";
-import {QueryTableComponent} from "../query-table/query-table.component";
-import {GraphQLComponent} from "../graph-ql/graph-ql.component";
+import {HttpApi} from '../../../../../../../core/services/entity/HttpApi';
+import {FormEditorComponent} from '../form-editor/form-editor.component';
+import {QueryTableComponent} from '../query-table/query-table.component';
+import {GraphQLComponent} from '../graph-ql/graph-ql.component';
 
 @Component({
   selector: 'app-body-container',
@@ -18,6 +18,7 @@ import {GraphQLComponent} from "../graph-ql/graph-ql.component";
 export class BodyContainerComponent implements OnInit, OnDestroy {
   @Output() bodyTypeChange = new EventEmitter<string>();
   @Output() bodyTextTypeChange = new EventEmitter<string>();
+  @Output() contentChange = new EventEmitter<HttpComponentHotDataUpdateEvent>();
   @ViewChild('editorBody', {static: true}) editorBody: TextBodyComponent;
   @ViewChild('form', {static: true}) form: FormEditorComponent;
   @ViewChild('url_encode', {static: true}) urlEncode: QueryTableComponent;
@@ -45,6 +46,7 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
     this.graphQLComponent.setVar(httpApi.bodyGraphQlVar);
     this.graphQLComponent.setQuery(httpApi.bodyGraphQlQuery);
     this.urlEncode.setData(httpApi.bodyUrlEncoded);
+    this.editorBody.setBodyText(httpApi.bodyText);
   }
 
   onTypeChange(data: any): void {
@@ -60,23 +62,24 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
   }
 
   onPartChange(data: ApiKeyValueChangeEvent) {
-    console.log(data.field + ' changed', data.data);
+    this.contentChange.next({action: data.field, data: data.data});
   }
 
   onFormChange(data: ApiFormKeyValueChangeEvent) {
-    console.log(data.field + ' changed', data.data);
+    this.contentChange.next({action: data.field, data: data.data});
   }
 
   onBodyContentChange(newContent: string) {
-    console.log('body content changed', newContent);
+    this.contentChange.next({action: 'raw', data: newContent});
   }
 
   onGraphChange(newContent: GraphQlPartChangeEvent) {
-    console.log('graph ql %s change', newContent.type, newContent.content);
+    this.contentChange.next({action: newContent.type, data: newContent.content});
   }
 
   ngOnDestroy(): void {
     this.bodyTypeChange.unsubscribe();
     this.bodyTextTypeChange.unsubscribe();
+    this.contentChange.unsubscribe();
   }
 }

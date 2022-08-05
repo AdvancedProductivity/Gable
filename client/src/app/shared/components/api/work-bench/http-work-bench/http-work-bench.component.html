@@ -34,6 +34,7 @@
           <div class="req">
             <app-request-tabs
               #req
+              (dataChanged)="onApiUpdate($event)"
               (reqTabChanged)="onReqTabChanged($event)"
             ></app-request-tabs>
           </div>

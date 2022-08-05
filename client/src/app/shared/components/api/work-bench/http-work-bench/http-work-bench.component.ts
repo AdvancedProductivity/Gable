@@ -5,6 +5,7 @@ import {ApiMenuItem} from '../../../../../core/services/entity/ApiMenu';
 import {ApiHeaderOperationComponent} from '../../api-header-operation/api-header-operation.component';
 import {debounceTime, Subject} from 'rxjs';
 import {initHttpApi} from '../../../../../core/services/entity/HttpApi';
+import {HttpComponentHotDataUpdateEvent} from '../../../../../core/services/entity/ApiPart';
 
 @Component({
   selector: 'app-http-work-bench',
@@ -18,6 +19,7 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   urlSubject = new Subject<void>();
   url: string;
   curMethod: string;
+  httpApi = initHttpApi();
 
   constructor(
     private menuService: ApiMenuServiceImpl
@@ -26,19 +28,16 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.urlSubject.pipe(debounceTime(1000))
-      .subscribe(() => {
-        console.log('url changed', this.url);
-      });
+      .subscribe(this.handleUrlChange);
   }
 
   setApiData(id: number, isEdit: boolean = false) {
     this.menuService.getApiData(id).subscribe((api: ApiMenuItem) => {
       this.header.setInitStatus(api.id, api.collectionId, api.name, isEdit);
     });
-    const httpApi = initHttpApi();
-    this.req.setHttpData(httpApi);
-    this.curMethod = httpApi.method;
-    this.url = httpApi.url;
+    this.req.setHttpData(this.httpApi);
+    this.curMethod = this.httpApi.method;
+    this.url = this.httpApi.url;
   }
 
   doSomething(): void {
@@ -46,13 +45,15 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   }
 
   methodChange(data: any): void {
-    console.log('zzq see method changed', data);
+    if (!this.httpApi) {
+      return;
+    }
+    this.httpApi.method = this.curMethod;
+    this.doHttpApiUpdateCache();
   }
 
   onSend() {
-    const data: any = {};
-    data.req = this.req.getData();
-    console.log('zzq see data wait for send', data);
+    console.log('zzq see data wait for send', this.httpApi);
     // @ts-ignore
     gtag('event', 'run_test', {
       type: 'Http',
@@ -69,5 +70,39 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.urlSubject.unsubscribe();
+  }
+
+  onApiUpdate(updateAction: HttpComponentHotDataUpdateEvent) {
+    if (!this.httpApi){
+      return;
+    }else if (updateAction.action === 'query') {
+      this.httpApi.query = updateAction.data;
+    } else if (updateAction.action === 'header') {
+      this.httpApi.header = updateAction.data;
+    } else if (updateAction.action === 'bodyType') {
+      this.httpApi.bodyType = updateAction.data;
+    } else if (updateAction.action === 'bodyTextType') {
+      this.httpApi.bodyTextType = updateAction.data;
+    } else if (updateAction.action === 'url_encode ') {
+      this.httpApi.bodyUrlEncoded = updateAction.data;
+    } else if (updateAction.action === 'raw') {
+      this.httpApi.bodyText = updateAction.data;
+    } else if (updateAction.action === 'graph_query') {
+      this.httpApi.bodyGraphQlQuery = updateAction.data;
+    } else if (updateAction.action === 'graph_var') {
+      this.httpApi.bodyGraphQlVar = updateAction.data;
+    }
+    this.doHttpApiUpdateCache();
+  }
+
+  private handleUrlChange = () => {
+    if (!this.httpApi) {
+      return;
+    }
+    this.httpApi.url = this.url;
+    this.doHttpApiUpdateCache();
+  };
+
+  private doHttpApiUpdateCache() {
   }
 }

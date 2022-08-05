@@ -35,9 +35,9 @@ export class GraphQLComponent implements OnInit, OnDestroy {
     this.graphQlSubject.pipe(debounceTime(1000))
       .subscribe((isVar: boolean) => {
         if (isVar) {
-          this.contentChange.next({type: 'var', content: this.data});
+          this.contentChange.next({type: 'graph_var', content: this.data});
         }else {
-          this.contentChange.next({type: 'query', content: this.query});
+          this.contentChange.next({type: 'graph_query', content: this.query});
         }
       });
   }

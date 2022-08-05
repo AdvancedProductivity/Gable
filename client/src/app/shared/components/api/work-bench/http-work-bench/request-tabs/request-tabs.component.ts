@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {QueryTableComponent} from './query-table/query-table.component';
 import {FormEditorComponent} from './form-editor/form-editor.component';
-import {ApiKeyValueChangeEvent} from '../../../../../../core/services/entity/ApiPart';
+import {ApiKeyValueChangeEvent, HttpComponentHotDataUpdateEvent} from '../../../../../../core/services/entity/ApiPart';
 import {HttpApi} from '../../../../../../core/services/entity/HttpApi';
 import {BodyContainerComponent} from './body-container/body-container.component';
 
@@ -12,6 +12,7 @@ import {BodyContainerComponent} from './body-container/body-container.component'
 })
 export class RequestTabsComponent implements OnInit, OnDestroy {
   @Output() reqTabChanged = new EventEmitter<string>();
+  @Output() dataChanged = new EventEmitter<HttpComponentHotDataUpdateEvent>();
   @ViewChild('query', {static: true}) query: QueryTableComponent;
   @ViewChild('header', {static: true}) header: QueryTableComponent;
   @ViewChild('body', {static: true}) body: BodyContainerComponent;
@@ -31,20 +32,26 @@ export class RequestTabsComponent implements OnInit, OnDestroy {
     this.dispatchData(httpApi);
   }
 
-  public getData(): any {
-    return this.apiData;
-  }
-
   onPartChange(data: ApiKeyValueChangeEvent) {
+    if (data.field === 'query') {
+      this.dataChanged.next({action: 'query', data: data.data});
+    }
+    if (data.field === 'header') {
+      this.dataChanged.next({action: 'header', data: data.data});
+    }
     console.log(data.field + ' changed', data.data);
   }
 
+  onBodyContentChanged(e: HttpComponentHotDataUpdateEvent) {
+    this.dataChanged.next(e);
+  }
+
   onBodyTypeChange(type: string) {
-    console.log('body type changed to be ', type);
+    this.dataChanged.next({action: 'bodyType', data: type});
   }
 
   onBodyTextTypeChange(type: string) {
-    console.log('body text type changed to be ', type);
+    this.dataChanged.next({action: 'bodyTextType', data: type});
   }
 
   selectTab(tab: string) {
@@ -54,6 +61,7 @@ export class RequestTabsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.reqTabChanged.unsubscribe();
+    this.dataChanged.unsubscribe();
   }
 
   private dispatchData(httpApi: HttpApi) {

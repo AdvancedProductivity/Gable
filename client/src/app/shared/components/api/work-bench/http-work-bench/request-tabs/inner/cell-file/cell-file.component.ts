@@ -39,7 +39,7 @@ export class CellFileComponent implements OnInit, ICellRendererAngularComp {
       return;
     }
     const file = info.target.files[0];
-    console.log('zzq see file select', JSON.stringify({cellValue: this.cellValue}), file);
+    // console.log('zzq see file select', JSON.stringify({cellValue: this.cellValue}), file);
     this.cellValue = file.name;
     this.showHint = false;
     // @ts-ignore
@@ -47,10 +47,10 @@ export class CellFileComponent implements OnInit, ICellRendererAngularComp {
   }
 
   private setValue(params: ICellRendererParams) {
-    console.log('zzq see setValue', JSON.stringify({cellValue: params.value}));
+    // console.log('zzq see setValue', JSON.stringify({cellValue: params.value}));
     this.cellValue = params.value;
     this.showHint = !this.cellValue;
-    console.log('zzq see params set hint=' + this.showHint, this.cellValue);
+    // console.log('zzq see params set hint=' + this.showHint, this.cellValue);
     // @ts-ignore
     this.hintStr = params.hintStr;
     // @ts-ignore
