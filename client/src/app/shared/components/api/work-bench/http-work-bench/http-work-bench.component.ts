@@ -105,6 +105,8 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
     if (!this.httpApi) {
       return;
     }
+    const arr = this.url.match(/^((http[s]?|ftp):\/)?\/?([^:\/\s]+)(:([^\/]*))?((\/[\w\/-]+)*\/)([\w\-\.]+[^#?\s]+)(\?([^#]*))?(#(.*))?$/i);
+    console.log('zzq see url', arr);
     this.httpApi.url = this.url;
     this.doHttpApiUpdateCache();
   };
