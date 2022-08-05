@@ -74,7 +74,35 @@
         -webkit-user-select: none;
         -ms-user-select: none;
         user-select: none;
+
+        .menu-tag {
+          font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif;
+          font-size: 12px;
+          font-feature-settings: "calt" 0;
+          font-weight: 400;
+          -webkit-font-smoothing: antialiased;
+          display: inline-block;
+          margin-right: 3px;
+        }
+
+        .GET {
+          color: rgb(12, 187, 82);
+        }
+
+        .POST {
+          color: rgb(255, 180, 0);
+        }
+
+        .PUT {
+          color: rgb(9, 123, 237);
+        }
+
+        .DELETE {
+          color: rgb(235, 32, 19);
+        }
       }
+
+
     }
   }
 }

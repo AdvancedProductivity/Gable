@@ -56,6 +56,7 @@ export class ApiMenuWebImplService implements ApiMenuService{
         console.log('menu item update finished', mr);
       });
       this.navTabImplService.changeTab('http', id, apiCache.method);
+      this.menuActionListener.next({name: 'tag', data: {collectionId: coId, id, tag: apiCache.method}});
       this.cacheMap.forEach(item => {
         if (item.id === coId) {
           item.children.forEach(menu => {

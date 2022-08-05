@@ -57,6 +57,7 @@ export interface MatApiFlatNode {
   collectionId: number;
   expandable: boolean;
   name: string;
+  tag: string;
   visible: boolean;
   level: number;
 }

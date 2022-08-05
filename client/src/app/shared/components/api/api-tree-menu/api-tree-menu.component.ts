@@ -186,6 +186,13 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
     } else if (res.name === 'rename') {
       this.dataSource.data = this.menuData;
       this.handleExpandAndScroll();
+    } else if (res.name === 'tag') {
+      this.treeControl.dataNodes.forEach(item => {
+        if (item.collectionId === res.data.collectionId && item.id === res.data.id) {
+          console.log('find the tag ', item);
+          item.tag = res.data.tag;
+        }
+      });
     } else if (res.name === 'addHttp') {
       this.dataSource.data = this.menuData;
       const newId = res.data.id;
