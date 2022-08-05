@@ -46,10 +46,6 @@ export class ApiMenuWebImplService implements ApiMenuService{
   }
 
   async addHttpApiToDb(name: string, collectionId: number): Promise<any> {
-    const data = {
-      method: 'GET',
-      url: '',
-    };
     const newHttp = initHttpApi();
     const httpId = await db.httpApi.add(newHttp);
     newHttp.id = httpId;

@@ -5,11 +5,31 @@ export class ApiKeyValue {
   desc: string;
 }
 
+export const getCommonKeyValue = () => {
+  const d = new ApiKeyValue();
+  d.key = '';
+  d.value = '';
+  d.desc = '';
+  d.using = true;
+  return d;
+};
+
 export class ApiFormKeyValue extends ApiKeyValue{
   type: string;
   fileName?: string;
   fileId?: number;
 }
+
+export const getCommonFormKeyValue = () => {
+  const d = new ApiFormKeyValue();
+  d.type = 'text';
+  d.key = '';
+  d.fileName = '';
+  d.value = '';
+  d.desc = '';
+  d.using = true;
+  return d;
+};
 
 export class ApiKeyValueChangeEvent {
   field: string;

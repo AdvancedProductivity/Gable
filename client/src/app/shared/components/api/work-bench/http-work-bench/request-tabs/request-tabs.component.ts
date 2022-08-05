@@ -39,7 +39,6 @@ export class RequestTabsComponent implements OnInit, OnDestroy {
     if (data.field === 'header') {
       this.dataChanged.next({action: 'header', data: data.data});
     }
-    console.log(data.field + ' changed', data.data);
   }
 
   onBodyContentChanged(e: HttpComponentHotDataUpdateEvent) {

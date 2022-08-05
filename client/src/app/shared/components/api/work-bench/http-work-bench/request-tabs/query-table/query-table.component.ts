@@ -5,7 +5,11 @@ import {CloseInputCellComponent} from '../inner/close-input-cell/close-input-cel
 import {CellContentComponent} from '../inner/cell-content/cell-content.component';
 import {CheckBoxCellComponent} from '../inner/check-box-cell/check-box-cell.component';
 import {CheckBoxCellEditorComponent} from '../inner/check-box-cell-editor/check-box-cell-editor.component';
-import {ApiKeyValue, ApiKeyValueChangeEvent} from '../../../../../../../core/services/entity/ApiPart';
+import {
+  ApiKeyValue,
+  ApiKeyValueChangeEvent,
+  getCommonKeyValue
+} from '../../../../../../../core/services/entity/ApiPart';
 
 @Component({
   selector: 'app-query-table',
@@ -153,7 +157,7 @@ export class QueryTableComponent implements OnInit {
 
   public setData(data: ApiKeyValue[]): void {
     if (Array.isArray(data) && data.length === 0) {
-      this.rowData = [new ApiKeyValue()];
+      this.rowData = [getCommonKeyValue()];
     } else {
       this.rowData = data;
     }
@@ -167,7 +171,7 @@ export class QueryTableComponent implements OnInit {
     setTimeout(() => {
       const lastValue = this.rowData[this.rowData.length - 1];
       if (lastValue.key || lastValue.value || lastValue.desc) {
-        this.rowData.push({key: '', value: '', desc: '', using: true});
+        this.rowData.push(getCommonKeyValue());
         this.gridApi.setRowData(this.rowData);
       }
       this.dataChange.next({field: this.field, data: this.rowData});

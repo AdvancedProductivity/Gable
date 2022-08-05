@@ -8,8 +8,7 @@ import {CellFileTextComponent} from '../inner/cell-file-text/cell-file-text.comp
 import {CellFileComponent} from '../inner/cell-file/cell-file.component';
 import {
   ApiFormKeyValue,
-  ApiFormKeyValueChangeEvent,
-  ApiKeyValue
+  ApiFormKeyValueChangeEvent, getCommonFormKeyValue
 } from '../../../../../../../core/services/entity/ApiPart';
 
 @Component({
@@ -172,7 +171,7 @@ export class FormEditorComponent implements OnInit {
 
   public setData(data: ApiFormKeyValue[]): void {
     if (Array.isArray(data) && data.length === 0) {
-      this.rowData = [new ApiFormKeyValue()];
+      this.rowData = [getCommonFormKeyValue()];
     } else {
       this.rowData = data;
     }
@@ -198,7 +197,7 @@ export class FormEditorComponent implements OnInit {
     setTimeout(() => {
       const lastValue = this.rowData[this.rowData.length - 1];
       if (lastValue.key || lastValue.value || lastValue.desc) {
-        this.rowData.push({key: '', value: '', desc: '', type: 'text', using: true});
+        this.rowData.push(getCommonFormKeyValue());
         this.gridApi.setRowData(this.rowData);
       }
       this.dataChange.next({field: 'form', data: this.rowData});
