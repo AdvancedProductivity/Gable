@@ -2,6 +2,8 @@ import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output, ViewC
 import {QueryTableComponent} from './query-table/query-table.component';
 import {FormEditorComponent} from './form-editor/form-editor.component';
 import {ApiKeyValueChangeEvent} from '../../../../../../core/services/entity/ApiPart';
+import {HttpApi} from '../../../../../../core/services/entity/HttpApi';
+import {BodyContainerComponent} from './body-container/body-container.component';
 
 @Component({
   selector: 'app-request-tabs',
@@ -11,8 +13,10 @@ import {ApiKeyValueChangeEvent} from '../../../../../../core/services/entity/Api
 export class RequestTabsComponent implements OnInit, OnDestroy {
   @Output() reqTabChanged = new EventEmitter<string>();
   @ViewChild('query', {static: true}) query: QueryTableComponent;
-  @ViewChild(FormEditorComponent)
-  formEditor!: FormEditorComponent;
+  @ViewChild('header', {static: true}) header: QueryTableComponent;
+  @ViewChild('body', {static: true}) body: BodyContainerComponent;
+  @ViewChild(FormEditorComponent) formEditor!: FormEditorComponent;
+  apiData: HttpApi;
   tabs = ['Query Param', 'Header', 'Body', 'Pre-Script', 'Post-Script'];
   curTab = 'Query Param';
 
@@ -20,14 +24,15 @@ export class RequestTabsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.query.setData(null);
+  }
+
+  public setHttpData(httpApi: HttpApi) {
+    this.apiData = httpApi;
+    this.dispatchData(httpApi);
   }
 
   public getData(): any {
-    const data: any = {};
-    data.query = this.query.getData();
-    data.form = this.formEditor.getData();
-    return data;
+    return this.apiData;
   }
 
   onPartChange(data: ApiKeyValueChangeEvent) {
@@ -49,5 +54,11 @@ export class RequestTabsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.reqTabChanged.unsubscribe();
+  }
+
+  private dispatchData(httpApi: HttpApi) {
+    this.query.setData(httpApi.query);
+    this.header.setData(httpApi.header);
+    this.body.setBodyData(httpApi);
   }
 }

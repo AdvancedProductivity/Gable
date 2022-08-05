@@ -5,6 +5,10 @@ import {
   ApiKeyValueChangeEvent,
   GraphQlPartChangeEvent
 } from '../../../../../../../core/services/entity/ApiPart';
+import {HttpApi} from "../../../../../../../core/services/entity/HttpApi";
+import {FormEditorComponent} from "../form-editor/form-editor.component";
+import {QueryTableComponent} from "../query-table/query-table.component";
+import {GraphQLComponent} from "../graph-ql/graph-ql.component";
 
 @Component({
   selector: 'app-body-container',
@@ -14,8 +18,10 @@ import {
 export class BodyContainerComponent implements OnInit, OnDestroy {
   @Output() bodyTypeChange = new EventEmitter<string>();
   @Output() bodyTextTypeChange = new EventEmitter<string>();
-  @ViewChild(TextBodyComponent)
-  editorBody!: TextBodyComponent;
+  @ViewChild('editorBody', {static: true}) editorBody: TextBodyComponent;
+  @ViewChild('form', {static: true}) form: FormEditorComponent;
+  @ViewChild('url_encode', {static: true}) urlEncode: QueryTableComponent;
+  @ViewChild('graph_ql', {static: true}) graphQLComponent: GraphQLComponent;
   curTyp = 'none';
   rawType = 'json';
   types = [
@@ -30,6 +36,15 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+  }
+
+  public setBodyData(httpApi: HttpApi) {
+    this.rawType = httpApi.bodyTextType;
+    this.editorBody.setBodyLang(this.rawType);
+    this.form.setData(httpApi.bodyForm);
+    this.graphQLComponent.setVar(httpApi.bodyGraphQlVar);
+    this.graphQLComponent.setQuery(httpApi.bodyGraphQlQuery);
+    this.urlEncode.setData(httpApi.bodyUrlEncoded);
   }
 
   onTypeChange(data: any): void {

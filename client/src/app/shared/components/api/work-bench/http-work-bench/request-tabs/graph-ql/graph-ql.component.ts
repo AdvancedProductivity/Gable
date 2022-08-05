@@ -55,4 +55,12 @@ export class GraphQLComponent implements OnInit, OnDestroy {
       this.graphQlSubject.next(false);
     });
   }
+
+  public setVar(v: any) {
+    this.data = v;
+  }
+
+  public setQuery(v: any) {
+    this.query = v;
+  }
 }

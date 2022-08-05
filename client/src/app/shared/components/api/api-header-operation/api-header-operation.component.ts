@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ApiMenuServiceImpl} from "../../../../core/services/impl/api-menu-impl.service";
-import {NavTabImplService} from "../../../../core/services/impl/nav-tab-impl.service";
+import {ApiMenuServiceImpl} from '../../../../core/services/impl/api-menu-impl.service';
+import {NavTabImplService} from '../../../../core/services/impl/nav-tab-impl.service';
 
 @Component({
   selector: 'app-api-header-operation',
@@ -27,6 +27,9 @@ export class ApiHeaderOperationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * set the http header bar name,collection name ...
+   * */
   setInitStatus(id: number, collectionId: number, name: string, isEdit: boolean) {
     this.menuService.getCollectionName(collectionId).subscribe(res => {
       this.collectionName = res;

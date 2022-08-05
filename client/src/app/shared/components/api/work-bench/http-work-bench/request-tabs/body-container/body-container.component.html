@@ -42,15 +42,18 @@
       (contentChange)="onBodyContentChange($event)"
     ></app-text-body>
     <app-form-editor
+      #form
       (dataChange)="onFormChange($event)"
       [style.display]="curTyp === 'form_data' ? 'inline' : 'none'"
     ></app-form-editor>
     <app-query-table
-      field="header"
+      #url_encode
+      field="url_encode"
       (dataChange)="onPartChange($event)"
       [style.display]="curTyp === 'urlencoded' ? 'inline' : 'none'"
     ></app-query-table>
     <app-graph-ql
+      #graph_ql
       [style.display]="curTyp === 'graphQL' ? 'inline' : 'none'"
       (contentChange)="onGraphChange($event)"
     ></app-graph-ql>

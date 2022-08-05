@@ -152,7 +152,7 @@ export class QueryTableComponent implements OnInit {
   }
 
   public setData(data: ApiKeyValue[]): void {
-    if (!data) {
+    if (Array.isArray(data) && data.length === 0) {
       this.rowData = [new ApiKeyValue()];
     } else {
       this.rowData = data;

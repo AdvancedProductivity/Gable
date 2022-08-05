@@ -31,6 +31,10 @@ export class TextBodyComponent implements OnInit, OnDestroy {
     this.editorOptions = {...this.editorOptions, language};
   }
 
+  setBodyText(bodyContent): void {
+    this.code = bodyContent;
+  }
+
   initEditor(e: MonacoStandaloneCodeEditor) {
     this.editor = e;
     e.onDidChangeModelContent((ey) => {

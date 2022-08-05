@@ -6,7 +6,11 @@ import {CheckBoxCellComponent} from '../inner/check-box-cell/check-box-cell.comp
 import {CloseInputCellComponent} from '../inner/close-input-cell/close-input-cell.component';
 import {CellFileTextComponent} from '../inner/cell-file-text/cell-file-text.component';
 import {CellFileComponent} from '../inner/cell-file/cell-file.component';
-import {ApiFormKeyValue, ApiFormKeyValueChangeEvent} from '../../../../../../../core/services/entity/ApiPart';
+import {
+  ApiFormKeyValue,
+  ApiFormKeyValueChangeEvent,
+  ApiKeyValue
+} from '../../../../../../../core/services/entity/ApiPart';
 
 @Component({
   selector: 'app-form-editor',
@@ -164,6 +168,14 @@ export class FormEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  public setData(data: ApiFormKeyValue[]): void {
+    if (Array.isArray(data) && data.length === 0) {
+      this.rowData = [new ApiFormKeyValue()];
+    } else {
+      this.rowData = data;
+    }
   }
 
   onFirstGridReady(params: any, gridContainer: HTMLElement) {

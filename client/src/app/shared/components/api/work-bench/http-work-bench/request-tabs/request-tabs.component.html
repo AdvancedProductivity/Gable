@@ -32,6 +32,7 @@
         (dataChange)="onPartChange($event)"
       ></app-query-table>
       <app-body-container
+        #body
         (bodyTextTypeChange)="onBodyTextTypeChange($event)"
         (bodyTypeChange)="onBodyTypeChange($event)"
         [style.display]="curTab === 'Body' ? 'inline' : 'none'"
