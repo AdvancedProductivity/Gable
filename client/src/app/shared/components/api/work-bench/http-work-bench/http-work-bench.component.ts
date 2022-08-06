@@ -67,7 +67,7 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   }
 
   onSend() {
-    this.apiRunnerService.runHttp(this.id, this.req).subscribe(res => {
+    this.apiRunnerService.runHttp(this.id, this.httpApi).subscribe(res => {
       console.log('receive response', res);
     });
     console.log('zzq see data wait for send', this.httpApi);

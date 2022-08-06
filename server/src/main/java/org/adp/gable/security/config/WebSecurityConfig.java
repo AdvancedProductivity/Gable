@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), objectMapper))
                 .addFilterAfter(new JwtTokenHandleFilter(authenticationManager(), objectMapper), JwtAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/static/**", "/api/user")
+                .antMatchers("/static/**", "/api/user", "/api/apiRunner")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

@@ -12,7 +12,12 @@ export class ApiRunnerService {
   ) {
   }
 
-  public runHttp(id: number, req: any): Observable<any> {
-    return this.httpClient.post('http://localhost:2208', req);
+  public runHttp(id: number, reqbody: any): Observable<any> {
+    console.log('req is', reqbody);
+    return this.httpClient.post('http://localhost:8080/api/apiRunner', {
+      id,
+      type: 'http',
+      params: reqbody
+    });
   }
 }
