@@ -14,6 +14,19 @@ export const getCommonKeyValue = () => {
   return d;
 };
 
+export const parserKeyValue = (key: string, value: string) => {
+  const d = new ApiKeyValue();
+  d.key = key;
+  if (!value) {
+    d.value = '';
+  }else {
+    d.value = value;
+  }
+  d.desc = '';
+  d.using = true;
+  return d;
+};
+
 export class ApiFormKeyValue extends ApiKeyValue{
   type: string;
   fileName?: string;

@@ -5,8 +5,13 @@ import {ApiMenuItem} from '../../../../../core/services/entity/ApiMenu';
 import {ApiHeaderOperationComponent} from '../../api-header-operation/api-header-operation.component';
 import {debounceTime, Subject} from 'rxjs';
 import {HttpApi} from '../../../../../core/services/entity/HttpApi';
-import {HttpComponentHotDataUpdateEvent} from '../../../../../core/services/entity/ApiPart';
+import {
+  getCommonKeyValue,
+  HttpComponentHotDataUpdateEvent,
+  parserKeyValue
+} from '../../../../../core/services/entity/ApiPart';
 import {HttpApiService} from '../../../../../core/services/impl/http-api.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-http-work-bench',
@@ -59,6 +64,29 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   }
 
   onSend() {
+    const xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener('readystatechange', function() {
+      if (this.readyState === this.HEADERS_RECEIVED) {
+
+        // Get the raw header string
+        const headers = xhr.getAllResponseHeaders();
+
+        // Convert the header string into an array
+        // of individual headers
+        const arr = headers.trim().split(/[\r\n]+/);
+        console.log('header', arr);
+      }
+      if (this.readyState === this.LOADING) {
+        console.log('responseType', this.responseType);
+        console.log('response', this.response);
+      }
+    });
+
+    xhr.open('GET', 'http://localhost:12208/static/img.jpeg');
+
+    xhr.send();
     console.log('zzq see data wait for send', this.httpApi);
     // @ts-ignore
     gtag('event', 'run_test', {
@@ -106,7 +134,44 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
       return;
     }
     const arr = this.url.match(/^((http[s]?|ftp):\/)?\/?([^:\/\s]+)(:([^\/]*))?((\/[\w\/-]+)*\/)([\w\-\.]+[^#?\s]+)(\?([^#]*))?(#(.*))?$/i);
-    console.log('zzq see url', arr);
+    if (arr) {
+      console.log('zzq see url', arr);
+      this.httpApi.protocol = arr[2];
+      const host = arr[3];
+      this.httpApi.host = host;
+      this.httpApi.hostArr = host.split('.');
+      const port = arr[5];
+      this.httpApi.port = port ? port : '80';
+      const path = arr[6] + arr[8];
+      this.httpApi.path = path;
+      const pathArr = path.split('/').filter(i => i);
+      this.httpApi.pathArray = pathArr;
+      const queryStr = arr[10];
+      if (queryStr) {
+        const keyValueArr = queryStr.split('&');
+        const keyValue = [];
+        const set = new Set<string>();
+        keyValueArr.forEach(item => {
+          const field = item.split('=');
+          if (field[0]) {
+            set.add(field[0] + '_' + field[1]);
+            keyValue.push(parserKeyValue(field[0], field[1]));
+          }
+        });
+        keyValue.push(getCommonKeyValue());
+        const oldArr = this.httpApi.query;
+        if (oldArr) {
+          oldArr.forEach(item => {
+            if (item.key && item.value && !set.has(item.key + '_' + item.value)) {
+              keyValue.push(item);
+            }
+          });
+        }
+        keyValue.push(getCommonKeyValue());
+        this.httpApi.query = keyValue;
+        this.req.setHttpData(this.httpApi);
+      }
+    }
     this.httpApi.url = this.url;
     this.doHttpApiUpdateCache();
   };
