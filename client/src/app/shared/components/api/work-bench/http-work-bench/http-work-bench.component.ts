@@ -11,7 +11,7 @@ import {
   parserKeyValue
 } from '../../../../../core/services/entity/ApiPart';
 import {HttpApiService} from '../../../../../core/services/impl/http-api.service';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ApiRunnerService} from '../../../../../core/services/impl/api-runner.service';
 
 @Component({
   selector: 'app-http-work-bench',
@@ -26,9 +26,11 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   url: string;
   curMethod: string;
   httpApi: HttpApi;
+  id: number;
 
   constructor(
     private menuService: ApiMenuServiceImpl,
+    private apiRunnerService: ApiRunnerService,
     private httpApiService: HttpApiService
   ) {
   }
@@ -39,6 +41,7 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   }
 
   setApiData(id: number, isEdit: boolean = false) {
+    this.id = id;
     this.menuService.getApiData(id).subscribe((api: ApiMenuItem) => {
       this.header.setInitStatus(api.id, api.collectionId, api.name, isEdit, api.version, api.defineId);
     });
@@ -64,29 +67,9 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   }
 
   onSend() {
-    const xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-
-    xhr.addEventListener('readystatechange', function() {
-      if (this.readyState === this.HEADERS_RECEIVED) {
-
-        // Get the raw header string
-        const headers = xhr.getAllResponseHeaders();
-
-        // Convert the header string into an array
-        // of individual headers
-        const arr = headers.trim().split(/[\r\n]+/);
-        console.log('header', arr);
-      }
-      if (this.readyState === this.LOADING) {
-        console.log('responseType', this.responseType);
-        console.log('response', this.response);
-      }
+    this.apiRunnerService.runHttp(this.id, this.req).subscribe(res => {
+      console.log('receive response', res);
     });
-
-    xhr.open('GET', 'http://localhost:12208/static/img.jpeg');
-
-    xhr.send();
     console.log('zzq see data wait for send', this.httpApi);
     // @ts-ignore
     gtag('event', 'run_test', {
