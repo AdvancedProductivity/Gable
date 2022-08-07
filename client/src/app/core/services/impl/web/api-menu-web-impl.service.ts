@@ -5,7 +5,9 @@ import {ApiMenuCollection, ApiMenuItem, MenuEvent} from '../../entity/ApiMenu';
 import {db} from '../../db';
 import {initHttpApi} from '../../entity/HttpApi';
 import {HttpApiService} from '../http-api.service';
-import {NavTabImplService} from "../nav-tab-impl.service";
+import {NavTabImplService} from '../nav-tab-impl.service';
+import {MenuStorageService} from '../../storage/menu-storage.service';
+import {HttpApiStorageService} from '../../storage/http-api-stroage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,8 @@ export class ApiMenuWebImplService implements ApiMenuService{
   private cacheMap = new Map<number, ApiMenuCollection>();
 
   constructor(
+    private menuStorageService: MenuStorageService,
+    private httpApiStorageService: HttpApiStorageService,
     private httpApiService: HttpApiService,
     private navTabImplService: NavTabImplService
   ) {
@@ -35,7 +39,7 @@ export class ApiMenuWebImplService implements ApiMenuService{
   }
 
   async addCollectionToDb(name: string): Promise<any> {
-    const collectionId = await db.apiMenus.add({name, apiCount: 0, type: 'c'});
+    const collectionId = await this.menuStorageService.addCollectionToDb({name, apiCount: 0, type: 'c'});
     const collection = {id: collectionId, name, apiCount: 0, type: 'c', children: []};
     this.cache.push(collection);
     this.cacheMap.set(collectionId, collection);
@@ -49,10 +53,10 @@ export class ApiMenuWebImplService implements ApiMenuService{
 
   upgradeHttpDefine(coId: number, id: number, httpDefineId: number): Observable<void> {
     this.httpApiService.getCache(httpDefineId).subscribe(apiCache => {
-      db.httpApi.update(httpDefineId, apiCache).then(r => {
-        console.log('persistence cache finished', r);
+      this.httpApiStorageService.updateApi(httpDefineId, apiCache).then(res => {
+        console.log('persistence cache finished', res);
       });
-      db.apiMenuItems.update(id, {tag: apiCache.method, version: apiCache.version}).then(mr => {
+      this.menuStorageService.updateTagAndVersion(id, apiCache.method, apiCache.version).then(mr => {
         console.log('menu item update finished', mr);
       });
       this.navTabImplService.changeTab('http', id, apiCache.method);
@@ -74,7 +78,8 @@ export class ApiMenuWebImplService implements ApiMenuService{
 
   async addHttpApiToDb(name: string, collectionId: number): Promise<any> {
     const newHttp = initHttpApi();
-    const httpId = await db.httpApi.add(newHttp);
+    const httpId = await this.httpApiStorageService.addHttp(newHttp);
+    console.log('add http req', httpId);
     newHttp.id = httpId;
     this.httpApiService.addApiDefine(newHttp);
     await db.httpApiCache.add(newHttp).then(res => {
@@ -88,7 +93,7 @@ export class ApiMenuWebImplService implements ApiMenuService{
       defineId: httpId,
       version: newHttp.version
     };
-    apiData.id = await db.apiMenuItems.add(apiData);
+    apiData.id = await this.menuStorageService.addMenuItemToDb(apiData);
     const collectionData = this.cacheMap.get(collectionId);
     collectionData.children.push(apiData);
     this.menuActionListener.next({name: 'addHttp', data: apiData});
@@ -97,8 +102,12 @@ export class ApiMenuWebImplService implements ApiMenuService{
   }
 
   async getMenu(): Promise<ApiMenuCollection[]> {
-    const collections = await db.apiMenus.toArray();
-    const allItems = await db.apiMenuItems.toArray();
+    const data = await Promise.all([
+      this.menuStorageService.getAllMenus(),
+      this.menuStorageService.getAllMenuItems(),
+    ]);
+    const collections = data[0];
+    const allItems = data[1];
     const collectionMap = new Map<number, ApiMenuItem[]>();
     allItems.forEach(item => {
       if (collectionMap.has(item.collectionId)) {
@@ -127,11 +136,11 @@ export class ApiMenuWebImplService implements ApiMenuService{
     if (this.cacheMap.has(id)) {
       return of(this.cacheMap.get(id));
     }
-    return from(db.apiMenus.get(id));
+    return from(this.menuStorageService.getCollection(id));
   }
 
   getApiData(id: number): Observable<ApiMenuItem> {
-    return from(db.apiMenuItems.get(id));
+    return from(this.menuStorageService.getApiMenuItem(id));
   }
 
   updateCollectionName(id: number, newName: string) {
@@ -141,7 +150,7 @@ export class ApiMenuWebImplService implements ApiMenuService{
     }
     oldData.name = newName;
     this.menuActionListener.next({name: 'rename', data: null});
-    db.apiMenus.update(id, {name: newName}).then(res => {
+    this.menuStorageService.renameCollection(id, newName).then(res => {
     });
   }
 
@@ -164,7 +173,7 @@ export class ApiMenuWebImplService implements ApiMenuService{
     }
     waitForRename.name = newName;
     this.menuActionListener.next({name: 'rename', data: null});
-    db.apiMenuItems.update(id, {name: newName}).then(res => {
+    this.menuStorageService.renameMenuItem(id, newName).then(res => {
     });
   }
 
@@ -172,7 +181,7 @@ export class ApiMenuWebImplService implements ApiMenuService{
     if (this.cacheMap.has(id)) {
       return of(this.cacheMap.get(id).name);
     }
-    return from(db.apiMenus.get(id)).pipe(
+    return from(this.menuStorageService.getCollection(id)).pipe(
       map(item => item.name)
     );
   }

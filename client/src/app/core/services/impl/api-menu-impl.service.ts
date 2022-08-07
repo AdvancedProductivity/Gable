@@ -12,89 +12,53 @@ import {ApiMenuElecImplService} from './electron/api-menu-elec-impl.service';
 export class ApiMenuServiceImpl implements ApiMenuService{
 
   constructor(
-    private electronService: ElectronService,
-    private electronImpl: ApiMenuElecImplService,
     private webImpl: ApiMenuWebImplService
   ) {
   }
 
 
   getMenus(): Observable<ApiMenuCollection[]> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.getMenus();
-    } else {
-      return this.webImpl.getMenus();
-    }
+    return this.webImpl.getMenus();
   }
 
   actions(): Observable<any> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.actions();
-    } else {
-      return this.webImpl.actions();
-    }
+    return this.webImpl.actions();
   }
 
   /**
    * add collection. this is a menu which can expand
    * */
   addCollection(collectionName): Observable<void> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.addCollection(collectionName);
-    } else {
-      return this.webImpl.addCollection(collectionName);
-    }
+    return this.webImpl.addCollection(collectionName);
   }
 
   /**
    * add http api. this is a menu which is leaf
    * */
   addHttp(apiName: string, collectionId: number): Observable<void> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.addHttp(apiName, collectionId);
-    } else {
-      return this.webImpl.addHttp(apiName, collectionId);
-    }
+    return this.webImpl.addHttp(apiName, collectionId);
   }
 
   getCollectionData(id: number): Observable<ApiMenuCollection> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.getCollectionData(id);
-    } else {
-      return this.webImpl.getCollectionData(id);
-    }
+
+    return this.webImpl.getCollectionData(id);
   }
 
   getApiData(id: number): Observable<ApiMenuItem> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.getApiData(id);
-    } else {
-      return this.webImpl.getApiData(id);
-    }
+    return this.webImpl.getApiData(id);
   }
 
   updateCollectionName(id: number, newName: string) {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.updateCollectionName(id, newName);
-    } else {
-      return this.webImpl.updateCollectionName(id, newName);
-    }
+
+    return this.webImpl.updateCollectionName(id, newName);
   }
 
   updateApiName(id: number, collectionId: number, newName: string) {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.updateApiName(id, collectionId, newName);
-    } else {
-      return this.webImpl.updateApiName(id, collectionId, newName);
-    }
+    return this.webImpl.updateApiName(id, collectionId, newName);
   }
 
   getCollectionName(collectionId): Observable<string> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.getCollectionName(collectionId);
-    } else {
-      return this.webImpl.getCollectionName(collectionId);
-    }
+    return this.webImpl.getCollectionName(collectionId);
   }
 
   /**
@@ -103,10 +67,6 @@ export class ApiMenuServiceImpl implements ApiMenuService{
    * @param httpDefineId http id
    * */
   upgradeHttpDefine(coId: number, id: number, httpDefineId: number): Observable<void> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.upgradeHttpDefine(coId, id, httpDefineId);
-    } else {
-      return this.webImpl.upgradeHttpDefine(coId, id, httpDefineId);
-    }
+    return this.webImpl.upgradeHttpDefine(coId, id, httpDefineId);
   }
 }

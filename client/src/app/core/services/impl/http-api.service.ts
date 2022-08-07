@@ -3,7 +3,7 @@ import {ElectronService} from '../electron/electron.service';
 import {HttpApiElecImplService} from './electron/http-api-elec-impl.service';
 import {HttpApiWebImplService} from './web/http-api-web-impl.service';
 import {HttpApiHistoryCache} from '../entity/HttpApi';
-import {Observable} from "rxjs";
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
