@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {ConfigServiceImpl} from './ConfigServiceImpl';
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +9,17 @@ import {Observable} from 'rxjs';
 export class ApiRunnerService {
 
   constructor(
+    private config: ConfigServiceImpl,
     private httpClient: HttpClient
   ) {
   }
 
-  public runHttp(id: number, reqbody: any): Observable<any> {
-    console.log('req is', reqbody);
-    return this.httpClient.post('http://localhost:8080/api/apiRunner', {
+  public runHttp(id: number, reqBody: any): Observable<any> {
+    const server = this.config.getConfigSync('gableServer');
+    return this.httpClient.post(`${server}/api/apiRunner`, {
       id,
       type: 'http',
-      params: reqbody
+      params: reqBody
     });
   }
 
