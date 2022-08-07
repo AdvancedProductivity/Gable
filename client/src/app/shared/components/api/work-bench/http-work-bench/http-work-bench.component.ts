@@ -4,7 +4,7 @@ import {ApiMenuServiceImpl} from '../../../../../core/services/impl/api-menu-imp
 import {ApiMenuItem} from '../../../../../core/services/entity/ApiMenu';
 import {ApiHeaderOperationComponent} from '../../api-header-operation/api-header-operation.component';
 import {debounceTime, Subject} from 'rxjs';
-import {HttpApi} from '../../../../../core/services/entity/HttpApi';
+import {getEmptyResponse, HttpApi} from '../../../../../core/services/entity/HttpApi';
 import {
   getCommonKeyValue,
   HttpComponentHotDataUpdateEvent,
@@ -12,6 +12,7 @@ import {
 } from '../../../../../core/services/entity/ApiPart';
 import {HttpApiService} from '../../../../../core/services/impl/http-api.service';
 import {ApiRunnerService} from '../../../../../core/services/impl/api-runner.service';
+import {ResponseTabsComponent} from './response-tabs/response-tabs.component';
 
 @Component({
   selector: 'app-http-work-bench',
@@ -20,6 +21,7 @@ import {ApiRunnerService} from '../../../../../core/services/impl/api-runner.ser
 })
 export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   @ViewChild(RequestTabsComponent) req!: RequestTabsComponent;
+  @ViewChild(ResponseTabsComponent) resp!: ResponseTabsComponent;
   @ViewChild(ApiHeaderOperationComponent) header!: ApiHeaderOperationComponent;
   @Output() run = new EventEmitter();
   urlSubject = new Subject<void>();
@@ -52,6 +54,7 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
       this.curMethod = res.method;
       this.url = res.url;
     });
+    this.resp.setResp(getEmptyResponse());
   }
 
   doSomething(): void {
@@ -69,6 +72,7 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   onSend() {
     this.apiRunnerService.runHttp(this.id, this.httpApi).subscribe(res => {
       console.log('receive response', res);
+      this.resp.setResp(res);
     });
     console.log('zzq see data wait for send', this.httpApi);
     // @ts-ignore

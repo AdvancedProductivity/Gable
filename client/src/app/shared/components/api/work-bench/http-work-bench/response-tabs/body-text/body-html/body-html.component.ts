@@ -11,9 +11,9 @@ export class BodyHtmlComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    for (let i = 0; i < 1000; i++) {
-      this.content += `<h1>Hello World  ${i}</h1>`;
-    }
   }
 
+  public setContent(c: string): void {
+    this.content = c;
+  }
 }

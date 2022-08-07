@@ -24,15 +24,15 @@
           </div>
           <div class="resp-item">
             <span>Status:</span>
-            <span class="value">200 ok</span>
+            <span class="value">{{ code }}</span>
           </div>
           <div class="resp-item">
             <span>Time:</span>
-            <span class="value">465ms</span>
+            <span class="value">{{ timeTakes }}ms</span>
           </div>
           <div class="resp-item">
             <span>Size:</span>
-            <span class="value">271 B</span>
+            <span class="value">{{ size }}</span>
           </div>
         </div>
       </div>
@@ -57,6 +57,7 @@
   </div>
   <div class="body">
     <app-body-text
+      #textComponent
       [style.display]="curTab === 'Body' ? 'inline' : 'none'"
     ></app-body-text>
     <app-developing

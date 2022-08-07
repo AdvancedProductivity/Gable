@@ -57,11 +57,25 @@ export const initHttpApi = (): HttpApi => {
 };
 
 export class HttpApiResponse {
-  statusCode: number;
-  dateStart: number;
-  dateEnd: number;
+  bodyType: string;
+  code: number;
+  content: any;
+  contentType: string;
+  startAt: number;
+  endAt: number;
+  timeTakes: number;
+  message: string;
   size: number;
-  body: any;
-  cookies: any;
-  header: any;
+  headers: any[];
+  cookie: any[];
 }
+
+export const getEmptyResponse = () => {
+  const r = new HttpApiResponse();
+  r.code = 0;
+  r.content = '';
+  r.timeTakes = 0;
+  r.size = 0;
+  r.bodyType = 'json';
+  return r;
+};
