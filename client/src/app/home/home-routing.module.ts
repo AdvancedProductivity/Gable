@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import {PageNotFoundComponent} from '../shared/components';
 import {ApiTestComponent} from './api-test/api-test.component';
+import {SettingComponent} from './setting/setting.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'api', pathMatch: 'full' },
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'setting',
+    component: SettingComponent
   },
   {
     path: '**',

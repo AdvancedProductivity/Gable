@@ -20,4 +20,8 @@ export class ApiRunnerService {
       params: reqbody
     });
   }
+
+  public ping(url: string): Observable<any> {
+    return this.httpClient.get(`${url}/api/apiRunner`);
+  }
 }

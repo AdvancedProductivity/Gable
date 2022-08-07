@@ -11,6 +11,16 @@
     "NAV": {
       "LANG_TIP": "Change the Language"
     },
+    "SETTING": {
+      "NAME": "Setting",
+      "URL": "url",
+      "SERVER_CONFIG": "Gable Server Config",
+      "LOCAL_TIP": "Persistence Data In Web Local",
+      "SERVER_CONFIG_COMMENT": "Persistence Gable Data",
+      "PROXY_SERVER_CONFIG": "API Proxy Config",
+      "PROXY_SERVER_CONFIG_COMMENT": "api runner proxy host",
+      "APPLY": "apply"
+    },
     "API_TEST": {
       "NAME": "API Test",
       "TREE_MENU": {
@@ -53,6 +63,7 @@
   },
   "MESSAGE": {
     "DEVELOPING": "This feature is developing",
+    "APPLY_SUCCESS": "Config Have Been Apply",
     "I_KNOW": "Got it",
     "THANKS_FOR_COME_ON": "Thank you for your encouragement. I will try my best!",
     "FEATURE_HELPER": "about the planning and design of this feature",

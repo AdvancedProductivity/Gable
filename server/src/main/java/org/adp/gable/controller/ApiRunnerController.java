@@ -3,13 +3,11 @@ package org.adp.gable.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
+import org.adp.gable.common.beans.Result;
 import org.adp.gable.runner.ActionType;
 import org.adp.gable.runner.impl.HttpAction;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -35,6 +33,11 @@ public class ApiRunnerController {
         }
         log.info("run data: {}", req.toPrettyString());
         return response;
+    }
+
+    @GetMapping
+    public Result<String> alive() {
+        return Result.success(null);
     }
 
 }

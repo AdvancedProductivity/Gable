@@ -1,0 +1,46 @@
+<div class="setting-container">
+
+  <div class="setting-box border">
+    <mat-card>
+      <mat-card-title>
+        {{ 'PAGES.SETTING.SERVER_CONFIG' | translate }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{ 'PAGES.SETTING.SERVER_CONFIG_COMMENT' | translate }}
+      </mat-card-subtitle>
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>
+          {{ 'PAGES.SETTING.URL' | translate }}
+        </mat-label>
+        <input matInput type="text" [(ngModel)]="serverUrl">
+      </mat-form-field>
+      <mat-card-actions  align="end">
+        <button mat-raised-button color="primary" (click)="applyGableServer()">
+          {{ 'PAGES.SETTING.APPLY' | translate }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="setting-box border">
+    <mat-card>
+      <mat-card-title>
+        {{ 'PAGES.SETTING.PROXY_SERVER_CONFIG' | translate }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{ 'PAGES.SETTING.PROXY_SERVER_CONFIG_COMMENT' | translate }}
+      </mat-card-subtitle>
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>
+          {{ 'PAGES.SETTING.URL' | translate }}
+        </mat-label>
+        <input matInput type="text" [(ngModel)]="proxyUrl">
+      </mat-form-field>
+      <mat-card-actions  align="end">
+        <button mat-raised-button color="primary" (click)="applyProxyServer()">
+          {{ 'PAGES.SETTING.APPLY' | translate }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

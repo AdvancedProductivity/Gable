@@ -1,0 +1,19 @@
+.setting-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: row;
+
+  .setting-box {
+    width: 400px;
+    margin: 20px;
+
+    .form-field{
+      width: 100%;
+    }
+  }
+
+  .border {
+    border: 1px solid #E6E6E6;
+    border-radius: 4px;
+  }
+}

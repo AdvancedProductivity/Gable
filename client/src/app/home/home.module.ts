@@ -7,9 +7,10 @@ import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { ApiTestComponent } from './api-test/api-test.component';
 import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
+import { SettingComponent } from './setting/setting.component';
 
 @NgModule({
-  declarations: [HomeComponent, ApiTestComponent],
+  declarations: [HomeComponent, ApiTestComponent, SettingComponent],
     imports: [CommonModule, SharedModule, HomeRoutingModule, PerfectScrollbarModule]
 })
 export class HomeModule {}

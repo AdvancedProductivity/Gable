@@ -21,6 +21,9 @@ import {ConfigServiceImpl} from '../../../core/services/impl/ConfigServiceImpl';
           <a class="header-link" routerLink="/dashboard/home2" routerLinkActive="active-link" mat-button>
             {{ 'PAGES.API_Mock.NAME' | translate }}
           </a>
+          <a class="header-link" routerLink="/dashboard/setting" routerLinkActive="active-link" mat-button>
+            {{ 'PAGES.SETTING.NAME' | translate }}
+          </a>
           <div class="flex-spacer"></div>
           <button
             mat-icon-button

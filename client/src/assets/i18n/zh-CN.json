@@ -11,6 +11,16 @@
     "NAV": {
       "LANG_TIP": "更换语言"
     },
+    "SETTING": {
+      "NAME": "设置",
+      "URL": "url",
+      "SERVER_CONFIG": "设置Gable 地址",
+      "LOCAL_TIP": "将数据保存在本地",
+      "SERVER_CONFIG_COMMENT": "存储Gable协作数据",
+      "PROXY_SERVER_CONFIG": "API 代理设置",
+      "PROXY_SERVER_CONFIG_COMMENT": "运行API的代理服务",
+      "APPLY": "应用"
+    },
     "API_TEST": {
       "NAME": "API 测试",
       "TREE_MENU": {
@@ -53,6 +63,7 @@
   },
   "MESSAGE": {
     "DEVELOPING": "该功能正在开发中",
+    "APPLY_SUCCESS": "设置已经生效",
     "THANKS_FOR_COME_ON": "谢谢您给的鼓励，我会努力的!",
     "I_KNOW": "知道了",
     "FEATURE_HELPER": "关于该功能的规划与设计,您可以",

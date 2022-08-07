@@ -70,6 +70,7 @@ import {ResponseKeyValueComponent} from './components/api/work-bench/http-work-b
 import {ResponseCookiesComponent} from './components/api/work-bench/http-work-bench/response-tabs/response-cookies/response-cookies.component';
 import { TestDashboardComponent } from './components/api/test-dashboard/test-dashboard.component';
 import { CollectionWorkBenchComponent } from './components/api/work-bench/collection-work-bench/collection-work-bench.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -111,6 +112,7 @@ import { CollectionWorkBenchComponent } from './components/api/work-bench/collec
     , MonacoEditorModule
     , FormsModule
     , RouterModule
+    , MatCardModule
     , MatSnackBarModule
     , MatListModule
     , MatIconModule
@@ -139,6 +141,7 @@ import { CollectionWorkBenchComponent } from './components/api/work-bench/collec
     , MatIconModule
     , MatButtonModule
     , MatSliderModule
+    , MatCardModule
     , MatTreeModule
     , MatSnackBarModule
     , MatRadioModule
