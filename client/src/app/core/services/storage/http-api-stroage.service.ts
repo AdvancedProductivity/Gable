@@ -40,6 +40,16 @@ export class HttpApiStorageService {
     }
   }
 
+  public async getApiDefine(id: number): Promise<any> {
+    if (this.saveDataInRemote()) {
+      return this.remoteService.getApiDefine(id);
+    }else if (this.electronService.isElectron) {
+      return this.storageElectronService.getApiDefine(id);
+    }else {
+      return this.indexDbService.getApiDefine(id);
+    }
+  }
+
   private saveDataInRemote() {
     const server = this.config.getConfigSync('gableServer');
     return server && server !== 'null';

@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import {HttpApiHistoryCache} from '../../entity/HttpApi';
 import {from, Observable, of} from 'rxjs';
 import {db} from '../../db';
+import {HttpApiStorageService} from "../../storage/http-api-stroage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpApiWebImplService {
   private cacheMap = new Map<number, HttpApiHistoryCache>();
-  constructor() { }
+
+  constructor(private httpApiStorageService: HttpApiStorageService) {
+  }
 
   public addApiDefine(data: HttpApiHistoryCache): void {
     this.cacheMap.set(data.id, data);
@@ -29,9 +32,14 @@ export class HttpApiWebImplService {
   }
 
   private async getFromCache(id: number): Promise<HttpApiHistoryCache> {
-    const data = await db.httpApiCache.get(id);
+    let data = await db.httpApiCache.get(id);
     if (data) {
       this.cacheMap.set(id, data);
+    }else {
+      // if cache not have get it from remote for cooperation
+      data = await this.httpApiStorageService.getApiDefine(id);
+      this.cacheMap.set(id, data);
+      db.httpApiCache.add(data);
     }
     return new Promise(resolve => {
       resolve(data);

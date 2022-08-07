@@ -37,4 +37,17 @@ export class HttpApiStorageRemoteService {
       })
     ));
   }
+
+  public async getApiDefine(id: number): Promise<any> {
+    const server = this.config.getConfigSync('gableServer');
+    return firstValueFrom(this.httpClient.get(`${server}/api/collection/httpDetail`,{
+      params: {id}
+    }).pipe(
+      map((res: any) => {
+        if (res.result) {
+          return res.data;
+        }
+      })
+    ));
+  }
 }

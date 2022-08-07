@@ -16,4 +16,10 @@ export class HttpApiStorageIndexDbService {
   public async updateApi(httpDefineId: number, apiCache: HttpApiHistoryCache): Promise<any>{
     return db.httpApi.update(httpDefineId, apiCache);
   }
+
+  public async getApiDefine(id: number): Promise<any> {
+    return new Promise(resolve => {
+      resolve({});
+    });
+  }
 }

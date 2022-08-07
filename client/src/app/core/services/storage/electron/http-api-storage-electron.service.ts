@@ -15,4 +15,10 @@ export class HttpApiStorageElectronService {
   public async updateApi(httpDefineId: number, apiCache: HttpApiHistoryCache): Promise<any>{
     return null;
   }
+
+  public async getApiDefine(id: number): Promise<any> {
+    return new Promise(resolve => {
+      resolve({});
+    });
+  }
 }
