@@ -99,4 +99,11 @@ public class ApiCollectionController {
         id = this.httpApiService.updateDefine(id, waitForSave);
         return Result.success(id);
     }
+
+    @GetMapping("httpDetail")
+    public Result<HttpApiDto> getHttpDetail(@RequestParam Long id) {
+        HttpApi api = this.httpApiService.getOneById(id);
+        final HttpApiDto httpApiDto = HttpDtoUtils.transFromEntityToDto(api);
+        return Result.success(httpApiDto);
+    }
 }

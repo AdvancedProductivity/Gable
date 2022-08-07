@@ -35,7 +35,7 @@ public class HttpDtoUtils {
         return dto;
     }
 
-    public static void transFroEntityToDto(HttpApiDto dto, HttpApi api) {
+    public static void transFromEntityToDto(HttpApiDto dto, HttpApi api) {
         BeanUtils.copyProperties(api, dto, "hostArr", "pathArray", "query", "header", "bodyForm", "bodyUrlEncoded");
         setApiToDto(dto, api);
     }

@@ -34,4 +34,11 @@ public class HttpApiService {
         }
         return null;
     }
+
+    public HttpApi getOneById(Long id) {
+        if (id == null) {
+            return null;
+        }
+        return this.httpApiDao.findById(id).orElse(null);
+    }
 }
