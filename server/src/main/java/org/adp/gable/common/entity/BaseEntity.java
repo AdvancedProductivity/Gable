@@ -95,10 +95,17 @@ public class BaseEntity {
             this.modifiedBy = this.createdBy;
             this.tenantId = 0L;
         }else {
-            final UserDto userDto = (UserDto) authentication.getPrincipal();
-            this.createdBy = userDto.getId();
-            this.modifiedBy = this.createdBy;
-            this.tenantId = userDto.getTenantId();
+            final Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDto) {
+                final UserDto userDto = (UserDto) principal;
+                this.createdBy = userDto.getId();
+                this.modifiedBy = this.createdBy;
+                this.tenantId = userDto.getTenantId();
+            } else {
+                this.createdBy = 0L;
+                this.modifiedBy = this.createdBy;
+                this.tenantId = 0L;
+            }
         }
         final RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes != null) {
@@ -114,8 +121,12 @@ public class BaseEntity {
             this.modifiedBy = 0L;
         } else {
             final Object principal = authentication.getPrincipal();
-            final UserDto userDto = (UserDto) authentication.getPrincipal();
-            this.modifiedBy = userDto.getId();
+            if (principal instanceof UserDto) {
+                final UserDto userDto = (UserDto) principal;
+                this.modifiedBy = userDto.getId();
+            } else {
+                this.modifiedBy = 0L;
+            }
         }
         final RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes != null) {

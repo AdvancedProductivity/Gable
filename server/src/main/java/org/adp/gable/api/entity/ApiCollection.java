@@ -55,6 +55,6 @@ public class ApiCollection extends BaseEntity {
             nullable = true
     )
     @Comment("api count belong this collection")
-    private String apiCount;
+    private Long apiCount;
 
 }
