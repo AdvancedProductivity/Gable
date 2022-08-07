@@ -1,3 +1,3 @@
 spring:
   profiles:
-    active: h2
+    active: postgresql

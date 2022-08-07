@@ -36,7 +36,7 @@ public class RoleEntity extends BaseEntity {
             columnDefinition = "varchar(16)",
             nullable = false
     )
-    @Comment("role's name")
+    @Comment("role name")
     private String name;
 
 
