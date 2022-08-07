@@ -22,3 +22,5 @@ spring:
     locations: classpath:db/migration/{vendor}
 local:
   filepath: ${user.home}/.gable/resource
+server:
+  port: 2208
