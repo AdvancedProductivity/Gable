@@ -31,4 +31,12 @@ export class ConfigServiceImpl implements ConfigService {
     }
   }
 
+  getConfigSync(key: string) {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.getConfigSync(key);
+    } else {
+      return this.webImpl.getConfigSync(key);
+    }
+  }
+
 }

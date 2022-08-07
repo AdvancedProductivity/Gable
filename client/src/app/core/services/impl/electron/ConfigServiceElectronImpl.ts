@@ -32,4 +32,14 @@ export class ConfigServiceElectronImpl implements ConfigService {
     }
     return of(res);
   }
+
+  getConfigSync(key: string): string {
+    let value = this.cache.get(key);
+    if (value) {
+      return value;
+    }
+    value = this.electronService.ipcRenderer.sendSync('get-config', key);
+    this.cache.set(key, value);
+    return value;
+  }
 }

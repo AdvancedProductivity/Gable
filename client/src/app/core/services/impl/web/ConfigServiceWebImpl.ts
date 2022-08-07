@@ -31,4 +31,16 @@ export class ConfigServiceWebImpl implements ConfigService {
     return of(value);
   }
 
+  getConfigSync(key: string) {
+    let value = this.cache.get(key);
+    if (value) {
+      return value;
+    }
+    value = localStorage.getItem(key);
+    if (value) {
+      this.cache.set(key, value);
+    }
+    return value;
+  }
+
 }
