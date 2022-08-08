@@ -10,7 +10,6 @@ import okhttp3.*;
 import org.adp.gable.runner.Action;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Iterator;
@@ -41,8 +40,8 @@ public class HttpAction implements Action {
     public void execute(JsonNode in, JsonNode out, ObjectNode instance, ObjectNode global) {
         ObjectNode response = (ObjectNode) out;
         OkHttpClient client = new OkHttpClient().newBuilder()
-                .readTimeout(Duration.ofMillis(300))
-                .callTimeout(Duration.ofMillis(300))
+                .readTimeout(Duration.ofSeconds(300))
+                .callTimeout(Duration.ofSeconds(300))
                 .build();
         Request.Builder builder = new Request.Builder().url(parserToUrlPath(in));
         String method = in.path(HTTP_METHOD).asText();
@@ -90,7 +89,8 @@ public class HttpAction implements Action {
             handleHeaders(res.headers(), response);
         } catch (IOException e) {
             log.error("error happens while execute http request", e);
-            response.put("error", e.getMessage());
+            response.put(HttpResponseField.CONTENT, e.getMessage());
+            response.put(HTTP_BODY_TYPE, HttpResponseBodyType.TEXT.name().toLowerCase(Locale.ROOT));
         }
     }
 
