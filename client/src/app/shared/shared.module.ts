@@ -14,7 +14,6 @@ import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRippleModule} from '@angular/material/core';
 import {MatMenuModule} from '@angular/material/menu';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatTreeModule} from '@angular/material/tree';
 import { ApiTreeMenuComponent } from './components/api/api-tree-menu/api-tree-menu.component';
 import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
@@ -108,7 +107,6 @@ import {MatCardModule} from '@angular/material/card';
   imports: [
     CommonModule
     , TranslateModule
-    , FlexLayoutModule
     , MonacoEditorModule
     , FormsModule
     , RouterModule
@@ -136,7 +134,6 @@ import {MatCardModule} from '@angular/material/card';
   exports: [
     TranslateModule
     , WebviewDirective
-    , FlexLayoutModule
     , FormsModule
     , MatIconModule
     , MatButtonModule
