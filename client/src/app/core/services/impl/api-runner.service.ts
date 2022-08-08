@@ -15,7 +15,7 @@ export class ApiRunnerService {
   }
 
   public runHttp(id: number, reqBody: any): Observable<any> {
-    const server = this.config.getConfigSync('gableServer');
+    const server = this.config.getConfigSync('proxyServer');
     return this.httpClient.post(`${server}/api/apiRunner`, {
       id,
       type: 'http',
