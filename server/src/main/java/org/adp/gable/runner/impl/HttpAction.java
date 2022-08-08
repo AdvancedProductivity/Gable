@@ -167,12 +167,14 @@ public class HttpAction implements Action {
         JsonNode path = in.path(HTTP_HEADER);
         for (int i = 0; i < path.size(); i++) {
             JsonNode item = path.get(i);
-            boolean disabled = item.path("using").asBoolean();
-            if (!disabled) {
+            boolean using = item.path("using").asBoolean();
+            if (using) {
                 String key = item.path("key").asText();
                 String value = item.path("value").asText();
-                log.info("http add header: {} is {}", key, value);
-                builder.addHeader(key, value);
+                if (StringUtils.isNotEmpty(key) && StringUtils.isNotEmpty(value)) {
+                    log.info("http add header: {} is {}", key, value);
+                    builder.addHeader(key, value);
+                }
             }
         }
     }
