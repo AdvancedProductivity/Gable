@@ -8,7 +8,7 @@ module.exports = {
         ]
     ],
     port: 3005,
-    base: '/Gable/',
+    base: '/GablePreview/docs/',
     lang: 'zh-CN',
     title: '你好， VuePress ！',
     description: 'An API platform for building and using APIs',
