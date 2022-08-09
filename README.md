@@ -10,4 +10,6 @@
 
 An API platform for building and using APIs
 
-文档: [https://advancedproductivity.github.io/Gable/](https://advancedproductivity.github.io/Gable)
+文档: [https://advancedproductivity.github.io/GablePreview/docs/](https://advancedproductivity.github.io/GablePreview/docs/)
+
+在线体验: [https://advancedproductivity.github.io/GablePreview/](https://advancedproductivity.github.io/GablePreview/)
