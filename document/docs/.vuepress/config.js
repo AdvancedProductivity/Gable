@@ -55,7 +55,8 @@ module.exports = {
                     }
                 ],
                 nav: [
-                    {text: 'Guide', link: '/guide/', ariaLabel: 'Nested'}
+                    {text: 'Guide', link: '/guide/', ariaLabel: 'Nested'},
+                    { text: 'Live Demo', link: 'https://advancedproductivity.github.io/GablePreview/', target:'_blank' }
                 ]
             },
             '/zh/': {
@@ -88,7 +89,8 @@ module.exports = {
                     }
                 ],
                 nav: [
-                    {text: '指南', link: '/zh/guide/', ariaLabel: 'Nested'}
+                    {text: '指南', link: '/zh/guide/', ariaLabel: 'Nested'},
+                    { text: '在线体验', link: 'https://advancedproductivity.github.io/GablePreview/', target:'_blank' }
                 ]
             }
         }
