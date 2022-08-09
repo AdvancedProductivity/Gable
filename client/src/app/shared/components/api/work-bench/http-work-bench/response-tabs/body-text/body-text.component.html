@@ -1,6 +1,9 @@
-<div class="full-flex-column body-text-container">
-
-  <div class="content-b">
+<div class="full-flex-column body-text-container"
+     [class.fullScreen]="isFull"
+>
+  <div class="content-b"
+       [class.no-hor-padding]="isFull"
+  >
 
     <div class="body-tabs">
       <div class="left-option">
@@ -30,6 +33,14 @@
           <div class="icon-con">
             <div class="icon-item" (click)="doCopy()">
               <mat-icon class="icon" svgIcon="copyI"></mat-icon>
+            </div>
+            <div class="icon-item" (click)="doFullScreen()">
+              <mat-icon *ngIf="!isFull" class="icon">
+                open_in_full
+              </mat-icon>
+              <mat-icon *ngIf="isFull" class="icon">
+                close_fullscreen
+              </mat-icon>
             </div>
             <div class="icon-item" (click)="toggleSearch()">
               <mat-icon class="icon" svgIcon="searchI"></mat-icon>

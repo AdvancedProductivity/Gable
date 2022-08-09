@@ -17,7 +17,7 @@ export class BodyTextComponent implements OnInit {
   code = '{}';
   showType = 'Pretty';
   editor: MonacoStandaloneCodeEditor;
-
+  isFull = false;
   constructor() {
   }
 
@@ -28,6 +28,10 @@ export class BodyTextComponent implements OnInit {
   }
 
   doCopy(): void {
+  }
+
+  doFullScreen(): void {
+    this.isFull = !this.isFull
   }
 
   toggleSearch() {

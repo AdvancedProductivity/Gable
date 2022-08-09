@@ -1,6 +1,4 @@
 .body-text-container {
-
-
   .content-b{
     width: 100%;
     padding: 8px;
@@ -71,7 +69,13 @@
               margin-right: 10px;
               padding: 10px;
               cursor: pointer;
-
+              .material-symbols-outlined {
+                font-variation-settings:
+                  'FILL' 0,
+                  'wght' 200,
+                  'GRAD' -25,
+                  'opsz' 20
+              }
               .icon {
                 width: 16px;
                 height: 16px;
@@ -105,4 +109,17 @@
       position: relative;
     }
   }
+
+  .no-hor-padding{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+.fullScreen {
+  background-color: #FFF;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
 }
