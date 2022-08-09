@@ -15,6 +15,7 @@ import java.util.List;
  * @author zzq
  */
 public class HttpDtoUtils {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     public static HttpApi transFromDtoToEntity(HttpApiDto dto) {
         HttpApi api = new HttpApi();
@@ -41,31 +42,13 @@ public class HttpDtoUtils {
     }
 
     private static void setDtoToEntity(HttpApiDto dto, HttpApi api) {
-        final ObjectMapper objectMapper = new ObjectMapper();
-        if (dto.getHostArr() == null) {
-            dto.setHostArr(Collections.emptyList());
-        }
-        if (dto.getPathArray() == null) {
-            dto.setPathArray(Collections.emptyList());
-        }
-        if (dto.getQuery() == null) {
-            dto.setQuery(Collections.emptyList());
-        }
-        if (dto.getHeader() == null) {
-            dto.setHeader(Collections.emptyList());
-        }
-        if (dto.getBodyForm() == null) {
-            dto.setBodyForm(Collections.emptyList());
-        }
-        if (dto.getBodyUrlEncoded() == null) {
-            dto.setBodyUrlEncoded(Collections.emptyList());
-        }
-        api.setHostArr(getStr(dto.getHostArr(), objectMapper));
-        api.setPathArray(getStr(dto.getPathArray(), objectMapper));
-        api.setQuery(getStr(dto.getQuery(), objectMapper));
-        api.setHeader(getStr(dto.getHeader(), objectMapper));
-        api.setBodyForm(getStr(dto.getBodyForm(), objectMapper));
-        api.setBodyUrlEncoded(getStr(dto.getBodyUrlEncoded(), objectMapper));
+        handleDefaultValue(dto);
+        api.setHostArr(getStr(dto.getHostArr(), OBJECT_MAPPER));
+        api.setPathArray(getStr(dto.getPathArray(), OBJECT_MAPPER));
+        api.setQuery(getStr(dto.getQuery(), OBJECT_MAPPER));
+        api.setHeader(getStr(dto.getHeader(), OBJECT_MAPPER));
+        api.setBodyForm(getStr(dto.getBodyForm(), OBJECT_MAPPER));
+        api.setBodyUrlEncoded(getStr(dto.getBodyUrlEncoded(), OBJECT_MAPPER));
     }
 
     private static String getStr(Object arr, ObjectMapper objectMapper) {
@@ -77,34 +60,14 @@ public class HttpDtoUtils {
         }
     }
 
-
     private static void setApiToDto(HttpApiDto dto, HttpApi api) {
-        final ObjectMapper objectMapper = new ObjectMapper();
-        dto.setHostArr(getStrArrayList(api.getHostArr(), objectMapper));
-        dto.setPathArray(getStrArrayList(api.getPathArray(), objectMapper));
-        dto.setQuery(getKeyValue(api.getQuery(), objectMapper));
-        dto.setHeader(getKeyValue(api.getHeader(), objectMapper));
-        dto.setBodyForm(getFormKeyValue(api.getBodyForm(), objectMapper));
-        dto.setBodyUrlEncoded(getKeyValue(api.getBodyUrlEncoded(), objectMapper));
-        if (dto.getHostArr() == null) {
-            dto.setHostArr(Collections.emptyList());
-        }
-        if (dto.getPathArray() == null) {
-            dto.setPathArray(Collections.emptyList());
-        }
-        if (dto.getQuery() == null) {
-            dto.setQuery(Collections.emptyList());
-        }
-        if (dto.getHeader() == null) {
-            dto.setHeader(Collections.emptyList());
-        }
-        if (dto.getBodyForm() == null) {
-            dto.setBodyForm(Collections.emptyList());
-        }
-        if (dto.getBodyUrlEncoded() == null) {
-            dto.setBodyUrlEncoded(Collections.emptyList());
-        }
-
+        dto.setHostArr(getStrArrayList(api.getHostArr(), OBJECT_MAPPER));
+        dto.setPathArray(getStrArrayList(api.getPathArray(), OBJECT_MAPPER));
+        dto.setQuery(getKeyValue(api.getQuery(), OBJECT_MAPPER));
+        dto.setHeader(getKeyValue(api.getHeader(), OBJECT_MAPPER));
+        dto.setBodyForm(getFormKeyValue(api.getBodyForm(), OBJECT_MAPPER));
+        dto.setBodyUrlEncoded(getKeyValue(api.getBodyUrlEncoded(), OBJECT_MAPPER));
+        handleDefaultValue(dto);
     }
 
     private static List<FormKeyValueDto> getFormKeyValue(String str, ObjectMapper objectMapper) {
@@ -143,6 +106,27 @@ public class HttpDtoUtils {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    private static void handleDefaultValue(HttpApiDto dto) {
+        if (dto.getHostArr() == null) {
+            dto.setHostArr(Collections.emptyList());
+        }
+        if (dto.getPathArray() == null) {
+            dto.setPathArray(Collections.emptyList());
+        }
+        if (dto.getQuery() == null) {
+            dto.setQuery(Collections.emptyList());
+        }
+        if (dto.getHeader() == null) {
+            dto.setHeader(Collections.emptyList());
+        }
+        if (dto.getBodyForm() == null) {
+            dto.setBodyForm(Collections.emptyList());
+        }
+        if (dto.getBodyUrlEncoded() == null) {
+            dto.setBodyUrlEncoded(Collections.emptyList());
         }
     }
 }
