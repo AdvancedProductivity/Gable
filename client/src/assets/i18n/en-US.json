@@ -62,6 +62,7 @@
     "COME_ON": "Come On!"
   },
   "MESSAGE": {
+    "EXIST_FULL": "Exist",
     "DEVELOPING": "This feature is developing",
     "APPLY_SUCCESS": "Config Have Been Apply",
     "I_KNOW": "Got it",

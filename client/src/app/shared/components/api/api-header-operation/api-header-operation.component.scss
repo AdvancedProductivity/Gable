@@ -69,14 +69,27 @@
       .edit-op {
         margin-left: 5px;
         width: 50px;
+        display: flex;
+        flex-direction: row;
 
         .api-edit-icon-container {
           width: 20px;
           height: 20px;
           cursor: pointer;
-          display: inline;
-          padding-top: 10px;
           margin-left: 12px;
+
+
+          .header-icon {
+            width: 12px;
+            color: #6B6B6B;;
+            height: 12px;
+            font-size: 12px;
+          }
+
+          span {
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif;
+            font-size: 12px;
+          }
 
           .edit-op-icon {
             width: 12px;
