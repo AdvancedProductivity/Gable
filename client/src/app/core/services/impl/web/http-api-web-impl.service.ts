@@ -24,6 +24,11 @@ export class HttpApiWebImplService {
     return from(this.getFromCache(id));
   }
 
+  public removeCache(id: number): Promise<any> {
+    this.cacheMap.delete(id);
+    return db.httpApiCache.delete(id);
+  }
+
   public updateCache(data: HttpApiHistoryCache): void {
     this.cacheMap.set(data.id, data);
     db.httpApiCache.update(data.id, data).then(res => {

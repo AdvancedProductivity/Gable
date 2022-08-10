@@ -77,9 +77,14 @@
       <button class="btn-group" mat-icon-button style="" [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>dialpad</mat-icon>
-            <span>Redial</span>
+          <button
+            (click)="discardChange()"
+            mat-menu-item
+            [disabled]="oldVersion === newVersion"
+          >
+            <span>
+            {{ 'PAGES.API_TEST.HEADER.DISCARD_CHANGE' | translate }}
+            </span>
           </button>
           <button mat-menu-item disabled>
             <mat-icon>voicemail</mat-icon>

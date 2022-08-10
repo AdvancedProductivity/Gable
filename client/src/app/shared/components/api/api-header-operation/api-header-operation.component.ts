@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {ApiMenuServiceImpl} from '../../../../core/services/impl/api-menu-impl.service';
 import {NavTabImplService} from '../../../../core/services/impl/nav-tab-impl.service';
 
@@ -8,8 +8,8 @@ import {NavTabImplService} from '../../../../core/services/impl/nav-tab-impl.ser
   styleUrls: ['./api-header-operation.component.scss']
 })
 export class ApiHeaderOperationComponent implements OnInit {
-  @ViewChild('apiNameInput', {static: false})
-  input: HTMLElement;
+  @ViewChild('apiNameInput', {static: false}) input: HTMLElement;
+  @Output() discard = new EventEmitter<any>();
   defineId: number;
   apiId: number;
   collectionId: number;
@@ -94,5 +94,9 @@ export class ApiHeaderOperationComponent implements OnInit {
     this.menuService.updateApiName(this.apiId, this.collectionId, this.apiName);
     // update tab's name
     this.navTabImplService.updateTabName(this.apiId, 'http', this.apiName);
+  }
+
+  discardChange(): void {
+    this.discard.next({});
   }
 }

@@ -34,6 +34,7 @@
       "HEADER": {
         "ENV_SELECT": "选择环境",
         "METHOD_SELECT": "Method",
+        "DISCARD_CHANGE": "丢弃变更",
         "SAVE": "保存"
       },
       "REQ": {

@@ -39,4 +39,12 @@ export class HttpApiService {
       return this.webImpl.getCache(id);
     }
   }
+
+  removeCache(id: number): Promise<any> {
+    if (this.electronService.isElectron) {
+      return this.electronImpl.removeCache(id);
+    } else {
+      return this.webImpl.removeCache(id);
+    }
+  }
 }

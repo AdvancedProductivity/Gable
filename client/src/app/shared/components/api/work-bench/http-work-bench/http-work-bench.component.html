@@ -1,5 +1,8 @@
 <div class="http-bench-container">
-  <app-api-header-operation #header></app-api-header-operation>
+  <app-api-header-operation
+    #header
+    (discard)="reGetDefine()"
+  ></app-api-header-operation>
   <mat-divider></mat-divider>
   <div style="width: 100%;height: calc(100% - 41px);">
     <as-split

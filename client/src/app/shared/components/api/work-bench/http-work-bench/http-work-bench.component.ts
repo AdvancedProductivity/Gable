@@ -97,6 +97,12 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
     this.urlSubject.unsubscribe();
   }
 
+  reGetDefine(): void {
+    this.httpApiService.removeCache(this.id).then(res => {
+      this.setApiData(this.id, false);
+    });
+  }
+
   onApiUpdate(updateAction: HttpComponentHotDataUpdateEvent) {
     if (!this.httpApi){
       return;

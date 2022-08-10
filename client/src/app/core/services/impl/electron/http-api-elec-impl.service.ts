@@ -19,4 +19,7 @@ export class HttpApiElecImplService {
     return undefined;
   }
 
+  public removeCache(id: number): Promise<any> {
+    return null;
+  }
 }
