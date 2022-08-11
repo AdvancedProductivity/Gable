@@ -48,6 +48,7 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   setDocData(docData: HttpDocBlockData, readOnly: boolean) {
     this.isInDoc = true;
     this.readonly = readOnly;
+    this.header.setIsInDoc();
     this.header.setInitStatus(docData.httpId, docData.collectionId, docData.httpName,
       false, docData.version, docData.httpId, docData.collectionName);
     this.httpApi = docData.define;

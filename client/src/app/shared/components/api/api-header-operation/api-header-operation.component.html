@@ -62,11 +62,12 @@
       </div>
     </div>
     <div class="opera-hub">
-      <div class="save-btn">
+      <div class="save-btn"
+      >
         <button
           style="line-height: 32px;"
           mat-button
-          [disabled]="oldVersion === newVersion"
+          [disabled]="isInDoc || oldVersion === newVersion"
           (click)="saveApiName()"
         >
           <span>
@@ -80,7 +81,7 @@
           <button
             (click)="discardChange()"
             mat-menu-item
-            [disabled]="oldVersion === newVersion"
+            [disabled]="isInDoc || oldVersion === newVersion"
           >
             <span>
             {{ 'PAGES.API_TEST.HEADER.DISCARD_CHANGE' | translate }}

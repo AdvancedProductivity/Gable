@@ -10,6 +10,7 @@ import {NavTabImplService} from '../../../../core/services/impl/nav-tab-impl.ser
 export class ApiHeaderOperationComponent implements OnInit {
   @ViewChild('apiNameInput', {static: false}) input: HTMLElement;
   @Output() discard = new EventEmitter<any>();
+  isInDoc = false;
   defineId: number;
   apiId: number;
   collectionId: number;
@@ -28,6 +29,10 @@ export class ApiHeaderOperationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  public setIsInDoc(){
+    this.isInDoc = true;
   }
 
   /**
