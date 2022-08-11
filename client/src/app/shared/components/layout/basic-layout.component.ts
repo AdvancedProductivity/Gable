@@ -15,10 +15,10 @@ import {ConfigServiceImpl} from '../../../core/services/impl/ConfigServiceImpl';
              matRipple>
             {{ 'PAGES.API_TEST.NAME' | translate }}
           </a>
-          <a class="header-link" routerLink="/dashboard/home1" routerLinkActive="active-link" mat-button>
+          <a class="header-link" routerLink="/dashboard/doc" routerLinkActive="active-link" mat-button>
             {{ 'PAGES.API_DOCUMENT.NAME' | translate }}
           </a>
-          <a class="header-link" routerLink="/dashboard/home2" routerLinkActive="active-link" mat-button>
+          <a class="header-link" routerLink="/dashboard/mock" routerLinkActive="active-link" mat-button>
             {{ 'PAGES.API_Mock.NAME' | translate }}
           </a>
           <a class="header-link" routerLink="/dashboard/setting" routerLinkActive="active-link" mat-button>

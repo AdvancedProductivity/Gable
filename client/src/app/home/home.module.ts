@@ -8,9 +8,11 @@ import { SharedModule } from '../shared/shared.module';
 import { ApiTestComponent } from './api-test/api-test.component';
 import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import { SettingComponent } from './setting/setting.component';
+import { DocPageComponent } from './doc-page/doc-page.component';
+import { MockPageComponent } from './mock-page/mock-page.component';
 
 @NgModule({
-  declarations: [HomeComponent, ApiTestComponent, SettingComponent],
+  declarations: [HomeComponent, ApiTestComponent, SettingComponent, DocPageComponent, MockPageComponent],
     imports: [CommonModule, SharedModule, HomeRoutingModule, PerfectScrollbarModule]
 })
 export class HomeModule {}

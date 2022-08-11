@@ -5,6 +5,8 @@ import { HomeComponent } from './home/home.component';
 import {PageNotFoundComponent} from '../shared/components';
 import {ApiTestComponent} from './api-test/api-test.component';
 import {SettingComponent} from './setting/setting.component';
+import {DocPageComponent} from './doc-page/doc-page.component';
+import {MockPageComponent} from './mock-page/mock-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'api', pathMatch: 'full' },
@@ -15,6 +17,14 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'doc',
+    component: DocPageComponent
+  },
+  {
+    path: 'mock',
+    component: MockPageComponent
   },
   {
     path: 'setting',
