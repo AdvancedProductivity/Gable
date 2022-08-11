@@ -19,6 +19,7 @@ import InlineCode from '@editorjs/inline-code';
 // @ts-ignore
 import Marker from '@editorjs/marker';
 import {HttpBlock} from './plugins/http-block';
+import {ConfigServiceImpl} from '../../core/services/impl/ConfigServiceImpl';
 
 @Component({
   selector: 'app-doc-page',
@@ -30,7 +31,7 @@ export class DocPageComponent implements OnInit {
   editorOptions = {theme: 'vs-light', language: 'json'};
   code = '';
   editor = undefined;
-  constructor() { }
+  constructor(private config: ConfigServiceImpl) { }
 
   ngOnInit(): void {
     let docs;
@@ -54,6 +55,10 @@ export class DocPageComponent implements OnInit {
         version: '2.25.0'
       };
     }
+    let server = this.config.getConfigSync('gableServer');
+    if (!server) {
+      server = 'http://localhost:2208';
+    }
     this.editor = new EditorJS({
       readOnly: false,
       holderId: 'editorjs',
@@ -73,7 +78,7 @@ export class DocPageComponent implements OnInit {
           config: {
             types: 'image/*, video/mp4',
             endpoints: {
-              byFile: encodeURI('http://localhost:2208/api/file?from=http://localhost:2208'),
+              byFile: encodeURI(`${server}/api/file?from=${server}`),
               byUrl: '/api/transport/fetch',
             },
             field: 'file',

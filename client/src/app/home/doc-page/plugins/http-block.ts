@@ -6,9 +6,11 @@ export class HttpBlock implements BlockTool {
   private readOnly: boolean;
   private data: any;
   private dataElement: any;
+  private config: any;
 
-  constructor({data, api, readOnly}: BlockToolConstructorOptions<any>) {
+  constructor({data, api, config, readOnly}: BlockToolConstructorOptions<any>) {
     this.data = data;
+    this.config = config;
     this.api = api;
     this.readOnly = readOnly;
   }
