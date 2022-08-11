@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Injector} from '@angular/core';
 import { ElectronService } from './core/services';
 import { TranslateService } from '@ngx-translate/core';
 import { APP_CONFIG } from '../environments/environment';
@@ -6,6 +6,8 @@ import {ConfigServiceImpl} from './core/services/impl/ConfigServiceImpl';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 import {iconArray} from './shared/icon';
+import {createCustomElement} from '@angular/elements';
+import {HttpApiDocComponent} from './shared/components/docs/http-api-doc/http-api-doc.component';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +20,10 @@ export class AppComponent {
     private configService: ConfigServiceImpl,
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
-    private translate: TranslateService
-  ) {
+    private translate: TranslateService,
+    injector: Injector) {
+    const monin = createCustomElement(HttpApiDocComponent, {injector});
+    customElements.define('http-api-doc-component', monin);
     this.loadLanguage();
     console.log('APP_CONFIG', APP_CONFIG);
 

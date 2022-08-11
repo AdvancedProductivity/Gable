@@ -4,6 +4,7 @@
       <ng-select
         placeholder="{{ 'PAGES.DOCS.COLLECTION_SELECT' | translate }}"
         class="env-custom"
+        [clearable]="false"
         (change)="collectionChange($event)"
       >
         <ng-option *ngFor="let c of cos" [value]="c.id">{{ c.name }}</ng-option>
@@ -13,6 +14,7 @@
       <ng-select
         placeholder="{{ 'PAGES.DOCS.HTTP_SELECT' | translate }}"
         class="env-custom"
+        [clearable]="false"
         (change)="httpChange($event)"
       >
         <ng-option *ngFor="let c of https" [value]="c.id">{{ c.name }}</ng-option>
