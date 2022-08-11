@@ -1,30 +1,42 @@
 .doc-container {
   width: 100%;
   height: 100%;
-  flex-direction: column;
-  display: flex;
 
   .top-btn-group{
     height: 50px;
   }
 
   .con {
-    flex: 1;
+
+    height: calc(100% - 50px);
     flex-direction: row;
     width: 100%;
     display: flex;
 
     .editor-con {
       flex: 1;
+      padding: 4px;
       border: solid 1px #ddd;
-      height: 100%;
+      height: calc(100% - 10px);
+      overflow-y: scroll;
+      position: relative;
+      display: block;
+
+      .effd ::ng-deep .ce-block__content {
+        max-width: 900px; /* example value, adjust for your own use case */
+      }
+
+      .effd ::ng-deep .ce-toolbar__content {
+        max-width: 900px; /* example value, adjust for your own use case */
+      }
 
     }
 
     .json-shower {
-      width: 300px;
+      padding: 4px;
+      height: calc(100% - 10px);
+      width: 500px;
       border: solid 1px #ddd;
-      height: 100%;
     }
   }
 }

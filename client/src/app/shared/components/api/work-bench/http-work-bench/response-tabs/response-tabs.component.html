@@ -10,6 +10,7 @@
       <a
         *ngFor="let tab of tabs;let i = index"
         mat-tab-link
+        style="text-decoration: none"
         class="tab select-disable"
         [class.active] ="curTab === tab"
         [active]="curTab === tab"

@@ -18,6 +18,7 @@
               <ng-select
                 placeholder="{{ 'PAGES.API_TEST.HEADER.METHOD_SELECT' | translate }}"
                 style="height: 32px"
+                [clearable]="false"
                 [(ngModel)]="curMethod"
                 (change)="methodChange($event)"
               >

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {ApiMenuServiceImpl} from '../../../../core/services/impl/api-menu-impl.service';
 import {ApiMenuCollection, ApiMenuItem} from '../../../../core/services/entity/ApiMenu';
 import {HttpWorkBenchComponent} from '../../api/work-bench/http-work-bench/http-work-bench.component';
@@ -10,8 +10,8 @@ import {HttpDocBlockData} from '../../../../core/services/entity/Docs';
   templateUrl: './http-api-doc.component.html',
   styleUrls: ['./http-api-doc.component.scss']
 })
-export class HttpApiDocComponent implements OnInit {
-  @Input() docData: HttpDocBlockData;
+export class HttpApiDocComponent implements OnInit, OnChanges {
+  @Input() da: HttpDocBlockData;
   @Input() readonly = false;
   @ViewChild('http', {static: false}) http: HttpWorkBenchComponent;
   applied = false;
@@ -25,7 +25,27 @@ export class HttpApiDocComponent implements OnInit {
     private httpApiService: HttpApiService
   ) {
   }
-  @Input() get getData(): any {return this.docData;}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('zzq see cahnged', changes);
+    if (changes.da && changes.da.currentValue && changes.da.currentValue.version) {
+      this.applied = true;
+      this.da = changes.da.currentValue;
+      this.ocId = this.da.collectionId;
+      this.httpId = this.da.httpId;
+      this.setData();
+    }
+  }
+
+  handleEvent(event: any): any {
+    if (event.keyCode === 13) {
+      event.cancelBubble = true;
+    }
+  }
+
+  @Input() get getData(): any {
+    return this.da;
+  }
 
   ngOnInit(): void {
     this.menuService.getMenus().subscribe(res => {
@@ -64,9 +84,14 @@ export class HttpApiDocComponent implements OnInit {
     });
     this.httpApiService.getCache(this.httpId).subscribe(res => {
       docData.define = res;
-      setTimeout(() => {
-        this.http.setDocData(docData, this.readonly);
-      }, 20);
+      this.da = docData;
+      this.setData();
     });
+  }
+
+  private setData() {
+    setTimeout(() => {
+      this.http.setDocData(this.da, this.readonly);
+    }, 20);
   }
 }

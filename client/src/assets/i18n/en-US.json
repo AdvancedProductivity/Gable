@@ -52,6 +52,7 @@
     },
     "DOCS": {
       "EDITOR_DATA": "Get Editor Data",
+      "STASH": "Stash",
       "EDIT": "Edit",
       "PREVIEW": "Preview",
       "COLLECTION_SELECT": "Select Collection",

@@ -23,6 +23,7 @@
     },
     "DOCS": {
       "EDITOR_DATA": "获取编辑器数据",
+      "STASH": "暂存",
       "EDIT": "编辑",
       "PREVIEW": "预览",
       "COLLECTION_SELECT": "选择测试组",

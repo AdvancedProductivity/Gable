@@ -18,6 +18,7 @@ import Embed from '@editorjs/embed';
 import InlineCode from '@editorjs/inline-code';
 // @ts-ignore
 import Marker from '@editorjs/marker';
+import {HttpBlock} from './plugins/http-block';
 
 @Component({
   selector: 'app-doc-page',
@@ -28,74 +29,98 @@ export class DocPageComponent implements OnInit {
   readOnly = false;
   editorOptions = {theme: 'vs-light', language: 'json'};
   code = '';
-  editor = new EditorJS({
-    readOnly: false,
-    holderId : 'editorjs',
-    placeholder: '请输入回车键盘选择可输入类型',
-    tools: {
-      header: {
-        class: Header,
-        inlineToolbar: ['marker', 'inlineCode'],
-        config: {
-          placeholder: '',
-        },
-      },
-      image: {
-        class: Image,
-        inlineToolbar: true,
-        config: {
-          types: 'image/*, video/mp4',
-          endpoints: {
-            byFile: encodeURI('http://localhost:2208/api/file?from=http://localhost:2208'),
-            byUrl: '/api/transport/fetch',
-          },
-          field: 'file',
-          additionalRequestData: {
-            map: JSON.stringify({
-              url: 'file:url',
-              size: 'file:size',
-              mimetype: 'file:mime',
-            }),
-          },
-        },
-      },
-
-      list: {
-        class: List,
-        inlineToolbar: true,
-      },
-
-      delimiter: Delimiter,
-
-      table: {
-        class: Table,
-        inlineToolbar: true,
-      },
-
-      checklist: {
-        class: Checklist,
-        inlineToolbar: true,
-      },
-
-      /**
-       * Inline Tools
-       */
-      inlineCode: {
-        class: InlineCode,
-        shortcut: 'CMD+SHIFT+C',
-      },
-
-      marker: {
-        class: Marker,
-        shortcut: 'CMD+SHIFT+M',
-      },
-
-      embed: Embed,
-    }
-  });
+  editor = undefined;
   constructor() { }
 
   ngOnInit(): void {
+    let docs;
+    const docsStr = localStorage.getItem('docs');
+    console.log('zzq see get logs', docsStr);
+    if (docsStr) {
+      docs = JSON.parse(docsStr);
+      console.log('do parser');
+    }else {
+      docs = {
+        time: 1660228893588,
+        blocks: [
+          {
+            id: 'fJz7whuCij',
+            type: 'paragraph',
+            data: {
+              text: '输入回车试试'
+            }
+          }
+        ],
+        version: '2.25.0'
+      };
+    }
+    this.editor = new EditorJS({
+      readOnly: false,
+      holderId: 'editorjs',
+      placeholder: '请输入回车键盘选择可输入类型',
+      tools: {
+        header: {
+          class: Header,
+          inlineToolbar: ['marker', 'inlineCode'],
+          config: {
+            placeholder: '',
+          },
+        },
+        json: HttpBlock,
+        image: {
+          class: Image,
+          inlineToolbar: true,
+          config: {
+            types: 'image/*, video/mp4',
+            endpoints: {
+              byFile: encodeURI('http://localhost:2208/api/file?from=http://localhost:2208'),
+              byUrl: '/api/transport/fetch',
+            },
+            field: 'file',
+            additionalRequestData: {
+              map: JSON.stringify({
+                url: 'file:url',
+                size: 'file:size',
+                mimetype: 'file:mime',
+              }),
+            },
+          },
+        },
+
+        list: {
+          class: List,
+          inlineToolbar: true,
+        },
+
+        delimiter: Delimiter,
+
+        table: {
+          class: Table,
+          inlineToolbar: true,
+        },
+
+        checklist: {
+          class: Checklist,
+          inlineToolbar: true,
+        },
+
+        /**
+         * Inline Tools
+         */
+        inlineCode: {
+          class: InlineCode,
+          shortcut: 'CMD+SHIFT+C',
+        },
+
+        marker: {
+          class: Marker,
+          shortcut: 'CMD+SHIFT+M',
+        },
+
+        embed: Embed,
+      },
+      data: docs
+    });
   }
 
   getJson(): void {
@@ -107,5 +132,12 @@ export class DocPageComponent implements OnInit {
   changeState() {
     this.readOnly = !this.readOnly;
     this.editor.readOnly.toggle();
+  }
+
+  stash(): void {
+    this.editor.save().then((res) => {
+      this.code = JSON.stringify(res, null, '\t');
+      localStorage.setItem('docs', this.code);
+    });
   }
 }
