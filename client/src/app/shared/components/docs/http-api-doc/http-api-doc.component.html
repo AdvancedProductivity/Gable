@@ -1,5 +1,5 @@
 <div class="container-doc-http">
-  <div class="header-select-area">
+  <div class="header-select-area" *ngIf="!readonly">
     <div class="sele-c">
       <ng-select
         placeholder="{{ 'PAGES.DOCS.COLLECTION_SELECT' | translate }}"
@@ -22,7 +22,7 @@
     </div>
     <div style="flex: 1;height: 100%"></div>
     <div class="apply-btn">
-      <button mat-raised-button color="primary" (click)="apply()">
+      <button mat-raised-button color="primary" (click)="apply()" [disabled]="!ocId || !httpId">
         {{ 'PAGES.SETTING.APPLY' | translate }}
       </button>
     </div>

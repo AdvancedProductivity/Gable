@@ -33,10 +33,15 @@ export class ApiHeaderOperationComponent implements OnInit {
   /**
    * set the http header bar name,collection name ...
    * */
-  setInitStatus(id: number, collectionId: number, name: string, isEdit: boolean, version: number, defineId: number) {
-    this.menuService.getCollectionName(collectionId).subscribe(res => {
-      this.collectionName = res;
-    });
+  setInitStatus(id: number, collectionId: number, name: string, isEdit: boolean, version: number, defineId: number,
+                collectionName?: string) {
+    if (!collectionName) {
+      this.menuService.getCollectionName(collectionId).subscribe(res => {
+        this.collectionName = res;
+      });
+    } else {
+      this.collectionName = collectionName;
+    }
     this.oldVersion = version;
     this.apiId = id;
     this.defineId = defineId;

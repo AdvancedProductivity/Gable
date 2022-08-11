@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {RequestTabsComponent} from './request-tabs/request-tabs.component';
 import {ApiMenuServiceImpl} from '../../../../../core/services/impl/api-menu-impl.service';
 import {ApiMenuItem} from '../../../../../core/services/entity/ApiMenu';
@@ -13,6 +13,7 @@ import {
 import {HttpApiService} from '../../../../../core/services/impl/http-api.service';
 import {ApiRunnerService} from '../../../../../core/services/impl/api-runner.service';
 import {ResponseTabsComponent} from './response-tabs/response-tabs.component';
+import {HttpDocBlockData} from '../../../../../core/services/entity/Docs';
 
 @Component({
   selector: 'app-http-work-bench',
@@ -29,6 +30,8 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   curMethod: string;
   httpApi: HttpApi;
   id: number;
+  isInDoc = false;
+  readonly = false;
 
   constructor(
     private menuService: ApiMenuServiceImpl,
@@ -40,6 +43,18 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.urlSubject.pipe(debounceTime(1000))
       .subscribe(this.handleUrlChange);
+  }
+
+  setDocData(docData: HttpDocBlockData, readOnly: boolean) {
+    this.isInDoc = true;
+    this.readonly = readOnly;
+    this.header.setInitStatus(docData.httpId, docData.collectionId, docData.httpName,
+      false, docData.version, docData.httpId, docData.collectionName);
+    this.httpApi = docData.define;
+    this.req.setHttpData(docData.define);
+    this.header.setCacheVersion(docData.define.version);
+    this.curMethod = docData.define.method;
+    this.url = docData.define.url;
   }
 
   setApiData(id: number, isEdit: boolean = false) {
@@ -103,6 +118,9 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   }
 
   reGetDefine(): void {
+    if (this.isInDoc) {
+      return;
+    }
     this.httpApiService.removeCache(this.id).then(res => {
       this.setApiData(this.id, false);
     });
@@ -180,6 +198,9 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
 
   private doHttpApiUpdateCache() {
     this.httpApi.version = new Date().getTime();
+    if (this.isInDoc) {
+      return;
+    }
     this.httpApiService.updateCache(this.httpApi);
     this.header.setCacheVersion(this.httpApi.version);
   }
