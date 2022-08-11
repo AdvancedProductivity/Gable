@@ -50,6 +50,10 @@
         "EMPTY_HEADERS_TIP": "All your headers will appear here."
       }
     },
+    "DOCS": {
+      "COLLECTION_SELECT": "Select Collection",
+      "HTTP_SELECT": "Select Http"
+    },
     "API_DOCUMENT": {
       "NAME": "API Document"
     },

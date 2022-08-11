@@ -1,0 +1,33 @@
+<div class="container-doc-http">
+  <div class="header-select-area">
+    <div class="sele-c">
+      <ng-select
+        placeholder="{{ 'PAGES.DOCS.COLLECTION_SELECT' | translate }}"
+        class="env-custom"
+        (change)="collectionChange($event)"
+      >
+        <ng-option *ngFor="let c of cos" [value]="c.id">{{ c.name }}</ng-option>
+      </ng-select>
+    </div>
+    <div class="sele-c">
+      <ng-select
+        placeholder="{{ 'PAGES.DOCS.HTTP_SELECT' | translate }}"
+        class="env-custom"
+        (change)="httpChange($event)"
+      >
+        <ng-option *ngFor="let c of https" [value]="c.id">{{ c.name }}</ng-option>
+      </ng-select>
+    </div>
+    <div style="flex: 1;height: 100%"></div>
+    <div class="apply-btn">
+      <button mat-raised-button color="primary" (click)="apply()">
+        {{ 'PAGES.SETTING.APPLY' | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="http-area">
+    <div *ngIf="applied" style="width: 100%;height: 100%">
+      <app-http-work-bench #http></app-http-work-bench>
+    </div>
+  </div>
+</div>

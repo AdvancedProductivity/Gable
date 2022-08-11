@@ -1,0 +1,30 @@
+.container-doc-http {
+  width: 100%;
+  height: 650px;
+  display: flex;
+  border: solid 1px #ddd;
+  flex-direction: column;
+
+  .header-select-area {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+
+    .sele-c {
+      margin-left: 10px;
+      width: 200px;
+      margin-top: 7px;
+    }
+
+    .apply-btn {
+      width: 80px;
+      margin-top: 7px;
+    }
+  }
+
+  .http-area {
+    flex: 1;
+    background-color: #FFF;
+  }
+}
