@@ -1,3 +1,18 @@
-<div style="padding: 8px">
-  <http-api-doc-component></http-api-doc-component>
+<div class="doc-container">
+  <div class="top-btn-group">
+    <button style="margin-left: 10px;margin-top: 7px" mat-raised-button color="primary" (click)="getJson()">
+      {{ 'PAGES.DOCS.EDITOR_DATA' | translate }}
+    </button>
+    <button style="margin-left: 10px;margin-top: 7px" mat-raised-button color="primary" (click)="changeState()">
+      {{ (readOnly ? 'PAGES.DOCS.EDIT' :'PAGES.DOCS.PREVIEW') | translate }}
+    </button>
+  </div>
+  <div class="con">
+    <div class="editor-con">
+      <div id="editorjs"></div>
+    </div>
+    <div class="json-shower">
+      <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+    </div>
+  </div>
 </div>

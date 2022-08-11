@@ -22,6 +22,9 @@
       "APPLY": "应用"
     },
     "DOCS": {
+      "EDITOR_DATA": "获取编辑器数据",
+      "EDIT": "编辑",
+      "PREVIEW": "预览",
       "COLLECTION_SELECT": "选择测试组",
       "HTTP_SELECT": "选择HTTP"
     },

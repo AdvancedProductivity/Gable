@@ -51,6 +51,9 @@
       }
     },
     "DOCS": {
+      "EDITOR_DATA": "Get Editor Data",
+      "EDIT": "Edit",
+      "PREVIEW": "Preview",
       "COLLECTION_SELECT": "Select Collection",
       "HTTP_SELECT": "Select Http"
     },
