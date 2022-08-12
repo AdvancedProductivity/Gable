@@ -44,13 +44,6 @@ export class DocPageComponent implements OnInit {
       docs = {
         time: 1660228893588,
         blocks: [
-          {
-            id: 'fJz7whuCij',
-            type: 'paragraph',
-            data: {
-              text: '输入回车试试'
-            }
-          }
         ],
         version: '2.25.0'
       };
@@ -62,7 +55,7 @@ export class DocPageComponent implements OnInit {
     this.editor = new EditorJS({
       readOnly: false,
       holderId: 'editorjs',
-      placeholder: '请输入回车键盘选择可输入类型',
+      placeholder: '请输入 Tab 键 选择可输入类型',
       tools: {
         header: {
           class: Header,
