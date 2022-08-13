@@ -11,9 +11,10 @@ import { SettingComponent } from './setting/setting.component';
 import { DocPageComponent } from './doc-page/doc-page.component';
 import { MockPageComponent } from './mock-page/mock-page.component';
 import { DocEditorComponent } from './doc-page/doc-editor/doc-editor.component';
+import { DocDashBoardComponent } from './doc-page/doc-dash-board/doc-dash-board.component';
 
 @NgModule({
-  declarations: [HomeComponent, ApiTestComponent, SettingComponent, DocPageComponent, MockPageComponent, DocEditorComponent],
+  declarations: [HomeComponent, ApiTestComponent, SettingComponent, DocPageComponent, MockPageComponent, DocEditorComponent, DocDashBoardComponent],
     imports: [CommonModule, SharedModule, HomeRoutingModule, PerfectScrollbarModule]
 })
 export class HomeModule {}

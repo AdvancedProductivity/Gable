@@ -7,6 +7,7 @@ import {ApiTestComponent} from './api-test/api-test.component';
 import {SettingComponent} from './setting/setting.component';
 import {DocPageComponent} from './doc-page/doc-page.component';
 import {MockPageComponent} from './mock-page/mock-page.component';
+import {DocDashBoardComponent} from './doc-page/doc-dash-board/doc-dash-board.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'api', pathMatch: 'full' },
@@ -20,7 +21,11 @@ const routes: Routes = [
   },
   {
     path: 'doc',
-    component: DocPageComponent
+    component: DocPageComponent,
+    children: [
+      { path: '', redirectTo: 'd', pathMatch: 'full' },
+      { path: 'd', component: DocDashBoardComponent}
+    ]
   },
   {
     path: 'mock',
