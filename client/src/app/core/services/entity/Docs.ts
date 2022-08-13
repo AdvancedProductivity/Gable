@@ -11,6 +11,15 @@ export class Doc{
   name: string;
   dateCreated: number;
 }
+export class DocMenu{
+  id?: number;
+  docId: number;
+  level: number;
+  itemCount: number;
+  parentId: number;
+  name: string;
+  dateCreated: number;
+}
 /** Flat node with expandable and level information */
 export class DocMenuDynamicFlatNode {
   constructor(

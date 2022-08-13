@@ -18,7 +18,4 @@ export class DocDetailComponent implements OnInit {
       this.docId = Number(res.get('docId'));
     });
   }
-
-  addNewArticle(): void {
-  }
 }

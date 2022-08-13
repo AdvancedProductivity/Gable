@@ -4,7 +4,7 @@
     *matTreeNodeDef="let node"
     matTreeNodePadding
     [matTreeNodePaddingIndent]="10"
-    [class.doc-menu-selected]="!isSelectId && node.name === selectedId"
+    [class.doc-menu-selected]="!isSelectId && node.id === selectedId"
   >
     <div
       class="doc-menu-item"
@@ -12,13 +12,22 @@
       (mouseleave)="node.isIn = false"
       (click)="onSelected(node)"
     >
-      <button mat-icon-button disabled></button>
+      <button *ngIf="node.itemCount === 0" mat-icon-button disabled></button>
+      <button
+        *ngIf="node.itemCount !== 0"
+        mat-icon-button matTreeNodeToggle
+        [attr.aria-label]="'Toggle ' + node.name"
+      >
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
       {{node.name}}
       <button
         *ngIf="node.isIn"
         class="doc-btn-gro"
         mat-button
-        (click)="addSub(node)"
+        (click)="addSub(node);$event.cancelBubble=true"
       >
           <span>
             {{ 'PAGES.DOCS.ADD_NEW_ARTICLE' | translate }}
@@ -30,15 +39,15 @@
   <mat-tree-node
     *matTreeNodeDef="let node;when: hasChild"
     matTreeNodePadding
-    [class.doc-menu-selected]="!isSelectId && node.name === selectedId"
+    [class.doc-menu-selected]="!isSelectId && node.id === selectedId"
     [matTreeNodePaddingIndent]="10"
   >
     <div
       class="doc-menu-item"
       (mouseover)="node.isIn = true"
       (mouseleave)="node.isIn = false"
-      (click)="onSelected(node);"
-      (dblclick)="onDbClick(node)"
+      (click)="onSelected(node);$event.cancelBubble=true"
+      (dblclick)="onDbClick(node);$event.cancelBubble=true"
     >
       <button mat-icon-button matTreeNodeToggle
               [attr.aria-label]="'Toggle ' + node.name">
@@ -63,3 +72,8 @@
     </div>
   </mat-tree-node>
 </mat-tree>
+<div *ngIf="menus && menus.length === 0" style="margin-top: 100px;text-align: center">
+  <span style="margin-left: auto;margin-right: auto">
+    {{ 'PAGES.DOCS.ADD_CONTENT' | translate }}
+  </span>
+</div>

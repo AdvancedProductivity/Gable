@@ -53,6 +53,7 @@
     "DOCS": {
       "CREATE": "Create New Doc",
       "ADD_NEW_ARTICLE": "Add",
+      "ADD_CONTENT": "Please Add Content By Click Top Button",
       "DOC_NAME": "Doc Name",
       "EDITOR_DATA": "Get Editor Data",
       "STASH": "Stash",

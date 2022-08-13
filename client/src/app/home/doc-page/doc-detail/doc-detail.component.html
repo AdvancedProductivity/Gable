@@ -5,7 +5,7 @@
         <button
           style="line-height: 32px;"
           mat-button
-          (click)="addNewArticle()"
+          (click)="docTree.addNewArticle()"
         >
           <span>
             {{ 'PAGES.DOCS.ADD_NEW_ARTICLE' | translate }}
@@ -16,7 +16,7 @@
     <mat-divider></mat-divider>
     <div class="menu-content">
       <div class="doc-menu-inte" [perfectScrollbar]>
-        <app-doc-menu-tree></app-doc-menu-tree>
+        <app-doc-menu-tree #docTree [id]="docId"></app-doc-menu-tree>
       </div>
     </div>
   </div>

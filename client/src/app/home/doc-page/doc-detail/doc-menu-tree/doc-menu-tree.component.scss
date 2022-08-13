@@ -33,6 +33,9 @@
 mat-tree-node:hover {
   background-color: rgba(107, 107, 107, 0.2);
 }
+mat-tree-node{
+  cursor: pointer;
+}
 
 
 .doc-menu-selected {

@@ -1,7 +1,7 @@
 import Dexie, { Table } from 'dexie';
 import {ApiMenuCollection, ApiMenuItem, OpeningNavTab} from './entity/ApiMenu';
 import {HttpApi} from './entity/HttpApi';
-import {Doc} from './entity/Docs';
+import {Doc, DocMenu} from './entity/Docs';
 
 
 export class AppDB extends Dexie {
@@ -11,16 +11,18 @@ export class AppDB extends Dexie {
   httpApi!: Table<HttpApi, number>;
   httpApiCache!: Table<HttpApi, number>;
   docs!: Table<Doc, number>;
+  docsMenu!: Table<DocMenu, number>;
 
   constructor() {
     super('gable');
-    this.version(10).stores({
+    this.version(12).stores({
       apiMenus: '++id',
       docs: '++id',
       apiDefines: '++id',
       httpApi: '++id',
       httpApiCache: '++id',
       openingTabs: 'tabId',
+      docsMenu: '++id,docId,level,parentId',
       apiMenuItems: '++id, collectionId',
     });
     this.on('ready', () => {

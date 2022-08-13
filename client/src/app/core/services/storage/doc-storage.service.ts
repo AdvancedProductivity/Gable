@@ -5,7 +5,8 @@ import {DocStorageRemoteService} from './remote/doc-storage-remote.service';
 import {ElectronService} from '../electron/electron.service';
 import {ConfigServiceImpl} from '../impl/ConfigServiceImpl';
 import {db} from '../db';
-import {Doc} from '../entity/Docs';
+import {Doc, DocMenu} from '../entity/Docs';
+import {equals} from "@ngx-translate/core/lib/util";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,38 @@ export class DocStorageService {
     }else if (this.electronService.isElectron) {
     }else {
       return db.docs.toArray();
+    }
+  }
+
+  public async getDocMenuBaseLevel(docId: number): Promise<DocMenu[]> {
+    if (this.saveDataInRemote()) {
+    }else if (this.electronService.isElectron) {
+    }else {
+      return db.docsMenu.where({docId, level: 0}).toArray();
+    }
+  }
+
+  public async getSubMenu(parentId: number): Promise<DocMenu[]> {
+    if (this.saveDataInRemote()) {
+    }else if (this.electronService.isElectron) {
+    }else {
+      return db.docsMenu.where({parentId}).toArray();
+    }
+  }
+
+  public async addDocMenu(docMenu: DocMenu): Promise<number> {
+    if (this.saveDataInRemote()) {
+    }else if (this.electronService.isElectron) {
+    }else {
+      return db.docsMenu.add(docMenu);
+    }
+  }
+
+  public async updateContentCount(id: number, newCount: any): Promise<any> {
+    if (this.saveDataInRemote()) {
+    } else if (this.electronService.isElectron) {
+    } else {
+      return db.docsMenu.update(id, {itemCount: newCount});
     }
   }
 
