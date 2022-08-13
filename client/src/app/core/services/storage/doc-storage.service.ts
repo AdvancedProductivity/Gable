@@ -5,8 +5,7 @@ import {DocStorageRemoteService} from './remote/doc-storage-remote.service';
 import {ElectronService} from '../electron/electron.service';
 import {ConfigServiceImpl} from '../impl/ConfigServiceImpl';
 import {db} from '../db';
-import {Doc, DocMenu} from '../entity/Docs';
-import {equals} from "@ngx-translate/core/lib/util";
+import {Doc, DocDefine, DocMenu} from '../entity/Docs';
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +58,20 @@ export class DocStorageService {
     }else if (this.electronService.isElectron) {
     }else {
       return db.docsMenu.add(docMenu);
+    }
+  }
+
+  public async addDocDefault(id: number, newName: string): Promise<number> {
+    if (this.saveDataInRemote()) {
+    }else if (this.electronService.isElectron) {
+    }else {
+      const doc = new DocDefine();
+      doc.name = newName;
+      doc.version = '2.25.0';
+      doc.time = new Date().getTime();
+      doc.blocks = [];
+      doc.id = id;
+      return db.docDefines.add(doc, id);
     }
   }
 

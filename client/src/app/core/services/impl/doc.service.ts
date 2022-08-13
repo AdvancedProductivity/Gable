@@ -40,9 +40,11 @@ export class DocService {
     doc.level = 0;
     doc.itemCount = 0;
     doc.parentId = 0;
+    doc.apiKey = '';
     doc.name = 'New Content';
     doc.dateCreated = new Date().getTime();
     doc.id = await this.docStorageService.addDocMenu(doc);
+    this.docStorageService.addDocDefault(doc.id, doc.name).then(res => {});
     return new Promise(resolve => {
       resolve(doc);
     });
@@ -55,8 +57,10 @@ export class DocService {
     doc.itemCount = 0;
     doc.parentId = parentId;
     doc.name = 'New Content';
+    doc.apiKey = '';
     doc.dateCreated = new Date().getTime();
     doc.id = await this.docStorageService.addDocMenu(doc);
+    this.docStorageService.addDocDefault(doc.id, doc.name).then(res => {});
     return new Promise(resolve => {
       resolve(doc);
     });

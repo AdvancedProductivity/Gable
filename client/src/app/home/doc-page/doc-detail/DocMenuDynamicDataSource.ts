@@ -62,14 +62,6 @@ export class DocMenuDynamicDataSource implements DataSource<DocMenuDynamicFlatNo
       return;
     }
     if (expand){
-      const children = [];
-      for (let i = 0; i < itemCount; i++) {
-        children.push({
-          id: new Date().getTime(),
-          name: randomString(10),
-          itemCount: 0
-        });
-      }
       node.isLoading = true;
       this.getSubMenu(node.id).then((subMenus: DocMenu[]) => {
         const nodes = [];

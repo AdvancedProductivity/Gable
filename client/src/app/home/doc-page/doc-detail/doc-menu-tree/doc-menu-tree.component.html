@@ -24,7 +24,7 @@
       </button>
       {{node.name}}
       <button
-        *ngIf="node.isIn"
+        *ngIf="id !== 1 && node.isIn"
         class="doc-btn-gro"
         mat-button
         (click)="addSub(node);$event.cancelBubble=true"
@@ -57,7 +57,7 @@
       </button>
       {{node.name}}
       <button
-        *ngIf="node.isIn"
+        *ngIf="id !== 1 && node.isIn"
         class="doc-btn-gro"
         mat-button
         (click)="addSub(node)"

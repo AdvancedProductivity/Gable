@@ -18,7 +18,15 @@ export class DocMenu{
   itemCount: number;
   parentId: number;
   name: string;
+  apiKey: string;
   dateCreated: number;
+}
+export class DocDefine{
+  id?: number;
+  time: number;
+  name: string;
+  blocks?: any[];
+  version: string;
 }
 /** Flat node with expandable and level information */
 export class DocMenuDynamicFlatNode {

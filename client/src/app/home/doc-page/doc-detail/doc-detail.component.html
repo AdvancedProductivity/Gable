@@ -5,6 +5,7 @@
         <button
           style="line-height: 32px;"
           mat-button
+          [disabled]="docId === 1"
           (click)="docTree.addNewArticle()"
         >
           <span>
