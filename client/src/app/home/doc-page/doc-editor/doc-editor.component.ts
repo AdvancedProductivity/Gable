@@ -22,6 +22,7 @@ import {ConfigServiceImpl} from '../../../core/services/impl/ConfigServiceImpl';
 import {HttpBlock} from '../plugins/http-block';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {DocService} from '../../../core/services/impl/doc.service';
+import {randomString} from '../../../core/services/utils/Uuid';
 
 @Component({
   selector: 'app-doc-editor',
@@ -30,11 +31,11 @@ import {DocService} from '../../../core/services/impl/doc.service';
 })
 export class DocEditorComponent implements OnInit {
   @Output() status = new EventEmitter<boolean>();
-  @Output() nameChange = new EventEmitter<{ name: string; id: number; }>();
+  @Output() nameChange = new EventEmitter<{ name: string; id: number }>();
   name: string;
   docId: number;
   readOnly = true;
-  editor = undefined;
+  editor: EditorJS;
 
   constructor(
     private docService: DocService,
@@ -48,8 +49,7 @@ export class DocEditorComponent implements OnInit {
 
   doEdit() {
     this.readOnly = false;
-    this.editor.readOnly.toggle();
-    this.status.next(this.readOnly);
+    this.editor.readOnly.toggle().then(this.status.next);
   }
 
   saveData() {
@@ -60,7 +60,7 @@ export class DocEditorComponent implements OnInit {
         this.editor.readOnly.toggle();
         this.status.next(this.readOnly);
       });
-      this.nameChange.next({ name: this.name, id: this.docId})
+      this.nameChange.next({ name: this.name, id: this.docId});
     });
   }
 
@@ -69,11 +69,10 @@ export class DocEditorComponent implements OnInit {
     this.spinner.show();
     this.renderNewData(docId).then(res => {
       this.name = res.name;
-      if (res.blocks.length === 0) {
-        this.readOnly = false;
-        this.editor.readOnly.toggle();
-      }
       if (!this.editor) {
+        if (res.blocks.length === 0) {
+          this.readOnly = false;
+        }
         this.editor = new EditorJS({
           readOnly: this.readOnly,
           holderId: 'editorjs',
@@ -84,12 +83,24 @@ export class DocEditorComponent implements OnInit {
       } else {
         if (!this.readOnly && res.blocks.length > 0) {
           this.readOnly = true;
-          this.editor.readOnly.toggle();
         } else if (this.readOnly && res.blocks.length === 0) {
-          this.readOnly = true;
-          this.editor.readOnly.toggle();
+          console.log('reset readonly');
+          this.readOnly = false;
         }
-        this.editor.render(res);
+        if (res.blocks.length === 0) {
+          res.blocks.push({
+            data: {text: '请输入回车键盘选择可输入类型'},
+            docDefineId: docId,
+            id: randomString(10),
+            order: 0,
+            type: 'paragraph',
+          });
+        }
+        this.editor.render(res).then(z => {
+          console.log('redder e', z, this.readOnly);
+          this.editor.readOnly.toggle(this.readOnly).then(r => {
+          });
+        });
       }
       this.status.next(this.readOnly);
       this.spinner.hide();
@@ -165,6 +176,9 @@ export class DocEditorComponent implements OnInit {
   }
 
   private async renderNewData(docId: number): Promise<any> {
+    if (this.editor) {
+      await this.editor.render({blocks: []});
+    }
     const data = await Promise.all([
       this.docService.getDocDefine(docId),
       this.docService.getBlocksByDocId(docId)
