@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./doc-dash-board.component.scss']
 })
 export class DocDashBoardComponent implements OnInit {
-
+  docs = [];
   constructor() { }
 
   ngOnInit(): void {
+    for (let i = 0; i < 10; i++) {
+      this.docs.push(i);
+    }
   }
 
 }
