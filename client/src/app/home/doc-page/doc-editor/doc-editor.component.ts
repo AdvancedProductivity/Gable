@@ -44,15 +44,7 @@ export class DocEditorComponent implements OnInit {
     }else {
       docs = {
         time: 1660228893588,
-        blocks: [
-          {
-            id: 'fJz7whuCij',
-            type: 'paragraph',
-            data: {
-              text: '输入回车试试'
-            }
-          }
-        ],
+        blocks: [],
         version: '2.25.0'
       };
     }
