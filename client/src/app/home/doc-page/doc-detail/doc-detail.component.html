@@ -17,17 +17,20 @@
     <mat-divider></mat-divider>
     <div class="menu-content">
       <div class="doc-menu-inte" [perfectScrollbar]>
-        <app-doc-menu-tree #docTree [id]="docId"></app-doc-menu-tree>
+        <app-doc-menu-tree
+          #docTree
+          [id]="docId"
+          (docSelect)="showing=$event;editor.setDocId($event)"
+        ></app-doc-menu-tree>
       </div>
     </div>
   </div>
   <mat-divider vertical></mat-divider>
   <div class="doc-editor">
-    <div *ngIf="!showing" style="margin-top: 100px;text-align: center">
-      <span style="margin-left: auto;margin-right: auto">
-        {{ 'PAGES.DOCS.SELECT_A_DOC' | translate }}
-      </span>
-    </div>
+    <app-doc-editor
+      #editor
+      style="height: 100%;position: relative"
+    ></app-doc-editor>
   </div>
   <mat-divider vertical></mat-divider>
   <div class="doc-operation">

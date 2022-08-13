@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {DocMenu, DocMenuDynamicFlatNode} from '../../../../core/services/entity/Docs';
 import {DocMenuDynamicDataSource} from '../DocMenuDynamicDataSource';
@@ -11,6 +11,7 @@ import {DocService} from '../../../../core/services/impl/doc.service';
   styleUrls: ['./doc-menu-tree.component.scss']
 })
 export class DocMenuTreeComponent implements OnInit {
+  @Output() docSelect = new EventEmitter<number>();
   @Input() id: number;
   isSelectId: number;
   selectedId: number;
@@ -52,7 +53,9 @@ export class DocMenuTreeComponent implements OnInit {
 
   onSelected(node): void {
     this.selectedId = node.id;
-    if (!this.treeControl.isExpanded(node)) {
+    this.docSelect.next(this.selectedId);
+    if(!this.treeControl.isExpanded(node))
+    {
       this.treeControl.toggle(node);
     }
   }
@@ -62,6 +65,7 @@ export class DocMenuTreeComponent implements OnInit {
       this.menus.push(m);
     });
   }
+
   onDbClick(node): void {
     if (this.treeControl.isExpanded(node)) {
       this.treeControl.toggle(node);

@@ -1,21 +1,21 @@
-<div class="doc-container">
-  <div class="top-btn-group">
-    <button style="margin-left: 10px;margin-top: 7px" mat-raised-button color="primary" (click)="getJson()">
-      {{ 'PAGES.DOCS.EDITOR_DATA' | translate }}
-    </button>
-    <button style="margin-left: 10px;margin-top: 7px" mat-raised-button color="primary" (click)="changeState()">
-      {{ (readOnly ? 'PAGES.DOCS.EDIT' :'PAGES.DOCS.PREVIEW') | translate }}
-    </button>
-    <button style="margin-left: 10px;margin-top: 7px" mat-raised-button color="primary" (click)="stash()">
-      {{ ('PAGES.DOCS.STASH') | translate }}
-    </button>
-  </div>
-  <div class="con">
-    <div class="json-shower">
-      <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+<!--<div class="editor-con">-->
+<!-- -->
+<!--</div>-->
+<div class="editor-container">
+  <div class="editor-content">
+    <div *ngIf="!docId" style="margin-top: 100px;text-align: center">
+      <span style="margin-left: auto;margin-right: auto">
+        {{ 'PAGES.DOCS.SELECT_A_DOC' | translate }}
+      </span>
     </div>
-    <div class="editor-con">
-      <div id="editorjs" class="effd"></div>
+    <div *ngIf="docId" class="editor-inte">
+      <div class="editor-con">
+        <div class="title-bar">
+          <input class="title">
+        </div>
+        <mat-divider></mat-divider>
+        <div id="editorjs" class="effd"></div>
+      </div>
     </div>
   </div>
 </div>
