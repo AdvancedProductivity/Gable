@@ -46,6 +46,18 @@
   .doc-operation {
     width: 190px;
     height: 100%;
-    background-color: purple;
+    display: flex;
+    flex-direction: column;
+
+    .btn-group {
+      height: 40px;
+      width: 100%;
+      margin-top: 4px;
+      display: flex;
+      flex-direction: row;
+    }
+    .tip-container {
+      flex: 1;
+    }
   }
 }

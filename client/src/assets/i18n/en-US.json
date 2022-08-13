@@ -53,11 +53,13 @@
     "DOCS": {
       "CREATE": "Create New Doc",
       "ADD_NEW_ARTICLE": "Add",
+      "SELECT_A_DOC": "Please select a document in the left",
       "ADD_CONTENT": "Please Add Content By Click Top Button",
       "DOC_NAME": "Doc Name",
       "EDITOR_DATA": "Get Editor Data",
       "STASH": "Stash",
       "EDIT": "Edit",
+      "SAVE": "Save",
       "PREVIEW": "Preview",
       "COLLECTION_SELECT": "Select Collection",
       "HTTP_SELECT": "Select Http"
@@ -77,6 +79,7 @@
   "MESSAGE": {
     "CANCEL": "Cancel",
     "CONFIRM": "Confirm",
+    "BACK": "Back",
     "EXIST_FULL": "Exist",
     "DEVELOPING": "This feature is developing",
     "APPLY_SUCCESS": "Config Have Been Apply",

@@ -8,6 +8,8 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 })
 export class DocDetailComponent implements OnInit {
   docId: number;
+  showing: number;
+  isEdit = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router

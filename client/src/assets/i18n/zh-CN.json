@@ -23,12 +23,14 @@
     },
     "DOCS": {
       "CREATE": "创建新文档",
+      "SELECT_A_DOC": "请先在左侧选择一篇文档",
       "ADD_CONTENT": "请点击上方添加按钮创建内容",
       "ADD_NEW_ARTICLE": "添加",
       "DOC_NAME": "文档名称",
       "EDITOR_DATA": "获取编辑器数据",
       "STASH": "暂存",
       "EDIT": "编辑",
+      "SAVE": "保存",
       "PREVIEW": "预览",
       "COLLECTION_SELECT": "选择测试组",
       "HTTP_SELECT": "选择HTTP"
@@ -77,6 +79,7 @@
   "MESSAGE": {
     "CANCEL": "取消",
     "CONFIRM": "确认",
+    "BACK": "返回",
     "EXIST_FULL": "退出全屏",
     "DEVELOPING": "该功能正在开发中",
     "APPLY_SUCCESS": "设置已经生效",
