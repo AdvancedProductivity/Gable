@@ -1,11 +1,13 @@
 <perfect-scrollbar>
   <div class="doc-dashboard-container">
-    <div class="doc-item" *ngFor="let i of docs">
-      <div class="img-con">
-        <img src="/assets/img/doc.png">
+    <a class="doc-link" *ngFor="let i of docs"  [routerLink]="['../detail', i]">
+      <div class="doc-item" >
+        <div class="img-con">
+          <img src="/assets/img/doc.png">
+        </div>
+        <span class="doc-title">无标题</span>
       </div>
-      <span class="doc-title">无标题</span>
-    </div>
+    </a>
     <div class="doc-item">
       <div class="img-con">
         <div class="icon">

@@ -11,6 +11,10 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 
+  .doc-link {
+    text-decoration: none;
+  }
+
   .doc-item:hover {
     background-color: rgba(65, 70, 75, 0.15);
   }

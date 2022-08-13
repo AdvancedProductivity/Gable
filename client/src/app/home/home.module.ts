@@ -12,9 +12,19 @@ import { DocPageComponent } from './doc-page/doc-page.component';
 import { MockPageComponent } from './mock-page/mock-page.component';
 import { DocEditorComponent } from './doc-page/doc-editor/doc-editor.component';
 import { DocDashBoardComponent } from './doc-page/doc-dash-board/doc-dash-board.component';
+import { DocDetailComponent } from './doc-page/doc-detail/doc-detail.component';
 
 @NgModule({
-  declarations: [HomeComponent, ApiTestComponent, SettingComponent, DocPageComponent, MockPageComponent, DocEditorComponent, DocDashBoardComponent],
+  declarations: [
+    HomeComponent,
+    ApiTestComponent,
+    SettingComponent,
+    DocPageComponent,
+    MockPageComponent,
+    DocEditorComponent,
+    DocDashBoardComponent,
+    DocDetailComponent
+  ],
     imports: [CommonModule, SharedModule, HomeRoutingModule, PerfectScrollbarModule]
 })
 export class HomeModule {}

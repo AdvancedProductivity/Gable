@@ -8,6 +8,7 @@ import {SettingComponent} from './setting/setting.component';
 import {DocPageComponent} from './doc-page/doc-page.component';
 import {MockPageComponent} from './mock-page/mock-page.component';
 import {DocDashBoardComponent} from './doc-page/doc-dash-board/doc-dash-board.component';
+import {DocDetailComponent} from './doc-page/doc-detail/doc-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'api', pathMatch: 'full' },
@@ -24,7 +25,8 @@ const routes: Routes = [
     component: DocPageComponent,
     children: [
       { path: '', redirectTo: 'd', pathMatch: 'full' },
-      { path: 'd', component: DocDashBoardComponent}
+      { path: 'd', component: DocDashBoardComponent},
+      { path: 'detail/:docId', component: DocDetailComponent}
     ]
   },
   {
