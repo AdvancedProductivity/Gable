@@ -10,9 +10,10 @@ import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import { SettingComponent } from './setting/setting.component';
 import { DocPageComponent } from './doc-page/doc-page.component';
 import { MockPageComponent } from './mock-page/mock-page.component';
+import { DocEditorComponent } from './doc-page/doc-editor/doc-editor.component';
 
 @NgModule({
-  declarations: [HomeComponent, ApiTestComponent, SettingComponent, DocPageComponent, MockPageComponent],
+  declarations: [HomeComponent, ApiTestComponent, SettingComponent, DocPageComponent, MockPageComponent, DocEditorComponent],
     imports: [CommonModule, SharedModule, HomeRoutingModule, PerfectScrollbarModule]
 })
 export class HomeModule {}
