@@ -28,6 +28,16 @@ export class DocDefine{
   blocks?: any[];
   version: string;
 }
+
+export class DocBlock {
+  i: number;
+  id: string;
+  docDefineId: number;
+  order: number;
+  type: string;
+  data: any;
+  config: any;
+}
 /** Flat node with expandable and level information */
 export class DocMenuDynamicFlatNode {
   constructor(

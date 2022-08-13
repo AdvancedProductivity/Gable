@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {DocStorageService} from '../storage/doc-storage.service';
-import {Doc, DocMenu} from '../entity/Docs';
+import {Doc, DocBlock, DocDefine, DocMenu} from '../entity/Docs';
 
 @Injectable({
   providedIn: 'root'
@@ -72,5 +72,36 @@ export class DocService {
 
   public async getSubMenu(id: number): Promise<DocMenu[]> {
     return this.docStorageService.getSubMenu(id);
+  }
+
+  public async getBlocksByDocId(docDefineId: number): Promise<DocBlock[]> {
+    return this.docStorageService.getBlocksByDocId(docDefineId);
+  }
+
+  public async getDocDefine(docId: number): Promise<DocDefine> {
+    return this.docStorageService.getDocDefine(docId);
+  }
+
+  public async updateBlock(docId: number, block: any[], newName: string): Promise<DocBlock[]> {
+    const arr = [];
+    let index = 0;
+    block.forEach(item => {
+      const i = new DocBlock();
+      i.docDefineId = docId;
+      i.order = index++;
+      i.id = item.id;
+      i.data = item.data;
+      i.type = item.type;
+      i.config = item.config;
+      arr.push(i);
+    });
+    await this.docStorageService.updateOrCreateBlock(docId, arr, newName);
+    return new Promise(resolve => {
+      resolve(arr);
+    });
+  }
+
+  public async updateName(info: { name: string; id: number }): Promise<any> {
+    return this.docStorageService.updateName(info.id, info.name);
   }
 }

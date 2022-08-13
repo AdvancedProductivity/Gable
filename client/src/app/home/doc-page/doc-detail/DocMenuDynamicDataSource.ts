@@ -116,6 +116,15 @@ export class DocMenuDynamicDataSource implements DataSource<DocMenuDynamicFlatNo
     }
   }
 
+  updateName(info: { name: string; id: number }) {
+    this.data.forEach(item => {
+      if (item.id === info.id) {
+        item.name = info.name;
+        this.docService.updateName(info);
+      }
+    });
+  }
+
   private async getSubMenu(id: number): Promise<DocMenu[]> {
     return this.docService.getSubMenu(id);
   }

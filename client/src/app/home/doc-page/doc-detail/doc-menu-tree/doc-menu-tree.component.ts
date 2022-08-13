@@ -75,4 +75,8 @@ export class DocMenuTreeComponent implements OnInit {
   addSub(node) {
     this.dataSource.addSubLevel(node.id, node.level, this.id, node.itemCount);
   }
+
+  updateName(info: { name: string; id: number }) {
+    this.dataSource.updateName(info);
+  }
 }

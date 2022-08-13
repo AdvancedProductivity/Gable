@@ -5,7 +5,7 @@ import {DocStorageRemoteService} from './remote/doc-storage-remote.service';
 import {ElectronService} from '../electron/electron.service';
 import {ConfigServiceImpl} from '../impl/ConfigServiceImpl';
 import {db} from '../db';
-import {Doc, DocDefine, DocMenu} from '../entity/Docs';
+import {Doc, DocBlock, DocDefine, DocMenu} from '../entity/Docs';
 
 @Injectable({
   providedIn: 'root'
@@ -80,6 +80,40 @@ export class DocStorageService {
     } else if (this.electronService.isElectron) {
     } else {
       return db.docsMenu.update(id, {itemCount: newCount});
+    }
+  }
+
+  public async getBlocksByDocId(docDefineId: number): Promise<DocBlock[]> {
+    if (this.saveDataInRemote()) {
+    } else if (this.electronService.isElectron) {
+    } else {
+      return db.docBlocks.where({docDefineId}).toArray();
+    }
+  }
+
+  public async updateOrCreateBlock(docId: number, arr: any[], newName: string) {
+    if (this.saveDataInRemote()) {
+    } else if (this.electronService.isElectron) {
+    } else {
+      db.docDefines.update(docId, {name: newName}).then(res => {});
+      await db.docBlocks.where({docDefineId: docId}).delete();
+      return db.docBlocks.bulkAdd(arr);
+    }
+  }
+
+  public async getDocDefine(docDefineId: number): Promise<DocDefine> {
+    if (this.saveDataInRemote()) {
+    } else if (this.electronService.isElectron) {
+    } else {
+      return db.docDefines.get(docDefineId);
+    }
+  }
+
+  public async updateName(id: number, name: string): Promise<any> {
+    if (this.saveDataInRemote()) {
+    } else if (this.electronService.isElectron) {
+    } else {
+      return db.docsMenu.update(id, {name});
     }
   }
 

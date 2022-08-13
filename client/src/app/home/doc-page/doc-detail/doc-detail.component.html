@@ -29,6 +29,8 @@
   <div class="doc-editor">
     <app-doc-editor
       #editor
+      (nameChange)="docTree.updateName($event)"
+      (status)="isEdit = !$event"
       style="height: 100%;position: relative"
     ></app-doc-editor>
   </div>
@@ -42,8 +44,8 @@
       </div>
       <div style="flex: 1">
       </div>
-      <div>
-        <button mat-button color="primary">
+      <div *ngIf="docId !== 1">
+        <button mat-button color="primary" (click)="isEdit ? editor.saveData() : editor.doEdit()">
           {{(isEdit ? 'PAGES.DOCS.SAVE' : 'PAGES.DOCS.EDIT') | translate }}
         </button>
       </div>
