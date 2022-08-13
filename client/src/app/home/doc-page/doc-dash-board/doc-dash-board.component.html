@@ -1,14 +1,16 @@
 <perfect-scrollbar>
   <div class="doc-dashboard-container">
-    <a class="doc-link" *ngFor="let i of docs"  [routerLink]="['../detail', i]">
+    <a class="doc-link" *ngFor="let doc of docs"  [routerLink]="['../detail', doc.id]">
       <div class="doc-item" >
         <div class="img-con">
           <img src="/assets/img/doc.png">
         </div>
-        <span class="doc-title">无标题</span>
+        <span class="doc-title">
+          {{ doc.name }}
+        </span>
       </div>
     </a>
-    <div class="doc-item">
+    <div class="doc-item" (click)="addDoc()">
       <div class="img-con">
         <div class="icon">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -16,7 +18,9 @@
           </svg>
         </div>
       </div>
-      <span class="doc-title">创建新文档</span>
+      <span class="doc-title">
+        {{ 'PAGES.DOCS.CREATE' | translate }}
+      </span>
     </div>
   </div>
 </perfect-scrollbar>

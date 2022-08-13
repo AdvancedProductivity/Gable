@@ -13,6 +13,7 @@ import { MockPageComponent } from './mock-page/mock-page.component';
 import { DocEditorComponent } from './doc-page/doc-editor/doc-editor.component';
 import { DocDashBoardComponent } from './doc-page/doc-dash-board/doc-dash-board.component';
 import { DocDetailComponent } from './doc-page/doc-detail/doc-detail.component';
+import { DocCreateDialogComponent } from './doc-page/doc-dash-board/doc-create-dialog/doc-create-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DocDetailComponent } from './doc-page/doc-detail/doc-detail.component';
     MockPageComponent,
     DocEditorComponent,
     DocDashBoardComponent,
-    DocDetailComponent
+    DocDetailComponent,
+    DocCreateDialogComponent
   ],
     imports: [CommonModule, SharedModule, HomeRoutingModule, PerfectScrollbarModule]
 })

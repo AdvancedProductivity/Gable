@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpApiHistoryCache} from '../../entity/HttpApi';
 import {from, Observable, of} from 'rxjs';
 import {db} from '../../db';
-import {HttpApiStorageService} from "../../storage/http-api-stroage.service";
+import {HttpApiStorageService} from '../../storage/http-api-storage.service';
 
 @Injectable({
   providedIn: 'root'

@@ -7,7 +7,7 @@ import {initHttpApi} from '../../entity/HttpApi';
 import {HttpApiService} from '../http-api.service';
 import {NavTabImplService} from '../nav-tab-impl.service';
 import {MenuStorageService} from '../../storage/menu-storage.service';
-import {HttpApiStorageService} from '../../storage/http-api-stroage.service';
+import {HttpApiStorageService} from '../../storage/http-api-storage.service';
 
 @Injectable({
   providedIn: 'root'

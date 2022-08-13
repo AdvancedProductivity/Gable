@@ -71,6 +71,7 @@ import { TestDashboardComponent } from './components/api/test-dashboard/test-das
 import { CollectionWorkBenchComponent } from './components/api/work-bench/collection-work-bench/collection-work-bench.component';
 import {MatCardModule} from '@angular/material/card';
 import { HttpApiDocComponent } from './components/docs/http-api-doc/http-api-doc.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,10 @@ import { HttpApiDocComponent } from './components/docs/http-api-doc/http-api-doc
     , EmptyResponseComponent
     , ResponseHeadersComponent
     , ResponseKeyValueComponent
-    , ResponseCookiesComponent, TestDashboardComponent, CollectionWorkBenchComponent, HttpApiDocComponent
+    , ResponseCookiesComponent
+    , TestDashboardComponent
+    , CollectionWorkBenchComponent
+    , HttpApiDocComponent
   ],
   imports: [
     CommonModule
@@ -129,37 +133,41 @@ import { HttpApiDocComponent } from './components/docs/http-api-doc/http-api-doc
     , MatDividerModule
     , MatTabsModule
     , NgSelectModule
+    , MatDialogModule
     , NgxMatContextMenuTriggerModule
     , AgGridModule
   ],
-    exports: [
-        TranslateModule
-        , WebviewDirective
-        , FormsModule
-        , MatIconModule
-        , MatButtonModule
-        , MatSliderModule
-        , MatCardModule
-        , MatTreeModule
-        , MatSnackBarModule
-        , MatRadioModule
-        , MonacoEditorModule
-        , ApiTreeMenuComponent
-        , MatFormFieldModule
-        , MatInputModule
-        , MatTabsModule
-        , MatMenuModule
-        , MatTooltipModule
-        , MatDividerModule
-        , NgxSpinnerModule
-        , AngularSplitModule
-        , RightPanelComponent
-        , NgxMatContextMenuTriggerModule
-        , NavComponent
-        , ApiHeaderOperationComponent
-        , NgSelectModule
-        , HttpWorkBenchComponent
-        , AgGridModule, TestDashboardComponent, HttpApiDocComponent
-    ]
+  exports: [
+    TranslateModule
+    , WebviewDirective
+    , FormsModule
+    , MatIconModule
+    , MatButtonModule
+    , MatSliderModule
+    , MatCardModule
+    , MatTreeModule
+    , MatSnackBarModule
+    , MatRadioModule
+    , MonacoEditorModule
+    , ApiTreeMenuComponent
+    , MatFormFieldModule
+    , MatInputModule
+    , MatDialogModule
+    , MatTabsModule
+    , MatMenuModule
+    , MatTooltipModule
+    , MatDividerModule
+    , NgxSpinnerModule
+    , AngularSplitModule
+    , RightPanelComponent
+    , NgxMatContextMenuTriggerModule
+    , NavComponent
+    , ApiHeaderOperationComponent
+    , NgSelectModule
+    , HttpWorkBenchComponent
+    , AgGridModule
+    , TestDashboardComponent
+    , HttpApiDocComponent
+  ]
 })
 export class SharedModule {}

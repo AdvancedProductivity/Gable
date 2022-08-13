@@ -51,6 +51,8 @@
       }
     },
     "DOCS": {
+      "CREATE": "Create New Doc",
+      "DOC_NAME": "Doc Name",
       "EDITOR_DATA": "Get Editor Data",
       "STASH": "Stash",
       "EDIT": "Edit",
@@ -71,6 +73,8 @@
     "COME_ON": "Come On!"
   },
   "MESSAGE": {
+    "CANCEL": "Cancel",
+    "CONFIRM": "Confirm",
     "EXIST_FULL": "Exist",
     "DEVELOPING": "This feature is developing",
     "APPLY_SUCCESS": "Config Have Been Apply",

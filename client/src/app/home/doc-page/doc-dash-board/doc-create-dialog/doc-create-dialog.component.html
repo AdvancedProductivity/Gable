@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>
+  {{ 'PAGES.DOCS.CREATE' | translate }}
+</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill" style="width: 100%">
+    <mat-label>
+      {{ 'PAGES.DOCS.DOC_NAME' | translate }}
+    </mat-label>
+    <input matInput [(ngModel)]="newName">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">
+    {{ 'MESSAGE.CANCEL' | translate }}
+  </button>
+  <button mat-button [mat-dialog-close]="newName"  [disabled]="!newName" cdkFocusInitial>
+    {{ 'MESSAGE.CONFIRM' | translate }}
+  </button>
+</div>

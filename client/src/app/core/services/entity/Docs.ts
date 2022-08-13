@@ -6,3 +6,8 @@ export class HttpDocBlockData{
   define: any;
   version: number;
 }
+export class Doc{
+  id?: number;
+  name: string;
+  dateCreated: number;
+}
