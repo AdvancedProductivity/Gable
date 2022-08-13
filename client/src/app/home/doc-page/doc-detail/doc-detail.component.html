@@ -1,1 +1,28 @@
-<p>doc-detail works! {{docId}}</p>
+<div class="doc-detail-container">
+  <div class="doc-menu-tree">
+    <div class="top-bar">
+      <div class="btn-gro">
+        <button
+          style="line-height: 32px;"
+          mat-button
+          (click)="addNewArticle()"
+        >
+          <span>
+            {{ 'PAGES.DOCS.ADD_NEW_ARTICLE' | translate }}
+          </span>
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="menu-content">
+      <div class="doc-menu-inte" [perfectScrollbar]>
+        <app-doc-menu-tree></app-doc-menu-tree>
+      </div>
+    </div>
+  </div>
+  <mat-divider vertical></mat-divider>
+  <div class="doc-editor">
+  </div>
+  <mat-divider vertical></mat-divider>
+  <div class="doc-operation"></div>
+</div>

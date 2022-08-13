@@ -19,4 +19,6 @@ export class DocDetailComponent implements OnInit {
     });
   }
 
+  addNewArticle(): void {
+  }
 }

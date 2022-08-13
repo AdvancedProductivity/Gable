@@ -1,0 +1,51 @@
+.doc-detail-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+
+  .doc-menu-tree {
+    width: 300px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .top-bar {
+      height: 40px;
+      width: 100%;
+
+      .btn-gro {
+        float: right;
+        margin-right: 10px;
+        margin-top: 4px;
+        width: 67px;
+        background-color: #F2F2F2;
+        border-radius: 4px;
+      }
+    }
+
+    .menu-content {
+      flex: 1;
+      position: relative;
+
+      .doc-menu-inte {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+    }
+  }
+
+  .doc-editor {
+    flex: 1;
+    height: 100%;
+
+  }
+
+  .doc-operation {
+    width: 190px;
+    height: 100%;
+    background-color: purple;
+  }
+}

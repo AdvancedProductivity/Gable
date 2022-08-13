@@ -14,6 +14,7 @@ import { DocEditorComponent } from './doc-page/doc-editor/doc-editor.component';
 import { DocDashBoardComponent } from './doc-page/doc-dash-board/doc-dash-board.component';
 import { DocDetailComponent } from './doc-page/doc-detail/doc-detail.component';
 import { DocCreateDialogComponent } from './doc-page/doc-dash-board/doc-create-dialog/doc-create-dialog.component';
+import { DocMenuTreeComponent } from './doc-page/doc-detail/doc-menu-tree/doc-menu-tree.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { DocCreateDialogComponent } from './doc-page/doc-dash-board/doc-create-d
     DocEditorComponent,
     DocDashBoardComponent,
     DocDetailComponent,
-    DocCreateDialogComponent
+    DocCreateDialogComponent,
+    DocMenuTreeComponent
   ],
     imports: [CommonModule, SharedModule, HomeRoutingModule, PerfectScrollbarModule]
 })

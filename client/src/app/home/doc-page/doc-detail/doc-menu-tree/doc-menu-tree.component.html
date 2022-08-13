@@ -1,0 +1,65 @@
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <!-- This is the tree node template for leaf nodes -->
+  <mat-tree-node
+    *matTreeNodeDef="let node"
+    matTreeNodePadding
+    [matTreeNodePaddingIndent]="10"
+    [class.doc-menu-selected]="!isSelectId && node.name === selectedId"
+  >
+    <div
+      class="doc-menu-item"
+      (mouseover)="node.isIn = true"
+      (mouseleave)="node.isIn = false"
+      (click)="onSelected(node)"
+    >
+      <button mat-icon-button disabled></button>
+      {{node.name}}
+      <button
+        *ngIf="node.isIn"
+        class="doc-btn-gro"
+        mat-button
+        (click)="addSub(node)"
+      >
+          <span>
+            {{ 'PAGES.DOCS.ADD_NEW_ARTICLE' | translate }}
+          </span>
+      </button>
+    </div>
+  </mat-tree-node>
+  <!-- This is the tree node template for expandable nodes -->
+  <mat-tree-node
+    *matTreeNodeDef="let node;when: hasChild"
+    matTreeNodePadding
+    [class.doc-menu-selected]="!isSelectId && node.name === selectedId"
+    [matTreeNodePaddingIndent]="10"
+  >
+    <div
+      class="doc-menu-item"
+      (mouseover)="node.isIn = true"
+      (mouseleave)="node.isIn = false"
+      (click)="onSelected(node);"
+      (dblclick)="onDbClick(node)"
+    >
+      <button mat-icon-button matTreeNodeToggle
+              [attr.aria-label]="'Toggle ' + node.name">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+      {{node.name}}
+      <button
+        *ngIf="node.isIn"
+        class="doc-btn-gro"
+        mat-button
+        (click)="addSub(node)"
+      >
+          <span>
+            {{ 'PAGES.DOCS.ADD_NEW_ARTICLE' | translate }}
+          </span>
+      </button>
+      <div class="status-bar" *ngIf="node.isLoading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+    </div>
+  </mat-tree-node>
+</mat-tree>

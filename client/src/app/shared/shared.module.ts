@@ -72,6 +72,7 @@ import { CollectionWorkBenchComponent } from './components/api/work-bench/collec
 import {MatCardModule} from '@angular/material/card';
 import { HttpApiDocComponent } from './components/docs/http-api-doc/http-api-doc.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -133,6 +134,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     , MatDividerModule
     , MatTabsModule
     , NgSelectModule
+    , MatProgressBarModule
     , MatDialogModule
     , NgxMatContextMenuTriggerModule
     , AgGridModule
@@ -164,6 +166,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     , NavComponent
     , ApiHeaderOperationComponent
     , NgSelectModule
+    , MatProgressBarModule
     , HttpWorkBenchComponent
     , AgGridModule
     , TestDashboardComponent
