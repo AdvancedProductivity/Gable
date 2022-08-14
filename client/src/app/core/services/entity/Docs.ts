@@ -50,3 +50,11 @@ export class DocMenuDynamicFlatNode {
   ) {
   }
 }
+
+export class DocJsonNode{
+  name: string;
+  type: string;
+  desc: string;
+  sample: string;
+  children?: DocJsonNode[];
+}
