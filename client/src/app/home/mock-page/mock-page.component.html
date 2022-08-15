@@ -20,7 +20,7 @@
 
         <div class="menu-item">
           <div class="name-input">
-            <input class="iin" [(ngModel)]="node.name" [disabled]="readonly" placeholder="name">
+            <input class="iin" [(ngModel)]="node.name" [disabled]="readonly || !node.canEditName" placeholder="name">
           </div>
           <div class="type-select">
             <ng-select
@@ -69,7 +69,7 @@
           </button>
           <div class="menu-item">
             <div class="name-input">
-              <input class="iin" [(ngModel)]="node.name" [disabled]="readonly" placeholder="name">
+              <input class="iin" [(ngModel)]="node.name" [disabled]="readonly || !node.canEditName" placeholder="name">
             </div>
             <div class="type-select">
               <ng-select

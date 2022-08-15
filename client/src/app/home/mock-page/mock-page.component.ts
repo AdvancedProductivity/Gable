@@ -60,6 +60,7 @@ export class MockPageComponent implements OnInit {
       this.root.canDelete = false;
       this.root.type = typeof data;
       this.root.children = [];
+      this.root.canEditName = false;
       this.root.name = 'root';
     }
     this.traverse(data, this.process, this.root.children);
@@ -67,12 +68,12 @@ export class MockPageComponent implements OnInit {
     const arr = [];
     arr.push(this.root);
     this.dataSource.data = [...[]];
+    this.dataSource.data = [...arr];
     setTimeout(() => {
-      this.dataSource.data = [...arr];
     }, 100);
   }
   readOnly() {
-    this.readonly = !this.readonly
+    this.readonly = !this.readonly;
   }
 
   delete(id): void {
@@ -82,9 +83,7 @@ export class MockPageComponent implements OnInit {
     const arr = [];
     arr.push(this.root);
     this.dataSource.data = [...[]];
-    setTimeout(() => {
-      this.dataSource.data = [...arr];
-    }, 100);
+    this.dataSource.data = [...arr];
   }
 
   add(id): void {
@@ -93,9 +92,7 @@ export class MockPageComponent implements OnInit {
     const arr = [];
     arr.push(this.root);
     this.dataSource.data = [...[]];
-    setTimeout(() => {
-      this.dataSource.data = [...arr];
-    }, 100);
+    this.dataSource.data = [...arr];
   }
 
   private traverseForAdd(o: DocJsonNode, parentId: string) {
@@ -169,6 +166,7 @@ export class MockPageComponent implements OnInit {
           const a = new DocJsonNode();
           a.type = 'object';
           a.name = 'item';
+          a.canEditName = false;
           a.children = [];
           docs[index].children.push(a);
           this.traverse(o[i][0], func, a.children);
@@ -177,6 +175,7 @@ export class MockPageComponent implements OnInit {
           a.type = typeof o[i][0];
           a.sample = o[i][0];
           a.name = 'item';
+          a.canEditName = false;
           a.children = [];
           docs[index].children.push(a);
         }

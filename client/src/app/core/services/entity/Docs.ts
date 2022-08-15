@@ -56,6 +56,7 @@ export class DocMenuDynamicFlatNode {
 export class DocJsonNode{
   id: string;
   canDelete: boolean;
+  canEditName: boolean;
   name: string;
   type: string;
   desc: string;
@@ -65,5 +66,6 @@ export class DocJsonNode{
   constructor() {
     this.id = randomString(5);
     this.canDelete = true;
+    this.canEditName = true;
   }
 }
