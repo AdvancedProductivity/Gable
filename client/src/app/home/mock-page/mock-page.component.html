@@ -8,6 +8,7 @@
   </div>
   <div>
     <button (click)="gen()">Generate</button>
+    <button style="display: block" (click)="readOnly()">readOnly {{readonly}}</button>
   </div>
   <mat-divider vertical></mat-divider>
   <div class="right">
@@ -19,7 +20,7 @@
 
         <div class="menu-item">
           <div class="name-input">
-            <input class="iin" [(ngModel)]="node.name" placeholder="name">
+            <input class="iin" [(ngModel)]="node.name" [disabled]="readonly" placeholder="name">
           </div>
           <div class="type-select">
             <ng-select
@@ -27,6 +28,7 @@
               [clearable]="false"
               [searchable]="false"
               [ngModel]="node.type"
+              [disabled]="readonly"
               class="env-custom"
             >
               <ng-option >object</ng-option>
@@ -37,18 +39,18 @@
             </ng-select>
           </div>
           <div class="sample">
-            <input class="iin" [(ngModel)]="node.sample" placeholder="sample">
+            <input class="iin" [(ngModel)]="node.sample" [disabled]="readonly" placeholder="sample">
           </div>
           <div class="description">
-            <input class="iin" [(ngModel)]="node.desc"   placeholder="description">
+            <input class="iin" [(ngModel)]="node.desc"   [disabled]="readonly" placeholder="description">
           </div>
           <div class="operation">
-            <span (click)="delete(node.id)" *ngIf="node.canDelete">
+            <span (click)="delete(node.id)" *ngIf="!readonly && node.canDelete">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 red-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </span>
-            <span (click)="add(node.id)" *ngIf="node.type === 'object' || node.type === 'array'">
+            <span (click)="add(node.id)" *ngIf="!readonly && (node.type === 'object' || node.type === 'array')">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 blue-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
@@ -67,13 +69,14 @@
           </button>
           <div class="menu-item">
             <div class="name-input">
-              <input class="iin" [(ngModel)]="node.name" placeholder="name">
+              <input class="iin" [(ngModel)]="node.name" [disabled]="readonly" placeholder="name">
             </div>
             <div class="type-select">
               <ng-select
                 (ngModelChange)="node.type = $event.$ngOptionLabel"
                 [clearable]="false"
                 [searchable]="false"
+                [disabled]="readonly"
                 [ngModel]="node.type"
                 class="env-custom"
               >
@@ -85,18 +88,18 @@
               </ng-select>
             </div>
             <div class="sample">
-              <input class="iin" [(ngModel)]="node.sample" placeholder="sample">
+              <input class="iin" [(ngModel)]="node.sample" [disabled]="readonly" placeholder="sample">
             </div>
             <div class="description">
-              <input class="iin" [(ngModel)]="node.desc"   placeholder="description">
+              <input class="iin" [(ngModel)]="node.desc" [disabled]="readonly" placeholder="description">
             </div>
             <div class="operation">
-            <span (click)="delete(node.id)" *ngIf="node.canDelete">
+            <span (click)="delete(node.id)" *ngIf="!readonly && node.canDelete">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 red-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </span>
-            <span (click)="add(node.id)" *ngIf="node.type === 'object' || node.type === 'array'">
+            <span (click)="add(node.id)" *ngIf="!readonly && (node.type === 'object' || node.type === 'array')">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 blue-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>

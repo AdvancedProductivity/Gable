@@ -10,6 +10,7 @@ import {DocJsonNode} from '../../core/services/entity/Docs';
 })
 export class MockPageComponent implements OnInit {
   editorOptions = {theme: 'vs-light', language: 'json'};
+  readonly = false;
   code = `
   {
     "a":"123",
@@ -69,6 +70,9 @@ export class MockPageComponent implements OnInit {
     setTimeout(() => {
       this.dataSource.data = [...arr];
     }, 100);
+  }
+  readOnly() {
+    this.readonly = !this.readonly
   }
 
   delete(id): void {
@@ -176,9 +180,5 @@ export class MockPageComponent implements OnInit {
         this.traverse(o[i], func, docs[index].children);
       }
     }
-  }
-
-  change($event: any) {
-    console.log($event)
   }
 }
