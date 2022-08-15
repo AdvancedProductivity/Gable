@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import {DocJsonNode} from '../../core/services/entity/Docs';
-import * as child_process from "child_process";
 
 @Component({
   selector: 'app-mock-page',

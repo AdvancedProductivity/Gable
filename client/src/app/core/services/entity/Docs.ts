@@ -1,3 +1,5 @@
+import {randomString} from '../utils/Uuid';
+
 export class HttpDocBlockData{
   collectionId: number;
   httpId: number;
@@ -52,9 +54,14 @@ export class DocMenuDynamicFlatNode {
 }
 
 export class DocJsonNode{
+  id: string;
   name: string;
   type: string;
   desc: string;
   sample: string;
   children?: DocJsonNode[];
+
+  constructor() {
+    this.id = randomString(5)
+  }
 }
