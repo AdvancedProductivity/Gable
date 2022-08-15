@@ -99,10 +99,13 @@
     outline: none;
     border-style: solid;
     border-width: 1px;
-    border-color: rgb(230, 230, 230);
+    border-color: #2395f1;
+    box-shadow: 0 0 3px #2395f1;
+    border-radius: 2px;
   }
 
-  .iin{
+  .iin {
+    border-radius: 2px;
     outline: none;
     border-style: solid;
     border-width: 1px;
