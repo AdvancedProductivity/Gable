@@ -52,11 +52,11 @@
   flex-direction: row;
 
   .name-input {
-    width: 200px;
+    width: 150px;
     margin-right: 10px;
   }
   .sample{
-    width: 150px;
+    width: 100px;
     margin-right: 10px;
   }
   .type-select {
@@ -81,6 +81,10 @@
 
     .red-svg {
       color: red;
+    }
+
+    .blue-svg {
+      color: #2395f1;;
     }
   }
 
