@@ -166,7 +166,12 @@ export class MockPageComponent implements OnInit {
       const index = func.apply(this, [i, o[i], docs]);
       if (o[i] !== null && Array.isArray(o[i]) && o[i].length > 0) {
         if (typeof o[i][0] === 'object') {
-          this.traverse(o[i][0], func, docs[index].children);
+          const a = new DocJsonNode();
+          a.type = 'object';
+          a.name = 'item';
+          a.children = [];
+          docs[index].children.push(a);
+          this.traverse(o[i][0], func, a.children);
         } else {
           const a = new DocJsonNode();
           a.type = typeof o[i][0];
