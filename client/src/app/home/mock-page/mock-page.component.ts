@@ -70,7 +70,38 @@ export class MockPageComponent implements OnInit {
     this.dataSource.data = [...[]];
     setTimeout(() => {
       this.dataSource.data = [...arr];
-    }, 1000);
+    }, 100);
+  }
+
+  delete(id): void {
+    console.log('want to delete ', id);
+    this.traverseForDelete(this.root, id);
+
+    const arr = [];
+    arr.push(this.root);
+    this.dataSource.data = [...[]];
+    setTimeout(() => {
+      this.dataSource.data = [...arr];
+    }, 100);
+  }
+
+  private traverseForDelete(o: DocJsonNode, deleteId: string) {
+    let index = -1;
+    for (let i = 0; i < o.children.length; i++) {
+      const child = o.children[i];
+      console.log('handle', child);
+      if (child.id === deleteId) {
+        console.log('find');
+        index = i;
+        break;
+      }
+      if (child.type === 'object' || child.type === 'array') {
+        this.traverseForDelete(child, deleteId);
+      }
+    }
+    if (index !== -1) {
+      o.children.splice(index, 1);
+    }
   }
 
   //called with every property and its value
