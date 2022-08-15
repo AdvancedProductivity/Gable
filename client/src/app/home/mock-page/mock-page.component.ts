@@ -85,13 +85,41 @@ export class MockPageComponent implements OnInit {
     }, 100);
   }
 
+  add(id): void {
+    this.traverseForAdd(this.root, id);
+
+    const arr = [];
+    arr.push(this.root);
+    this.dataSource.data = [...[]];
+    setTimeout(() => {
+      this.dataSource.data = [...arr];
+    }, 100);
+  }
+
+  private traverseForAdd(o: DocJsonNode, parentId: string) {
+    console.log('add in to', parentId);
+    if (o.id === parentId) {
+      const doc = new DocJsonNode();
+      doc.children = [];
+      doc.name = '';
+      doc.type = 'string';
+      o.children.push(doc);
+      return;
+    }
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for (let i = 0; i < o.children.length; i++) {
+      const child = o.children[i];
+      if (child.type === 'object' || child.type === 'array') {
+        this.traverseForAdd(child, parentId);
+      }
+    }
+  }
+
   private traverseForDelete(o: DocJsonNode, deleteId: string) {
     let index = -1;
     for (let i = 0; i < o.children.length; i++) {
       const child = o.children[i];
-      console.log('handle', child);
       if (child.id === deleteId) {
-        console.log('find');
         index = i;
         break;
       }
