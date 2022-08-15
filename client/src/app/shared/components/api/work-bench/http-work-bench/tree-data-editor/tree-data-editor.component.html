@@ -1,103 +1,107 @@
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
-  <!-- This is the tree node template for leaf nodes -->
-  <!-- There is inline padding applied to this node using styles.
-    This padding value depends on the mat-icon-button width. -->
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+<div style="position: relative;width: 100%;height: 100%;">
+  <div style="position: absolute;overflow-y: auto;width: 100%;height: 100%">
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+      <!-- This is the tree node template for leaf nodes -->
+      <!-- There is inline padding applied to this node using styles.
+        This padding value depends on the mat-icon-button width. -->
+      <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
 
-    <div class="menu-item">
-      <div class="name-input">
-        <input class="iin" [(ngModel)]="node.name" [disabled]="readonly || !node.canEditName" placeholder="name">
-      </div>
-      <div class="type-select">
-        <ng-select
-          (ngModelChange)="node.type = $event.$ngOptionLabel"
-          [clearable]="false"
-          [searchable]="false"
-          [ngModel]="node.type"
-          [disabled]="readonly"
-          class="env-custom"
-        >
-          <ng-option >object</ng-option>
-          <ng-option >array</ng-option>
-          <ng-option >string</ng-option>
-          <ng-option >number</ng-option>
-          <ng-option >boolean</ng-option>
-        </ng-select>
-      </div>
-      <div class="sample">
-        <input class="iin" [(ngModel)]="node.sample" [disabled]="readonly" placeholder="sample">
-      </div>
-      <div class="description">
-        <input class="iin" [(ngModel)]="node.desc"   [disabled]="readonly" placeholder="description">
-      </div>
-      <div class="operation">
+        <div class="menu-item">
+          <div class="name-input">
+            <input class="iin" [(ngModel)]="node.name" [disabled]="readonly || !node.canEditName" placeholder="name">
+          </div>
+          <div class="type-select">
+            <ng-select
+              (ngModelChange)="node.type = $event.$ngOptionLabel"
+              [clearable]="false"
+              [searchable]="false"
+              [ngModel]="node.type"
+              [disabled]="readonly"
+              class="env-custom"
+            >
+              <ng-option >object</ng-option>
+              <ng-option >array</ng-option>
+              <ng-option >string</ng-option>
+              <ng-option >number</ng-option>
+              <ng-option >boolean</ng-option>
+            </ng-select>
+          </div>
+          <div class="sample">
+            <input class="iin" [(ngModel)]="node.sample" [disabled]="readonly" placeholder="sample">
+          </div>
+          <div class="description">
+            <input class="iin" [(ngModel)]="node.desc"   [disabled]="readonly" placeholder="description">
+          </div>
+          <div class="operation">
             <span (click)="delete(node.id)" *ngIf="!readonly && node.canDelete">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 red-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </span>
-        <span (click)="add(node.id)" *ngIf="!readonly && (node.type === 'object' || node.type === 'array')">
+            <span (click)="add(node.id)" *ngIf="!readonly && (node.type === 'object' || node.type === 'array')">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 blue-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
             </span>
-      </div>
-    </div>
-  </mat-tree-node>
-  <!-- This is the tree node template for expandable nodes -->
-  <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-    <div class="mat-tree-node">
-      <button mat-icon-button matTreeNodeToggle
-              [attr.aria-label]="'Toggle ' + node.name">
-        <mat-icon class="mat-icon-rtl-mirror">
-          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-        </mat-icon>
-      </button>
-      <div class="menu-item">
-        <div class="name-input">
-          <input class="iin" [(ngModel)]="node.name" [disabled]="readonly || !node.canEditName" placeholder="name">
+          </div>
         </div>
-        <div class="type-select">
-          <ng-select
-            (ngModelChange)="node.type = $event.$ngOptionLabel"
-            [clearable]="false"
-            [searchable]="false"
-            [disabled]="readonly"
-            [ngModel]="node.type"
-            class="env-custom"
-          >
-            <ng-option >object</ng-option>
-            <ng-option >array</ng-option>
-            <ng-option >string</ng-option>
-            <ng-option >number</ng-option>
-            <ng-option >boolean</ng-option>
-          </ng-select>
-        </div>
-        <div class="sample">
-          <input class="iin" [(ngModel)]="node.sample" [disabled]="readonly" placeholder="sample">
-        </div>
-        <div class="description">
-          <input class="iin" [(ngModel)]="node.desc" [disabled]="readonly" placeholder="description">
-        </div>
-        <div class="operation">
+      </mat-tree-node>
+      <!-- This is the tree node template for expandable nodes -->
+      <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+        <div class="mat-tree-node">
+          <button mat-icon-button matTreeNodeToggle
+                  [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+          <div class="menu-item">
+            <div class="name-input">
+              <input class="iin" [(ngModel)]="node.name" [disabled]="readonly || !node.canEditName" placeholder="name">
+            </div>
+            <div class="type-select">
+              <ng-select
+                (ngModelChange)="node.type = $event.$ngOptionLabel"
+                [clearable]="false"
+                [searchable]="false"
+                [disabled]="readonly"
+                [ngModel]="node.type"
+                class="env-custom"
+              >
+                <ng-option >object</ng-option>
+                <ng-option >array</ng-option>
+                <ng-option >string</ng-option>
+                <ng-option >number</ng-option>
+                <ng-option >boolean</ng-option>
+              </ng-select>
+            </div>
+            <div class="sample">
+              <input class="iin" [(ngModel)]="node.sample" [disabled]="readonly" placeholder="sample">
+            </div>
+            <div class="description">
+              <input class="iin" [(ngModel)]="node.desc" [disabled]="readonly" placeholder="description">
+            </div>
+            <div class="operation">
             <span (click)="delete(node.id)" *ngIf="!readonly && node.canDelete">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 red-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </span>
-          <span (click)="add(node.id)" *ngIf="!readonly && (node.type === 'object' || node.type === 'array')">
+              <span (click)="add(node.id)" *ngIf="!readonly && (node.type === 'object' || node.type === 'array')">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 blue-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
             </span>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <!-- There is inline padding applied to this div using styles.
-        This padding value depends on the mat-icon-button width.  -->
-    <div [class.example-tree-invisible]="!treeControl.isExpanded(node)"
-         role="group">
-      <ng-container matTreeNodeOutlet></ng-container>
-    </div>
-  </mat-nested-tree-node>
-</mat-tree>
+        <!-- There is inline padding applied to this div using styles.
+            This padding value depends on the mat-icon-button width.  -->
+        <div [class.example-tree-invisible]="!treeControl.isExpanded(node)"
+             role="group">
+          <ng-container matTreeNodeOutlet></ng-container>
+        </div>
+      </mat-nested-tree-node>
+    </mat-tree>
+  </div>
+</div>

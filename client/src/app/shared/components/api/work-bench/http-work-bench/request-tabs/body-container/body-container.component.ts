@@ -23,6 +23,9 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
   @ViewChild('form', {static: true}) form: FormEditorComponent;
   @ViewChild('url_encode', {static: true}) urlEncode: QueryTableComponent;
   @ViewChild('graph_ql', {static: true}) graphQLComponent: GraphQLComponent;
+  isEditingDoc = false;
+  isFull = false;
+  isInDoc = false;
   curTyp = 'none';
   rawType = 'json';
   types = [
@@ -56,6 +59,7 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
   onBodyChange(data: string): void {
     this.editorBody.setBodyLang(data);
     this.bodyTextTypeChange.next(data);
+    this.editorBody.markExistEditing();
   }
 
   onBeautify(): void {
@@ -81,5 +85,20 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
     this.bodyTypeChange.unsubscribe();
     this.bodyTextTypeChange.unsubscribe();
     this.contentChange.unsubscribe();
+  }
+
+
+  doFullScreen(): void {
+    this.isFull = !this.isFull;
+  }
+
+  generateDoc() {
+    if (this.isEditingDoc) {
+      this.isEditingDoc = false;
+      this.editorBody.markExistEditing();
+    }else {
+      this.isEditingDoc = true;
+      this.editorBody.markEditing();
+    }
   }
 }

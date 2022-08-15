@@ -34,6 +34,17 @@
         height: 28px;
       }
     }
+
+    .icon-req {
+      width: 16px;
+      height: 16px;
+      margin-top: 7px;
+      cursor: pointer;
+
+      svg {
+        fill: none;
+      }
+    }
   }
   .radio-item {
     display: inline-block;
@@ -64,4 +75,16 @@
     opacity: .8;
     color: grey;
   }
+
+  .no-hor-padding{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+.fullScreen {
+  background-color: #FFF;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
 }

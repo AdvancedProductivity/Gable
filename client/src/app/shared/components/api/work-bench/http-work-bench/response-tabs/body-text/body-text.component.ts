@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MonacoStandaloneCodeEditor} from '@materia-ui/ngx-monaco-editor';
 import {BodyHtmlComponent} from "./body-html/body-html.component";
+import {TreeDataEditorComponent} from "../../tree-data-editor/tree-data-editor.component";
 
 @Component({
   selector: 'app-body-text',
@@ -9,6 +10,9 @@ import {BodyHtmlComponent} from "./body-html/body-html.component";
 })
 export class BodyTextComponent implements OnInit {
   @ViewChild('htmlContent', {static: true}) bodyContent: BodyHtmlComponent;
+  @ViewChild('dataEditorComponent', {static: false}) treeDataEditorComponent: TreeDataEditorComponent;
+  isEditingDoc = false;
+  isInDoc = false;
   bodyType = 'json';
   editorOptions = {
     theme: 'vs-light', fontSize: 12, glance: false, minimap: {enabled: false},
@@ -25,13 +29,25 @@ export class BodyTextComponent implements OnInit {
   }
 
   onBodyTypeChange($event: any): void {
+    if (this.isEditingDoc) {
+      this.isEditingDoc = false;
+    }
   }
 
   doCopy(): void {
   }
 
   doFullScreen(): void {
-    this.isFull = !this.isFull
+    this.isFull = !this.isFull;
+  }
+
+  generateDoc(): void {
+    if (this.isEditingDoc) {
+      this.isEditingDoc = false;
+    }else {
+      this.isEditingDoc = true;
+      this.treeDataEditorComponent.gen(JSON.parse(this.code));
+    }
   }
 
   toggleSearch() {

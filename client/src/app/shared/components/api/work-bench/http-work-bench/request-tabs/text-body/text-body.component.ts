@@ -1,6 +1,7 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {MonacoStandaloneCodeEditor} from '@materia-ui/ngx-monaco-editor';
 import {debounceTime, distinctUntilChanged, Subject} from 'rxjs';
+import {TreeDataEditorComponent} from '../../tree-data-editor/tree-data-editor.component';
 
 @Component({
   selector: 'app-text-body',
@@ -9,6 +10,9 @@ import {debounceTime, distinctUntilChanged, Subject} from 'rxjs';
 })
 export class TextBodyComponent implements OnInit, OnDestroy {
   @Output() contentChange = new EventEmitter<string>();
+  @ViewChild('dataEditorComponent', {static: false}) treeDataEditorComponent: TreeDataEditorComponent;
+  isEditingDoc = false;
+  isInDoc = false;
   editorOptions = {
     theme: 'vs-light', fontSize: 12, glance: false, minimap: {enabled: false},
     lineDecorationsWidth: 1, language: 'json'
@@ -44,5 +48,14 @@ export class TextBodyComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.contentSubject.unsubscribe();
+  }
+
+  markEditing() {
+    this.isEditingDoc = true;
+    this.treeDataEditorComponent.gen(JSON.parse(this.code));
+  }
+
+  markExistEditing() {
+    this.isEditingDoc = false;
   }
 }

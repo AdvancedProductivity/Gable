@@ -1,8 +1,15 @@
 <div class="http-body-container">
-  <ngx-monaco-editor
-    (init)="initEditor($event)"
-    [options]="editorOptions"
-    [(ngModel)]="code"
-  >
-  </ngx-monaco-editor>
+  <as-split direction="horizontal">
+    <as-split-area>
+      <ngx-monaco-editor
+        [options]="editorOptions"
+        [(ngModel)]="code"
+        (init)="initEditor($event)"
+      >
+      </ngx-monaco-editor>
+    </as-split-area>
+    <as-split-area [visible]="!isInDoc && isEditingDoc">
+      <app-tree-data-editor #dataEditorComponent></app-tree-data-editor>
+    </as-split-area>
+  </as-split>
 </div>

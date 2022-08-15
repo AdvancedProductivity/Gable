@@ -24,6 +24,8 @@
     "DOCS": {
       "CREATE": "创建新文档",
       "SELECT_A_DOC": "请先在左侧选择一篇文档",
+      "JSON_DOC_GEN": "编辑文档",
+      "JSON_DOC_GEN_EXIST": "退出编辑",
       "ADD_CONTENT": "请点击上方添加按钮创建内容",
       "ADD_NEW_ARTICLE": "添加",
       "DOC_NAME": "文档名称",

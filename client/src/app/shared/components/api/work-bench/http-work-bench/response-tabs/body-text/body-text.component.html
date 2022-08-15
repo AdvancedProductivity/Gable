@@ -31,6 +31,9 @@
         </div>
         <div class="opera-container">
           <div class="icon-con">
+            <button *ngIf="bodyType === 'json'" mat-button color="primary" (click)="generateDoc()">
+              {{ (isEditingDoc ? 'PAGES.DOCS.JSON_DOC_GEN_EXIST' : 'PAGES.DOCS.JSON_DOC_GEN') | translate }}
+            </button>
             <button *ngIf="isFull" mat-button color="primary" (click)="doFullScreen()">
               {{ 'MESSAGE.EXIST_FULL' | translate }}
             </button>
@@ -65,12 +68,19 @@
       <div style="width: 100%;height: 100%"
            [style.display]="showType === 'Pretty' ? 'inline' : 'none'"
       >
-        <ngx-monaco-editor
-          [options]="editorOptions"
-          [(ngModel)]="code"
-          (init)="initEditor($event)"
-        >
-        </ngx-monaco-editor>
+        <as-split direction="horizontal">
+          <as-split-area>
+            <ngx-monaco-editor
+              [options]="editorOptions"
+              [(ngModel)]="code"
+              (init)="initEditor($event)"
+            >
+            </ngx-monaco-editor>
+          </as-split-area>
+          <as-split-area [visible]="!isInDoc && isEditingDoc">
+            <app-tree-data-editor #dataEditorComponent></app-tree-data-editor>
+          </as-split-area>
+        </as-split>
       </div>
       <app-body-html
         #htmlContent
