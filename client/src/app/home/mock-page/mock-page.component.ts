@@ -50,15 +50,13 @@ export class MockPageComponent implements OnInit {
   hasChild = (_: number, node: DocJsonNode) => !!node.children && node.children.length > 0;
 
   ngOnInit(): void {
-    setTimeout(() => {
-      console.log('zzq see data', this.dataSource.data);
-    }, 5000);
   }
 
   gen(): void {
     const data = JSON.parse(this.code);
     if (!this.root) {
       this.root = new DocJsonNode();
+      this.root.canDelete = false;
       this.root.type = typeof data;
       this.root.children = [];
       this.root.name = 'root';
@@ -97,7 +95,6 @@ export class MockPageComponent implements OnInit {
   }
 
   private traverseForAdd(o: DocJsonNode, parentId: string) {
-    console.log('add in to', parentId);
     if (o.id === parentId) {
       const doc = new DocJsonNode();
       doc.children = [];
@@ -179,5 +176,9 @@ export class MockPageComponent implements OnInit {
         this.traverse(o[i], func, docs[index].children);
       }
     }
+  }
+
+  change($event: any) {
+    console.log($event)
   }
 }
