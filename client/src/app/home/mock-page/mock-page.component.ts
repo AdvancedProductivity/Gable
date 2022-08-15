@@ -162,22 +162,24 @@ export class MockPageComponent implements OnInit {
     for (const i in o) {
       const index = func.apply(this, [i, o[i], docs]);
       if (o[i] !== null && Array.isArray(o[i]) && o[i].length > 0) {
-        if (typeof o[i][0] === 'object') {
-          const a = new DocJsonNode();
-          a.type = 'object';
-          a.name = 'item';
-          a.canEditName = false;
-          a.children = [];
-          docs[index].children.push(a);
-          this.traverse(o[i][0], func, a.children);
-        } else {
-          const a = new DocJsonNode();
-          a.type = typeof o[i][0];
-          a.sample = o[i][0];
-          a.name = 'item';
-          a.canEditName = false;
-          a.children = [];
-          docs[index].children.push(a);
+        if (!docs[index].children[0] || (docs[index].children[0].name !== 'item' && !docs[index].children[0].canEditName)) {
+          if (typeof o[i][0] === 'object') {
+            const a = new DocJsonNode();
+            a.type = 'object';
+            a.name = 'item';
+            a.canEditName = false;
+            a.children = [];
+            docs[index].children.push(a);
+            this.traverse(o[i][0], func, a.children);
+          } else {
+            const a = new DocJsonNode();
+            a.type = typeof o[i][0];
+            a.sample = o[i][0];
+            a.name = 'item';
+            a.canEditName = false;
+            a.children = [];
+            docs[index].children.push(a);
+          }
         }
       } else if (o[i] !== null && typeof (o[i]) === 'object') {
         //going one step down in the object tree!!
