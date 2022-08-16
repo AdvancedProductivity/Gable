@@ -33,6 +33,10 @@
       "STASH": "暂存",
       "EDIT": "编辑",
       "SAVE": "保存",
+      "JSON_FIELD_NAME": "字段名",
+      "JSON_FIELD_TYPE": "字段类型",
+      "JSON_FIELD_SAMPLE": "示例值",
+      "JSON_FIELD_DESCRIBE": "描述",
       "PREVIEW": "预览",
       "COLLECTION_SELECT": "选择测试组",
       "HTTP_SELECT": "选择HTTP"

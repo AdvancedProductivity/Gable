@@ -1,95 +1,115 @@
-.example-tree-invisible {
-  display: none;
-}
-
-.example-tree ul,
-.example-tree li {
-  margin-top: 0;
-  margin-bottom: 0;
-  list-style-type: none;
-}
-
-/*
- * This padding sets alignment of the nested nodes.
- */
-.example-tree .mat-nested-tree-node div[role=group] {
-  padding-left: 15px;
-}
-
-/*
- * Padding for leaf nodes.
- * Leaf nodes need to have padding so as to align with other non-leaf nodes
- * under the same parent.
- */
-.example-tree div[role=group] > .mat-tree-node {
-  padding-left: 40px;
-}
-
-
-.menu-item {
+.doc-json-tree-container {
+  position: relative;
   width: 100%;
-  height: 48px;
-  line-height: 48px;
-  display: flex;
-  flex-direction: row;
+  height: 100%;
+  border: 1px solid #bbb;
+  background-color: #fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 
-  .name-input {
-    margin-right: 10px;
-  }
-  .sample{
-    width: 100px;
-    margin-right: 10px;
-  }
-  .type-select {
-    padding-top: 5px;
-    width: 100px;
-    margin-right: 10px;
-  }
-  .description {
-    flex: 1;
+  .example-tree-invisible {
+    display: none;
   }
 
-  .operation {
-    width: 50px;
-
-    svg {
-      fill: none;
-      cursor: pointer;
-      margin-top: 12px;
-      width: 20px;
-      height: 20px;
-    }
-
-    .red-svg {
-      color: red;
-    }
-
-    .blue-svg {
-      color: #2395f1;;
-    }
+  .example-tree ul,
+  .example-tree li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
   }
 
-  .iin {
+  /*
+   * This padding sets alignment of the nested nodes.
+   */
+  .example-tree .mat-nested-tree-node div[role=group] {
+    padding-left: 15px;
+  }
+
+  /*
+   * Padding for leaf nodes.
+   * Leaf nodes need to have padding so as to align with other non-leaf nodes
+   * under the same parent.
+   */
+  .example-tree div[role=group] > .mat-tree-node {
+    padding-left: 40px;
+  }
+
+
+  .menu-item {
     width: 100%;
-    box-sizing: border-box;
-    height: 40px;
-  }
+    height: 48px;
+    line-height: 48px;
+    display: flex;
+    flex-direction: row;
+
+    .name-input {
+      margin-right: 10px;
+    }
+
+    .sample {
+      width: 100px;
+      margin-right: 10px;
+    }
 
 
-  .iin:focus {
-    outline: none;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #2395f1;
-    box-shadow: 0 0 3px #2395f1;
-    border-radius: 2px;
+    .type-select {
+      padding-top: 5px;
+      width: 100px;
+      margin-right: 10px;
+    }
+
+    .type-header {
+      width: 100px;
+      margin-right: 10px;
+    }
+
+    .description {
+      flex: 1;
+    }
+
+    .operation {
+      width: 50px;
+
+      svg {
+        fill: none;
+        cursor: pointer;
+        margin-top: 12px;
+        width: 20px;
+        height: 20px;
+      }
+
+      .red-svg {
+        color: red;
+      }
+
+      .blue-svg {
+        color: #2395f1;;
+      }
+    }
+
+    .iin {
+      width: 100%;
+      box-sizing: border-box;
+      height: 40px;
+    }
+
+
+    .iin:focus {
+      outline: none;
+      border-style: solid;
+      border-width: 1px;
+      border-color: #2395f1;
+      box-shadow: 0 0 3px #2395f1;
+      border-radius: 2px;
+    }
+
+    .iin {
+      border-radius: 2px;
+      outline: none;
+      border-style: solid;
+      border-width: 1px;
+      border-color: rgb(230, 230, 230);
+    }
   }
 
-  .iin {
-    border-radius: 2px;
-    outline: none;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgb(230, 230, 230);
-  }
 }

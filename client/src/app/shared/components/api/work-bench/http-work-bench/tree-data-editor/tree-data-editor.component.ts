@@ -70,6 +70,7 @@ export class TreeDataEditorComponent implements OnInit {
       const doc = new DocJsonNode();
       doc.children = [];
       doc.name = '';
+      doc.level = o.level + 1;
       doc.type = 'string';
       o.children.push(doc);
       return;

@@ -64,6 +64,10 @@
       "SAVE": "Save",
       "PREVIEW": "Preview",
       "COLLECTION_SELECT": "Select Collection",
+      "JSON_FIELD_NAME": "Field Name",
+      "JSON_FIELD_TYPE": "Field Type",
+      "JSON_FIELD_SAMPLE": "Sample Value",
+      "JSON_FIELD_DESCRIBE": "Description",
       "HTTP_SELECT": "Select Http"
     },
     "API_DOCUMENT": {

@@ -1,5 +1,19 @@
-<div style="position: relative;width: 100%;height: 100%;">
-  <div style="position: absolute;overflow-y: auto;width: 100%;height: 100%">
+<div class="doc-json-tree-container">
+  <div class="menu-item" style="height: 25px;line-height: 25px">
+    <div class="name-input" style="width: 190px;padding-left: 10px">
+      {{ 'PAGES.DOCS.JSON_FIELD_NAME' | translate }}
+    </div>
+    <div class="type-header">
+      {{ 'PAGES.DOCS.JSON_FIELD_TYPE' | translate }}
+    </div>
+    <div class="sample">
+      {{ 'PAGES.DOCS.JSON_FIELD_SAMPLE' | translate }}
+    </div>
+    <div class="description">
+      {{ 'PAGES.DOCS.JSON_FIELD_DESCRIBE' | translate }}
+    </div>
+  </div>
+  <div style="position: absolute;width: 100%;height: calc(100% - 25px)" [perfectScrollbar]>
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
       <!-- This is the tree node template for leaf nodes -->
       <!-- There is inline padding applied to this node using styles.
