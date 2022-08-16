@@ -6,6 +6,9 @@ import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
 
+/**
+ * @author zzq
+ */
 @Data
 @Entity(name = "doc_block")
 @org.hibernate.annotations.Table(appliesTo = "doc_block", comment = "doc block.文档块表")

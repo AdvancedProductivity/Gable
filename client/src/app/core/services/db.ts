@@ -31,7 +31,6 @@ export class AppDB extends Dexie {
     });
     this.on('ready', () => {
       this.docs.get(1).then(res => {
-        console.log('zzq see docs', res);
         if (!res) {
           const doc = new Doc();
           doc.name = 'Default';

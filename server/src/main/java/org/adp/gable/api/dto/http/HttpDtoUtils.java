@@ -11,11 +11,12 @@ import org.springframework.beans.BeanUtils;
 import java.util.Collections;
 import java.util.List;
 
+import static org.adp.gable.utils.JsonBuilderHolder.OBJECT_MAPPER;
+
 /**
  * @author zzq
  */
 public class HttpDtoUtils {
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     public static HttpApi transFromDtoToEntity(HttpApiDto dto) {
         HttpApi api = new HttpApi();
