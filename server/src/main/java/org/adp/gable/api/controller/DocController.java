@@ -1,6 +1,7 @@
 package org.adp.gable.api.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.adp.gable.api.dto.doc.DocBlockDto;
 import org.adp.gable.api.dto.doc.DocDefineDto;
 import org.adp.gable.api.dto.doc.DocDto;
 import org.adp.gable.api.dto.doc.DocMenuDto;
@@ -60,6 +61,30 @@ public class DocController {
     @GetMapping("/subMenu")
     public Result<List<DocMenuDto>> getSubMenu(@RequestParam Long parentId) {
         return Result.success(docService.getSubMenu(parentId));
+    }
+
+    @GetMapping("/blocks")
+    public Result<List<DocBlockDto>> getBlocksByDocId(@RequestParam Long docDefineId) {
+        return Result.success(docService.getBlocksByDocId(docDefineId));
+    }
+
+    @PostMapping("/blocks")
+    public Result<List<DocBlockDto>> updateOrCreateBlock(@RequestBody DocDefineDto dto) {
+        docService.updateOrCreateBlock(dto);
+        return Result.success(dto.getBlocks());
+    }
+
+    @GetMapping("/define")
+    public Result<DocDefineDto> getDocDefine(@RequestParam Long id) {
+        return Result.success(docService.getDocDefine(id));
+    }
+
+    @PostMapping("/menuRename")
+    public Result<Long> updateDocMenuName(
+            @RequestParam Long id,
+            @RequestParam String newName
+    ) {
+        return Result.success(docService.updateDocMenuName(id, newName));
     }
 
 }

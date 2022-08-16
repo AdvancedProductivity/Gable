@@ -42,7 +42,7 @@ public class DocBlockDto {
                 dto.setData(JsonBuilderHolder.OBJECT_MAPPER.readTree(block.getData()));
             }
             if (StringUtils.isNotEmpty(block.getConfig())) {
-                dto.setData(JsonBuilderHolder.OBJECT_MAPPER.readTree(block.getConfig()));
+                dto.setConfig(JsonBuilderHolder.OBJECT_MAPPER.readTree(block.getConfig()));
             }
         } catch (Exception e) {
             e.printStackTrace();

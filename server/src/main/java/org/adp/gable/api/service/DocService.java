@@ -1,21 +1,26 @@
 package org.adp.gable.api.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.adp.gable.api.dao.DocBlockDao;
 import org.adp.gable.api.dao.DocDao;
 import org.adp.gable.api.dao.DocDefineDao;
 import org.adp.gable.api.dao.DocMenuDao;
+import org.adp.gable.api.dto.doc.DocBlockDto;
 import org.adp.gable.api.dto.doc.DocDefineDto;
 import org.adp.gable.api.dto.doc.DocDto;
 import org.adp.gable.api.dto.doc.DocMenuDto;
+import org.adp.gable.api.entity.DocBlock;
 import org.adp.gable.api.entity.DocDefine;
 import org.adp.gable.api.entity.DocEntity;
 import org.adp.gable.api.entity.DocMenu;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,6 +38,9 @@ public class DocService {
 
     @Resource
     private DocDefineDao docDefineDao;
+
+    @Resource
+    private DocBlockDao docBlockDao;
 
     public DocEntity addDoc(DocDto docDto) {
         DocEntity docEntity = new DocEntity();
@@ -95,5 +103,54 @@ public class DocService {
             this.docMenuDao.saveAndFlush(data);
         }
         return data;
+    }
+
+    public List<DocBlockDto> getBlocksByDocId(Long docDefineId) {
+        List<DocBlock> all = this.docBlockDao.findByDocDefineIdOrderByOrder(docDefineId);
+        if (CollectionUtils.isEmpty(all)) {
+            return Collections.emptyList();
+        }
+        List<DocBlockDto> arrays = new ArrayList<>(all.size());
+        for (DocBlock block : all) {
+            arrays.add(DocBlockDto.from(block));
+        }
+        return arrays;
+    }
+
+    public DocDefineDto getDocDefine(Long id) {
+        DocDefine docDefine = this.docDefineDao.findById(id).orElse(null);
+        if (docDefine == null) {
+            return null;
+        }
+        DocDefineDto docDefineDto = new DocDefineDto();
+        BeanUtils.copyProperties(docDefine, docDefineDto);
+        return docDefineDto;
+    }
+
+    public Long updateDocMenuName(Long id, String newName) {
+        DocMenu docMenu = this.docMenuDao.findById(id).orElse(null);
+        if (docMenu != null) {
+            docMenu.setName(newName);
+            this.docMenuDao.saveAndFlush(docMenu);
+        }
+        return id;
+    }
+
+    public void updateOrCreateBlock(DocDefineDto dto) {
+        // update define name
+        DocDefine docDefine = this.docDefineDao.findById(dto.getId()).orElse(null);
+        if (docDefine != null) {
+            docDefine.setName(dto.getName());
+            this.docDefineDao.saveAndFlush(docDefine);
+        }
+        // delete all blocks
+        this.docBlockDao.deleteByDocDefineId(dto.getId());
+        // save all block data
+        List<DocBlockDto> blocks = dto.getBlocks();
+        List<DocBlock> newBlocks = new ArrayList<>(blocks.size());
+        for (DocBlockDto block : blocks) {
+            newBlocks.add(block.translateToEntity());
+        }
+        this.docBlockDao.saveAll(newBlocks);
     }
 }

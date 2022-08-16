@@ -92,6 +92,7 @@ export class DocStorageService {
 
   public async getBlocksByDocId(docDefineId: number): Promise<DocBlock[]> {
     if (this.saveDataInRemote()) {
+      return this.remoteService.getBlocksByDocId(docDefineId);
     } else if (this.electronService.isElectron) {
     } else {
       return db.docBlocks.where({docDefineId}).toArray();
@@ -100,6 +101,7 @@ export class DocStorageService {
 
   public async updateOrCreateBlock(docId: number, arr: any[], newName: string) {
     if (this.saveDataInRemote()) {
+      return this.remoteService.updateOrCreateBlock(docId, arr, newName);
     } else if (this.electronService.isElectron) {
     } else {
       db.docDefines.update(docId, {name: newName}).then(res => {});
@@ -110,6 +112,7 @@ export class DocStorageService {
 
   public async getDocDefine(docDefineId: number): Promise<DocDefine> {
     if (this.saveDataInRemote()) {
+      return this.remoteService.getDocDefine(docDefineId);
     } else if (this.electronService.isElectron) {
     } else {
       return db.docDefines.get(docDefineId);
@@ -118,6 +121,7 @@ export class DocStorageService {
 
   public async updateName(id: number, name: string): Promise<any> {
     if (this.saveDataInRemote()) {
+      return this.remoteService.updateDocMenuName(id, name);
     } else if (this.electronService.isElectron) {
     } else {
       return db.docsMenu.update(id, {name});

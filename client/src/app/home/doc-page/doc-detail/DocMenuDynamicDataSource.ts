@@ -120,7 +120,7 @@ export class DocMenuDynamicDataSource implements DataSource<DocMenuDynamicFlatNo
     this.data.forEach(item => {
       if (item.id === info.id) {
         item.name = info.name;
-        this.docService.updateName(info);
+        this.docService.updateName(info).then(res => {});
       }
     });
   }
