@@ -31,7 +31,7 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
   types = [
     {name: 'none', type: 'none'}
     , {name: 'form-data', type: 'form_data'}
-    , {name: 'x-www-form-urlencoded', type: 'urlencoded'}
+    , {name: 'urlencoded', type: 'urlencoded'}
     , {name: 'raw', type: 'raw'}
     , {name: 'GraphQL', type: 'graphQL'}
   ];

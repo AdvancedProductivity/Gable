@@ -22,6 +22,7 @@
         <ng-select
           class="custom"
           [clearable]="false"
+          [searchable]="false"
           [(ngModel)]="rawType"
           placeholder="{{ 'PAGES.API_TEST.HEADER.ENV_SELECT' | translate }}"
           (change)="onBodyChange($event)"
@@ -32,7 +33,7 @@
           <ng-option [value]="'html'">HTML</ng-option>
         </ng-select>
       </div>
-      <div style="display: flex;flex-direction: row">
+      <div class="btn-con" style="">
         <button *ngIf="isFull" mat-button color="primary" (click)="doFullScreen()">
           {{ 'MESSAGE.EXIST_FULL' | translate }}
         </button>

@@ -35,14 +35,25 @@
       }
     }
 
-    .icon-req {
-      width: 16px;
-      height: 16px;
-      margin-top: 7px;
-      cursor: pointer;
+    .btn-con {
+      display: flex;
+      flex-direction: row;
 
-      svg {
-        fill: none;
+      button {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+
+      .icon-req {
+        width: 16px;
+        height: 16px;
+        margin-top: 7px;
+        margin-right: 5px;
+        cursor: pointer;
+
+        svg {
+          fill: none;
+        }
       }
     }
   }
