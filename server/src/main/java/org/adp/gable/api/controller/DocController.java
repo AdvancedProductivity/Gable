@@ -1,7 +1,10 @@
 package org.adp.gable.api.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.adp.gable.api.dto.doc.DocDefineDto;
 import org.adp.gable.api.dto.doc.DocDto;
+import org.adp.gable.api.dto.doc.DocMenuDto;
+import org.adp.gable.api.entity.DocMenu;
 import org.adp.gable.api.service.DocService;
 import org.adp.gable.common.beans.Result;
 import org.springframework.web.bind.annotation.*;
@@ -29,4 +32,34 @@ public class DocController {
     public Result<List<DocDto>> listDoc() {
         return Result.success(docService.listDoc());
     }
+
+    @GetMapping("/menu")
+    public Result<List<DocMenuDto>> getDocMenuBaseLevel(@RequestParam Long docId, @RequestParam Integer level) {
+        return Result.success(docService.getDocMenuBaseLevel(docId, level));
+    }
+
+    @PostMapping("/menu")
+    public Result<Long> addDocMenu(@RequestBody DocMenuDto docMenuDto) {
+        return Result.success(docService.addDocMenu(docMenuDto).getId());
+    }
+
+    @PostMapping("/docDefine")
+    public Result<Long> addDocDefine(@RequestBody DocDefineDto docDefineDto) {
+        return Result.success(docService.addDocDefine(docDefineDto).getId());
+    }
+
+    @GetMapping("/newCount")
+    public Result<Long> updateMenuCount(@RequestParam Long id, @RequestParam Integer newCount) {
+        DocMenu docMenu = docService.updateMenuCount(id, newCount);
+        if (docMenu == null) {
+            return Result.success(0L);
+        }
+        return Result.success(docMenu.getId());
+    }
+
+    @GetMapping("/subMenu")
+    public Result<List<DocMenuDto>> getSubMenu(@RequestParam Long parentId) {
+        return Result.success(docService.getSubMenu(parentId));
+    }
+
 }
