@@ -16,9 +16,11 @@ import org.adp.gable.api.entity.DocMenu;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -136,6 +138,8 @@ public class DocService {
         return id;
     }
 
+    @Transactional
+    @Modifying
     public void updateOrCreateBlock(DocDefineDto dto) {
         // update define name
         DocDefine docDefine = this.docDefineDao.findById(dto.getId()).orElse(null);

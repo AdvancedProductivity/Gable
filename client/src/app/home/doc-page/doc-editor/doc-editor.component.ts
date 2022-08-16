@@ -49,7 +49,9 @@ export class DocEditorComponent implements OnInit {
 
   doEdit() {
     this.readOnly = false;
-    this.editor.readOnly.toggle().then(this.status.next);
+    this.editor.readOnly.toggle().then(res => {
+      this.status.next(res);
+    });
   }
 
   saveData() {
@@ -57,7 +59,7 @@ export class DocEditorComponent implements OnInit {
       const block = res.blocks;
       this.docService.updateBlock(this.docId, block, this.name).then(r => {
         this.readOnly = true;
-        this.editor.readOnly.toggle();
+        this.editor.readOnly.toggle(this.readOnly);
         this.status.next(this.readOnly);
       });
       this.nameChange.next({ name: this.name, id: this.docId});
