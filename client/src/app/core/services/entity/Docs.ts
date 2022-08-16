@@ -57,6 +57,7 @@ export class DocJsonNode{
   id: string;
   canDelete: boolean;
   canEditName: boolean;
+  level: number;
   name: string;
   type: string;
   desc: string;

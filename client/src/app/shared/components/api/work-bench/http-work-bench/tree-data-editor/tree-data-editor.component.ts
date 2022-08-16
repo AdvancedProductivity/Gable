@@ -27,12 +27,13 @@ export class TreeDataEditorComponent implements OnInit {
     this.root.type = 'object';
     this.root.children = [];
     this.root.canEditName = false;
+    this.root.level = 0;
     this.root.name = 'root';
   }
 
 
   gen(data: any): void {
-    this.traverse(data, this.process, this.root.children);
+    this.traverse(data, this.process, this.root.children, this.root.level);
     console.log('zzq see ', this.root);
     const arr = [];
     arr.push(this.root);
@@ -100,7 +101,7 @@ export class TreeDataEditorComponent implements OnInit {
   }
 
   //called with every property and its value
-  private process(key, value, docs: DocJsonNode[]) {
+  private process(key, value, docs: DocJsonNode[], level: number) {
     let index = -1;
     for (let i = 0; i < docs.length; i++) {
       if (docs[i].name === key) {
@@ -112,7 +113,7 @@ export class TreeDataEditorComponent implements OnInit {
       const a = new DocJsonNode();
       if (Array.isArray(value)) {
         a.type = 'array';
-      }else {
+      } else {
         a.type = typeof value;
         if (a.type !== 'object') {
           a.sample = value;
@@ -120,16 +121,17 @@ export class TreeDataEditorComponent implements OnInit {
       }
       a.name = key;
       a.children = [];
+      a.level = level;
       docs.push(a);
       index = docs.length - 1;
     }
     return index;
   }
 
-  private traverse(o, func, docs: DocJsonNode[]) {
+  private traverse(o, func, docs: DocJsonNode[], curLevel: number) {
     // eslint-disable-next-line guard-for-in
     for (const i in o) {
-      const index = func.apply(this, [i, o[i], docs]);
+      const index = func.apply(this, [i, o[i], docs, curLevel + 1]);
       if (o[i] !== null && Array.isArray(o[i]) && o[i].length > 0) {
         if (!docs[index].children[0] || (docs[index].children[0].name !== 'item' && !docs[index].children[0].canEditName)) {
           if (typeof o[i][0] === 'object') {
@@ -137,13 +139,15 @@ export class TreeDataEditorComponent implements OnInit {
             a.type = 'object';
             a.name = 'item';
             a.canEditName = false;
+            a.level = curLevel + 2;
             a.children = [];
             docs[index].children.push(a);
-            this.traverse(o[i][0], func, a.children);
+            this.traverse(o[i][0], func, a.children, a.level);
           } else {
             const a = new DocJsonNode();
             a.type = typeof o[i][0];
             a.sample = o[i][0];
+            a.level = curLevel + 2;
             a.name = 'item';
             a.canEditName = false;
             a.children = [];
@@ -152,7 +156,7 @@ export class TreeDataEditorComponent implements OnInit {
         }
       } else if (o[i] !== null && typeof (o[i]) === 'object') {
         //going one step down in the object tree!!
-        this.traverse(o[i], func, docs[index].children);
+        this.traverse(o[i], func, docs[index].children, curLevel + 1);
       }
     }
   }

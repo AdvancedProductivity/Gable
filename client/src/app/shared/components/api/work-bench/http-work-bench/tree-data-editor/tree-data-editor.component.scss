@@ -13,7 +13,7 @@
  * This padding sets alignment of the nested nodes.
  */
 .example-tree .mat-nested-tree-node div[role=group] {
-  padding-left: 40px;
+  padding-left: 15px;
 }
 
 /*
@@ -34,7 +34,6 @@
   flex-direction: row;
 
   .name-input {
-    width: 150px;
     margin-right: 10px;
   }
   .sample{

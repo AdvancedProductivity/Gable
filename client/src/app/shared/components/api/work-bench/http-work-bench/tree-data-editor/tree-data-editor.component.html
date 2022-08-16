@@ -5,9 +5,8 @@
       <!-- There is inline padding applied to this node using styles.
         This padding value depends on the mat-icon-button width. -->
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
-
         <div class="menu-item">
-          <div class="name-input">
+          <div class="name-input" [style.width.px]="(10 - node.level) * 15">
             <input class="iin" [(ngModel)]="node.name" [disabled]="readonly || !node.canEditName" placeholder="name">
           </div>
           <div class="type-select">
@@ -56,7 +55,7 @@
             </mat-icon>
           </button>
           <div class="menu-item">
-            <div class="name-input">
+            <div class="name-input" [style.width.px]="(10 - node.level) * 15">
               <input class="iin" [(ngModel)]="node.name" [disabled]="readonly || !node.canEditName" placeholder="name">
             </div>
             <div class="type-select">
