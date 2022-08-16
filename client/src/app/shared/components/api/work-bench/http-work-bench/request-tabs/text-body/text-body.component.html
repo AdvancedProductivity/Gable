@@ -1,5 +1,8 @@
 <div class="http-body-container">
-  <as-split direction="horizontal">
+  <as-split
+    direction="horizontal"
+    [unit]="'pixel'"
+  >
     <as-split-area>
       <ngx-monaco-editor
         [options]="editorOptions"
@@ -8,7 +11,11 @@
       >
       </ngx-monaco-editor>
     </as-split-area>
-    <as-split-area [visible]="!isInDoc && isEditingDoc">
+    <as-split-area
+      [minSize]="600"
+      [size]="600"
+      [visible]="!isInDoc && isEditingDoc"
+    >
       <app-tree-data-editor #dataEditorComponent></app-tree-data-editor>
     </as-split-area>
   </as-split>

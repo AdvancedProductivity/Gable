@@ -21,7 +21,7 @@
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
         <div class="menu-item">
           <div class="name-input" [style.width.px]="(10 - node.level) * 15">
-            <input class="iin" [(ngModel)]="node.name" [disabled]="readonly || !node.canEditName" placeholder="name">
+            <input class="iin" [(ngModel)]="node.name" [disabled]="readonly || !node.canEditName">
           </div>
           <div class="type-select">
             <ng-select
@@ -40,10 +40,10 @@
             </ng-select>
           </div>
           <div class="sample">
-            <input class="iin" [(ngModel)]="node.sample" [disabled]="readonly" placeholder="sample">
+            <input class="iin" [(ngModel)]="node.sample" [disabled]="readonly">
           </div>
           <div class="description">
-            <input class="iin" [(ngModel)]="node.desc"   [disabled]="readonly" placeholder="description">
+            <input class="iin" [(ngModel)]="node.desc"   [disabled]="readonly">
           </div>
           <div class="operation">
             <span (click)="delete(node.id)" *ngIf="!readonly && node.canDelete">
@@ -70,7 +70,7 @@
           </button>
           <div class="menu-item">
             <div class="name-input" [style.width.px]="(10 - node.level) * 15">
-              <input class="iin" [(ngModel)]="node.name" [disabled]="readonly || !node.canEditName" placeholder="name">
+              <input class="iin" [(ngModel)]="node.name" [disabled]="readonly || !node.canEditName">
             </div>
             <div class="type-select">
               <ng-select
@@ -89,10 +89,10 @@
               </ng-select>
             </div>
             <div class="sample">
-              <input class="iin" [(ngModel)]="node.sample" [disabled]="readonly" placeholder="sample">
+              <input class="iin" [(ngModel)]="node.sample" [disabled]="readonly">
             </div>
             <div class="description">
-              <input class="iin" [(ngModel)]="node.desc" [disabled]="readonly" placeholder="description">
+              <input class="iin" [(ngModel)]="node.desc" [disabled]="readonly">
             </div>
             <div class="operation">
             <span (click)="delete(node.id)" *ngIf="!readonly && node.canDelete">
