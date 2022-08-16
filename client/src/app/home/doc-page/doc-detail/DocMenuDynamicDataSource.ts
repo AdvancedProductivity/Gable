@@ -105,7 +105,7 @@ export class DocMenuDynamicDataSource implements DataSource<DocMenuDynamicFlatNo
         break;
       }
     }
-    if (index > 0) {
+    if (index >= 0) {
       this.data[index].itemCount = itemCount + 1;
       if (this.treeControl.isExpanded(this.data[index])) {
         this.data.splice(index + itemCount + 1, 0, this.trans(menu));

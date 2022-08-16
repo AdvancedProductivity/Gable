@@ -10,15 +10,20 @@ export class DocService {
   constructor(private docStorageService: DocStorageService) {
   }
 
-  public addDoc(name: string): Promise<number> {
+  public async addDoc(name: string): Promise<number> {
+
     const doc = new Doc();
     doc.name = name;
     doc.dateCreated = new Date().getTime();
     if (!Array.isArray(this.docCache)) {
       this.docCache = [];
     }
-    this.docCache.push(doc);
-    return this.docStorageService.addDoc(doc);
+    const docId = await this.docStorageService.addDoc(doc);
+    return new Promise(resolve => {
+      doc.id = docId;
+      this.docCache.push(doc);
+      resolve(docId);
+    });
   }
 
   public async getAllDocs(): Promise<Doc[]> {
@@ -50,7 +55,7 @@ export class DocService {
     });
   }
 
-  public async addSubLevel(docId: number, parentId: number, level: number): Promise<DocMenu> {
+  public async addSubLevel(parentId: number, docId: number, level: number): Promise<DocMenu> {
     const doc = new DocMenu();
     doc.docId = docId;
     doc.level = level;
