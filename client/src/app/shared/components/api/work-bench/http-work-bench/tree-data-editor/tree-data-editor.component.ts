@@ -101,8 +101,7 @@ export class TreeDataEditorComponent implements OnInit {
     }
   }
 
-  //called with every property and its value
-  private process(key, value, docs: DocJsonNode[], level: number) {
+  private process = (key, value, docs: DocJsonNode[], level: number): number => {
     let index = -1;
     for (let i = 0; i < docs.length; i++) {
       if (docs[i].name === key) {
@@ -127,38 +126,46 @@ export class TreeDataEditorComponent implements OnInit {
       index = docs.length - 1;
     }
     return index;
-  }
+  };
 
   private traverse(o, func, docs: DocJsonNode[], curLevel: number) {
-    // eslint-disable-next-line guard-for-in
-    for (const i in o) {
+    const keySet = Object.keys(o);
+    for (const i of keySet) {
       const index = func.apply(this, [i, o[i], docs, curLevel + 1]);
       if (o[i] !== null && Array.isArray(o[i]) && o[i].length > 0) {
-        if (!docs[index].children[0] || (docs[index].children[0].name !== 'item' && !docs[index].children[0].canEditName)) {
-          if (typeof o[i][0] === 'object') {
-            const a = new DocJsonNode();
-            a.type = 'object';
-            a.name = 'item';
-            a.canEditName = false;
-            a.level = curLevel + 2;
-            a.children = [];
-            docs[index].children.push(a);
-            this.traverse(o[i][0], func, a.children, a.level);
-          } else {
-            const a = new DocJsonNode();
-            a.type = typeof o[i][0];
-            a.sample = o[i][0];
-            a.level = curLevel + 2;
-            a.name = 'item';
-            a.canEditName = false;
-            a.children = [];
-            docs[index].children.push(a);
-          }
+        if (!docs[index].children[0]) {
+          this.generateItem(o, i, curLevel, docs, index, func);
+        }else if (docs[index].children[0].name !== 'item' && !docs[index].children[0].canEditName) {
+          this.generateItem(o, i, curLevel, docs, index, func);
+        } else if (docs[index].children[0].name === 'item' && !docs[index].children[0].canEditName) {
+          this.traverse(o[i][0], func, docs[index].children[0].children, curLevel + 2);
         }
       } else if (o[i] !== null && typeof (o[i]) === 'object') {
         //going one step down in the object tree!!
         this.traverse(o[i], func, docs[index].children, curLevel + 1);
       }
+    }
+  }
+
+  private generateItem(o: any, i: string, curLevel: number, docs: DocJsonNode[], index: number, func) {
+    if (typeof o[i][0] === 'object') {
+      const a = new DocJsonNode();
+      a.type = 'object';
+      a.name = 'item';
+      a.canEditName = false;
+      a.level = curLevel + 2;
+      a.children = [];
+      docs[index].children.push(a);
+      this.traverse(o[i][0], func, a.children, a.level);
+    } else {
+      const a = new DocJsonNode();
+      a.type = typeof o[i][0];
+      a.sample = o[i][0];
+      a.level = curLevel + 2;
+      a.name = 'item';
+      a.canEditName = false;
+      a.children = [];
+      docs[index].children.push(a);
     }
   }
 }
