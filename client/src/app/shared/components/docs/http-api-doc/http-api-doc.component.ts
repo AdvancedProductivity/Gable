@@ -26,6 +26,10 @@ export class HttpApiDocComponent implements OnInit, OnChanges {
   ) {
   }
 
+  @Input() get getData(): any {
+    return this.da;
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     console.log('zzq see cahnged', changes);
     if (changes.da && changes.da.currentValue && changes.da.currentValue.version) {
@@ -41,10 +45,6 @@ export class HttpApiDocComponent implements OnInit, OnChanges {
     if (event.keyCode === 13) {
       event.cancelBubble = true;
     }
-  }
-
-  @Input() get getData(): any {
-    return this.da;
   }
 
   ngOnInit(): void {

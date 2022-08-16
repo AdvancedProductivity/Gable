@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import {DocJsonNode} from '../../../../../../core/services/entity/Docs';
@@ -8,9 +8,9 @@ import {DocJsonNode} from '../../../../../../core/services/entity/Docs';
   templateUrl: './tree-data-editor.component.html',
   styleUrls: ['./tree-data-editor.component.scss']
 })
-export class TreeDataEditorComponent implements OnInit {
-  editorOptions = {theme: 'vs-light', language: 'json'};
-  readonly = false;
+export class TreeDataEditorComponent implements OnInit, OnChanges {
+  @Input() da: DocJsonNode[];
+  @Input() readonly = false;
   root: DocJsonNode;
   treeControl = new NestedTreeControl<DocJsonNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<DocJsonNode>();
@@ -19,22 +19,50 @@ export class TreeDataEditorComponent implements OnInit {
     this.dataSource.data = [];
   }
 
-  hasChild = (_: number, node: DocJsonNode) => !!node.children && node.children.length > 0;
+  @Input() get getData(): any {
+    return this.dataSource.data;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('set value', changes);
+    if (changes.da && changes.da.currentValue) {
+      this.root = changes.da.currentValue[0];
+      console.log('render data', this.root);
+      setTimeout(() => {
+        const arr = [];
+        arr.push(this.root);
+        this.dataSource.data = [...[]];
+        this.dataSource.data = [...arr];
+        console.log('render data', this.dataSource.data);
+
+        this.dataSource.data.forEach(item => {
+          this.treeControl.toggle(item);
+        });
+      }, 200);
+    }
+  }
+
+  hasChild = (_: number, node: DocJsonNode) => (!!node.children && node.children.length > 0) || (node.name === 'root' && !node.canEditName);
 
   ngOnInit(): void {
-    this.root = new DocJsonNode();
-    this.root.canDelete = false;
-    this.root.type = 'object';
-    this.root.children = [];
-    this.root.canEditName = false;
-    this.root.level = 0;
-    this.root.name = 'root';
+    if (!this.root) {
+      this.root = new DocJsonNode();
+      this.root.canDelete = false;
+      this.root.type = 'object';
+      this.root.children = [];
+      this.root.canEditName = false;
+      this.root.level = 0;
+      this.root.name = 'root';
+      const arr = [];
+      arr.push(this.root);
+      this.dataSource.data = [...[]];
+      this.dataSource.data = [...arr];
+    }
   }
 
 
   gen(data: any): void {
     this.traverse(data, this.process, this.root.children, this.root.level);
-    console.log('zzq see ', this.root);
     const arr = [];
     arr.push(this.root);
     this.dataSource.data = [...[]];

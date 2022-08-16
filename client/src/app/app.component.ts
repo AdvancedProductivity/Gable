@@ -8,6 +8,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {iconArray} from './shared/icon';
 import {createCustomElement} from '@angular/elements';
 import {HttpApiDocComponent} from './shared/components/docs/http-api-doc/http-api-doc.component';
+import {TreeDataEditorComponent} from "./shared/components/api/work-bench/http-work-bench/tree-data-editor/tree-data-editor.component";
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,8 @@ export class AppComponent {
     injector: Injector) {
     const monin = createCustomElement(HttpApiDocComponent, {injector});
     customElements.define('http-api-doc-component', monin);
+    const treeDataEditor = createCustomElement(TreeDataEditorComponent, {injector});
+    customElements.define('tree-data-editor-component', treeDataEditor);
     this.loadLanguage();
     console.log('APP_CONFIG', APP_CONFIG);
 
