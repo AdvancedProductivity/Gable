@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {I18nDocNode} from '../../../../core/services/entity/Docs';
 
 @Component({
@@ -6,7 +6,7 @@ import {I18nDocNode} from '../../../../core/services/entity/Docs';
   templateUrl: './i18n-title.component.html',
   styleUrls: ['./i18n-title.component.scss']
 })
-export class I18nTitleComponent implements OnInit {
+export class I18nTitleComponent implements OnInit, OnChanges {
   @Input() data: I18nDocNode;
   @Input() readonly = false;
 
@@ -17,14 +17,15 @@ export class I18nTitleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.data) {
+    console.log('i18n modify', )
+    if (!this.data || !this.data.i18n) {
       this.data = new I18nDocNode();
       this.data.i18n = 'PAGES.DOCS.DOC_URL';
       this.data.level = 3;
     }
   }
 
-  apply() {
-
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('set val', changes);
   }
 }

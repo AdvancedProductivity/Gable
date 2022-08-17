@@ -27,6 +27,7 @@
       "COPY_HOST": "复制域名",
       "COPY_PATH": "复制路径",
       "COPY_ALL": "复制全部",
+      "APPEND_DOC": "追加文档",
       "JSON_DOC_GEN": "编辑文档",
       "DOC_URL": "请求URL",
       "DOC_HEADER": "请求头设置",

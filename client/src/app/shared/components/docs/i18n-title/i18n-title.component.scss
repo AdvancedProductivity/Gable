@@ -25,7 +25,12 @@
     }
   }
 
-  .url-doc-content {
+  .i18n-t-doc-content {
     width: 100%;
+
+    h3 {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
   }
 }

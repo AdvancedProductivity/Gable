@@ -36,7 +36,7 @@ export class I18nTitle implements BlockTool {
     this.wrapper = document.createElement('div');
     this.dataElement = document.createElement('i18n-title-component');
     this.dataElement.readonly = this.readOnly;
-    this.dataElement.url = this.data;
+    this.dataElement.data = this.data;
     this.wrapper.appendChild(this.dataElement);
     return this.wrapper;
   }
