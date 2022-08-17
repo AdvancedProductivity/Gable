@@ -49,7 +49,9 @@
         [minSize]="25"
       >
         <div class="response">
-          <app-response-tabs #resp></app-response-tabs>
+          <app-response-tabs
+            (dataChanged)="onApiUpdate($event)"
+            #resp></app-response-tabs>
         </div>
       </as-split-area>
     </as-split>

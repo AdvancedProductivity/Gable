@@ -66,6 +66,7 @@ export class RequestTabsComponent implements OnInit, OnDestroy {
   private dispatchData(httpApi: HttpApi) {
     this.query.setData(httpApi.query);
     this.header.setData(httpApi.header);
+    this.body.setBodyType(httpApi);
     this.body.setBodyData(httpApi);
   }
 }

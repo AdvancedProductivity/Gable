@@ -16,7 +16,9 @@
       [size]="600"
       [visible]="!isInDoc && isEditingDoc"
     >
-      <app-tree-data-editor #dataEditorComponent></app-tree-data-editor>
+      <app-tree-data-editor
+        (chang)="onBodyDocChanged($event)"
+        #dataEditorComponent></app-tree-data-editor>
     </as-split-area>
   </as-split>
 </div>

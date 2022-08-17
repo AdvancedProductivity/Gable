@@ -1,7 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MonacoStandaloneCodeEditor} from '@materia-ui/ngx-monaco-editor';
-import {BodyHtmlComponent} from "./body-html/body-html.component";
-import {TreeDataEditorComponent} from "../../tree-data-editor/tree-data-editor.component";
+import {BodyHtmlComponent} from './body-html/body-html.component';
+import {TreeDataEditorComponent} from '../../tree-data-editor/tree-data-editor.component';
+import {DocJsonNode} from '../../../../../../../core/services/entity/Docs';
 
 @Component({
   selector: 'app-body-text',
@@ -11,6 +12,7 @@ import {TreeDataEditorComponent} from "../../tree-data-editor/tree-data-editor.c
 export class BodyTextComponent implements OnInit {
   @ViewChild('htmlContent', {static: true}) bodyContent: BodyHtmlComponent;
   @ViewChild('dataEditorComponent', {static: false}) treeDataEditorComponent: TreeDataEditorComponent;
+  @Output() respDocChange = new EventEmitter<DocJsonNode>();
   isEditingDoc = false;
   isInDoc = false;
   bodyType = 'json';
@@ -26,6 +28,10 @@ export class BodyTextComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  onRespDocChange(newDoc: DocJsonNode) {
+    this.respDocChange.next(newDoc);
   }
 
   onBodyTypeChange($event: any): void {
@@ -46,7 +52,15 @@ export class BodyTextComponent implements OnInit {
       this.isEditingDoc = false;
     }else {
       this.isEditingDoc = true;
-      this.treeDataEditorComponent.gen(JSON.parse(this.code));
+    }
+  }
+
+  appendDoc() {
+    try {
+      const data = JSON.parse(this.code);
+      this.treeDataEditorComponent.gen(data);
+    } catch (e){
+      console.error('parser error');
     }
   }
 

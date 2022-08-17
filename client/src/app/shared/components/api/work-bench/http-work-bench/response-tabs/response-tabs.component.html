@@ -64,6 +64,7 @@
   </div>
   <div class="body">
     <app-body-text
+      (respDocChange)="onRespDocChanged($event)"
       #textComponent
       [style.display]="curTab === 'Body' ? 'inline' : 'none'"
     ></app-body-text>

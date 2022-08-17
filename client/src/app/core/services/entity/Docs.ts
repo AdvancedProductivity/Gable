@@ -75,3 +75,13 @@ export class UrlDocNode{
   host: string;
   path: string;
 }
+export const rootJsonDoc = () => {
+  const root= new DocJsonNode();
+  root.canDelete = false;
+  root.type = 'object';
+  root.children = [];
+  root.canEditName = false;
+  root.level = 0;
+  root.name = 'root';
+  return root;
+}

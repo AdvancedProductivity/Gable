@@ -57,6 +57,7 @@
       "COPY_ALL": "Copy All",
       "JSON_DOC_GEN": "Edit Doc",
       "JSON_DOC_GEN_EXIST": "Exist Edit",
+      "APPEND_DOC": "Append Doc",
       "ADD_NEW_ARTICLE": "Add",
       "SELECT_A_DOC": "Please select a document in the left",
       "ADD_CONTENT": "Please Add Content By Click Top Button",

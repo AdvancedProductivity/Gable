@@ -31,6 +31,9 @@
         </div>
         <div class="opera-container">
           <div class="icon-con">
+            <button  style="margin-left: 5px;margin-right: 5px" *ngIf="bodyType === 'json' && isEditingDoc" mat-button color="primary" (click)="appendDoc()">
+              {{ 'PAGES.DOCS.APPEND_DOC' | translate }}
+            </button>
             <button *ngIf="bodyType === 'json'" mat-button color="primary" (click)="generateDoc()">
               {{ (isEditingDoc ? 'PAGES.DOCS.JSON_DOC_GEN_EXIST' : 'PAGES.DOCS.JSON_DOC_GEN') | translate }}
             </button>
@@ -85,7 +88,9 @@
             [minSize]="600"
             [size]="600"
           >
-            <app-tree-data-editor #dataEditorComponent></app-tree-data-editor>
+            <app-tree-data-editor
+              (chang)="onRespDocChange($event)"
+              #dataEditorComponent></app-tree-data-editor>
           </as-split-area>
         </as-split>
       </div>

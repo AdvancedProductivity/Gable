@@ -1,3 +1,5 @@
+import {rootJsonDoc} from "./Docs";
+
 /**
  * record the http api’s define
  * */
@@ -17,6 +19,8 @@ export class HttpApi {
   bodyForm: any;
   bodyUrlEncoded: any;
   bodyText: string;
+  bodyTextDoc: any;
+  respBodyTextDoc: any;
   bodyTextType: string;
   bodyGraphQlQuery: string;
   bodyGraphQlVar: any;
@@ -53,6 +57,8 @@ export const initHttpApi = (): HttpApi => {
   httpApi.bodyGraphQlQuery = '';
   httpApi.bodyGraphQlVar = '';
   httpApi.version = new Date().getTime();
+  httpApi.bodyTextDoc = rootJsonDoc();
+  httpApi.respBodyTextDoc = rootJsonDoc();
   return httpApi;
 };
 

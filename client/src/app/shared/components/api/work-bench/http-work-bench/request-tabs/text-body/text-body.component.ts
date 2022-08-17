@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@an
 import {MonacoStandaloneCodeEditor} from '@materia-ui/ngx-monaco-editor';
 import {debounceTime, distinctUntilChanged, Subject} from 'rxjs';
 import {TreeDataEditorComponent} from '../../tree-data-editor/tree-data-editor.component';
+import {DocJsonNode} from '../../../../../../../core/services/entity/Docs';
 
 @Component({
   selector: 'app-text-body',
@@ -10,6 +11,7 @@ import {TreeDataEditorComponent} from '../../tree-data-editor/tree-data-editor.c
 })
 export class TextBodyComponent implements OnInit, OnDestroy {
   @Output() contentChange = new EventEmitter<string>();
+  @Output() bodyDocChange = new EventEmitter<DocJsonNode>();
   @ViewChild('dataEditorComponent', {static: false}) treeDataEditorComponent: TreeDataEditorComponent;
   isEditingDoc = false;
   isInDoc = false;
@@ -25,7 +27,7 @@ export class TextBodyComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.contentSubject.pipe(debounceTime(1000))
+    this.contentSubject.pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe(() => {
         this.contentChange.next(this.code);
       });
@@ -52,10 +54,27 @@ export class TextBodyComponent implements OnInit, OnDestroy {
 
   markEditing() {
     this.isEditingDoc = true;
-    this.treeDataEditorComponent.gen(JSON.parse(this.code));
+
   }
 
   markExistEditing() {
     this.isEditingDoc = false;
+  }
+
+  setBodyTextDoc(bodyTextDoc: any) {
+    this.treeDataEditorComponent.setDocData(bodyTextDoc);
+  }
+
+  onBodyDocChanged(newDoc: DocJsonNode) {
+    this.bodyDocChange.next(newDoc);
+  }
+
+  appendDoc() {
+    try {
+      const data = JSON.parse(this.code);
+      this.treeDataEditorComponent.gen(data);
+    } catch (e){
+      console.error('parser error');
+    }
   }
 }

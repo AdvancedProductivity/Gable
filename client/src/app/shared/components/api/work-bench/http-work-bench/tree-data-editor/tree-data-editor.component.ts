@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
-import {DocJsonNode} from '../../../../../../core/services/entity/Docs';
+import {DocJsonNode, rootJsonDoc} from '../../../../../../core/services/entity/Docs';
 import {debounceTime, Subject} from 'rxjs';
 
 @Component({
@@ -47,13 +47,7 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     if (!this.root) {
-      this.root = new DocJsonNode();
-      this.root.canDelete = false;
-      this.root.type = 'object';
-      this.root.children = [];
-      this.root.canEditName = false;
-      this.root.level = 0;
-      this.root.name = 'root';
+      this.root = rootJsonDoc();
       const arr = [];
       arr.push(this.root);
       this.dataSource.data = [...[]];
@@ -67,6 +61,16 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
 
   dataChange() {
     this.treeSubject.next();
+  }
+
+  setDocData(bodyTextDoc: any) {
+    if (bodyTextDoc && bodyTextDoc.name === 'root') {
+      this.root = bodyTextDoc;
+      const arr = [];
+      arr.push(this.root);
+      this.dataSource.data = [...[]];
+      this.dataSource.data = [...arr];
+    }
   }
 
 

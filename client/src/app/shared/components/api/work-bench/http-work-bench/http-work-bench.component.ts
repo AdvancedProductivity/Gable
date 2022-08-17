@@ -128,9 +128,10 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   }
 
   onApiUpdate(updateAction: HttpComponentHotDataUpdateEvent) {
-    if (!this.httpApi){
+    console.log('api update', updateAction);
+    if (!this.httpApi) {
       return;
-    }else if (updateAction.action === 'query') {
+    } else if (updateAction.action === 'query') {
       this.httpApi.query = updateAction.data;
     } else if (updateAction.action === 'header') {
       this.httpApi.header = updateAction.data;
@@ -146,6 +147,10 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
       this.httpApi.bodyGraphQlQuery = updateAction.data;
     } else if (updateAction.action === 'graph_var') {
       this.httpApi.bodyGraphQlVar = updateAction.data;
+    } else if (updateAction.action === 'bodyDoc') {
+      this.httpApi.bodyTextDoc = updateAction.data;
+    } else if (updateAction.action === 'respDoc') {
+      this.httpApi.respBodyTextDoc = updateAction.data;
     }
     this.doHttpApiUpdateCache();
   }

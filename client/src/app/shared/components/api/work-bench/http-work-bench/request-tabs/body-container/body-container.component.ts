@@ -9,6 +9,7 @@ import {HttpApi} from '../../../../../../../core/services/entity/HttpApi';
 import {FormEditorComponent} from '../form-editor/form-editor.component';
 import {QueryTableComponent} from '../query-table/query-table.component';
 import {GraphQLComponent} from '../graph-ql/graph-ql.component';
+import {DocJsonNode} from '../../../../../../../core/services/entity/Docs';
 
 @Component({
   selector: 'app-body-container',
@@ -50,6 +51,11 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
     this.graphQLComponent.setQuery(httpApi.bodyGraphQlQuery);
     this.urlEncode.setData(httpApi.bodyUrlEncoded);
     this.editorBody.setBodyText(httpApi.bodyText);
+    this.editorBody.setBodyTextDoc(httpApi.bodyTextDoc);
+  }
+
+  public setBodyType(httpApi: HttpApi) {
+    this.curTyp = httpApi.bodyType;
   }
 
   onTypeChange(data: any): void {
@@ -77,6 +83,10 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
     this.contentChange.next({action: 'raw', data: newContent});
   }
 
+  onBodyDocChange(newDoc: DocJsonNode) {
+    this.contentChange.next({action: 'bodyDoc', data: newDoc});
+  }
+
   onGraphChange(newContent: GraphQlPartChangeEvent) {
     this.contentChange.next({action: newContent.type, data: newContent.content});
   }
@@ -99,6 +109,12 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
     }else {
       this.isEditingDoc = true;
       this.editorBody.markEditing();
+    }
+  }
+
+  appendDoc() {
+    if (this.isEditingDoc) {
+      this.editorBody.appendDoc();
     }
   }
 }
