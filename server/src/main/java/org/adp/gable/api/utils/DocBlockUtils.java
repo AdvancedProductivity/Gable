@@ -67,7 +67,7 @@ public class DocBlockUtils {
         dto.setData(objectMapper
                 .createObjectNode()
                 .put("host", waitForSave.getHost())
-                .put("path", waitForSave.getHost())
+                .put("path", waitForSave.getPath())
                 .put("url", url)
         );
         return dto;
@@ -101,16 +101,17 @@ public class DocBlockUtils {
     public static DocBlockDto generateRequestType(HttpApiDto waitForSave, int order, Long docDefineId) {
         ObjectMapper objectMapper = JsonBuilderHolder.OBJECT_MAPPER;
         DocBlockDto dto = getDto(order, docDefineId);
-        // items: ["POST", "JSON格式"]
-        //0: "POST"
-        //1: "JSON格式"
-        //style:
         ArrayNode arrayNode = objectMapper.createArrayNode();
         String method = waitForSave.getMethod().toUpperCase(Locale.ROOT);
         arrayNode.add(method);
         if (StringUtils.equals(method, "POST") || StringUtils.equals(method, "PUT")) {
-            arrayNode.add(waitForSave.getBodyTextType().toLowerCase(Locale.ROOT));
+            String bodyType = waitForSave.getBodyType();
+            arrayNode.add(bodyType.toLowerCase(Locale.ROOT));
+            if (StringUtils.equalsIgnoreCase(bodyType, "raw")) {
+                arrayNode.add(waitForSave.getBodyTextType().toLowerCase(Locale.ROOT));
+            }
         }
+        dto.setType("list");
         dto.setConfig(objectMapper.createObjectNode());
         dto.setData(objectMapper
                 .createObjectNode()
@@ -144,7 +145,7 @@ public class DocBlockUtils {
         dto.setData(objectMapper
                 .createObjectNode()
                 .put("withHeadings", true)
-                .put("content", arrayNode)
+                .set("content", arrayNode)
         );
         return dto;
     }
