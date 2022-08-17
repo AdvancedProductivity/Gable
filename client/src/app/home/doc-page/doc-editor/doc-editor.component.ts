@@ -23,7 +23,8 @@ import {HttpBlock} from '../plugins/http-block';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {DocService} from '../../../core/services/impl/doc.service';
 import {randomString} from '../../../core/services/utils/Uuid';
-import {JsonTreeBlock} from "../plugins/json-tree";
+import {JsonTreeBlock} from '../plugins/json-tree';
+import {UrlBlock} from '../plugins/url-block';
 
 @Component({
   selector: 'app-doc-editor',
@@ -123,7 +124,8 @@ export class DocEditorComponent implements OnInit {
           placeholder: '',
         },
       },
-      json: HttpBlock,
+      http: HttpBlock,
+      url: UrlBlock,
       jsonTree: JsonTreeBlock,
       image: {
         class: Image,

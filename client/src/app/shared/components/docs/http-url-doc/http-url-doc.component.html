@@ -1,5 +1,6 @@
 <div class="url-doc-container">
-  <div class="opera-bar">
+  <div class="opera-bar"
+       *ngIf="!readonly">
     <div class="left-input">
       <input class="url-input" [(ngModel)]="urlStr">
     </div>

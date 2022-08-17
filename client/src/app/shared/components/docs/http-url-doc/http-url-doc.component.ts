@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {UrlDocNode} from '../../../../core/services/entity/Docs';
 import {Clipboard} from '@angular/cdk/clipboard';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -9,7 +9,7 @@ import {TranslateService} from '@ngx-translate/core';
   templateUrl: './http-url-doc.component.html',
   styleUrls: ['./http-url-doc.component.scss']
 })
-export class HttpUrlDocComponent implements OnInit {
+export class HttpUrlDocComponent implements OnInit, OnChanges {
   @Input() url: UrlDocNode;
   @Input() readonly = false;
   urlStr = '';
@@ -27,6 +27,16 @@ export class HttpUrlDocComponent implements OnInit {
   ngOnInit(): void {
     if (!this.url) {
       this.url = new UrlDocNode();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.readonly && changes.readonly.currentValue) {
+      this.isReady = true;
+    }
+    if (changes.url && changes.url.currentValue) {
+      this.urlStr = changes.url.currentValue.url;
+      this.isReady = true;
     }
   }
 
