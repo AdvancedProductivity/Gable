@@ -5,6 +5,9 @@ import lombok.Data;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author zzq
+ */
 @Data
 public class DocJsonNode {
     private String id;
@@ -14,16 +17,18 @@ public class DocJsonNode {
     private String name;
     private String type;
     private String desc;
+    private Object sample;
     private List<DocJsonNode> children;
 
     public static DocJsonNode getRoot() {
         DocJsonNode root= new DocJsonNode();
         root.canDelete = false;
-        root.type = "'object'";
+        root.type = "object";
         root.children = Collections.emptyList();
         root.canEditName = false;
         root.level = 0;
         root.name = "root";
+        root.sample = "";
         return root;
     }
 }
