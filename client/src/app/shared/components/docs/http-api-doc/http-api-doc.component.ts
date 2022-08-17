@@ -31,7 +31,6 @@ export class HttpApiDocComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('zzq see cahnged', changes);
     if (changes.da && changes.da.currentValue && changes.da.currentValue.version) {
       this.applied = true;
       this.da = changes.da.currentValue;
@@ -63,7 +62,6 @@ export class HttpApiDocComponent implements OnInit, OnChanges {
   }
 
   httpChange(event: any) {
-    console.log('c', event);
     this.httpId = event;
   }
 

@@ -1,0 +1,88 @@
+.url-doc-container {
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  border: solid 1px #ddd;
+  border-radius: 5px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  flex-direction: column;
+  margin-left: 10px;
+
+  .opera-bar {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #bbb;
+    margin-bottom: 10px;
+    .doc-raw-text-opera-container {
+      height: 100%;
+      display: flex;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      flex-direction: row;
+
+      .raw-icon-con {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        height: 100%;
+
+        .raw-icon-item:hover {
+          border-radius: 4px;
+          background-color: rgb(230, 230, 230);
+          color: rgb(33, 33, 33);
+        }
+
+        .raw-icon-item {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-right: 10px;
+          padding: 10px;
+          cursor: pointer;
+
+          .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0,
+            'wght' 200,
+            'GRAD' -25,
+            'opsz' 20
+          }
+
+          .raw-icon {
+            width: 16px;
+            height: 16px;
+
+            svg {
+              fill: none;
+            }
+          }
+        }
+      }
+
+      .space {
+        width: 15px;
+        height: 100%;
+      }
+    }
+    .doc-raw-text-opera-left {
+      height: 100%;
+      width: 100px;
+      margin-left: 16px;
+
+      .ng-select.raw-doc-type-select ::ng-deep .ng-select-container {
+        margin-top: 8px;
+        min-height: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  .url-doc-content {
+    width: 100%;
+    height: 500px;
+  }
+}

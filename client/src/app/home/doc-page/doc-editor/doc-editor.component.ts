@@ -25,6 +25,7 @@ import {DocService} from '../../../core/services/impl/doc.service';
 import {randomString} from '../../../core/services/utils/Uuid';
 import {JsonTreeBlock} from '../plugins/json-tree';
 import {UrlBlock} from '../plugins/url-block';
+import {RawText} from "../plugins/raw-text";
 
 @Component({
   selector: 'app-doc-editor',
@@ -126,6 +127,7 @@ export class DocEditorComponent implements OnInit {
       },
       http: HttpBlock,
       url: UrlBlock,
+      rawText: RawText,
       jsonTree: JsonTreeBlock,
       image: {
         class: Image,

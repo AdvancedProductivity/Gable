@@ -75,6 +75,10 @@ export class UrlDocNode{
   host: string;
   path: string;
 }
+export class RawTextDocNode{
+  lang: string;
+  text: string;
+}
 export const rootJsonDoc = () => {
   const root= new DocJsonNode();
   root.canDelete = false;

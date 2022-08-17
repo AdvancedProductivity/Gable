@@ -10,6 +10,7 @@ import {createCustomElement} from '@angular/elements';
 import {HttpApiDocComponent} from './shared/components/docs/http-api-doc/http-api-doc.component';
 import {TreeDataEditorComponent} from "./shared/components/api/work-bench/http-work-bench/tree-data-editor/tree-data-editor.component";
 import {HttpUrlDocComponent} from "./shared/components/docs/http-url-doc/http-url-doc.component";
+import {RawTextDocComponent} from "./shared/components/docs/raw-text-doc/raw-text-doc.component";
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,8 @@ export class AppComponent {
     injector: Injector) {
     const url = createCustomElement(HttpUrlDocComponent, {injector});
     customElements.define('http-url-doc-component', url);
+    const rawText = createCustomElement(RawTextDocComponent, {injector});
+    customElements.define('raw-text-doc-component', rawText);
     const monin = createCustomElement(HttpApiDocComponent, {injector});
     customElements.define('http-api-doc-component', monin);
     const treeDataEditor = createCustomElement(TreeDataEditorComponent, {injector});
