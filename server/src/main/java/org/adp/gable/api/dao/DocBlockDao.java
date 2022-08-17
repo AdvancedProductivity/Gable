@@ -26,4 +26,14 @@ public interface DocBlockDao extends JpaRepository<DocBlock, Long> {
      * @return delete count
      */
     int deleteByDocDefineId(Long docDefineId);
+
+
+    /**
+     * delete all blocks by doc define id
+     *
+     * @param order the max order remained
+     * @param docDefineId doc define id
+     * @return delete count
+     */
+    int deleteByDocDefineIdAndOrderLessThan(Long docDefineId, Integer order);
 }
