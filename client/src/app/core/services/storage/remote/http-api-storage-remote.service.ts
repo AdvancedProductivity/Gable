@@ -25,6 +25,18 @@ export class HttpApiStorageRemoteService {
     ));
   }
 
+  public async setFile(file: any): Promise<any>{
+    const server = this.config.getConfigSync('gableServer');
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('from', server);
+    return firstValueFrom(this.httpClient.post(`${server}/api/file`, formData).pipe(
+      map((res: any) => {
+        return res.file;
+      })
+    ));
+  }
+
   public async updateApi(httpDefineId: number, apiCache: HttpApiHistoryCache): Promise<any>{
     const server = this.config.getConfigSync('gableServer');
     return firstValueFrom(this.httpClient.put(`${server}/api/collection/http`, apiCache, {

@@ -34,7 +34,7 @@ export class CellFileTextComponent implements OnInit {
     setTimeout(() => {
       // this.gridApi.getRowNode()
       this.gridApi.refreshCells();
-    }, 20);
+    }, 500);
     console.log('zzq see change event', data, this.params);
   }
 

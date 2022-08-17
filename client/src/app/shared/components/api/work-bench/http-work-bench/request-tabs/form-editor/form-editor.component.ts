@@ -20,9 +20,6 @@ export class FormEditorComponent implements OnInit {
   @Output() dataChange = new EventEmitter<ApiFormKeyValueChangeEvent>();
   gridApi: GridApi;
   rowData: ApiFormKeyValue[] = [
-    {using: true, key: '1', value: '2', desc: '3', type: 'text'},
-    {using: true, key: '4', value: '5', desc: '6', type: 'text'},
-    {using: true, key: '', value: '', desc: '', type: 'text'}
   ];
   columnDefs: ColDef[] = [
     {
@@ -108,10 +105,12 @@ export class FormEditorComponent implements OnInit {
       cellRendererParams: {
         hintStr: 'value',
         getTextType: (index) => this.rowData[index].type,
-        setFileInfo: (index, fileName, fileId) => {
-          console.log('form add file ', fileName, fileId);
+        setFileInfo: (index, fileName, fileId, fileUrl, filePath) => {
+          this.rowData[index].fileUrl = fileUrl;
+          this.rowData[index].filePath = filePath;
           this.rowData[index].fileName = fileName;
           this.rowData[index].fileId = fileId;
+          this.dataChange.next({field: 'form', data: this.rowData});
         }
       },
       resizable: true,
@@ -170,6 +169,7 @@ export class FormEditorComponent implements OnInit {
   }
 
   public setData(data: ApiFormKeyValue[]): void {
+    console.log('zzq see set form data', data);
     if (Array.isArray(data) && data.length === 0) {
       this.rowData = [getCommonFormKeyValue()];
     } else {

@@ -5,6 +5,7 @@ import {HttpApiStorageIndexDbService} from './indexdb/http-api-storage-index-db.
 import {HttpApi, HttpApiHistoryCache} from '../entity/HttpApi';
 import {ConfigServiceImpl} from '../impl/ConfigServiceImpl';
 import {ElectronService} from '../electron/electron.service';
+import {FileUploadInfo} from '../entity/ApiPart';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,17 @@ export class HttpApiStorageService {
       return this.storageElectronService.getApiDefine(id);
     }else {
       return this.indexDbService.getApiDefine(id);
+    }
+  }
+
+  public async setFile(file: any): Promise<FileUploadInfo> {
+    if (this.saveDataInRemote()) {
+      return this.remoteService.setFile(file);
+    } else if (this.electronService.isElectron) {
+    } else {
+      return new Promise(resolve => {
+        resolve(new FileUploadInfo());
+      });
     }
   }
 

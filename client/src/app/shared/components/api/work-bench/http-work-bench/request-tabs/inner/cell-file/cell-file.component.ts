@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ICellRendererParams} from 'ag-grid-community';
 import {ICellRendererAngularComp} from 'ag-grid-angular-legacy';
+import {HttpApiStorageService} from '../../../../../../../../core/services/storage/http-api-storage.service';
+import {FileUploadInfo} from "../../../../../../../../core/services/entity/ApiPart";
 
 @Component({
   selector: 'app-cell-file',
@@ -15,7 +17,9 @@ export class CellFileComponent implements OnInit, ICellRendererAngularComp {
   hintStr = '';
   isText = true;
 
-  constructor() {
+  constructor(
+    private httpApiStorageService: HttpApiStorageService
+  ) {
   }
 
   ngOnInit(): void {
@@ -42,8 +46,11 @@ export class CellFileComponent implements OnInit, ICellRendererAngularComp {
     // console.log('zzq see file select', JSON.stringify({cellValue: this.cellValue}), file);
     this.cellValue = file.name;
     this.showHint = false;
-    // @ts-ignore
-    this.params.setFileInfo(this.params.rowIndex, file.name, file.lastModified);
+    this.httpApiStorageService.setFile(file).then((res: FileUploadInfo) => {
+      console.log('rec', res);
+      // @ts-ignore
+      this.params.setFileInfo(this.params.rowIndex, res.name, new Date().getTime(), res.url, res.path);
+    });
   }
 
   private setValue(params: ICellRendererParams) {

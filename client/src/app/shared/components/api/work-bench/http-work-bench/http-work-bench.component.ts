@@ -142,6 +142,8 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
       this.httpApi.bodyTextType = updateAction.data;
     } else if (updateAction.action === 'url_encode ') {
       this.httpApi.bodyUrlEncoded = updateAction.data;
+    }  else if (updateAction.action === 'form') {
+      this.httpApi.bodyForm = updateAction.data;
     } else if (updateAction.action === 'raw') {
       this.httpApi.bodyText = updateAction.data;
     } else if (updateAction.action === 'graph_query') {

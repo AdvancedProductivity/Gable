@@ -30,6 +30,8 @@ export const parserKeyValue = (key: string, value: string) => {
 export class ApiFormKeyValue extends ApiKeyValue{
   type: string;
   fileName?: string;
+  filePath?: string;
+  fileUrl?: string;
   fileId?: number;
 }
 
@@ -67,4 +69,10 @@ export class GraphQlPartChangeEvent {
 export class HttpComponentHotDataUpdateEvent {
   action: string;
   data: any;
+}
+
+export class FileUploadInfo{
+  name: string;
+  path: string;
+  url: string;
 }
