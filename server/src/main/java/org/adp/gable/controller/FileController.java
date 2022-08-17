@@ -54,7 +54,11 @@ public class FileController {
         } catch (Exception e) {
         }
         objectNode.put("success", 1);
-        objectNode.set("file", objectMapper.createObjectNode().put("url", from + "/static/" + p));
+        objectNode.set("file", objectMapper.createObjectNode()
+                .put("url", from + "/static/" + p)
+                .put("path", p)
+                .put("name", name)
+        );
         return objectNode;
     }
 }

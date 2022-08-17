@@ -169,7 +169,7 @@ public class DocBlockUtils {
             tableCellText.add(formKeyValueDto.getType());
             tableCellText.add(formKeyValueDto.getDesc());
             if (StringUtils.equals(formKeyValueDto.getType(), "file")) {
-                tableCellText.add("file");
+                tableCellText.add("<a src='"+ formKeyValueDto.getFileUrl() +"' target=\"_blank\">"+ formKeyValueDto.getFileName() +"</a>");
             }else {
                 tableCellText.add(formKeyValueDto.getValue());
             }
@@ -178,7 +178,7 @@ public class DocBlockUtils {
         dto.setData(objectMapper
                 .createObjectNode()
                 .put("withHeadings", true)
-                .put("content", arrayNode)
+                .set("content", arrayNode)
         );
         return dto;
     }

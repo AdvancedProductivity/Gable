@@ -8,8 +8,10 @@ import kotlin.Pair;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.adp.gable.runner.Action;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Iterator;
@@ -35,6 +37,12 @@ public class HttpAction implements Action {
     private static final String HTTP_BODY_CONTENT = "bodyText";
     private static final String HTTP_HEADER = "header";
     private static final String HEADERS = "headers";
+
+    private static String lo = "";
+
+    public static void location(String newLO) {
+        lo = newLO;
+    }
 
     @Override
     public void execute(JsonNode in, JsonNode out, ObjectNode instance, ObjectNode global) {
@@ -149,9 +157,25 @@ public class HttpAction implements Action {
             JsonNode forms = in.path(HTTP_BODY_FORM_DATA);
             for (int i = 0; i < forms.size(); i++) {
                 JsonNode item = forms.get(i);
+                final String key = item.path("key").asText();
+                final String value = item.path("value").asText();
+                if (StringUtils.isEmpty(key)) {
+                    continue;
+                }
                 if (item.path("using").asBoolean()) {
-                    formDataBuilder.addFormDataPart(item.path("key").asText(),
-                            item.path("value").asText());
+                    if (StringUtils.equals(item.path("type").asText(), "file")) {
+                        String fileName = item.path("fileName").asText();
+                        String filePath = item.path("filePath").asText();
+                        File waitForAdd = FileUtils.getFile(lo, filePath);
+                        if (waitForAdd.exists() && waitForAdd.isFile()) {
+                            formDataBuilder.addFormDataPart(key, fileName,
+                                    RequestBody.create(MediaType.parse("application/octet-stream"), waitForAdd));
+                        } else {
+                            log.error("post file: {} with key {} not find", fileName, key);
+                        }
+                    }else {
+                        formDataBuilder.addFormDataPart(key, value);
+                    }
                 }
             }
             return formDataBuilder.build();

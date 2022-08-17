@@ -7,6 +7,7 @@ import org.adp.gable.common.beans.Result;
 import org.adp.gable.runner.ActionType;
 import org.adp.gable.runner.impl.HttpAction;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,6 +20,9 @@ import javax.annotation.Resource;
 @Slf4j
 public class ApiRunnerController {
 
+    @Value("${local.filepath}")
+    private String localFilepath;
+
     @Resource
     private ObjectMapper objectMapper;
 
@@ -27,8 +31,9 @@ public class ApiRunnerController {
         final String type = req.path("type").asText();
         ObjectNode params = (ObjectNode) req.path("params");
         final ObjectNode response = objectMapper.createObjectNode();
-        final HttpAction httpAction = new HttpAction();
         if (StringUtils.equalsIgnoreCase(type, ActionType.HTTP.name())) {
+            final HttpAction httpAction = new HttpAction();
+            HttpAction.location(localFilepath);
             httpAction.execute(params, response, objectMapper.createObjectNode(), objectMapper.createObjectNode());
         }
         log.info("run data: {}", req.toPrettyString());

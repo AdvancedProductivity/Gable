@@ -80,7 +80,7 @@ public class DocAutoGenerateService {
         blocks.add(DocBlockUtils.generateI18nTitle("PAGES.DOCS.DOC_URL", order++, docDefineId));
         // generate url
         blocks.add(DocBlockUtils.generateUrlBlock(waitForSave, order++, docDefineId));
-        List<KeyValueDto> headerList = waitForSave.getHeader().stream().filter(KeyValueDto::getUsing).collect(Collectors.toList());
+        List<KeyValueDto> headerList = waitForSave.getHeader().stream().filter(KeyValueDto::isNotIgnore).collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(headerList)) {
             // generate header title
             blocks.add(DocBlockUtils.generateI18nTitle("PAGES.DOCS.DOC_HEADER", order++, docDefineId));
@@ -91,7 +91,7 @@ public class DocAutoGenerateService {
         blocks.add(DocBlockUtils.generateI18nTitle("PAGES.DOCS.REQ_TYPE", order++, docDefineId));
         // request type
         blocks.add(DocBlockUtils.generateRequestType(waitForSave, order++, docDefineId));
-        List<KeyValueDto> queries = waitForSave.getQuery().stream().filter(KeyValueDto::getUsing).collect(Collectors.toList());
+        List<KeyValueDto> queries = waitForSave.getQuery().stream().filter(KeyValueDto::isNotIgnore).collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(queries)) {
             // generate header title
             blocks.add(DocBlockUtils.generateI18nTitle("PAGES.DOCS.QUERY_PARAM", order++, docDefineId));
@@ -103,14 +103,14 @@ public class DocAutoGenerateService {
         if (StringUtils.equalsIgnoreCase(method, "PUT") || StringUtils.equalsIgnoreCase(method, "POST")) {
             String bodyType = waitForSave.getBodyType();
             if (StringUtils.equals(bodyType, "urlencoded")) {
-                List<KeyValueDto> encoded = waitForSave.getBodyUrlEncoded().stream().filter(KeyValueDto::getUsing).collect(Collectors.toList());
+                List<KeyValueDto> encoded = waitForSave.getBodyUrlEncoded().stream().filter(KeyValueDto::isNotIgnore).collect(Collectors.toList());
                 if (CollectionUtils.isNotEmpty(encoded)) {
                     blocks.add(DocBlockUtils.generateTitle("x-www-form-urlencoded", order++, docDefineId));
                     // generate query url encoded
                     blocks.add(DocBlockUtils.generateTableForKeyValue(encoded, order++, docDefineId));
                 }
             } else if (StringUtils.equals(bodyType, "form_data")) {
-                List<FormKeyValueDto> froms = waitForSave.getBodyForm().stream().filter(KeyValueDto::getUsing).collect(Collectors.toList());
+                List<FormKeyValueDto> froms = waitForSave.getBodyForm().stream().filter(FormKeyValueDto::isNotIgnore).collect(Collectors.toList());
                 if (CollectionUtils.isNotEmpty(froms)) {
                     blocks.add(DocBlockUtils.generateI18nTitle("PAGES.DOCS.FORM_DATA", order++, docDefineId));
                     // generate query url encoded
