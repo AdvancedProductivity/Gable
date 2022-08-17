@@ -31,6 +31,10 @@ export class ResponseTabsComponent implements OnInit {
     this.textCom.setText(response.content);
   }
 
+  setRespDoc(doc: DocJsonNode) {
+    this.textCom.setRespDoc(doc);
+  }
+
   onRespDocChanged(newDoc: DocJsonNode) {
     this.dataChanged.next({action: 'respDoc', data: newDoc});
   }

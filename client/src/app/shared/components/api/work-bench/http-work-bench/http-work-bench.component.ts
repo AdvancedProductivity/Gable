@@ -69,6 +69,7 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
       this.httpApi = res;
       this.req.setHttpData(res);
       this.header.setCacheVersion(res.version);
+      this.resp.setRespDoc(this.httpApi.respBodyTextDoc);
       this.curMethod = res.method;
       this.url = res.url;
     });

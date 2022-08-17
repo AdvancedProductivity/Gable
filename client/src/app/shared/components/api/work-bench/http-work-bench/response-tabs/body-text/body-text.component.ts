@@ -86,4 +86,8 @@ export class BodyTextComponent implements OnInit {
       this.bodyContent.setContent(JSON.stringify(content));
     }
   }
+
+  setRespDoc(doc: DocJsonNode) {
+    this.treeDataEditorComponent.setDocData(doc);
+  }
 }

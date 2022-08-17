@@ -31,6 +31,7 @@ export class ApiMenuWebImplService implements ApiMenuService{
   }
 
   getMenus(): Observable<ApiMenuCollection[]> {
+    console.log('zzq see get menu');
     return from(this.getMenu());
   }
 
@@ -102,6 +103,11 @@ export class ApiMenuWebImplService implements ApiMenuService{
   }
 
   async getMenu(): Promise<ApiMenuCollection[]> {
+    if (Array.isArray(this.cache) && this.cache.length > 0) {
+      return new Promise(resolve => {
+        resolve(this.cache);
+      });
+    }
     const data = await Promise.all([
       this.menuStorageService.getAllMenus(),
       this.menuStorageService.getAllMenuItems(),
@@ -112,7 +118,7 @@ export class ApiMenuWebImplService implements ApiMenuService{
     allItems.forEach(item => {
       if (collectionMap.has(item.collectionId)) {
         collectionMap.get(item.collectionId).push(item);
-      }else {
+      } else {
         const arr = [];
         arr.push(item);
         collectionMap.set(item.collectionId, arr);

@@ -30,7 +30,6 @@ export class RawTextDocComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('set val', changes);
     if (changes.readonly) {
       this.editorOptions = {...this.editorOptions, readOnly: this.readonly};
     }

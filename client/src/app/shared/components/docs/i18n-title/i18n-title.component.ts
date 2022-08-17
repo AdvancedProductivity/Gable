@@ -17,7 +17,6 @@ export class I18nTitleComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log('i18n modify', )
     if (!this.data || !this.data.i18n) {
       this.data = new I18nDocNode();
       this.data.i18n = 'PAGES.DOCS.DOC_URL';
@@ -26,6 +25,5 @@ export class I18nTitleComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('set val', changes);
   }
 }
