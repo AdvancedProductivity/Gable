@@ -1,0 +1,57 @@
+<div class="i18n-doc-container">
+  <div class="i18n-doc-opera-bar"
+       *ngIf="!readonly">
+    <div class="left-select">
+      <ng-select
+        class="raw-doc-type-select"
+        [clearable]="false"
+        [(ngModel)]="data.i18n"
+      >
+        <ng-option [value]="'PAGES.DOCS.DOC_URL'">
+          {{ 'PAGES.DOCS.DOC_URL' | translate }}
+        </ng-option>
+        <ng-option [value]="'PAGES.DOCS.DOC_HEADER'">
+          {{ 'PAGES.DOCS.DOC_HEADER' | translate }}
+        </ng-option>
+        <ng-option [value]="'PAGES.DOCS.REQ_TYPE'">
+          {{ 'PAGES.DOCS.REQ_TYPE' | translate }}
+        </ng-option>
+        <ng-option [value]="'PAGES.DOCS.QUERY_PARAM'">
+          {{ 'PAGES.DOCS.QUERY_PARAM' | translate }}
+        </ng-option>
+        <ng-option [value]="'PAGES.DOCS.FORM_DATA'">
+          {{ 'PAGES.DOCS.FORM_DATA' | translate }}
+        </ng-option>
+        <ng-option [value]="'PAGES.DOCS.BODY_TEXT'">
+          {{ 'PAGES.DOCS.BODY_TEXT' | translate }}
+        </ng-option>
+        <ng-option [value]="'PAGES.DOCS.BODY_TEXT_INFO'">
+          {{ 'PAGES.DOCS.BODY_TEXT_INFO' | translate }}
+        </ng-option>
+        <ng-option [value]="'PAGES.DOCS.RESP_BODY_TEXT'">
+          {{ 'PAGES.DOCS.RESP_BODY_TEXT' | translate }}
+        </ng-option>
+        <ng-option [value]="'PAGES.DOCS.RESP_BODY_TEXT_INFO'">
+          {{ 'PAGES.DOCS.RESP_BODY_TEXT_INFO' | translate }}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="url-doc-content">
+    <h1 *ngIf="data.level === 1">
+      {{ data.i18n | translate }}
+    </h1>
+    <h2 *ngIf="data.level === 2">
+      {{ data.i18n | translate }}
+    </h2>
+    <h3 *ngIf="data.level === 3">
+      {{ data.i18n | translate }}
+    </h3>
+    <h4 *ngIf="data.level === 4">
+      {{ data.i18n | translate }}
+    </h4>
+    <h5 *ngIf="data.level === 5">
+      {{ data.i18n | translate }}
+    </h5>
+  </div>
+</div>

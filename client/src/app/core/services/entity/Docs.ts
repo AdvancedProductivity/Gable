@@ -70,6 +70,10 @@ export class DocJsonNode{
     this.canEditName = true;
   }
 }
+export class I18nDocNode{
+  i18n: string;
+  level: number;
+}
 export class UrlDocNode{
   url: string;
   host: string;

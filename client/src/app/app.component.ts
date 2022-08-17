@@ -11,6 +11,7 @@ import {HttpApiDocComponent} from './shared/components/docs/http-api-doc/http-ap
 import {TreeDataEditorComponent} from "./shared/components/api/work-bench/http-work-bench/tree-data-editor/tree-data-editor.component";
 import {HttpUrlDocComponent} from "./shared/components/docs/http-url-doc/http-url-doc.component";
 import {RawTextDocComponent} from "./shared/components/docs/raw-text-doc/raw-text-doc.component";
+import {I18nTitleComponent} from "./shared/components/docs/i18n-title/i18n-title.component";
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,8 @@ export class AppComponent {
     injector: Injector) {
     const url = createCustomElement(HttpUrlDocComponent, {injector});
     customElements.define('http-url-doc-component', url);
+    const i18nTitle = createCustomElement(I18nTitleComponent, {injector});
+    customElements.define('i18n-title-component', i18nTitle);
     const rawText = createCustomElement(RawTextDocComponent, {injector});
     customElements.define('raw-text-doc-component', rawText);
     const monin = createCustomElement(HttpApiDocComponent, {injector});
