@@ -52,6 +52,9 @@
     },
     "DOCS": {
       "CREATE": "Create New Doc",
+      "COPY_HOST": "Copy Host",
+      "COPY_PATH": "Copy Path",
+      "COPY_ALL": "Copy All",
       "JSON_DOC_GEN": "Edit Doc",
       "JSON_DOC_GEN_EXIST": "Exist Edit",
       "ADD_NEW_ARTICLE": "Add",
@@ -83,6 +86,8 @@
     "COME_ON": "Come On!"
   },
   "MESSAGE": {
+    "COPY_SUCCESS": "Copy Success",
+    "PARSER_ERROR": "Parser Error",
     "CANCEL": "Cancel",
     "CONFIRM": "Confirm",
     "BACK": "Back",

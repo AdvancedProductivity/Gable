@@ -70,3 +70,8 @@ export class DocJsonNode{
     this.canEditName = true;
   }
 }
+export class UrlDocNode{
+  url: string;
+  host: string;
+  path: string;
+}

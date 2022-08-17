@@ -74,7 +74,8 @@ import { HttpApiDocComponent } from './components/docs/http-api-doc/http-api-doc
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { TreeDataEditorComponent } from './components/api/work-bench/http-work-bench/tree-data-editor/tree-data-editor.component';
-
+import { HttpUrlDocComponent } from './components/docs/http-url-doc/http-url-doc.component';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 @NgModule({
   declarations: [
     PageNotFoundComponent
@@ -109,7 +110,7 @@ import { TreeDataEditorComponent } from './components/api/work-bench/http-work-b
     , ResponseCookiesComponent
     , TestDashboardComponent
     , CollectionWorkBenchComponent
-    , HttpApiDocComponent, TreeDataEditorComponent
+    , HttpApiDocComponent, TreeDataEditorComponent, HttpUrlDocComponent
   ],
   imports: [
     CommonModule
@@ -137,41 +138,43 @@ import { TreeDataEditorComponent } from './components/api/work-bench/http-work-b
     , NgSelectModule
     , MatProgressBarModule
     , MatDialogModule
+    , ClipboardModule
     , NgxMatContextMenuTriggerModule
     , AgGridModule
   ],
-    exports: [
-        TranslateModule
-        , WebviewDirective
-        , FormsModule
-        , MatIconModule
-        , MatButtonModule
-        , MatSliderModule
-        , MatCardModule
-        , MatTreeModule
-        , MatSnackBarModule
-        , MatRadioModule
-        , MonacoEditorModule
-        , ApiTreeMenuComponent
-        , MatFormFieldModule
-        , MatInputModule
-        , MatDialogModule
-        , MatTabsModule
-        , MatMenuModule
-        , MatTooltipModule
-        , MatDividerModule
-        , NgxSpinnerModule
-        , AngularSplitModule
-        , RightPanelComponent
-        , NgxMatContextMenuTriggerModule
-        , NavComponent
-        , ApiHeaderOperationComponent
-        , NgSelectModule
-        , MatProgressBarModule
-        , HttpWorkBenchComponent
-        , AgGridModule
-        , TestDashboardComponent
-        , HttpApiDocComponent, TreeDataEditorComponent
-    ]
+  exports: [
+    TranslateModule
+    , WebviewDirective
+    , FormsModule
+    , MatIconModule
+    , MatButtonModule
+    , MatSliderModule
+    , MatCardModule
+    , MatTreeModule
+    , MatSnackBarModule
+    , MatRadioModule
+    , MonacoEditorModule
+    , ApiTreeMenuComponent
+    , MatFormFieldModule
+    , MatInputModule
+    , MatDialogModule
+    , MatTabsModule
+    , MatMenuModule
+    , MatTooltipModule
+    , MatDividerModule
+    , NgxSpinnerModule
+    , AngularSplitModule
+    , RightPanelComponent
+    , NgxMatContextMenuTriggerModule
+    , NavComponent
+    , ApiHeaderOperationComponent
+    , NgSelectModule
+    , MatProgressBarModule
+    , HttpWorkBenchComponent
+    , ClipboardModule
+    , AgGridModule
+    , TestDashboardComponent
+    , HttpApiDocComponent, TreeDataEditorComponent, HttpUrlDocComponent
+  ]
 })
 export class SharedModule {}

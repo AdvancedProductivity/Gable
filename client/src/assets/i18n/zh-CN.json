@@ -24,6 +24,9 @@
     "DOCS": {
       "CREATE": "创建新文档",
       "SELECT_A_DOC": "请先在左侧选择一篇文档",
+      "COPY_HOST": "复制域名",
+      "COPY_PATH": "复制路径",
+      "COPY_ALL": "复制全部",
       "JSON_DOC_GEN": "编辑文档",
       "JSON_DOC_GEN_EXIST": "退出编辑",
       "ADD_CONTENT": "请点击上方添加按钮创建内容",
@@ -83,6 +86,8 @@
     "COME_ON": "加油!"
   },
   "MESSAGE": {
+    "COPY_SUCCESS": "复制成功",
+    "PARSER_ERROR": "解析错误",
     "CANCEL": "取消",
     "CONFIRM": "确认",
     "BACK": "返回",

@@ -1,0 +1,37 @@
+<div class="url-doc-container">
+  <div class="opera-bar">
+    <div class="left-input">
+      <input class="url-input" [(ngModel)]="urlStr">
+    </div>
+    <div class="btn">
+      <button mat-raised-button color="primary" (click)="apply()" [disabled]="!urlStr">
+        {{ 'PAGES.SETTING.APPLY' | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="url-doc-content"
+       (mouseover)="isIn = true"
+       (mouseleave)="isIn = false"
+       *ngIf="isReady"
+  >
+    <div
+      class="code-container"
+    >
+      <code class="text">
+        {{url.url}}
+      </code>
+    </div>
+    <div class="btn-gr"
+         *ngIf="isIn">
+      <button mat-button color="primary" (click)="copy(0)">
+        {{ 'PAGES.DOCS.COPY_HOST' | translate }}
+      </button>
+      <button mat-button color="primary" (click)="copy(1)">
+        {{ 'PAGES.DOCS.COPY_PATH' | translate }}
+      </button>
+      <button mat-button color="primary" (click)="copy(2)">
+        {{ 'PAGES.DOCS.COPY_ALL' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
