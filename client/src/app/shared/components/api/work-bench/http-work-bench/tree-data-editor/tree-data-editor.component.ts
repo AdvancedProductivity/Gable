@@ -1,7 +1,8 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import {DocJsonNode} from '../../../../../../core/services/entity/Docs';
+import {debounceTime, Subject} from 'rxjs';
 
 @Component({
   selector: 'app-tree-data-editor',
@@ -9,8 +10,10 @@ import {DocJsonNode} from '../../../../../../core/services/entity/Docs';
   styleUrls: ['./tree-data-editor.component.scss']
 })
 export class TreeDataEditorComponent implements OnInit, OnChanges {
+  @Output() chang = new EventEmitter<DocJsonNode>();
   @Input() da: DocJsonNode[];
   @Input() readonly = false;
+  treeSubject = new Subject<void>();
   root: DocJsonNode;
   treeControl = new NestedTreeControl<DocJsonNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<DocJsonNode>();
@@ -20,14 +23,12 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
   }
 
   @Input() get getData(): any {
-    return this.dataSource.data;
+    return this.root;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('set value', changes);
     if (changes.da && changes.da.currentValue) {
-      this.root = changes.da.currentValue[0];
-      console.log('render data', this.root);
+      this.root = changes.da.currentValue;
       setTimeout(() => {
         const arr = [];
         arr.push(this.root);
@@ -58,6 +59,14 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
       this.dataSource.data = [...[]];
       this.dataSource.data = [...arr];
     }
+    this.treeSubject.pipe(debounceTime(2000))
+      .subscribe(res => {
+        this.chang.next(this.root);
+      });
+  }
+
+  dataChange() {
+    this.treeSubject.next();
   }
 
 
@@ -67,9 +76,9 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
     arr.push(this.root);
     this.dataSource.data = [...[]];
     this.dataSource.data = [...arr];
-    setTimeout(() => {
-    }, 100);
+    this.dataChange();
   }
+
   readOnly() {
     this.readonly = !this.readonly;
   }
@@ -82,6 +91,7 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
     arr.push(this.root);
     this.dataSource.data = [...[]];
     this.dataSource.data = [...arr];
+    this.dataChange();
   }
 
   add(id): void {
@@ -91,6 +101,7 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
     arr.push(this.root);
     this.dataSource.data = [...[]];
     this.dataSource.data = [...arr];
+    this.dataChange();
   }
 
   private traverseForAdd(o: DocJsonNode, parentId: string) {
@@ -163,7 +174,7 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
       if (o[i] !== null && Array.isArray(o[i]) && o[i].length > 0) {
         if (!docs[index].children[0]) {
           this.generateItem(o, i, curLevel, docs, index, func);
-        }else if (docs[index].children[0].name !== 'item' && !docs[index].children[0].canEditName) {
+        } else if (docs[index].children[0].name !== 'item' && !docs[index].children[0].canEditName) {
           this.generateItem(o, i, curLevel, docs, index, func);
         } else if (docs[index].children[0].name === 'item' && !docs[index].children[0].canEditName) {
           this.traverse(o[i][0], func, docs[index].children[0].children, curLevel + 2);
