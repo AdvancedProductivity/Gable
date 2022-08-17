@@ -20,25 +20,25 @@ public class HttpDtoUtils {
 
     public static HttpApi transFromDtoToEntity(HttpApiDto dto) {
         HttpApi api = new HttpApi();
-        BeanUtils.copyProperties(dto, api, "hostArr", "pathArray", "query", "header", "bodyForm", "bodyUrlEncoded");
+        BeanUtils.copyProperties(dto, api, "hostArr", "pathArray", "query", "header", "bodyForm", "bodyUrlEncoded", "bodyTextDoc", "respBodyTextDoc");
         setDtoToEntity(dto, api);
         return api;
     }
 
     public static void transFromDtoToEntity(HttpApiDto dto, HttpApi api) {
-        BeanUtils.copyProperties(dto, api, "hostArr", "pathArray", "query", "header", "bodyForm", "bodyUrlEncoded");
+        BeanUtils.copyProperties(dto, api, "hostArr", "pathArray", "query", "header", "bodyForm", "bodyUrlEncoded", "bodyTextDoc", "respBodyTextDoc");
         setDtoToEntity(dto, api);
     }
 
     public static HttpApiDto transFromEntityToDto(HttpApi api) {
         HttpApiDto dto = new HttpApiDto();
-        BeanUtils.copyProperties(api, dto, "hostArr", "pathArray", "query", "header", "bodyForm", "bodyUrlEncoded");
+        BeanUtils.copyProperties(api, dto, "hostArr", "pathArray", "query", "header", "bodyForm", "bodyUrlEncoded", "bodyTextDoc", "respBodyTextDoc");
         setApiToDto(dto, api);
         return dto;
     }
 
     public static void transFromEntityToDto(HttpApiDto dto, HttpApi api) {
-        BeanUtils.copyProperties(api, dto, "hostArr", "pathArray", "query", "header", "bodyForm", "bodyUrlEncoded");
+        BeanUtils.copyProperties(api, dto, "hostArr", "pathArray", "query", "header", "bodyForm", "bodyUrlEncoded", "bodyTextDoc", "respBodyTextDoc");
         setApiToDto(dto, api);
     }
 
@@ -50,6 +50,9 @@ public class HttpDtoUtils {
         api.setHeader(getStr(dto.getHeader(), OBJECT_MAPPER));
         api.setBodyForm(getStr(dto.getBodyForm(), OBJECT_MAPPER));
         api.setBodyUrlEncoded(getStr(dto.getBodyUrlEncoded(), OBJECT_MAPPER));
+        api.setBodyTextDoc(getStr(dto.getBodyTextDoc(), OBJECT_MAPPER));
+        api.setRespBodyTextDoc(getStr(dto.getRespBodyTextDoc(), OBJECT_MAPPER));
+        api.setRespBodyTextDoc(getStr(dto.getBodyUrlEncoded(), OBJECT_MAPPER));
     }
 
     private static String getStr(Object arr, ObjectMapper objectMapper) {
@@ -68,7 +71,21 @@ public class HttpDtoUtils {
         dto.setHeader(getKeyValue(api.getHeader(), OBJECT_MAPPER));
         dto.setBodyForm(getFormKeyValue(api.getBodyForm(), OBJECT_MAPPER));
         dto.setBodyUrlEncoded(getKeyValue(api.getBodyUrlEncoded(), OBJECT_MAPPER));
+        dto.setBodyTextDoc(mapDoc(api.getBodyTextDoc(), OBJECT_MAPPER));
+        dto.setRespBodyTextDoc(mapDoc(api.getRespBodyTextDoc(), OBJECT_MAPPER));
         handleDefaultValue(dto);
+    }
+
+    private static DocJsonNode mapDoc(String text, ObjectMapper objectMapper) {
+        if (StringUtils.isNotEmpty(text)) {
+            try {
+                return objectMapper.readValue(text, DocJsonNode.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return DocJsonNode.getRoot();
     }
 
     private static List<FormKeyValueDto> getFormKeyValue(String str, ObjectMapper objectMapper) {
@@ -128,6 +145,12 @@ public class HttpDtoUtils {
         }
         if (dto.getBodyUrlEncoded() == null) {
             dto.setBodyUrlEncoded(Collections.emptyList());
+        }
+        if (dto.getBodyTextDoc() == null) {
+            dto.setBodyTextDoc(DocJsonNode.getRoot());
+        }
+        if (dto.getRespBodyTextDoc() == null) {
+            dto.setRespBodyTextDoc(dto.getBodyTextDoc());
         }
     }
 }

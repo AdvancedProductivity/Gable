@@ -188,4 +188,22 @@ public class HttpApi extends BaseEntity {
     )
     @Comment("http define version.is also api define table version")
     private Long version;
+
+
+    @Column(
+            name = "body_text_doc",
+            columnDefinition = "text",
+            nullable = true
+    )
+    @Comment("http request body doc str")
+    private String bodyTextDoc;
+
+
+    @Column(
+            name = "resp_body_text_doc",
+            columnDefinition = "text",
+            nullable = true
+    )
+    @Comment("http response body doc str")
+    private String respBodyTextDoc;
 }

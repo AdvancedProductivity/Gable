@@ -1,8 +1,10 @@
 package org.adp.gable.api.dto;
 
 import lombok.Data;
+import org.adp.gable.api.dto.http.DocJsonNode;
 import org.adp.gable.api.dto.http.FormKeyValueDto;
 import org.adp.gable.api.dto.http.KeyValueDto;
+
 import java.util.List;
 
 /**
@@ -32,5 +34,7 @@ public class HttpApiDto {
     private String bodyTextType;
     private String bodyGraphQlQuery;
     private String bodyGraphQlVar;
+    private DocJsonNode bodyTextDoc;
+    private DocJsonNode respBodyTextDoc;
     private Long version;
 }

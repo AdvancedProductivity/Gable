@@ -138,7 +138,7 @@ public class DocService {
         return id;
     }
 
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     @Modifying
     public void updateOrCreateBlock(DocDefineDto dto) {
         // update define name
@@ -149,7 +149,7 @@ public class DocService {
         }
         // delete all blocks
         this.docBlockDao.deleteByDocDefineId(dto.getId());
-        // save all block data
+        // restore all new block data
         List<DocBlockDto> blocks = dto.getBlocks();
         List<DocBlock> newBlocks = new ArrayList<>(blocks.size());
         for (DocBlockDto block : blocks) {
