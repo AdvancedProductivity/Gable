@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {MonacoStandaloneCodeEditor} from '@materia-ui/ngx-monaco-editor';
-import {debounceTime, distinctUntilChanged, Subject} from 'rxjs';
+import {debounceTime, Subject} from 'rxjs';
 import {TreeDataEditorComponent} from '../../tree-data-editor/tree-data-editor.component';
 import {DocJsonNode} from '../../../../../../../core/services/entity/Docs';
 
@@ -27,8 +27,9 @@ export class TextBodyComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.contentSubject.pipe(debounceTime(1000), distinctUntilChanged())
+    this.contentSubject.pipe(debounceTime(2000))
       .subscribe(() => {
+        console.log('body changed');
         this.contentChange.next(this.code);
       });
   }
