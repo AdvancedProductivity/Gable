@@ -34,11 +34,7 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
         arr.push(this.root);
         this.dataSource.data = [...[]];
         this.dataSource.data = [...arr];
-        console.log('render data', this.dataSource.data);
-
-        this.dataSource.data.forEach(item => {
-          this.treeControl.toggle(item);
-        });
+        this.expandAll(this.dataSource.data);
       }, 200);
     }
   }
@@ -70,6 +66,7 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
       arr.push(this.root);
       this.dataSource.data = [...[]];
       this.dataSource.data = [...arr];
+      this.expandAll(this.dataSource.data);
     }
   }
 
@@ -209,6 +206,15 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
       a.canEditName = false;
       a.children = [];
       docs[index].children.push(a);
+    }
+  }
+
+  private expandAll(data: DocJsonNode[]) {
+    if (Array.isArray(data) && data.length > 0) {
+      for (const datum of data) {
+        this.treeControl.toggle(datum);
+        this.expandAll(datum.children);
+      }
     }
   }
 }
