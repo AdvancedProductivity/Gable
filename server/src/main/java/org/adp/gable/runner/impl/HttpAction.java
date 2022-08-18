@@ -12,7 +12,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.Duration;
 import java.util.Iterator;
 import java.util.Locale;
@@ -40,6 +42,8 @@ public class HttpAction implements Action {
 
     private static String lo = "";
 
+    private OkHttpClient client;
+
     public static void location(String newLO) {
         lo = newLO;
     }
@@ -51,6 +55,7 @@ public class HttpAction implements Action {
                 .readTimeout(Duration.ofSeconds(300))
                 .callTimeout(Duration.ofSeconds(300))
                 .build();
+        this.client = client;
         Request.Builder builder = new Request.Builder().url(parserToUrlPath(in));
         String method = in.path(HTTP_METHOD).asText();
         if (StringUtils.equalsIgnoreCase(method, HttpMethod.GET.name())) {
@@ -166,7 +171,8 @@ public class HttpAction implements Action {
                     if (StringUtils.equals(item.path("type").asText(), "file")) {
                         String fileName = item.path("fileName").asText();
                         String filePath = item.path("filePath").asText();
-                        File waitForAdd = FileUtils.getFile(lo, filePath);
+                        String filUrl = item.path("fileUrl").asText();
+                        File waitForAdd = this.getFile(filePath, filUrl);
                         if (waitForAdd.exists() && waitForAdd.isFile()) {
                             formDataBuilder.addFormDataPart(key, fileName,
                                     RequestBody.create(MediaType.parse("application/octet-stream"), waitForAdd));
@@ -184,6 +190,37 @@ public class HttpAction implements Action {
             return RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), urlEncodedContent);
         }
         return null;
+    }
+
+    private File getFile(String filePath, String filUrl) {
+        File file = FileUtils.getFile(lo, filePath);
+        if (!file.exists() && !StringUtils.isNotEmpty(filUrl)) {
+            try {
+                Request request = new Request.Builder().url(filUrl).build();
+                Response response = this.client.newCall(request).execute();
+                ResponseBody responseBody = response.body();
+                if (responseBody != null) {
+                    InputStream input = responseBody.byteStream();
+                    FileOutputStream outputStream = FileUtils.openOutputStream(file);
+                    byte[] dataBuffer = new byte[8192];
+                    int readBytes;
+                    long totalBytes = 0;
+                    while ((readBytes = input.read(dataBuffer)) != -1) {
+                        totalBytes += readBytes;
+                        outputStream.write(dataBuffer, 0, readBytes);
+                    }
+                    outputStream.close();
+                    input.close();
+                    log.info("write data in file: {}", totalBytes);
+                    file = FileUtils.getFile(lo, filePath);
+                }else {
+                    log.warn("not get response");
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return file;
     }
 
 

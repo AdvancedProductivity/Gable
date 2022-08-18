@@ -52,7 +52,6 @@ public class HttpDtoUtils {
         api.setBodyUrlEncoded(getStr(dto.getBodyUrlEncoded(), OBJECT_MAPPER));
         api.setBodyTextDoc(getStr(dto.getBodyTextDoc(), OBJECT_MAPPER));
         api.setRespBodyTextDoc(getStr(dto.getRespBodyTextDoc(), OBJECT_MAPPER));
-        api.setRespBodyTextDoc(getStr(dto.getBodyUrlEncoded(), OBJECT_MAPPER));
     }
 
     private static String getStr(Object arr, ObjectMapper objectMapper) {

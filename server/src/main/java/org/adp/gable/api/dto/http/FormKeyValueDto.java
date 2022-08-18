@@ -3,6 +3,8 @@ package org.adp.gable.api.dto.http;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
+import java.beans.Transient;
+
 /**
  * @author zzq
  */
@@ -15,6 +17,7 @@ public class FormKeyValueDto extends KeyValueDto {
     private String fileId;
 
     @Override
+    @Transient
     public boolean isNotIgnore() {
         if (!getUsing()) {
             return false;
