@@ -37,8 +37,10 @@ export class JsonTreeBlock implements BlockTool {
     this.wrapper = document.createElement('div');
     const containerElement = document.createElement('div');
     containerElement.style.width = '100%';
-    containerElement.style.height = '550px';
+    containerElement.style.minHeight = '60px';
+    containerElement.style.overflow = 'hidden';
     this.dataElement = document.createElement('tree-data-editor-component');
+    this.dataElement.isScroll = false;
     this.dataElement.readonly = this.readOnly;
     this.dataElement.da = this.data.nodes;
     containerElement.appendChild(this.dataElement);

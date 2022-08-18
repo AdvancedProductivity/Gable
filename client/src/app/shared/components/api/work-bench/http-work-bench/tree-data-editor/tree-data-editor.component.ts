@@ -13,6 +13,7 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
   @Output() chang = new EventEmitter<DocJsonNode>();
   @Input() da: DocJsonNode[];
   @Input() readonly = false;
+  @Input() isScroll = true;
   treeSubject = new Subject<void>();
   root: DocJsonNode;
   treeControl = new NestedTreeControl<DocJsonNode>(node => node.children);

@@ -13,7 +13,10 @@
       {{ 'PAGES.DOCS.JSON_FIELD_DESCRIBE' | translate }}
     </div>
   </div>
-  <div style="position: absolute;width: 100%;height: calc(100% - 25px)" [perfectScrollbar]>
+  <div
+    style="width: 100%"
+    [class.is-scroll]="isScroll"
+  >
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
       <!-- This is the tree node template for leaf nodes -->
       <!-- There is inline padding applied to this node using styles.
