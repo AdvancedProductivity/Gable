@@ -11,7 +11,7 @@ import {debounceTime, Subject} from 'rxjs';
 })
 export class TreeDataEditorComponent implements OnInit, OnChanges {
   @Output() chang = new EventEmitter<DocJsonNode>();
-  @Input() da: DocJsonNode[];
+  @Input() da: DocJsonNode;
   @Input() readonly = false;
   @Input() isScroll = true;
   treeSubject = new Subject<void>();
@@ -62,12 +62,14 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
 
   setDocData(bodyTextDoc: any) {
     if (bodyTextDoc && bodyTextDoc.name === 'root') {
-      this.root = bodyTextDoc;
-      const arr = [];
-      arr.push(this.root);
-      this.dataSource.data = [...[]];
-      this.dataSource.data = [...arr];
-      this.expandAll(this.dataSource.data);
+      setTimeout(() => {
+        this.root = bodyTextDoc;
+        const arr = [];
+        arr.push(this.root);
+        this.dataSource.data = [...[]];
+        this.dataSource.data = [...arr];
+        this.expandAll(this.dataSource.data);
+      }, 120)
     }
   }
 
