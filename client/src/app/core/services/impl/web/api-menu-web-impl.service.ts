@@ -30,6 +30,13 @@ export class ApiMenuWebImplService implements ApiMenuService{
     return this.menuActionListener.asObservable();
   }
 
+  clearAllCache(){
+    this.cache = [];
+    this.cacheMap.clear();
+    this.httpApiService.clearAllCache();
+    this.navTabImplService.clearAllCache();
+  }
+
   getMenus(): Observable<ApiMenuCollection[]> {
     console.log('zzq see get menu');
     return from(this.getMenu());

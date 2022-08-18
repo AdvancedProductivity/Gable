@@ -3,6 +3,7 @@ import {HttpApiHistoryCache} from '../../entity/HttpApi';
 import {from, Observable, of} from 'rxjs';
 import {db} from '../../db';
 import {HttpApiStorageService} from '../../storage/http-api-storage.service';
+import * as dns from "dns";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,11 @@ export class HttpApiWebImplService {
   private cacheMap = new Map<number, HttpApiHistoryCache>();
 
   constructor(private httpApiStorageService: HttpApiStorageService) {
+  }
+
+  public clearAllCache(){
+    this.cacheMap.clear();
+    db.httpApiCache.clear().then(res => {});
   }
 
   public addApiDefine(data: HttpApiHistoryCache): void {

@@ -18,6 +18,12 @@ export class NavTabWebImplService implements NavTabService{
     this.cacheMap = new Map<string, OpeningNavTab>();
   }
 
+  public clearAllCache(){
+    this.cacheMap.clear();
+    this.cache = undefined;
+    db.openingTabs.clear().then(res => {});
+  }
+
   getOpeningTab(): Observable<string> {
     return of(this.lastOpening);
   }

@@ -16,6 +16,13 @@ export class HttpApiService {
     private webImpl: HttpApiWebImplService
   ) { }
 
+  public clearAllCache(){
+    if (this.electronService.isElectron) {
+    } else {
+      return this.webImpl.clearAllCache();
+    }
+  }
+
   public addApiDefine(data: HttpApiHistoryCache): void {
     if (this.electronService.isElectron) {
       return this.electronImpl.addApiDefine(data);

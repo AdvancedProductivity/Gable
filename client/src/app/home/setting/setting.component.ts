@@ -3,6 +3,7 @@ import {ConfigServiceImpl} from '../../core/services/impl/ConfigServiceImpl';
 import {ApiRunnerService} from '../../core/services/impl/api-runner.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {TranslateService} from "@ngx-translate/core";
+import {ApiMenuWebImplService} from "../../core/services/impl/web/api-menu-web-impl.service";
 
 @Component({
   selector: 'app-setting',
@@ -17,6 +18,7 @@ export class SettingComponent implements OnInit {
     private snackBar: MatSnackBar,
     private trans: TranslateService,
     private apiRunnerService: ApiRunnerService,
+    private menuWebImplService: ApiMenuWebImplService,
     private config: ConfigServiceImpl
   ) {
   }
@@ -44,6 +46,7 @@ export class SettingComponent implements OnInit {
       if (res.result) {
         this.showApplyTip();
         this.config.updateOrCreateConfig('gableServer', this.serverUrl);
+        this.menuWebImplService.clearAllCache();
       }
     }, error => {
       this.showErrorTip(error.message);

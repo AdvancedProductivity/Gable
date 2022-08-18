@@ -17,6 +17,12 @@ export class NavTabImplService implements NavTabService{
     private webImpl: NavTabWebImplService
   ) { }
 
+  public clearAllCache(){
+    if (this.electronService.isElectron) {
+    }
+    return this.webImpl.clearAllCache();
+  }
+
   getOpeningTab(): Observable<string> {
     if (this.electronService.isElectron) {
       return this.electronImpl.getOpeningTab();
