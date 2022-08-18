@@ -10,6 +10,7 @@ import {
   ApiFormKeyValue,
   ApiFormKeyValueChangeEvent, getCommonFormKeyValue
 } from '../../../../../../../core/services/entity/ApiPart';
+import {randomString} from '../../../../../../../core/services/utils/Uuid';
 
 @Component({
   selector: 'app-form-editor',
@@ -62,8 +63,14 @@ export class FormEditorComponent implements OnInit {
       cellRenderer: CellFileTextComponent,
       cellRendererParams: {
         hintStr: 'key',
-        changeType: (index, newType) => {
+        changeType: (index, newType, rowId) => {
+          const rowNode = this.gridApi.getRowNode(rowId);
           this.rowData[index].type = newType;
+          this.gridApi.refreshCells({
+            force: true,
+            rowNodes: [rowNode],
+            columns: ['1']
+          });
         }
       },
       resizable: true,
@@ -167,6 +174,8 @@ export class FormEditorComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  getId = (da) => randomString(6);
 
   public setData(data: ApiFormKeyValue[]): void {
     console.log('zzq see set form data', data);

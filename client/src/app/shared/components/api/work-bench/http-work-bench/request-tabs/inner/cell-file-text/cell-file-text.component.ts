@@ -24,18 +24,14 @@ export class CellFileTextComponent implements OnInit {
 
   agInit(params: ICellRendererParams): void {
     this.params = params;
-    this.gridApi= params.api;
+    this.type = params.data.type;
+    this.gridApi = params.api;
     this.setValue(params);
   }
 
   onTypeChange(data: any) {
     // @ts-ignore
-    this.params.changeType(this.params.rowIndex, data);
-    setTimeout(() => {
-      // this.gridApi.getRowNode()
-      this.gridApi.refreshCells();
-    }, 500);
-    console.log('zzq see change event', data, this.params);
+    this.params.changeType(this.params.rowIndex, data, this.params.node.id);
   }
 
   refresh(params: ICellRendererParams<any>): boolean {

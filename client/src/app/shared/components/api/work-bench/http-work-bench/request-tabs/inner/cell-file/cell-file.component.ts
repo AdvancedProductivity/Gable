@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ICellRendererParams} from 'ag-grid-community';
 import {ICellRendererAngularComp} from 'ag-grid-angular-legacy';
 import {HttpApiStorageService} from '../../../../../../../../core/services/storage/http-api-storage.service';
-import {FileUploadInfo} from "../../../../../../../../core/services/entity/ApiPart";
+import {FileUploadInfo} from '../../../../../../../../core/services/entity/ApiPart';
 
 @Component({
   selector: 'app-cell-file',
