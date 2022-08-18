@@ -194,14 +194,18 @@ public class HttpAction implements Action {
 
     private File getFile(String filePath, String filUrl) {
         File file = FileUtils.getFile(lo, filePath);
-        if (!file.exists() && !StringUtils.isNotEmpty(filUrl)) {
+        log.info("was file {} exist: {}", filePath, file.exists());
+        if ((!file.exists() || !file.isFile()) && StringUtils.isNotEmpty(filUrl)) {
+            InputStream input = null;
+            FileOutputStream outputStream = null;
+            Response response = null;
             try {
                 Request request = new Request.Builder().url(filUrl).build();
-                Response response = this.client.newCall(request).execute();
+                response = this.client.newCall(request).execute();
                 ResponseBody responseBody = response.body();
                 if (responseBody != null) {
-                    InputStream input = responseBody.byteStream();
-                    FileOutputStream outputStream = FileUtils.openOutputStream(file);
+                    input = responseBody.byteStream();
+                    outputStream = FileUtils.openOutputStream(file);
                     byte[] dataBuffer = new byte[8192];
                     int readBytes;
                     long totalBytes = 0;
@@ -209,15 +213,29 @@ public class HttpAction implements Action {
                         totalBytes += readBytes;
                         outputStream.write(dataBuffer, 0, readBytes);
                     }
-                    outputStream.close();
-                    input.close();
                     log.info("write data in file: {}", totalBytes);
                     file = FileUtils.getFile(lo, filePath);
-                }else {
+                } else {
                     log.warn("not get response");
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                log.error("error happens while download file form " + filUrl, e);
+            } finally {
+                if (input != null) {
+                    try {
+                        input.close();
+                    }catch (Exception ignored){}
+                }
+                if (outputStream != null) {
+                    try {
+                        outputStream.close();
+                    }catch (Exception ignored){}
+                }
+                if (response != null) {
+                    try {
+                        response.close();
+                    }catch (Exception ignored){}
+                }
             }
         }
         return file;
