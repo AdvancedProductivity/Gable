@@ -1,7 +1,10 @@
 <perfect-scrollbar>
   <div class="doc-dashboard-container">
     <a class="doc-link" *ngFor="let doc of docs"  [routerLink]="['../detail', doc.id]">
-      <div class="doc-item" >
+      <div
+        class="doc-item"
+        title="{{ (doc.id === 1 ? 'PAGES.DOCS.FROM_AUTO_GEN' : 'PAGES.DOCS.FROM_AUTO_GEN') | translate }}"
+      >
         <div class="img-con">
           <img src="/assets/img/doc.png">
         </div>

@@ -55,6 +55,8 @@
       "COPY_HOST": "Copy Host",
       "COPY_PATH": "Copy Path",
       "COPY_ALL": "Copy All",
+      "FROM_AUTO_GEN": "This Doc From Auto Generate By Api Collection",
+      "FROM_AUTO_USER_CREATE": "This Doc Was Created By User",
       "JSON_DOC_GEN": "Edit Doc",
       "JSON_DOC_GEN_EXIST": "Exist Edit",
       "APPEND_DOC": "Append Doc",

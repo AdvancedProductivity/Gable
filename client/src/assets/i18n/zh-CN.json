@@ -29,6 +29,8 @@
       "COPY_ALL": "复制全部",
       "APPEND_DOC": "追加文档",
       "JSON_DOC_GEN": "编辑文档",
+      "FROM_AUTO_GEN": "这个文档是接口测试自动生成的",
+      "FROM_AUTO_USER_CREATE": "这个文档是用户自己创建的",
       "DOC_URL": "请求URL",
       "DOC_HEADER": "请求头设置",
       "REQ_TYPE": "请求方式",
