@@ -69,7 +69,7 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
         this.dataSource.data = [...[]];
         this.dataSource.data = [...arr];
         this.expandAll(this.dataSource.data);
-      }, 120)
+      }, 120);
     }
   }
 

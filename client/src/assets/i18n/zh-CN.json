@@ -46,6 +46,7 @@
       "EDITOR_DATA": "获取编辑器数据",
       "STASH": "暂存",
       "EDIT": "编辑",
+      "LOADING_BLOCK": "文档块正在加载中....",
       "SAVE": "保存",
       "JSON_FIELD_NAME": "字段名",
       "JSON_FIELD_TYPE": "字段类型",

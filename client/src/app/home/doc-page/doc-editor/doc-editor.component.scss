@@ -35,6 +35,12 @@
     width: 100%;
     position: relative;
 
+    .doc-loading-text{
+      color: white;
+      padding-top: 50px;
+      width: 200px;
+      text-align: center;
+    }
     .editor-inte {
       position: absolute;
       width: 100%;

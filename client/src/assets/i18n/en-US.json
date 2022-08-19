@@ -75,6 +75,7 @@
       "EDITOR_DATA": "Get Editor Data",
       "STASH": "Stash",
       "EDIT": "Edit",
+      "LOADING_BLOCK": "Doc Blocks Is Loading....",
       "SAVE": "Save",
       "PREVIEW": "Preview",
       "COLLECTION_SELECT": "Select Collection",
