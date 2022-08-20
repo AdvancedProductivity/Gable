@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {TreeDataEditorComponent} from '../../shared/components/api/work-bench/http-work-bench/tree-data-editor/tree-data-editor.component';
+import {TextBodyComponent} from '../../shared/components/api/work-bench/http-work-bench/request-tabs/text-body/text-body.component';
 
 @Component({
   selector: 'app-mock-page',
@@ -7,7 +7,7 @@ import {TreeDataEditorComponent} from '../../shared/components/api/work-bench/ht
   styleUrls: ['./mock-page.component.scss']
 })
 export class MockPageComponent implements OnInit {
-  @ViewChild('treeDataEditorComponent', {static: true}) vi: TreeDataEditorComponent;
+  @ViewChild('bodyComponent', {static: true}) bodyComponent: TextBodyComponent;
   code = `
   {
     "a":"123",
@@ -38,10 +38,10 @@ export class MockPageComponent implements OnInit {
   readonly = false;
 
   ngOnInit(): void {
+    this.bodyComponent.setBodyText(this.code);
   }
 
   gen() {
-    this.vi.gen(JSON.parse(this.code));
   }
 }
 

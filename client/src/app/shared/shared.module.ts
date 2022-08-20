@@ -144,39 +144,39 @@ import { I18nTitleComponent } from './components/docs/i18n-title/i18n-title.comp
     , NgxMatContextMenuTriggerModule
     , AgGridModule
   ],
-  exports: [
-    TranslateModule
-    , WebviewDirective
-    , FormsModule
-    , MatIconModule
-    , MatButtonModule
-    , MatSliderModule
-    , MatCardModule
-    , MatTreeModule
-    , MatSnackBarModule
-    , MatRadioModule
-    , MonacoEditorModule
-    , ApiTreeMenuComponent
-    , MatFormFieldModule
-    , MatInputModule
-    , MatDialogModule
-    , MatTabsModule
-    , MatMenuModule
-    , MatTooltipModule
-    , MatDividerModule
-    , NgxSpinnerModule
-    , AngularSplitModule
-    , RightPanelComponent
-    , NgxMatContextMenuTriggerModule
-    , NavComponent
-    , ApiHeaderOperationComponent
-    , NgSelectModule
-    , MatProgressBarModule
-    , HttpWorkBenchComponent
-    , ClipboardModule
-    , AgGridModule
-    , TestDashboardComponent
-    , HttpApiDocComponent, TreeDataEditorComponent, HttpUrlDocComponent, RawTextDocComponent, I18nTitleComponent
-  ]
+    exports: [
+        TranslateModule
+        , WebviewDirective
+        , FormsModule
+        , MatIconModule
+        , MatButtonModule
+        , MatSliderModule
+        , MatCardModule
+        , MatTreeModule
+        , MatSnackBarModule
+        , MatRadioModule
+        , MonacoEditorModule
+        , ApiTreeMenuComponent
+        , MatFormFieldModule
+        , MatInputModule
+        , MatDialogModule
+        , MatTabsModule
+        , MatMenuModule
+        , MatTooltipModule
+        , MatDividerModule
+        , NgxSpinnerModule
+        , AngularSplitModule
+        , RightPanelComponent
+        , NgxMatContextMenuTriggerModule
+        , NavComponent
+        , ApiHeaderOperationComponent
+        , NgSelectModule
+        , MatProgressBarModule
+        , HttpWorkBenchComponent
+        , ClipboardModule
+        , AgGridModule
+        , TestDashboardComponent
+        , HttpApiDocComponent, TreeDataEditorComponent, HttpUrlDocComponent, RawTextDocComponent, I18nTitleComponent, TextBodyComponent
+    ]
 })
 export class SharedModule {}

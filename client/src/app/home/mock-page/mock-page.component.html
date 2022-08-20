@@ -1,23 +1,4 @@
 <div class="t-container">
-  <div class="left">
-    <ngx-monaco-editor
-      [options]="editorOptions"
-      [(ngModel)]="code"
-    >
-    </ngx-monaco-editor>
-  </div>
-  <div>
-    <button (click)="gen()">Generate</button>
-    <button style="display: block" (click)="treeDataEditorComponent.readOnly()">readOnly {{readonly}}</button>
-  </div>
-  <mat-divider vertical></mat-divider>
-  <div class="right">
-    <div style="width: 100%;height: 600px;overflow-y: auto;box-sizing: border-box;padding: 10px">
-      <app-tree-data-editor #treeDataEditorComponent></app-tree-data-editor>
-    </div>
-    <div style="width: 100%;overflow-y: auto;box-sizing: border-box;padding: 10px">
-      <app-i18n-title></app-i18n-title>
-    </div>
-  </div>
+  <app-text-body #bodyComponent></app-text-body>
 </div>
 
