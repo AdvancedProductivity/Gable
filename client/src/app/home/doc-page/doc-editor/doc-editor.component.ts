@@ -25,8 +25,8 @@ import {DocService} from '../../../core/services/impl/doc.service';
 import {randomString} from '../../../core/services/utils/Uuid';
 import {JsonTreeBlock} from '../plugins/json-tree';
 import {UrlBlock} from '../plugins/url-block';
-import {RawText} from "../plugins/raw-text";
-import {I18nTitle} from "../plugins/i18n-title";
+import {RawText} from '../plugins/raw-text';
+import {I18nTitle} from '../plugins/i18n-title';
 
 @Component({
   selector: 'app-doc-editor',

@@ -20,6 +20,16 @@ export class DocStorageService {
   ) {
   }
 
+  public async initBaseDoc(): Promise<string> {
+    if (this.saveDataInRemote()) {
+      return this.remoteService.initBaseDoc();
+    }else if (this.electronService.isElectron) {
+      return this.elecService.initBaseDoc();
+    }else {
+      return this.indexDbService.initBaseDoc();
+    }
+  }
+
   public async addDoc(doc: Doc): Promise<number>{
     if (this.saveDataInRemote()) {
       return this.remoteService.addDoc(doc);

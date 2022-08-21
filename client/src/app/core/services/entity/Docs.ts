@@ -40,6 +40,40 @@ export class DocBlock {
   data: any;
   config: any;
 }
+
+export class DocBlockInElec {
+  i: number;
+  id: string;
+  docDefineId: number;
+  order: number;
+  type: string;
+  data: string;
+  config: string;
+}
+
+export const tansBlockToElec = (block: DocBlock) => {
+  const d = new DocBlockInElec();
+  d.data = JSON.stringify(block.data);
+  d.config = JSON.stringify(block.config);
+  d.i = block.i;
+  d.id = block.id;
+  d.type = block.type;
+  d.docDefineId = block.docDefineId;
+  d.order = block.order;
+  return d;
+};
+
+export const tansBlockToWebData = (block: DocBlockInElec) => {
+  const d = new DocBlock();
+  d.data = JSON.parse(block.data);
+  d.config = JSON.parse(block.config);
+  d.i = block.i;
+  d.id = block.id;
+  d.type = block.type;
+  d.docDefineId = block.docDefineId;
+  d.order = block.order;
+  return d;
+};
 /** Flat node with expandable and level information */
 export class DocMenuDynamicFlatNode {
   constructor(

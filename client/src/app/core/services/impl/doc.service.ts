@@ -8,10 +8,12 @@ import {Doc, DocBlock, DocDefine, DocMenu} from '../entity/Docs';
 export class DocService {
   private docCache: Doc[];
   constructor(private docStorageService: DocStorageService) {
+    this.docStorageService.initBaseDoc().then(r => {
+      console.log('init doc data ' +  r);
+    });
   }
 
   public async addDoc(name: string): Promise<number> {
-
     const doc = new Doc();
     doc.name = name;
     doc.dateCreated = new Date().getTime();

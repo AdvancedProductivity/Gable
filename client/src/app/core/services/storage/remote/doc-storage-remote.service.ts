@@ -145,4 +145,32 @@ export class DocStorageRemoteService {
       })
     ));
   }
+
+  public async initBaseDoc(): Promise<string> {
+    const d = await this.getDocById(1);
+    let r = 'base doc init';
+    if (d) {
+      r = 'base doc have exist';
+    }else {
+      const doc = new Doc();
+      doc.name = 'Default';
+      doc.dateCreated = new Date().getTime();
+      doc.id = 1;
+      this.addDoc(doc).then(ro => {});
+    }
+    return new Promise(resolve => {
+      resolve(r);
+    });
+  }
+
+  private async getDocById(id: number) {
+    const server = this.config.getConfigSync('gableServer');
+    return firstValueFrom(this.httpClient.get(`${server}/api/doc/docOne`, {params: {id}}).pipe(
+      map((res: any) => {
+        if (res.result) {
+          return res.data;
+        }
+      })
+    ));
+  }
 }

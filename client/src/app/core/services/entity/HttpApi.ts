@@ -137,7 +137,7 @@ export const transformToApiDefine = (api: HttpApiInElec) => {
   httpApi.path = api.path;
   httpApi.pathArray = JSON.parse(api.pathArray);
   httpApi.url = api.url;
-  httpApi.query =JSON.parse(api.query);
+  httpApi.query = JSON.parse(api.query);
   httpApi.header = JSON.parse(api.header);
   httpApi.bodyType = api.bodyType;
   httpApi.bodyForm = JSON.parse(api.bodyForm);

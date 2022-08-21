@@ -75,6 +75,16 @@ public class DocService {
         return l;
     }
 
+    public DocDto getOneById(Long id) {
+        final DocEntity docEntity = this.docDao.findById(id).orElse(null);
+        if (docEntity == null) {
+            return null;
+        }
+        DocDto dto = new DocDto();
+        BeanUtils.copyProperties(docEntity, dto);
+        return dto;
+    }
+
     public List<DocMenuDto> getDocMenuBaseLevel(Long docId, Integer level) {
         List<DocMenu> all = this.docMenuDao.findByDocIdAndLevelOrderById(docId, level);
         List<DocMenuDto> l = new ArrayList<>(all.size());

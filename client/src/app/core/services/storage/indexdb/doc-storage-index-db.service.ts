@@ -54,4 +54,20 @@ export class DocStorageIndexDbService {
     await db.docBlocks.where({docDefineId: docId}).delete();
     return db.docBlocks.bulkAdd(arr);
   }
+
+  public async initBaseDoc(): Promise<string> {
+    const d = await db.docs.get(1);
+    let r = 'base doc init';
+    if (d) {
+      r = 'base doc have exist';
+    }else {
+      const doc = new Doc();
+      doc.name = 'Default';
+      doc.dateCreated = new Date().getTime();
+      await db.docs.add(doc, 1);
+    }
+    return new Promise(resolve => {
+      resolve(r);
+    });
+  }
 }

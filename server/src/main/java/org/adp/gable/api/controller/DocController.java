@@ -34,6 +34,11 @@ public class DocController {
         return Result.success(docService.listDoc());
     }
 
+    @GetMapping("docOne")
+    public Result<DocDto> getOneById(@RequestParam Long id) {
+        return Result.success(docService.getOneById(id));
+    }
+
     @GetMapping("/menu")
     public Result<List<DocMenuDto>> getDocMenuBaseLevel(@RequestParam Long docId, @RequestParam Integer level) {
         return Result.success(docService.getDocMenuBaseLevel(docId, level));

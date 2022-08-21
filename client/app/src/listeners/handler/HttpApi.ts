@@ -27,7 +27,7 @@ export class GetApiDefine implements Handler  {
     });
     console.log('GetApiDefine ', data);
     return new Promise(resolve => {
-      resolve(GetApiDefine);
+      resolve(data);
     });
   }
 }

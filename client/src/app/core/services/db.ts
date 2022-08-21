@@ -33,14 +33,6 @@ export class AppDB extends Dexie {
       apiMenuItems: '++id, collectionId',
     });
     this.on('ready', () => {
-      this.docs.get(1).then(res => {
-        if (!res) {
-          const doc = new Doc();
-          doc.name = 'Default';
-          doc.dateCreated = new Date().getTime();
-          this.docs.add(doc, 1);
-        }
-      });
       console.log('index db load success');
     });
   }
