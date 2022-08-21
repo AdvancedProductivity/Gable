@@ -104,9 +104,10 @@ export class DocStorageElecService {
         blocks.push(tansBlockToElec(item));
       });
     }
+    console.log('updateOrCreateBlock', blocks);
     return new Promise<any>(resolve => {
-      const data = this.electronService.ipcRenderer.sendSync('updateDocMenuName', docId, newName, blocks);
-      console.log('updateDocMenuName', data);
+      const data = this.electronService.ipcRenderer.sendSync('updateOrCreateBlock', docId, newName, blocks);
+      console.log('updateOrCreateBlock', data);
       resolve(data);
     });
   }

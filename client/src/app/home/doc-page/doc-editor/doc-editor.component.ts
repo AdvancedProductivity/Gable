@@ -73,44 +73,46 @@ export class DocEditorComponent implements OnInit {
   setDocId(docId: number) {
     this.docId = docId;
     this.spinner.show();
-    this.renderNewData(docId).then(res => {
-      this.name = res.name;
-      if (!this.editor) {
-        if (res.blocks.length === 0) {
-          this.readOnly = false;
-        }
-        this.editor = new EditorJS({
-          readOnly: this.readOnly,
-          holderId: 'editorjs',
-          placeholder: '请输入回车键盘选择可输入类型',
-          tools: this.getTools(),
-          data: res
-        });
-      } else {
-        if (!this.readOnly && res.blocks.length > 0) {
-          this.readOnly = true;
-        } else if (this.readOnly && res.blocks.length === 0) {
-          console.log('reset readonly');
-          this.readOnly = false;
-        }
-        if (res.blocks.length === 0) {
-          res.blocks.push({
-            data: {text: '请输入回车键盘选择可输入类型'},
-            docDefineId: docId,
-            id: randomString(10),
-            order: 0,
-            type: 'paragraph',
+    setTimeout(() => {
+      this.renderNewData(docId).then(res => {
+        this.name = res.name;
+        if (!this.editor) {
+          if (res.blocks.length === 0) {
+            this.readOnly = false;
+          }
+          this.editor = new EditorJS({
+            readOnly: this.readOnly,
+            holderId: 'editorjs',
+            placeholder: '请输入回车键盘选择可输入类型',
+            tools: this.getTools(),
+            data: res
+          });
+        } else {
+          if (!this.readOnly && res.blocks.length > 0) {
+            this.readOnly = true;
+          } else if (this.readOnly && res.blocks.length === 0) {
+            console.log('reset readonly');
+            this.readOnly = false;
+          }
+          if (res.blocks.length === 0) {
+            res.blocks.push({
+              data: {text: '请输入回车键盘选择可输入类型'},
+              docDefineId: docId,
+              id: randomString(10),
+              order: 0,
+              type: 'paragraph',
+            });
+          }
+          this.editor.render(res).then(z => {
+            console.log('redder e', z, this.readOnly);
+            this.editor.readOnly.toggle(this.readOnly).then(r => {
+            });
           });
         }
-        this.editor.render(res).then(z => {
-          console.log('redder e', z, this.readOnly);
-          this.editor.readOnly.toggle(this.readOnly).then(r => {
-          });
-        });
-      }
-      this.status.next(this.readOnly);
-      this.spinner.hide();
-    });
+        this.status.next(this.readOnly);
+        this.spinner.hide();
+      });
+    }, 200);
   }
 
   private getTools() {

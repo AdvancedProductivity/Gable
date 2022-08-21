@@ -54,7 +54,11 @@ export class DocBlockInElec {
 export const tansBlockToElec = (block: DocBlock) => {
   const d = new DocBlockInElec();
   d.data = JSON.stringify(block.data);
-  d.config = JSON.stringify(block.config);
+  if (block.config) {
+    d.config = JSON.stringify(block.config);
+  }else{
+    d.config = '';
+  }
   d.i = block.i;
   d.id = block.id;
   d.type = block.type;
@@ -66,7 +70,9 @@ export const tansBlockToElec = (block: DocBlock) => {
 export const tansBlockToWebData = (block: DocBlockInElec) => {
   const d = new DocBlock();
   d.data = JSON.parse(block.data);
-  d.config = JSON.parse(block.config);
+  if (block.config) {
+    d.config = JSON.parse(block.config);
+  }
   d.i = block.i;
   d.id = block.id;
   d.type = block.type;
