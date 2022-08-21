@@ -27,6 +27,11 @@ export class HttpApiStorageElectronService {
     });
   }
 
+  public async updateDoc(httpDefineId: number, apiCache: HttpApiHistoryCache ): Promise<any>{
+    return new Promise<any>(resolve => {
+    });
+  }
+
   public async getApiDefine(id: number): Promise<any> {
     return new Promise<any>(resolve => {
       const data = this.electronService.ipcRenderer.sendSync('getApiDefine', id);

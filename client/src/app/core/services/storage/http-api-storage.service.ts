@@ -6,6 +6,7 @@ import {HttpApi, HttpApiHistoryCache} from '../entity/HttpApi';
 import {ConfigServiceImpl} from '../impl/ConfigServiceImpl';
 import {ElectronService} from '../electron/electron.service';
 import {FileUploadInfo} from '../entity/ApiPart';
+import {DocBlock} from '../entity/Docs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +36,14 @@ export class HttpApiStorageService {
     if (this.saveDataInRemote()) {
       return this.remoteService.updateApi(httpDefineId, apiCache);
     }else if (this.electronService.isElectron) {
+      this.storageElectronService.updateDoc(httpDefineId, apiCache).then(res => {
+        console.log('update doc block in local');
+      });
       return this.storageElectronService.updateApi(httpDefineId, apiCache);
     }else {
+      this.indexDbService.updateDoc(httpDefineId, apiCache).then(res => {
+        console.log('update doc block in web');
+      });
       return this.indexDbService.updateApi(httpDefineId, apiCache);
     }
   }

@@ -30,7 +30,7 @@ export class AppDB extends Dexie {
       arrayData: 'id',
       docBlocks: '++i,docDefineId',
       docsMenu: '++id,docId,level,parentId,apiKey',
-      apiMenuItems: '++id, collectionId',
+      apiMenuItems: '++id, collectionId,defineId',
     });
     this.on('ready', () => {
       console.log('index db load success');
