@@ -24,6 +24,10 @@ export class ConfigGetHandler implements Handler {
 export class ConfigSetHandler implements Handler {
 
   async handle(args: any[]) {
+    console.log('set config', args);
+    if (args[1] === null) {
+      args[1] = 'null';
+    }
     if (args[0] && args[1]) {
       const configRepository = await getConfigRepository();
       let config = await configRepository.findOne({

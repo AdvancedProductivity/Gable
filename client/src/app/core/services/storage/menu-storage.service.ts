@@ -52,10 +52,12 @@ export class MenuStorageService {
 
   public getAllMenus(): Promise<ApiMenuCollection[]> {
     if (this.saveDataInRemote()) {
+      console.log('get from index web');
       return this.remoteService.getAllMenus();
     } else if (this.electronService.isElectron) {
       return this.electronStorageService.getAllMenus();
     } else {
+      console.log('get from index db');
       return this.indexDbService.getAllMenus();
     }
   }

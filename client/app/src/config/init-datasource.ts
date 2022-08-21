@@ -3,6 +3,7 @@ import {homedir} from "os";
 import {Item} from "../entity/Item";
 import {Repository} from "typeorm/repository/Repository";
 import {Config} from "../entity/Config";
+import {ApiMenuCollection, ApiMenuItem} from "../entity/ApiMenuCollection";
 
 const dbFilePath = homedir() + '/.gable/';
 
@@ -24,6 +25,8 @@ function creatDatasource(dbFileName?): DataSource {
     entities: [
       Item
       , Config
+      , ApiMenuCollection
+      , ApiMenuItem
     ]
   });
   return myDataSource;
@@ -64,4 +67,12 @@ export const getItemRepository = async ():Promise<Repository<Item>> => {
 
 export const getConfigRepository = async ():Promise<Repository<Config>> => {
   return myDataSource.getRepository(Config);
+};
+
+export const getApiCollectionRepository = async ():Promise<Repository<ApiMenuCollection>> => {
+  return myDataSource.getRepository(ApiMenuCollection);
+};
+
+export const getApiMenuItemRepository = async ():Promise<Repository<ApiMenuItem>> => {
+  return myDataSource.getRepository(ApiMenuItem);
 };

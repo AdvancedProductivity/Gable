@@ -12,79 +12,47 @@ import {DashBoardShowingMetadata, MenuSelectedEvent, OpeningNavTab} from '../ent
 export class NavTabImplService implements NavTabService{
 
   constructor(
-    private electronService: ElectronService,
     private electronImpl: NavTabElecImplService,
     private webImpl: NavTabWebImplService
   ) { }
 
   public clearAllCache(){
-    if (this.electronService.isElectron) {
-    }
     return this.webImpl.clearAllCache();
   }
 
   getOpeningTab(): Observable<string> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.getOpeningTab();
-    }
     return this.webImpl.getOpeningTab();
   }
 
   getTabsData(): Observable<OpeningNavTab[]> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.getTabsData();
-    }else {
-      return this.webImpl.getTabsData();
-    }
+    return this.webImpl.getTabsData();
   }
 
   getShowingTab(): Observable<DashBoardShowingMetadata> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.getShowingTab();
-    }else {
-      return this.webImpl.getShowingTab();
-    }
+    return this.webImpl.getShowingTab();
   }
 
   openTabs(tab: OpeningNavTab | any, fromMenu: boolean, created?: boolean): void {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.openTabs(tab, fromMenu, created);
-    }
     return this.webImpl.openTabs(tab, fromMenu, created);
   }
 
   closeTab(id: string): void {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.closeTab(id);
-    }
     return this.webImpl.closeTab(id);
   }
 
   closeAllTab(): void {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.closeAllTab();
-    }
     return this.webImpl.closeAllTab();
   }
 
   updateTabName(id: number, type: string, newName: string) {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.updateTabName(id, type, newName);
-    }
     return this.webImpl.updateTabName(id, type, newName);
   }
 
   getFocusMenu(): Observable<MenuSelectedEvent> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.getFocusMenu();
-    }
     return this.webImpl.getFocusMenu();
   }
 
   changeTab(type: string, id: number, newTag: string): void {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.changeTab(type, id, newTag);
-    }
     return this.webImpl.changeTab(type, id, newTag);
   }
 }

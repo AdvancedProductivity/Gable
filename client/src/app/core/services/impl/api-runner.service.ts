@@ -56,7 +56,7 @@ export class ApiRunnerService {
         if (key === 'content-type') {
           if (val.indexOf('json') !== -1) {
             resp.bodyType = 'json';
-          }else {
+          } else {
             resp.bodyType = val;
           }
         }
