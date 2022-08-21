@@ -4,7 +4,6 @@ import {DocStorageIndexDbService} from './indexdb/doc-storage-index-db.service';
 import {DocStorageRemoteService} from './remote/doc-storage-remote.service';
 import {ElectronService} from '../electron/electron.service';
 import {ConfigServiceImpl} from '../impl/ConfigServiceImpl';
-import {db} from '../db';
 import {Doc, DocBlock, DocDefine, DocMenu} from '../entity/Docs';
 
 @Injectable({
@@ -25,8 +24,9 @@ export class DocStorageService {
     if (this.saveDataInRemote()) {
       return this.remoteService.addDoc(doc);
     }else if (this.electronService.isElectron) {
+      return this.elecService.addDoc(doc);
     }else {
-      return db.docs.add(doc);
+      return this.indexDbService.addDoc(doc);
     }
   }
 
@@ -34,8 +34,9 @@ export class DocStorageService {
     if (this.saveDataInRemote()) {
       return this.remoteService.getAllDocs();
     } else if (this.electronService.isElectron) {
+      return this.elecService.getAllDocs();
     } else {
-      return db.docs.toArray();
+      return this.indexDbService.getAllDocs();
     }
   }
 
@@ -43,8 +44,9 @@ export class DocStorageService {
     if (this.saveDataInRemote()) {
       return this.remoteService.getDocMenuBaseLevel(docId, 0);
     }else if (this.electronService.isElectron) {
+      return this.elecService.getDocMenuBaseLevel(docId, 0);
     }else {
-      return db.docsMenu.where({docId, level: 0}).toArray();
+      return this.indexDbService.getDocMenuBaseLevel(docId, 0);
     }
   }
 
@@ -52,8 +54,9 @@ export class DocStorageService {
     if (this.saveDataInRemote()) {
       return this.remoteService.getSubMenu(parentId);
     }else if (this.electronService.isElectron) {
+      return this.elecService.getSubMenu(parentId);
     }else {
-      return db.docsMenu.where({parentId}).toArray();
+      return this.indexDbService.getSubMenu(parentId);
     }
   }
 
@@ -61,8 +64,9 @@ export class DocStorageService {
     if (this.saveDataInRemote()) {
       return this.remoteService.addDocMenu(docMenu);
     }else if (this.electronService.isElectron) {
+      return this.elecService.addDocMenu(docMenu);
     }else {
-      return db.docsMenu.add(docMenu);
+      return this.indexDbService.addDocMenu(docMenu);
     }
   }
 
@@ -76,8 +80,9 @@ export class DocStorageService {
     if (this.saveDataInRemote()) {
       return this.remoteService.addDocDefaultDefine(doc, id);
     } else if (this.electronService.isElectron) {
+      return this.elecService.addDocDefaultDefine(doc, id);
     } else {
-      return db.docDefines.add(doc, id);
+      return this.indexDbService.addDocDefaultDefine(doc, id);
     }
   }
 
@@ -85,8 +90,9 @@ export class DocStorageService {
     if (this.saveDataInRemote()) {
       return this.remoteService.updateContentCount(id, newCount);
     } else if (this.electronService.isElectron) {
+      return this.elecService.updateContentCount(id, newCount);
     } else {
-      return db.docsMenu.update(id, {itemCount: newCount});
+      return this.indexDbService.updateContentCount(id, newCount);
     }
   }
 
@@ -94,8 +100,9 @@ export class DocStorageService {
     if (this.saveDataInRemote()) {
       return this.remoteService.getBlocksByDocId(docDefineId);
     } else if (this.electronService.isElectron) {
+      return this.elecService.getBlocksByDocId(docDefineId);
     } else {
-      return db.docBlocks.where({docDefineId}).toArray();
+      return this.indexDbService.getBlocksByDocId(docDefineId);
     }
   }
 
@@ -103,10 +110,9 @@ export class DocStorageService {
     if (this.saveDataInRemote()) {
       return this.remoteService.updateOrCreateBlock(docId, arr, newName);
     } else if (this.electronService.isElectron) {
+      return this.elecService.updateOrCreateBlock(docId, arr, newName);
     } else {
-      db.docDefines.update(docId, {name: newName}).then(res => {});
-      await db.docBlocks.where({docDefineId: docId}).delete();
-      return db.docBlocks.bulkAdd(arr);
+      return this.indexDbService.updateOrCreateBlock(docId, arr, newName);
     }
   }
 
@@ -114,8 +120,9 @@ export class DocStorageService {
     if (this.saveDataInRemote()) {
       return this.remoteService.getDocDefine(docDefineId);
     } else if (this.electronService.isElectron) {
+      return this.elecService.getDocDefine(docDefineId);
     } else {
-      return db.docDefines.get(docDefineId);
+      return this.indexDbService.getDocDefine(docDefineId);
     }
   }
 
@@ -123,8 +130,9 @@ export class DocStorageService {
     if (this.saveDataInRemote()) {
       return this.remoteService.updateDocMenuName(id, name);
     } else if (this.electronService.isElectron) {
+      return this.elecService.updateDocMenuName(id, name);
     } else {
-      return db.docsMenu.update(id, {name});
+      return this.indexDbService.updateDocMenuName(id, name);
     }
   }
 

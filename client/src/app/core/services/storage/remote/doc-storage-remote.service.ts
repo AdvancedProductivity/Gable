@@ -116,7 +116,7 @@ export class DocStorageRemoteService {
     ));
   }
 
-  public async updateDocMenuName(id: number, newName: string): Promise<DocDefine> {
+  public async updateDocMenuName(id: number, newName: string): Promise<number> {
     const server = this.config.getConfigSync('gableServer');
     return firstValueFrom(this.httpClient.post(`${server}/api/doc/menuRename`, {}, {
       params: {
