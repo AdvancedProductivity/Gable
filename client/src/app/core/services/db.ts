@@ -2,6 +2,7 @@ import Dexie, { Table } from 'dexie';
 import {ApiMenuCollection, ApiMenuItem, OpeningNavTab} from './entity/ApiMenu';
 import {HttpApi} from './entity/HttpApi';
 import {Doc, DocBlock, DocDefine, DocMenu} from './entity/Docs';
+import {ArrayData} from './entity/ArrayData';
 
 
 export class AppDB extends Dexie {
@@ -14,6 +15,7 @@ export class AppDB extends Dexie {
   docsMenu!: Table<DocMenu, number>;
   docBlocks!: Table<DocBlock, number>;
   docDefines!: Table<DocDefine, number>;
+  arrayData!: Table<ArrayData, string>;
 
   constructor() {
     super('gable');
@@ -25,6 +27,7 @@ export class AppDB extends Dexie {
       httpApiCache: '++id',
       docDefines: '++id',
       openingTabs: 'tabId',
+      arrayData: 'id',
       docBlocks: '++i,docDefineId',
       docsMenu: '++id,docId,level,parentId,apiKey',
       apiMenuItems: '++id, collectionId',
