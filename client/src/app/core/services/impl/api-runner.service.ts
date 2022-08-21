@@ -6,6 +6,7 @@ import {HttpApi, HttpApiResponse} from '../entity/HttpApi';
 import {ArrayData} from '../entity/ArrayData';
 import {randomString} from '../utils/Uuid';
 import {db} from '../db';
+import {ElectronService} from '../electron/electron.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class ApiRunnerService {
 
   constructor(
     private config: ConfigServiceImpl,
+    private electronService: ElectronService,
     private httpClient: HttpClient
   ) {
   }
@@ -26,6 +28,10 @@ export class ApiRunnerService {
         type: 'http',
         params: reqBody
       });
+    } else if (this.electronService.isElectron) {
+      return from(new Promise(resolve => {
+        resolve(this.electronService.ipcRenderer.sendSync('runHttp', id, reqBody));
+      }));
     } else {
       return from(this.runByFetch(id, reqBody));
     }

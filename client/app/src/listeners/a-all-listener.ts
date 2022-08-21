@@ -21,6 +21,7 @@ import {
   GetDocMenuBaseLevel, GetDocMenuOfApi,
   GetSubMenu, UpdateContentCount, UpdateDocMenuName, UpdateOrCreateBlock
 } from "./handler/DocsHandler";
+import {HttpRunner} from "./handler/HttpRunner";
 
 export const listenerArray: { channel: string, handler: Handler }[] = [
   {channel: 'get-data', handler: new OnItemGetAllHandler()}
@@ -54,4 +55,5 @@ export const listenerArray: { channel: string, handler: Handler }[] = [
   , {channel: 'updateDocMenuName', handler: new UpdateDocMenuName()}
   , {channel: 'updateOrCreateBlock', handler: new UpdateOrCreateBlock()}
   , {channel: 'getDocById', handler: new GetDocById()}
+  , {channel: 'runHttp', handler: new HttpRunner()}
 ];
