@@ -12,6 +12,7 @@ import {
   GetApiMenuItemById,
   GetCollectionById, RenameCollection, RenameMenuItem, UpdateTagAndVersion
 } from "./handler/MenuHandler";
+import {AddHttp, GetApiDefine, UpdateApi} from "./handler/HttpApi";
 
 export const listenerArray: { channel: string, handler: Handler }[] = [
   {channel: 'get-data', handler: new OnItemGetAllHandler()}
@@ -28,4 +29,7 @@ export const listenerArray: { channel: string, handler: Handler }[] = [
   , {channel: 'renameMenuItem', handler: new RenameMenuItem()}
   , {channel: 'addMenuItemToDb', handler: new AddMenuItemToDb()}
   , {channel: 'updateTagAndVersion', handler: new UpdateTagAndVersion()}
+  , {channel: 'addHttp', handler: new AddHttp()}
+  , {channel: 'updateApi', handler: new UpdateApi()}
+  , {channel: 'getApiDefine', handler: new GetApiDefine()}
 ];

@@ -8,7 +8,12 @@ export class GetCollectionById implements Handler {
     console.log('get collection by id', args);
     const apiCol = await getApiCollectionRepository();
     return new Promise(resolve => {
-      resolve(apiCol.getId(args[0]));
+      resolve(apiCol.findOne({
+          where: {
+            id: args[0]
+          }
+        }
+      ));
     });
   }
 
@@ -31,8 +36,13 @@ export class GetApiMenuItemById implements Handler  {
   async handle(args: any[]): Promise<ApiMenuItem> {
     console.log('get GetApiMenuItemById', args);
     const apiMenuItemRepository = await getApiMenuItemRepository();
+    const d = await apiMenuItemRepository.findOne({
+      where: {
+        id: args[0]
+      }
+    });
     return new Promise(resolve => {
-      resolve(apiMenuItemRepository.getId(args[0]));
+      resolve(d);
     });
   }
 }

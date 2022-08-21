@@ -61,7 +61,7 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   setApiData(id: number, isEdit: boolean = false) {
     this.id = id;
     this.menuService.getApiData(id).subscribe((api: ApiMenuItem) => {
-      console.log('zzq see get header data', api);
+      console.log('zzq see get header data', id, api);
       this.header.setInitStatus(api.id, api.collectionId, api.name, isEdit, api.version, api.defineId);
     });
     this.httpApiService.getCache(id).subscribe(res => {

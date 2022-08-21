@@ -17,41 +17,22 @@ export class HttpApiService {
   ) { }
 
   public clearAllCache(){
-    if (this.electronService.isElectron) {
-    } else {
-      return this.webImpl.clearAllCache();
-    }
+    return this.webImpl.clearAllCache();
   }
 
   public addApiDefine(data: HttpApiHistoryCache): void {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.addApiDefine(data);
-    } else {
-      return this.webImpl.addApiDefine(data);
-    }
+    return this.webImpl.addApiDefine(data);
   }
 
   public updateCache(data: HttpApiHistoryCache): void {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.updateCache(data);
-    } else {
-      return this.webImpl.updateCache(data);
-    }
+    return this.webImpl.updateCache(data);
   }
 
   public getCache(id: number): Observable<HttpApiHistoryCache> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.getCache(id);
-    } else {
-      return this.webImpl.getCache(id);
-    }
+    return this.webImpl.getCache(id);
   }
 
   removeCache(id: number): Promise<any> {
-    if (this.electronService.isElectron) {
-      return this.electronImpl.removeCache(id);
-    } else {
-      return this.webImpl.removeCache(id);
-    }
+    return this.webImpl.removeCache(id);
   }
 }

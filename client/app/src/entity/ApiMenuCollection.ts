@@ -16,7 +16,7 @@ export class ApiMenuCollection {
   })
   type: string;
 
-  @Column('int')
+  @Column({type: 'int', nullable: true})
   apiCount: number;
 }
 
