@@ -29,6 +29,7 @@ export class ResponseTabsComponent implements OnInit {
     this.timeTakes = response.timeTakes;
     this.size = response.size;
     this.textCom.setText(response.content);
+    this.textCom.setLang(response.bodyType);
   }
 
   setRespDoc(doc: DocJsonNode) {

@@ -34,10 +34,11 @@ export class BodyTextComponent implements OnInit {
     this.respDocChange.next(newDoc);
   }
 
-  onBodyTypeChange($event: any): void {
+  onBodyTypeChange(lang: any): void {
     if (this.isEditingDoc) {
       this.isEditingDoc = false;
     }
+    this.editorOptions = {...this.editorOptions, language: lang};
   }
 
   doCopy(): void {
@@ -89,5 +90,10 @@ export class BodyTextComponent implements OnInit {
 
   setRespDoc(doc: DocJsonNode) {
     this.treeDataEditorComponent.setDocData(doc);
+  }
+
+  setLang(lang: string) {
+    this.bodyType = lang;
+    this.editorOptions = {...this.editorOptions, language: lang};
   }
 }

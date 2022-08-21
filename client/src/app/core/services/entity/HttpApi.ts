@@ -63,6 +63,7 @@ export const initHttpApi = (): HttpApi => {
 };
 
 export class HttpApiResponse {
+  arrayId: string;
   bodyType: string;
   code: number;
   content: any;
