@@ -38,10 +38,7 @@ export class ApiRunnerService {
   private async runByFetch(id: number, reqBody: HttpApi): Promise<HttpApiResponse> {
     const resp = new HttpApiResponse();
     try {
-      const requestOptions: RequestInit = {};
-      requestOptions.credentials = 'omit';
-      requestOptions.method = reqBody.method;
-      requestOptions.redirect = 'manual';
+      const requestOptions: RequestInit = this.getFetchOption(reqBody);
       const url = this.parserUrl(reqBody);
       console.log('fetch url is: ', url);
       resp.startAt = new Date().getTime();
@@ -92,6 +89,54 @@ export class ApiRunnerService {
     return new Promise((resolve, reject) => {
       resolve(resp);
     });
+  }
+
+  private getFetchOption(reqBody: HttpApi) {
+    const requestOptions: RequestInit = {};
+    requestOptions.credentials = 'omit';
+    requestOptions.method = reqBody.method;
+    requestOptions.redirect = 'manual';
+    const headers = new Headers();
+    if (reqBody.method.toUpperCase() === 'POST' || reqBody.method.toUpperCase() === 'PUT') {
+      if (reqBody.bodyType === 'none') {
+        return requestOptions;
+      }else if (reqBody.bodyType.toUpperCase() === 'FORM_DATA') {
+        const formArr = reqBody.bodyForm.filter(item => item.using && item.key);
+        const formData = new FormData();
+        formArr.forEach(item => {
+          if (item.type === 'text') {
+            formData.append(item.key, item.value);
+          }
+        });
+        requestOptions.body = formData;
+      } else if (reqBody.bodyType.toUpperCase() === 'URLENCODED') {
+        const urlencoded = new URLSearchParams();
+        const urlEncodedArr = reqBody.bodyUrlEncoded.filter(item => item.using && item.key);
+        urlEncodedArr.forEach(item => {
+          urlencoded.append(item.key, item.value);
+        });
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        requestOptions.body = urlencoded;
+      } else if (reqBody.bodyType.toUpperCase() === 'RAW') {
+        requestOptions.body = reqBody.bodyText;
+        const t = reqBody.bodyText.toUpperCase();
+        if (t === 'JSON') {
+          headers.append('Content-Type', 'application/json');
+        } else if (t === 'TEXT') {
+          headers.append('Content-Type', 'text/plain');
+        } else if (t === 'HTML') {
+          headers.append('Content-Type', 'text/html');
+        } else if (t === 'XML') {
+          headers.append('Content-Type', 'application/xml');
+        }
+      }
+    }
+    const h = reqBody.header.filter(item => item.using && item.key);
+    h.forEach(item => {
+      headers.append(item.key, item.value);
+    });
+    requestOptions.headers = headers;
+    return requestOptions;
   }
 
   private parserUrl(reqBody: HttpApi) {
