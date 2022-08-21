@@ -1,7 +1,7 @@
 import {Handler} from "../listener-handler";
 import {ApiMenuCollection} from "../../entity/ApiMenuCollection";
 import {
-  getApiCollectionRepository, getDocBlockRepository,
+  getApiCollectionRepository, getApiMenuItemRepository, getDocBlockRepository,
   getDocDefineRepository,
   getDocMenuRepository,
   getDocsRepository
@@ -28,6 +28,77 @@ export class GetAllDocs implements Handler  {
     const allData = await docsRepository.find();
     return new Promise(resolve => {
       resolve(allData);
+    });
+  }
+}
+
+export class GetDocMenuOfApi implements Handler  {
+
+  async handle(args: any[]): Promise<any> {
+    console.log('GetDocMenuOfApi', args);
+    const httpDefineId = args[0];
+    const apiMenuId = args[1];
+    const collectionId = args[2];
+    const collectionName = args[3];
+    const apiName = args[4];
+    const apiKey = apiMenuId + '_http';
+    const docMenuRepository = await getDocMenuRepository();
+    const docDefineRepository = await getDocDefineRepository();
+    // add api doc menu
+    let resp = await docMenuRepository.findOne({
+        where: {
+          apiKey
+        }
+      }
+    );
+    console.log('find doc menu for: ', apiKey, resp);
+    if (!resp) {
+      // create collection doc node
+      const collectionKey = collectionId + '_' + 'c';
+      let docMenuCollection = await docMenuRepository.findOne({
+          where: {
+            apiKey: collectionKey
+          }
+        }
+      );
+      if (!docMenuCollection) {
+        const apiMenuItemRepository = await getApiMenuItemRepository();
+        docMenuCollection = new DocMenu();
+        docMenuCollection.name = collectionName;
+        docMenuCollection.docId = 1;
+        docMenuCollection.level = 0;
+        docMenuCollection.itemCount = await apiMenuItemRepository.count({where: {collectionId: collectionId}});
+        docMenuCollection.parentId = 0;
+        docMenuCollection.apiKey = collectionKey;
+        docMenuCollection.dateCreated = new Date().getTime();
+        docMenuCollection = await docMenuRepository.save(docMenuCollection);
+        let docDefine = new DocDefine();
+        docDefine.name = docMenuCollection.name;
+        docDefine.version = '2.25.0';
+        docDefine.time = docMenuCollection.dateCreated;
+        docDefine.id = docMenuCollection.id;
+        docDefine = await docDefineRepository.save(docDefine);
+      }
+      resp = new DocMenu();
+      resp.docId = 1;
+      resp.level = 1;
+      resp.parentId = docMenuCollection.id;
+      resp.itemCount = 0;
+      resp.name = apiName;
+      resp.apiKey = apiMenuId + '_http';
+      resp.dateCreated = new Date().getTime();
+      resp = await docMenuRepository.save(resp);
+      let docDefine2 = new DocDefine();
+      docDefine2.id = resp.id;
+      docDefine2.name = resp.name;
+      docDefine2.version = '2.25.0';
+      docDefine2.time = new Date().getTime();
+      docDefine2 = await docDefineRepository.save(docDefine2);
+    }
+
+
+    return new Promise(resolve => {
+      resolve(resp.id);
     });
   }
 }

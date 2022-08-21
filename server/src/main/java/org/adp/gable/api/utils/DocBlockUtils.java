@@ -49,7 +49,7 @@ public class DocBlockUtils {
     public static DocBlockDto generateTitle(String text, int order, Long docDefineId) {
         ObjectMapper objectMapper = JsonBuilderHolder.OBJECT_MAPPER;
         DocBlockDto dto = getDto(order, docDefineId);
-        dto.setType("i18nTitle");
+        dto.setType("header");
         dto.setConfig(objectMapper.createObjectNode());
         dto.setData(objectMapper
                 .createObjectNode()
@@ -159,7 +159,7 @@ public class DocBlockUtils {
         arrayNode.add(
                 objectMapper.createArrayNode()
                         .add("Param Name")
-                        .add("type")
+                        .add("Type")
                         .add("Param Description")
                         .add("Sample Value")
         );

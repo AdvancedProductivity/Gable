@@ -47,6 +47,22 @@ export class GetApiMenuItemById implements Handler  {
   }
 }
 
+export class GetApiMenuItemByDefineId implements Handler  {
+
+  async handle(args: any[]): Promise<ApiMenuItem> {
+    console.log('get GetApiMenuItemByDefineId', args);
+    const apiMenuItemRepository = await getApiMenuItemRepository();
+    const d = await apiMenuItemRepository.findOne({
+      where: {
+        defineId: args[0]
+      }
+    });
+    return new Promise(resolve => {
+      resolve(d);
+    });
+  }
+}
+
 
 export class GetAllMenuItems implements Handler  {
 

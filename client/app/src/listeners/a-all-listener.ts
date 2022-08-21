@@ -8,7 +8,7 @@ import {ConfigGetHandler, ConfigSetHandler} from "./handler/ConfigGetHandler";
 import {
   AddCollection, AddMenuItemToDb,
   GetAllMenuItems,
-  GetAllMenus,
+  GetAllMenus, GetApiMenuItemByDefineId,
   GetApiMenuItemById,
   GetCollectionById, RenameCollection, RenameMenuItem, UpdateTagAndVersion
 } from "./handler/MenuHandler";
@@ -18,7 +18,7 @@ import {
   AddDocDefaultDefine,
   AddDocMenu,
   GetAllDocs, GetBlocksByDocId, GetDocById, GetDocDefine,
-  GetDocMenuBaseLevel,
+  GetDocMenuBaseLevel, GetDocMenuOfApi,
   GetSubMenu, UpdateContentCount, UpdateDocMenuName, UpdateOrCreateBlock
 } from "./handler/DocsHandler";
 
@@ -31,6 +31,7 @@ export const listenerArray: { channel: string, handler: Handler }[] = [
   , {channel: 'getCollectionById', handler: new GetCollectionById()}
   , {channel: 'getAllMenus', handler: new GetAllMenus()}
   , {channel: 'getApiMenuItem', handler: new GetApiMenuItemById()}
+  , {channel: 'getApiMenuItemByDefineId', handler: new GetApiMenuItemByDefineId()}
   , {channel: 'getAllMenuItems', handler: new GetAllMenuItems()}
   , {channel: 'addCollection', handler: new AddCollection()}
   , {channel: 'renameCollection', handler: new RenameCollection()}
@@ -42,6 +43,7 @@ export const listenerArray: { channel: string, handler: Handler }[] = [
   , {channel: 'getApiDefine', handler: new GetApiDefine()}
   , {channel: 'addDoc', handler: new AddDoc()}
   , {channel: 'getAllDocs', handler: new GetAllDocs()}
+  , {channel: 'getDocMenuOfApi', handler: new GetDocMenuOfApi()}
   , {channel: 'getSubMenu', handler: new GetSubMenu()}
   , {channel: 'getDocMenuBaseLevel', handler: new GetDocMenuBaseLevel()}
   , {channel: 'addDocMenu', handler: new AddDocMenu()}
