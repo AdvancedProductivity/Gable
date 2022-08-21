@@ -112,12 +112,12 @@ export class DocStorageElecService {
     });
   }
 
-  public async initBaseDoc(): Promise<string> {
+  public async initBaseDoc(): Promise<boolean> {
     return new Promise(resolve => {
       const d = this.electronService.ipcRenderer.sendSync('getDocById', 1);
-      let r = 'base doc init';
+      let r = true;
       if (d) {
-        r = 'base doc have exist';
+        r = false;
       }else {
         const doc = new Doc();
         doc.name = 'Default';

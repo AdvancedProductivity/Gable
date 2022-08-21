@@ -9,7 +9,11 @@ export class DocService {
   private docCache: Doc[];
   constructor(private docStorageService: DocStorageService) {
     this.docStorageService.initBaseDoc().then(r => {
-      console.log('init doc data ' +  r);
+      if (r) {
+        console.log('create new Doc');
+      }else {
+        console.log('default doc have exist');
+      }
     });
   }
 

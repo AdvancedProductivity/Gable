@@ -8,10 +8,11 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {iconArray} from './shared/icon';
 import {createCustomElement} from '@angular/elements';
 import {HttpApiDocComponent} from './shared/components/docs/http-api-doc/http-api-doc.component';
-import {TreeDataEditorComponent} from "./shared/components/api/work-bench/http-work-bench/tree-data-editor/tree-data-editor.component";
-import {HttpUrlDocComponent} from "./shared/components/docs/http-url-doc/http-url-doc.component";
-import {RawTextDocComponent} from "./shared/components/docs/raw-text-doc/raw-text-doc.component";
-import {I18nTitleComponent} from "./shared/components/docs/i18n-title/i18n-title.component";
+import {TreeDataEditorComponent} from './shared/components/api/work-bench/http-work-bench/tree-data-editor/tree-data-editor.component';
+import {HttpUrlDocComponent} from './shared/components/docs/http-url-doc/http-url-doc.component';
+import {RawTextDocComponent} from './shared/components/docs/raw-text-doc/raw-text-doc.component';
+import {I18nTitleComponent} from './shared/components/docs/i18n-title/i18n-title.component';
+import {DocService} from './core/services/impl/doc.service';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ import {I18nTitleComponent} from "./shared/components/docs/i18n-title/i18n-title
 })
 export class AppComponent {
   constructor(
+    private docService: DocService,
     private electronService: ElectronService,
     private configService: ConfigServiceImpl,
     private iconRegistry: MatIconRegistry,

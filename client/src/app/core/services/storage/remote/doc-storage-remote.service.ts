@@ -146,11 +146,11 @@ export class DocStorageRemoteService {
     ));
   }
 
-  public async initBaseDoc(): Promise<string> {
+  public async initBaseDoc(): Promise<boolean> {
     const d = await this.getDocById(1);
-    let r = 'base doc init';
+    let r = true;
     if (d) {
-      r = 'base doc have exist';
+      r = false;
     }else {
       const doc = new Doc();
       doc.name = 'Default';

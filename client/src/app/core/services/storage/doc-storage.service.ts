@@ -20,7 +20,7 @@ export class DocStorageService {
   ) {
   }
 
-  public async initBaseDoc(): Promise<string> {
+  public async initBaseDoc(): Promise<boolean> {
     if (this.saveDataInRemote()) {
       return this.remoteService.initBaseDoc();
     }else if (this.electronService.isElectron) {
