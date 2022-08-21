@@ -107,3 +107,42 @@ export class HttpApi {
   @Column({type: 'bigint'})
   version: number;
 }
+
+export class  HttpApiResponse {
+  arrayId: string;
+  bodyType: string;
+  code: number;
+  content: any;
+  contentType: string;
+  startAt: number;
+  endAt: number;
+  timeTakes: number;
+  message: string;
+  size: number;
+  headers: any[];
+  cookie: any[];
+}
+
+export class  HttpFromWeb {
+  id: number;
+  protocol: string;
+  method: string;
+  host: string;
+  hostArr: string[];
+  port: string;
+  path: string;
+  pathArray: string[];
+  url: string;
+  query: any;
+  header: any;
+  bodyType: string;
+  bodyForm: any;
+  bodyUrlEncoded: any;
+  bodyText: string;
+  bodyTextDoc: any;
+  respBodyTextDoc: any;
+  bodyTextType: string;
+  bodyGraphQlQuery: string;
+  bodyGraphQlVar: any;
+  version: number;
+}

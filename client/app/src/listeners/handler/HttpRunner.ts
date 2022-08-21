@@ -1,6 +1,6 @@
 import {Handler} from "../listener-handler";
-import {HttpApi, HttpApiResponse} from "../../../../src/app/core/services/entity/HttpApi";
 import axios, {AxiosRequestHeaders} from "axios";
+import {HttpApiResponse, HttpFromWeb} from "../../entity/HttpApi";
 const FormData = require('form-data');
 
 export class HttpRunner implements Handler {
@@ -75,7 +75,7 @@ export class HttpRunner implements Handler {
     })
   }
 
-  private parserUrl(reqBody: HttpApi) {
+  private parserUrl(reqBody: HttpFromWeb) {
     const protocol = reqBody.protocol;
     const host = reqBody.hostArr.join('.');
     const path = reqBody.pathArray.join('/');
