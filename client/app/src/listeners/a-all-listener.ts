@@ -5,7 +5,13 @@ import {
 } from "./handler/item-listener";
 import {Handler} from "./listener-handler";
 import {ConfigGetHandler, ConfigSetHandler} from "./handler/ConfigGetHandler";
-import {GetAllMenuItems, GetAllMenus, GetApiMenuItemById, GetCollectionById} from "./handler/MenuHandler";
+import {
+  AddCollection, AddMenuItemToDb,
+  GetAllMenuItems,
+  GetAllMenus,
+  GetApiMenuItemById,
+  GetCollectionById, RenameCollection, RenameMenuItem, UpdateTagAndVersion
+} from "./handler/MenuHandler";
 
 export const listenerArray: { channel: string, handler: Handler }[] = [
   {channel: 'get-data', handler: new OnItemGetAllHandler()}
@@ -17,4 +23,9 @@ export const listenerArray: { channel: string, handler: Handler }[] = [
   , {channel: 'getAllMenus', handler: new GetAllMenus()}
   , {channel: 'getApiMenuItem', handler: new GetApiMenuItemById()}
   , {channel: 'getAllMenuItems', handler: new GetAllMenuItems()}
+  , {channel: 'addCollection', handler: new AddCollection()}
+  , {channel: 'renameCollection', handler: new RenameCollection()}
+  , {channel: 'renameMenuItem', handler: new RenameMenuItem()}
+  , {channel: 'addMenuItemToDb', handler: new AddMenuItemToDb()}
+  , {channel: 'updateTagAndVersion', handler: new UpdateTagAndVersion()}
 ];

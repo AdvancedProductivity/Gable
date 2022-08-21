@@ -1,6 +1,6 @@
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
-@Entity()
+@Entity('api_menu_collection')
 export class ApiMenuCollection {
 
   @PrimaryGeneratedColumn()
@@ -21,7 +21,7 @@ export class ApiMenuCollection {
 }
 
 
-@Entity()
+@Entity('api_menu_item')
 export class ApiMenuItem extends ApiMenuCollection {
 
   @Column({
