@@ -1,6 +1,7 @@
 import {Handler} from "../listener-handler";
 import {getApiCollectionRepository, getApiMenuItemRepository, getConfigRepository} from "../../config/init-datasource";
 import {ApiMenuCollection, ApiMenuItem} from "../../entity/ApiMenuCollection";
+import {renameDoc} from "../../utils/icp-main-wrapper-utils";
 
 export class GetCollectionById implements Handler {
 
@@ -110,6 +111,7 @@ export class RenameCollection implements Handler  {
       .where("id = :id", {id: args[0]})
       .execute();
     console.log('collection rename ', renamed);
+    renameDoc(args[0] + '_c', args[1]).then(r => {});
     return new Promise(resolve => {
       resolve(renamed);
     });
@@ -126,6 +128,7 @@ export class RenameMenuItem implements Handler  {
       .update<ApiMenuItem>(ApiMenuItem, {name: args[1]})
       .where("id = :id", {id: args[0]})
       .execute();
+    renameDoc(args[0] + '_http', args[1]).then(r => {});
     console.log('ApiMenuItem rename ', renamed);
     return new Promise(resolve => {
       resolve(renamed);
