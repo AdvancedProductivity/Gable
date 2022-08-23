@@ -1,5 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {TextBodyComponent} from '../../shared/components/api/work-bench/http-work-bench/request-tabs/text-body/text-body.component';
+import {
+  JsonTableEditorComponent
+} from '../../shared/components/api/work-bench/http-work-bench/json-table-editor/json-table-editor.component';
 
 @Component({
   selector: 'app-mock-page',
@@ -7,7 +9,7 @@ import {TextBodyComponent} from '../../shared/components/api/work-bench/http-wor
   styleUrls: ['./mock-page.component.scss']
 })
 export class MockPageComponent implements OnInit {
-  @ViewChild('bodyComponent', {static: true}) bodyComponent: TextBodyComponent;
+  @ViewChild('treeDataEditorComponent', {static: true}) vi: JsonTableEditorComponent;
   code = `
   {
     "a":"123",
@@ -38,10 +40,10 @@ export class MockPageComponent implements OnInit {
   readonly = false;
 
   ngOnInit(): void {
-    this.bodyComponent.setBodyText(this.code);
   }
 
   gen() {
+    this.vi.gen(JSON.parse(this.code));
   }
 }
 
