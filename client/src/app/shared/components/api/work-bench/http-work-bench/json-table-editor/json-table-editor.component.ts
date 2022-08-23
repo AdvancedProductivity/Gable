@@ -11,6 +11,7 @@ import {
   OperationCellForJsonTableDocComponent
 } from './operation-cell-for-json-table-doc/operation-cell-for-json-table-doc.component';
 import {randomString} from "../../../../../../core/services/utils/Uuid";
+import {CellContentComponent} from "../request-tabs/inner/cell-content/cell-content.component";
 
 @Component({
   selector: 'app-json-table-editor',
@@ -21,8 +22,22 @@ export class JsonTableEditorComponent implements OnInit {
   gridApi = null;
   columnDefs: ColDef[] = [
     // we're using the auto group column by default!
-    {field: 'desc', editable: true},
-    {field: 'sample', editable: true},
+    {
+      field: 'desc',
+      editable: true,
+      cellRenderer: CellContentComponent,
+      cellRendererParams: {
+        hintStr: 'Description'
+      }
+    },
+    {
+      field: 'sample',
+      editable: true,
+      cellRenderer: CellContentComponent,
+      cellRendererParams: {
+        hintStr: 'Sample Value'
+      }
+    },
     {
       headerName: 'Operation',
       width: 110,
