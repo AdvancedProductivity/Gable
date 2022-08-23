@@ -1,6 +1,6 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
+import 'ag-grid-enterprise';
 import { AppModule } from './app/app.module';
 import { APP_CONFIG } from './environments/environment';
 

@@ -1,1 +1,13 @@
-<p>json-table-editor works!</p>
+<ag-grid-angular
+  class="ag-theme-alpine"
+  domLayout="autoHeight"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [autoGroupColumnDef]="autoGroupColumnDef"
+  [rowData]="rowData"
+  [treeData]="true"
+  [animateRows]="true"
+  [groupDefaultExpanded]="groupDefaultExpanded"
+  [getDataPath]="getDataPath"
+  (gridReady)="onGridReady($event)"
+></ag-grid-angular>
