@@ -79,6 +79,7 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 import { RawTextDocComponent } from './components/docs/raw-text-doc/raw-text-doc.component';
 import { I18nTitleComponent } from './components/docs/i18n-title/i18n-title.component';
 import { JsonTableEditorComponent } from './components/api/work-bench/http-work-bench/json-table-editor/json-table-editor.component';
+import { OperationCellForJsonTableDocComponent } from './components/api/work-bench/http-work-bench/json-table-editor/operation-cell-for-json-table-doc/operation-cell-for-json-table-doc.component';
 @NgModule({
   declarations: [
     PageNotFoundComponent
@@ -113,7 +114,7 @@ import { JsonTableEditorComponent } from './components/api/work-bench/http-work-
     , ResponseCookiesComponent
     , TestDashboardComponent
     , CollectionWorkBenchComponent
-    , HttpApiDocComponent, TreeDataEditorComponent, HttpUrlDocComponent, RawTextDocComponent, I18nTitleComponent, JsonTableEditorComponent
+    , HttpApiDocComponent, TreeDataEditorComponent, HttpUrlDocComponent, RawTextDocComponent, I18nTitleComponent, JsonTableEditorComponent, OperationCellForJsonTableDocComponent
   ],
   imports: [
     CommonModule

@@ -110,6 +110,24 @@ export class DocJsonNode{
     this.canEditName = true;
   }
 }
+
+export class DocJsonTableNode{
+  id: string;
+  canDelete: boolean;
+  canEditName: boolean;
+  level: number;
+  name: string;
+  type: string;
+  desc: string;
+  sample: string;
+  location: string[];
+
+  constructor() {
+    this.id = randomString(5);
+    this.canDelete = true;
+    this.canEditName = true;
+  }
+}
 export class I18nDocNode{
   i18n: string;
   level: number;
