@@ -187,5 +187,23 @@ public class DocAutoGenerateService {
         this.docDefineDao.save(docDefine);
         return docMenu;
     }
+
+    @Async
+    @Transactional(rollbackOn = Exception.class)
+    @Modifying
+    public void renameDocName(String apiKey, String newName) {
+        DocMenu docMenu = this.docMenuDao.findFirstByApiKey(apiKey);
+        if (docMenu == null) {
+            log.info("not find doc menu of key: {}", apiKey);
+            return;
+        }
+        docMenu.setName(newName);
+        this.docMenuDao.saveAndFlush(docMenu);
+        DocDefine docDefine = this.docDefineDao.findById(docMenu.getId()).orElse(null);
+        if (docDefine != null) {
+            docDefine.setName(newName);
+            this.docDefineDao.saveAndFlush(docDefine);
+        }
+    }
 }
 

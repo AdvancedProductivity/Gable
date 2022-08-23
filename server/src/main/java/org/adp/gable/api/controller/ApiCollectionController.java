@@ -58,6 +58,7 @@ public class ApiCollectionController {
     public Result<Long> renameCollection(@RequestBody ApiCollection collection) {
         log.info("collection: {} rename to be {}", collection.getId(), collection.getName());
         this.apiCollectionService.rename(collection.getId(), collection.getName());
+        this.docAutoGenerateService.renameDocName(collection.getId() + "_c", collection.getName());
         return Result.success(collection.getId());
     }
 
@@ -65,6 +66,7 @@ public class ApiCollectionController {
     public Result<Long> renameItem(@RequestBody ApiMenuItem item) {
         log.info("menu item: {} rename to be {}", item.getId(), item.getName());
         this.apiMenuItemService.rename(item.getId(), item.getName());
+        this.docAutoGenerateService.renameDocName(item.getId() + "_http", item.getName());
         return Result.success(item.getId());
     }
 
