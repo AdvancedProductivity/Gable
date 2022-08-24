@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {HttpApiResponse} from '../../../../../../core/services/entity/HttpApi';
 import {BodyTextComponent} from './body-text/body-text.component';
-import {DocJsonNode, DocJsonTableNode} from '../../../../../../core/services/entity/Docs';
+import {DocJsonTableNode} from '../../../../../../core/services/entity/Docs';
 import {HttpComponentHotDataUpdateEvent} from '../../../../../../core/services/entity/ApiPart';
 
 @Component({
@@ -36,7 +36,7 @@ export class ResponseTabsComponent implements OnInit {
     this.textCom.setRespDoc(doc);
   }
 
-  onRespDocChanged(newDoc: DocJsonNode) {
+  onRespDocChanged(newDoc: DocJsonTableNode[]) {
     this.dataChanged.next({action: 'respDoc', data: newDoc});
   }
 }

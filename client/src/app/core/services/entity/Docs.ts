@@ -115,7 +115,6 @@ export class DocJsonTableNode{
   id: string;
   canDelete: boolean;
   canEditName: boolean;
-  level: number;
   name: string;
   type: string;
   desc: string;
@@ -142,12 +141,11 @@ export class RawTextDocNode{
   text: string;
 }
 export const rootJsonDoc = () => {
-  const root= new DocJsonNode();
+  const root= new DocJsonTableNode();
   root.canDelete = false;
   root.type = 'object';
-  root.children = [];
+  root.location = [root.id];
   root.canEditName = false;
-  root.level = 0;
   root.name = 'root';
   return root;
 }

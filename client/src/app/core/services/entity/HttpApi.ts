@@ -80,8 +80,8 @@ export const initHttpApi = (): HttpApi => {
   httpApi.bodyGraphQlQuery = '';
   httpApi.bodyGraphQlVar = '';
   httpApi.version = new Date().getTime();
-  httpApi.bodyTextDoc = rootJsonDoc();
-  httpApi.respBodyTextDoc = rootJsonDoc();
+  httpApi.bodyTextDoc = [rootJsonDoc()];
+  httpApi.respBodyTextDoc = [rootJsonDoc()];
   return httpApi;
 };
 
@@ -115,7 +115,7 @@ export const transformToElectronData = (api: HttpApi) => {
   httpApi.header = JSON.stringify(api.header);
   httpApi.bodyType = api.bodyType;
   httpApi.bodyForm = JSON.stringify(api.bodyForm);
-  httpApi.bodyUrlEncoded = JSON.stringify(api.bodyUrlEncoded)
+  httpApi.bodyUrlEncoded = JSON.stringify(api.bodyUrlEncoded);
   httpApi.bodyText = api.bodyText;
   httpApi.bodyTextType = api.bodyTextType;
   httpApi.bodyGraphQlQuery = api.bodyGraphQlQuery;
@@ -141,7 +141,7 @@ export const transformToApiDefine = (api: HttpApiInElec) => {
   httpApi.header = JSON.parse(api.header);
   httpApi.bodyType = api.bodyType;
   httpApi.bodyForm = JSON.parse(api.bodyForm);
-  httpApi.bodyUrlEncoded = JSON.parse(api.bodyUrlEncoded)
+  httpApi.bodyUrlEncoded = JSON.parse(api.bodyUrlEncoded);
   httpApi.bodyText = api.bodyText;
   httpApi.bodyTextType = api.bodyTextType;
   httpApi.bodyGraphQlQuery = api.bodyGraphQlQuery;

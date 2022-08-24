@@ -127,7 +127,7 @@ public class DocAutoGenerateService {
                 blocks.add(DocBlockUtils.generateRawText(waitForSave, order++, docDefineId));
             }
         }
-        if (CollectionUtils.isNotEmpty(waitForSave.getRespBodyTextDoc().getChildren())) {
+        if (CollectionUtils.isNotEmpty(waitForSave.getRespBodyTextDoc()) && waitForSave.getRespBodyTextDoc().size() > 1) {
             blocks.add(DocBlockUtils.generateI18nTitle("PAGES.DOCS.RESP_BODY_TEXT_INFO", order++, docDefineId));
             // generate return body text
             blocks.add(DocBlockUtils.generateJsonTree(waitForSave.getRespBodyTextDoc(), order++, docDefineId));

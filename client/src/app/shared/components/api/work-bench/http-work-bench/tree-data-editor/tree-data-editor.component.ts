@@ -44,7 +44,7 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     if (!this.root) {
-      this.root = rootJsonDoc();
+      this.root = this.generateRootNode();
       const arr = [];
       arr.push(this.root);
       this.dataSource.data = [...[]];
@@ -219,5 +219,16 @@ export class TreeDataEditorComponent implements OnInit, OnChanges {
         this.expandAll(datum.children);
       }
     }
+  }
+
+  private generateRootNode() {
+    const root= new DocJsonNode();
+    root.canDelete = false;
+    root.type = 'object';
+    root.children = [];
+    root.canEditName = false;
+    root.level = 0;
+    root.name = 'root';
+    return root;
   }
 }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.adp.gable.api.dto.HttpApiDto;
 import org.adp.gable.api.dto.doc.DocBlockDto;
 import org.adp.gable.api.dto.http.DocJsonNode;
+import org.adp.gable.api.dto.http.DocJsonTableNode;
 import org.adp.gable.api.dto.http.FormKeyValueDto;
 import org.adp.gable.api.dto.http.KeyValueDto;
 import org.adp.gable.api.entity.ApiCollection;
@@ -86,14 +87,14 @@ public class DocBlockUtils {
         return dto;
     }
 
-    public static DocBlockDto generateJsonTree(DocJsonNode docJsonNode, int order, Long docDefineId) {
+    public static DocBlockDto generateJsonTree(List<DocJsonTableNode> docJsonTableNodes, int order, Long docDefineId) {
         ObjectMapper objectMapper = JsonBuilderHolder.OBJECT_MAPPER;
         DocBlockDto dto = getDto(order, docDefineId);
         dto.setType("jsonTree");
         dto.setConfig(objectMapper.createObjectNode());
         dto.setData(objectMapper
                 .createObjectNode()
-                .set("nodes", objectMapper.convertValue(docJsonNode, ObjectNode.class))
+                .set("nodes", objectMapper.convertValue(docJsonTableNodes, ArrayNode.class))
         );
         return dto;
     }
