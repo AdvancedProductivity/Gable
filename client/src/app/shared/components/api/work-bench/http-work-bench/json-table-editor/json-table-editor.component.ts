@@ -120,6 +120,10 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
     if (changes.da && changes.da.currentValue && Array.isArray(changes.da.currentValue)) {
       this.rowData = changes.da.currentValue;
     }
+    if (changes.readonly) {
+      this.readonly = changes.readonly.currentValue;
+      this.readOnly();
+    }
   }
 
   setDocData(bodyTextDoc: any) {
@@ -136,6 +140,7 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.columnApi = params.columnApi;
+    this.readOnly();
   }
 
   ngOnInit(): void {
@@ -177,8 +182,10 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
   }
 
   readOnly() {
-    this.readonly = !this.readonly;
-    this.columnApi.setColumnVisible('Operation', !this.readonly);
+    if (this.columnApi) {
+      console.log('hhh', !this.readonly);
+      this.columnApi.setColumnVisible('Operation', !this.readonly);
+    }
   }
 
   onChanged(event: CellValueChangedEvent<any>) {

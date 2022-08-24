@@ -75,16 +75,17 @@ public class HttpDtoUtils {
         handleDefaultValue(dto);
     }
 
-    private static DocJsonNode mapDoc(String text, ObjectMapper objectMapper) {
+    private static List<DocJsonTableNode> mapDoc(String text, ObjectMapper objectMapper) {
         if (StringUtils.isNotEmpty(text)) {
             try {
-                return objectMapper.readValue(text, DocJsonNode.class);
+                return objectMapper.readValue(text, new TypeReference<List<DocJsonTableNode>>() {
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        return DocJsonNode.getRoot();
+        return DocJsonTableNode.getRoot();
     }
 
     private static List<FormKeyValueDto> getFormKeyValue(String str, ObjectMapper objectMapper) {
@@ -146,7 +147,7 @@ public class HttpDtoUtils {
             dto.setBodyUrlEncoded(Collections.emptyList());
         }
         if (dto.getBodyTextDoc() == null) {
-            dto.setBodyTextDoc(DocJsonNode.getRoot());
+            dto.setBodyTextDoc(DocJsonTableNode.getRoot());
         }
         if (dto.getRespBodyTextDoc() == null) {
             dto.setRespBodyTextDoc(dto.getBodyTextDoc());
