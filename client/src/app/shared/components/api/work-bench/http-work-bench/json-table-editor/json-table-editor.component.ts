@@ -3,10 +3,10 @@ import {
   ColDef,
   ColGroupDef,
   GridApi,
-  GridReadyEvent,
+  GridReadyEvent, RowNode,
   ValueSetterParams,
 } from 'ag-grid-community';
-import {DocJsonTableNode} from '../../../../../../core/services/entity/Docs';
+import {DocJsonNode, DocJsonTableNode} from '../../../../../../core/services/entity/Docs';
 import {
   OperationCellForJsonTableDocComponent
 } from './operation-cell-for-json-table-doc/operation-cell-for-json-table-doc.component';
@@ -95,7 +95,17 @@ export class JsonTableEditorComponent implements OnInit {
       this.rowData.push(docJsonTableNode);
     }
   }
+
   gen(data: any): void {
+    if (this.gridApi && this.rowData && Array.isArray(this.rowData) && this.rowData.length > 0) {
+      const rootData = this.rowData[0];
+      const rootNode = this.gridApi.getRowNode(rootData.id);
+      console.log('root node is', rootNode);
+      const waitForAdd = [];
+      this.traverse(data, this.process, rootNode.childrenAfterGroup, waitForAdd, rootNode.data.location);
+      console.log('added arr', waitForAdd);
+      this.gridApi.applyTransaction({add: waitForAdd });
+    }
     console.log('do append', data);
     console.log('zq see daa', this.gridApi.getModel().gridOptionsWrapper.gridOptions.rowData);
   }
@@ -103,4 +113,83 @@ export class JsonTableEditorComponent implements OnInit {
   }
 
   getId = (da) => da.id;
+  private process = (key: string, value: any, nodes: RowNode[], newArr: DocJsonTableNode[], ids: string[]): number => {
+    let index = -1;
+    for (let i = 0; i < nodes.length; i++) {
+      if (nodes[i].data.name === key) {
+        index = i;
+        break;
+      }
+    }
+    if (index === -1) {
+      const a = new DocJsonTableNode();
+      if (Array.isArray(value)) {
+        a.type = 'array';
+      } else {
+        a.type = typeof value;
+        if (a.type !== 'object') {
+          a.sample = value;
+        }
+      }
+      a.name = key;
+      a.location = [...ids, a.id];
+      newArr.push(a);
+    }
+    return index;
+  };
+
+  private traverse(o: any, func, nodes: RowNode[], newArr: DocJsonTableNode[], ids: string[]) {
+    const keySet = Object.keys(o);
+    for (const i of keySet) {
+      const index = func.apply(this, [i, o[i], nodes, newArr, ids]);
+      if (o[i] !== null && Array.isArray(o[i]) && o[i].length > 0) {
+        if (index === -1) {
+          this.generateItem(o, i, nodes, func, newArr, newArr[newArr.length - 1].location);
+        }else if (!nodes[index].childrenAfterGroup[0]){
+          this.generateItem(o, i, nodes, func, newArr, nodes[index].data.location);
+        }else if (nodes[index].childrenAfterGroup[0].data.name !== 'item'
+          && !nodes[index].childrenAfterGroup[0].data.canEditName) {
+          this.generateItem(o, i, nodes, func, newArr, nodes[index].data.location);
+        } else if (nodes[index].childrenAfterGroup[0].data.name === 'item'
+          && !nodes[index].childrenAfterGroup[0].data.canEditName) {
+          this.traverse(o[i][0], func, nodes[index].childrenAfterGroup[0].childrenAfterGroup,
+            newArr, nodes[index].childrenAfterGroup[0].data.location);
+        }
+      } else if (o[i] !== null && typeof (o[i]) === 'object') {
+        //going one step down in the object tree!!
+        if (index === -1) {
+          if (newArr[newArr.length - 1]) {
+            this.traverse(o[i], func, [], newArr, newArr[newArr.length - 1].location);
+          }else {
+            this.traverse(o[i], func, [], newArr, ids);
+          }
+        }else {
+          this.traverse(o[i], func, nodes[index].childrenAfterGroup, newArr, nodes[index].data.location);
+        }
+      }
+    }
+  }
+
+  private generateItem(o: any, i: string, docs: RowNode[], func,
+                       newArr: DocJsonTableNode[], ids: string[]) {
+    if (typeof o[i][0] === 'object') {
+      const a = new DocJsonTableNode();
+      a.type = 'object';
+      a.name = 'item';
+      a.canEditName = false;
+      a.location = [...ids, a.id];
+      newArr.push(a);
+      this.traverse(o[i][0], func, [], newArr, a.location);
+    } else {
+      const a = new DocJsonTableNode();
+      a.type = typeof o[i][0];
+      a.sample = o[i][0];
+      a.name = 'item';
+      a.canEditName = false;
+      a.location = [...ids, a.id];
+      newArr.push(a);
+    }
+  }
+
+
 }

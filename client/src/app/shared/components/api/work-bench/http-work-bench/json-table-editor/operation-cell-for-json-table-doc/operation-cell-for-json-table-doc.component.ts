@@ -98,6 +98,7 @@ export class OperationCellForJsonTableDocComponent implements OnInit, ICellRende
   private getRowsToRemove(node: RowNode) {
     let res: any[] = [];
     const children = node.childrenAfterGroup || [];
+    console.log('zzq see children', children);
     let i = 0;
     while (i < children.length) {
       res = res.concat(this.getRowsToRemove(children[i]));
