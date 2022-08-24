@@ -40,6 +40,7 @@ export class JsonTreeBlock implements BlockTool {
     containerElement.style.minHeight = '60px';
     containerElement.style.overflow = 'hidden';
     this.dataElement = document.createElement('json-table-editor-component');
+    this.dataElement.isScroll = false;
     this.dataElement.readonly = this.readOnly;
     this.dataElement.da = this.data.nodes;
     containerElement.appendChild(this.dataElement);

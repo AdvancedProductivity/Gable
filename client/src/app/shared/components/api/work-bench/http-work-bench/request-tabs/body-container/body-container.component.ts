@@ -9,7 +9,7 @@ import {HttpApi} from '../../../../../../../core/services/entity/HttpApi';
 import {FormEditorComponent} from '../form-editor/form-editor.component';
 import {QueryTableComponent} from '../query-table/query-table.component';
 import {GraphQLComponent} from '../graph-ql/graph-ql.component';
-import {DocJsonNode} from '../../../../../../../core/services/entity/Docs';
+import {DocJsonTableNode} from '../../../../../../../core/services/entity/Docs';
 
 @Component({
   selector: 'app-body-container',
@@ -83,7 +83,7 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
     this.contentChange.next({action: 'raw', data: newContent});
   }
 
-  onBodyDocChange(newDoc: DocJsonNode) {
+  onBodyDocChange(newDoc: DocJsonTableNode[]) {
     this.contentChange.next({action: 'bodyDoc', data: newDoc});
   }
 

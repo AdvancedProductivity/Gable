@@ -1,8 +1,8 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {MonacoStandaloneCodeEditor} from '@materia-ui/ngx-monaco-editor';
 import {debounceTime, Subject} from 'rxjs';
-import {TreeDataEditorComponent} from '../../tree-data-editor/tree-data-editor.component';
-import {DocJsonNode} from '../../../../../../../core/services/entity/Docs';
+import {DocJsonTableNode} from '../../../../../../../core/services/entity/Docs';
+import {JsonTableEditorComponent} from '../../json-table-editor/json-table-editor.component';
 
 @Component({
   selector: 'app-text-body',
@@ -11,8 +11,8 @@ import {DocJsonNode} from '../../../../../../../core/services/entity/Docs';
 })
 export class TextBodyComponent implements OnInit, OnDestroy {
   @Output() contentChange = new EventEmitter<string>();
-  @Output() bodyDocChange = new EventEmitter<DocJsonNode>();
-  @ViewChild('dataEditorComponent', {static: false}) treeDataEditorComponent: TreeDataEditorComponent;
+  @Output() bodyDocChange = new EventEmitter<DocJsonTableNode[]>();
+  @ViewChild('dataEditorComponent', {static: false}) treeDataEditorComponent: JsonTableEditorComponent;
   isEditingDoc = false;
   isInDoc = false;
   editorOptions = {
@@ -66,7 +66,7 @@ export class TextBodyComponent implements OnInit, OnDestroy {
     this.treeDataEditorComponent.setDocData(bodyTextDoc);
   }
 
-  onBodyDocChanged(newDoc: DocJsonNode) {
+  onBodyDocChanged(newDoc: DocJsonTableNode[]) {
     this.bodyDocChange.next(newDoc);
   }
 

@@ -1,8 +1,8 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MonacoStandaloneCodeEditor} from '@materia-ui/ngx-monaco-editor';
 import {BodyHtmlComponent} from './body-html/body-html.component';
-import {TreeDataEditorComponent} from '../../tree-data-editor/tree-data-editor.component';
-import {DocJsonNode} from '../../../../../../../core/services/entity/Docs';
+import {DocJsonTableNode} from '../../../../../../../core/services/entity/Docs';
+import {JsonTableEditorComponent} from '../../json-table-editor/json-table-editor.component';
 
 @Component({
   selector: 'app-body-text',
@@ -11,8 +11,8 @@ import {DocJsonNode} from '../../../../../../../core/services/entity/Docs';
 })
 export class BodyTextComponent implements OnInit {
   @ViewChild('htmlContent', {static: true}) bodyContent: BodyHtmlComponent;
-  @ViewChild('dataEditorComponent', {static: false}) treeDataEditorComponent: TreeDataEditorComponent;
-  @Output() respDocChange = new EventEmitter<DocJsonNode>();
+  @ViewChild('dataEditorComponent', {static: false}) treeDataEditorComponent: JsonTableEditorComponent;
+  @Output() respDocChange = new EventEmitter<DocJsonTableNode[]>();
   isEditingDoc = false;
   isInDoc = false;
   bodyType = 'json';
@@ -30,7 +30,7 @@ export class BodyTextComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onRespDocChange(newDoc: DocJsonNode) {
+  onRespDocChange(newDoc: DocJsonTableNode[]) {
     this.respDocChange.next(newDoc);
   }
 
@@ -88,7 +88,7 @@ export class BodyTextComponent implements OnInit {
     }
   }
 
-  setRespDoc(doc: DocJsonNode) {
+  setRespDoc(doc: DocJsonTableNode[]) {
     this.treeDataEditorComponent.setDocData(doc);
   }
 

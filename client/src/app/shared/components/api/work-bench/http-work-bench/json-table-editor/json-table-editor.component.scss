@@ -1,0 +1,16 @@
+.doc-json-tree-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 100% !important;
+  border: 1px solid #bbb;
+  background-color: #fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+
+  .is-scroll {
+    position: absolute;
+    margin-top: 2px;
+  }
+
+}

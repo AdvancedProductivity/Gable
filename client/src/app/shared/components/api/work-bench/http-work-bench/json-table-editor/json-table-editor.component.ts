@@ -23,6 +23,7 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
   @Output() chang = new EventEmitter<DocJsonTableNode[]>();
   @Input() da: DocJsonTableNode[];
   @Input() readonly = false;
+  @Input() isScroll = true;
   treeSubject = new Subject<void>();
   gridApi = null;
   columnApi = null;
@@ -33,6 +34,7 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
       editable: (data) => !this.readonly,
       cellRenderer: CellContentComponent,
       cellEditor: 'select',
+      minWidth: 110,
       cellEditorParams: {
         values: [
           'object',
@@ -48,6 +50,7 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
     },
     {
       field: 'sample',
+      minWidth: 110,
       editable: () => !this.readonly,
       cellRenderer: CellContentComponent,
       cellRendererParams: {
@@ -56,6 +59,7 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
     },
     {
       field: 'desc',
+      minWidth: 110,
       editable: () => !this.readonly,
       cellRenderer: CellContentComponent,
       cellRendererParams: {
@@ -83,7 +87,7 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
   };
   // @ts-ignore
   autoGroupColumnDef: ColDef = {
-    headerName: 'Organisation Hierarchy',
+    headerName: 'Field Name',
     minWidth: 300,
     editable: (node) => !this.readonly && node.data.canEditName,
     cellRendererParams: {
@@ -115,6 +119,15 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.da && changes.da.currentValue && Array.isArray(changes.da.currentValue)) {
       this.rowData = changes.da.currentValue;
+    }
+  }
+
+  setDocData(bodyTextDoc: any) {
+    if (Array.isArray(bodyTextDoc) && bodyTextDoc.length > 0) {
+      this.rowData = bodyTextDoc;
+      if (this.gridApi) {
+        this.gridApi.setRowData(this.rowData);
+      }
     }
   }
 

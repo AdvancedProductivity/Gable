@@ -1,15 +1,23 @@
-<ag-grid-angular
-  class="ag-theme-alpine"
-  domLayout="autoHeight"
-  [columnDefs]="columnDefs"
-  [defaultColDef]="defaultColDef"
-  [autoGroupColumnDef]="autoGroupColumnDef"
-  [rowData]="rowData"
-  [treeData]="true"
-  [animateRows]="true"
-  (cellValueChanged)="onChanged($event)"
-  [getRowNodeId]="getId"
-  [groupDefaultExpanded]="groupDefaultExpanded"
-  [getDataPath]="getDataPath"
-  (gridReady)="onGridReady($event)"
-></ag-grid-angular>
+
+<div class="doc-json-tree-container">
+  <div
+    style="width: 100%"
+    [class.is-scroll]="isScroll"
+  >
+    <ag-grid-angular
+      class="ag-theme-alpine"
+      domLayout="autoHeight"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [autoGroupColumnDef]="autoGroupColumnDef"
+      [rowData]="rowData"
+      [treeData]="true"
+      [animateRows]="true"
+      (cellValueChanged)="onChanged($event)"
+      [getRowNodeId]="getId"
+      [groupDefaultExpanded]="groupDefaultExpanded"
+      [getDataPath]="getDataPath"
+      (gridReady)="onGridReady($event)"
+    ></ag-grid-angular>
+  </div>
+</div>
