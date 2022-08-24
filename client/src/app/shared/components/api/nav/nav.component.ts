@@ -32,6 +32,18 @@ export class NavComponent implements OnInit, OnDestroy {
     this.navTabImplService.closeTab(tab.tabId);
   }
 
+  closeOther(tab: OpeningNavTab): void {
+    this.navTabImplService.closeOther(tab.tabId);
+  }
+
+  closeLeft(tab: OpeningNavTab): void {
+    this.navTabImplService.closeLeft(tab.tabId);
+  }
+
+  closeRight(tab: OpeningNavTab): void {
+    this.navTabImplService.closeRight(tab.tabId);
+  }
+
   switchNav(link) {
     this.navTabImplService.openTabs(link, false);
   }

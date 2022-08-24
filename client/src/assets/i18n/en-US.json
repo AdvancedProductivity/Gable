@@ -48,6 +48,12 @@
         "EMPTY_HEADERS_HEADER": "No headers received from the server",
         "EMPTY_COOKIE_TIP": "All your cookies and their associated domains will appear here.",
         "EMPTY_HEADERS_TIP": "All your headers will appear here."
+      },
+      "NAV": {
+        "CLOSE_THIS": "Close",
+        "CLOSE_OTHER": "Close Other Tabs",
+        "CLOSE_LEFT": "Close All Left Tabs",
+        "CLOSE_RIGHT": "Close Right Left Tabs"
       }
     },
     "DOCS": {

@@ -40,6 +40,18 @@ export class NavTabImplService implements NavTabService{
     return this.webImpl.closeTab(id);
   }
 
+  closeOther(id: string): void {
+    return this.webImpl.closeOther(id);
+  }
+
+  closeLeft(id: string): void {
+    return this.webImpl.closeLeft(id);
+  }
+
+  closeRight(id: string): void {
+    return this.webImpl.closeRight(id);
+  }
+
   closeAllTab(): void {
     return this.webImpl.closeAllTab();
   }

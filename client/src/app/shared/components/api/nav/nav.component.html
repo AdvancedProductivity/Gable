@@ -44,13 +44,16 @@
   <mat-menu #context_menu>
     <ng-template matMenuContent let-content="content">
       <button mat-menu-item (click)="close(content)">
-        Close This Tab-{{content.name}}
+        {{ 'PAGES.API_TEST.NAV.CLOSE_THIS' | translate }}
       </button>
-      <button mat-menu-item>
-        Close Left Tabs
+      <button mat-menu-item (click)="closeOther(content)">
+        {{ 'PAGES.API_TEST.NAV.CLOSE_OTHER' | translate }}
       </button>
-      <button mat-menu-item>
-        Close Right Tabs
+      <button mat-menu-item (click)="closeLeft(content)">
+        {{ 'PAGES.API_TEST.NAV.CLOSE_LEFT' | translate }}
+      </button>
+      <button mat-menu-item (click)="closeRight(content)">
+        {{ 'PAGES.API_TEST.NAV.CLOSE_RIGHT' | translate }}
       </button>
     </ng-template>
   </mat-menu>

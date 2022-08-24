@@ -150,6 +150,72 @@ export class NavTabWebImplService implements NavTabService{
     db.openingTabs.delete(id).then(res => {});
   }
 
+  closeOther(id: string): void {
+    const newArr = [];
+    const ids = [];
+    this.cache.forEach((item, i) => {
+      if (item.tabId === id) {
+        newArr.push(item);
+      } else {
+        ids.push(item.tabId);
+        this.cacheMap.delete(item.tabId);
+      }
+    });
+    this.cache = newArr;
+    this.subject.next(this.cache);
+    this.openTabs(this.cache[0], false);
+    db.openingTabs.bulkDelete(ids).then(res => {
+    });
+  }
+
+  closeLeft(id: string): void {
+    const remain = [];
+    const ids = [];
+    let haveFind = false;
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for (let i = 0; i < this.cache.length; i++) {
+      const item = this.cache[i];
+      if (item.tabId === id) {
+        haveFind = true;
+      }
+      if (haveFind) {
+        remain.push(item);
+      }else {
+        ids.push(item.tabId);
+        this.cacheMap.delete(item.tabId);
+      }
+    }
+    this.cache = remain;
+    this.subject.next(this.cache);
+    this.openTabs(this.cache[0], false);
+    db.openingTabs.bulkDelete(ids).then(res => {
+    });
+  }
+
+  closeRight(id: string): void {
+    const remain = [];
+    const ids = [];
+    let haveFind = false;
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for (let i = 0; i < this.cache.length; i++) {
+      const item = this.cache[i];
+      if (haveFind) {
+        ids.push(item.tabId);
+        this.cacheMap.delete(item.tabId);
+      }else {
+        remain.push(item);
+      }
+      if (item.tabId === id) {
+        haveFind = true;
+      }
+    }
+    this.cache = remain;
+    this.subject.next(this.cache);
+    this.openTabs(this.cache[this.cache.length - 1], false);
+    db.openingTabs.bulkDelete(ids).then(res => {
+    });
+  }
+
   closeAllTab(): void {
     const ids = this.cache.map(item => item.tabId);
     this.cache = [];
