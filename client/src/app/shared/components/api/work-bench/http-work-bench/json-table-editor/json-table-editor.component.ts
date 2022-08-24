@@ -34,7 +34,7 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
       editable: (data) => !this.readonly,
       cellRenderer: CellContentComponent,
       cellEditor: 'select',
-      minWidth: 110,
+      minWidth: 80,
       cellEditorParams: {
         values: [
           'object',
@@ -50,7 +50,7 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
     },
     {
       field: 'sample',
-      minWidth: 110,
+      minWidth: 100,
       editable: () => !this.readonly,
       cellRenderer: CellContentComponent,
       cellRendererParams: {
@@ -59,7 +59,7 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
     },
     {
       field: 'desc',
-      minWidth: 110,
+      minWidth: 100,
       editable: () => !this.readonly,
       cellRenderer: CellContentComponent,
       cellRendererParams: {
@@ -83,6 +83,8 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
     },
   ];
   defaultColDef: ColDef = {
+    wrapText: true,
+    autoHeight: true,
     flex: 1,
   };
   // @ts-ignore
@@ -110,10 +112,14 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
 
   @Input() get getData(): any {
     const arr = [];
-    this.gridApi.forEachNode((rowNode, index) => {
-      arr.push(rowNode.data);
-    });
-    return arr;
+    if (this.gridApi) {
+      this.gridApi.forEachNode((rowNode, index) => {
+        arr.push(rowNode.data);
+      });
+      return arr;
+    }else {
+      return this.rowData;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
