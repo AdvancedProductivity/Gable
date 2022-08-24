@@ -13,7 +13,7 @@
   <mat-divider vertical></mat-divider>
   <div class="right">
     <div style="width: 100%;height: 600px;overflow-y: auto;box-sizing: border-box;padding: 10px">
-      <app-json-table-editor #treeDataEditorComponent></app-json-table-editor>
+      <app-json-table-editor (chang)="onDataC($event)" #treeDataEditorComponent></app-json-table-editor>
     </div>
   </div>
 </div>

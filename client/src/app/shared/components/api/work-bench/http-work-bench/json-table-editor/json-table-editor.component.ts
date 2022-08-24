@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {
+  CellValueChangedEvent,
   ColDef,
   ColGroupDef,
   GridApi,
@@ -11,14 +12,18 @@ import {
   OperationCellForJsonTableDocComponent
 } from './operation-cell-for-json-table-doc/operation-cell-for-json-table-doc.component';
 import {CellContentComponent} from '../request-tabs/inner/cell-content/cell-content.component';
+import {debounceTime, Subject} from 'rxjs';
 
 @Component({
   selector: 'app-json-table-editor',
   templateUrl: './json-table-editor.component.html',
   styleUrls: ['./json-table-editor.component.scss']
 })
-export class JsonTableEditorComponent implements OnInit {
-  readonly = false;
+export class JsonTableEditorComponent implements OnInit, OnChanges {
+  @Output() chang = new EventEmitter<DocJsonTableNode[]>();
+  @Input() da: DocJsonTableNode[];
+  @Input() readonly = false;
+  treeSubject = new Subject<void>();
   gridApi = null;
   columnApi = null;
   columnDefs: ColDef[] = [
@@ -67,7 +72,10 @@ export class JsonTableEditorComponent implements OnInit {
       editable: false,
       suppressSizeToFit: true,
       resizable: false,
-      cellRenderer: OperationCellForJsonTableDocComponent
+      cellRenderer: OperationCellForJsonTableDocComponent,
+      cellRendererParams: {
+        dataUpdated: () => this.dataChange()
+      },
     },
   ];
   defaultColDef: ColDef = {
@@ -77,9 +85,7 @@ export class JsonTableEditorComponent implements OnInit {
   autoGroupColumnDef: ColDef = {
     headerName: 'Organisation Hierarchy',
     minWidth: 300,
-    editable: (node) => {
-      return !this.readonly && node.data.canEditName;
-    },
+    editable: (node) => !this.readonly && node.data.canEditName,
     cellRendererParams: {
       suppressCount: true,
     },
@@ -96,6 +102,20 @@ export class JsonTableEditorComponent implements OnInit {
   groupDefaultExpanded = 2;
 
   constructor() {
+  }
+
+  @Input() get getData(): any {
+    const arr = [];
+    this.gridApi.forEachNode((rowNode, index) => {
+      arr.push(rowNode.data);
+    });
+    return arr;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.da && changes.da.currentValue) {
+      this.rowData = changes.da.currentValue;
+    }
   }
 
   getDataPath = (data: any) => data.location;
@@ -118,31 +138,38 @@ export class JsonTableEditorComponent implements OnInit {
       docJsonTableNode.location = [docJsonTableNode.id];
       this.rowData.push(docJsonTableNode);
     }
+    this.treeSubject.pipe(debounceTime(2000))
+      .subscribe(res => {
+        const arr = [];
+        this.gridApi.forEachNode((rowNode, index) => {
+          arr.push(rowNode.data);
+        });
+        this.chang.next(arr);
+      });
+  }
+
+  dataChange() {
+    this.treeSubject.next();
   }
 
   gen(data: any): void {
     if (this.gridApi && this.rowData && Array.isArray(this.rowData) && this.rowData.length > 0) {
       const rootData = this.rowData[0];
       const rootNode = this.gridApi.getRowNode(rootData.id);
-      console.log('root node is', rootNode);
       const waitForAdd = [];
       this.traverse(data, this.process, rootNode.childrenAfterGroup, waitForAdd, rootNode.data.location);
-      console.log('added arr', waitForAdd);
       this.gridApi.applyTransaction({add: waitForAdd});
+      this.dataChange();
     }
-    console.log('do append', data);
-    setTimeout(() => {
-      const arr = [];
-      this.gridApi.forEachNode((rowNode, index) => {
-        arr.push(rowNode.data);
-      });
-      console.log('zq see daa', arr);
-    }, 3000);
   }
 
   readOnly() {
     this.readonly = !this.readonly;
     this.columnApi.setColumnVisible('Operation', !this.readonly);
+  }
+
+  onChanged(event: CellValueChangedEvent<any>) {
+    this.dataChange();
   }
 
   getId = (da) => da.id;
@@ -223,6 +250,4 @@ export class JsonTableEditorComponent implements OnInit {
       newArr.push(a);
     }
   }
-
-
 }

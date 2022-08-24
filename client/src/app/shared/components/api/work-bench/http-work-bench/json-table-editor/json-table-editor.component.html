@@ -7,6 +7,7 @@
   [rowData]="rowData"
   [treeData]="true"
   [animateRows]="true"
+  (cellValueChanged)="onChanged($event)"
   [getRowNodeId]="getId"
   [groupDefaultExpanded]="groupDefaultExpanded"
   [getDataPath]="getDataPath"

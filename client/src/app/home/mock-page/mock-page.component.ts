@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {
   JsonTableEditorComponent
 } from '../../shared/components/api/work-bench/http-work-bench/json-table-editor/json-table-editor.component';
+import {DocJsonTableNode} from "../../core/services/entity/Docs";
 
 @Component({
   selector: 'app-mock-page',
@@ -44,6 +45,10 @@ export class MockPageComponent implements OnInit {
 
   gen() {
     this.vi.gen(JSON.parse(this.code));
+  }
+
+  onDataC(data: DocJsonTableNode[]) {
+    console.log('zzq see doc updated', data);
   }
 }
 

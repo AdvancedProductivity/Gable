@@ -47,11 +47,12 @@ import {DocJsonTableNode} from '../../../../../../../core/services/entity/Docs';
   `]
 })
 export class OperationCellForJsonTableDocComponent implements OnInit, ICellRendererAngularComp {
+  isShowAdd = true;
+  isShowDelete = true;
+  params: ICellRendererParams;
   private curData: DocJsonTableNode;
   private gridApi = null;
   private rowId;
-  isShowAdd = true;
-  isShowDelete = true;
   constructor() {
   }
 
@@ -59,7 +60,7 @@ export class OperationCellForJsonTableDocComponent implements OnInit, ICellRende
   }
 
   agInit(params: ICellRendererParams): void {
-    console.log('zzq see cell', params);
+    this.params = params;
     this.curData = params.data;
     this.isShowAdd = (this.curData.type === 'object' || this.curData.type === 'array');
     this.isShowDelete = this.curData.canDelete;
@@ -71,23 +72,19 @@ export class OperationCellForJsonTableDocComponent implements OnInit, ICellRende
     return false;
   }
 
-  delete() {
-    console.log('delete');
-  }
-
   deleteNode($event: MouseEvent) {
     $event.cancelBubble = true;
     const selectedNode = this.gridApi.getRowNode(this.rowId);
     if (!selectedNode) {
-      console.warn('No nodes selected!');
       return;
     }
-    this.gridApi.applyTransaction({ remove: this.getRowsToRemove(selectedNode) });
+    this.gridApi.applyTransaction({remove: this.getRowsToRemove(selectedNode)});
+    // @ts-ignore
+    this.params.dataUpdated();
   }
 
   addNode($event: MouseEvent) {
     $event.cancelBubble = true;
-    console.log('addNode');
     const docJsonTableNode = new DocJsonTableNode();
     docJsonTableNode.name = 'Field Name';
     docJsonTableNode.desc = '';
@@ -96,7 +93,9 @@ export class OperationCellForJsonTableDocComponent implements OnInit, ICellRende
     docJsonTableNode.canEditName = true;
     docJsonTableNode.canDelete = true;
     docJsonTableNode.location = [...this.curData.location, docJsonTableNode.id];
-    this.gridApi.applyTransaction({add: [docJsonTableNode] });
+    this.gridApi.applyTransaction({add: [docJsonTableNode]});
+    // @ts-ignore
+    this.params.dataUpdated();
   }
 
   private getRowsToRemove(node: RowNode) {
