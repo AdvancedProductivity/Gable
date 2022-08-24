@@ -7,13 +7,13 @@ import {DocJsonTableNode} from '../../../../../../../core/services/entity/Docs';
   selector: 'app-operation-cell-for-json-table-doc',
   template: `
     <div class="json-doc-cell-container" id="zadsad">
-      <span (click)="deleteNode($event)">
+      <span *ngIf="isShowDelete" (click)="deleteNode($event)">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 red-svg" fill="none"
              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </span>
-      <span (click)="addNode($event)">
+      <span *ngIf="isShowAdd" (click)="addNode($event)">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 blue-svg" fill="none"
              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -50,6 +50,8 @@ export class OperationCellForJsonTableDocComponent implements OnInit, ICellRende
   private curData: DocJsonTableNode;
   private gridApi = null;
   private rowId;
+  isShowAdd = true;
+  isShowDelete = true;
   constructor() {
   }
 
@@ -59,6 +61,8 @@ export class OperationCellForJsonTableDocComponent implements OnInit, ICellRende
   agInit(params: ICellRendererParams): void {
     console.log('zzq see cell', params);
     this.curData = params.data;
+    this.isShowAdd = (this.curData.type === 'object' || this.curData.type === 'array');
+    this.isShowDelete = this.curData.canDelete;
     this.gridApi = params.api;
     this.rowId = params.node.id;
   }

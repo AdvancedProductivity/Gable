@@ -6,7 +6,7 @@ import {
   GridReadyEvent, RowNode,
   ValueSetterParams,
 } from 'ag-grid-community';
-import {DocJsonNode, DocJsonTableNode} from '../../../../../../core/services/entity/Docs';
+import {DocJsonTableNode} from '../../../../../../core/services/entity/Docs';
 import {
   OperationCellForJsonTableDocComponent
 } from './operation-cell-for-json-table-doc/operation-cell-for-json-table-doc.component';
@@ -20,6 +20,7 @@ import {CellContentComponent} from '../request-tabs/inner/cell-content/cell-cont
 export class JsonTableEditorComponent implements OnInit {
   readonly = false;
   gridApi = null;
+  columnApi = null;
   columnDefs: ColDef[] = [
     // we're using the auto group column by default!
     {
@@ -58,6 +59,7 @@ export class JsonTableEditorComponent implements OnInit {
     },
     {
       headerName: 'Operation',
+      field: 'Operation',
       width: 110,
       minWidth: 110,
       maxWidth: 110,
@@ -100,6 +102,7 @@ export class JsonTableEditorComponent implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
+    this.columnApi = params.columnApi;
   }
 
   ngOnInit(): void {
@@ -139,6 +142,7 @@ export class JsonTableEditorComponent implements OnInit {
 
   readOnly() {
     this.readonly = !this.readonly;
+    this.columnApi.setColumnVisible('Operation', !this.readonly);
   }
 
   getId = (da) => da.id;
