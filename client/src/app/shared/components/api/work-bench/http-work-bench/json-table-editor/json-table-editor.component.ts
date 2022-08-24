@@ -10,8 +10,7 @@ import {DocJsonNode, DocJsonTableNode} from '../../../../../../core/services/ent
 import {
   OperationCellForJsonTableDocComponent
 } from './operation-cell-for-json-table-doc/operation-cell-for-json-table-doc.component';
-import {randomString} from "../../../../../../core/services/utils/Uuid";
-import {CellContentComponent} from "../request-tabs/inner/cell-content/cell-content.component";
+import {CellContentComponent} from '../request-tabs/inner/cell-content/cell-content.component';
 
 @Component({
   selector: 'app-json-table-editor',
@@ -19,23 +18,42 @@ import {CellContentComponent} from "../request-tabs/inner/cell-content/cell-cont
   styleUrls: ['./json-table-editor.component.scss']
 })
 export class JsonTableEditorComponent implements OnInit {
+  readonly = false;
   gridApi = null;
   columnDefs: ColDef[] = [
     // we're using the auto group column by default!
     {
-      field: 'desc',
-      editable: true,
+      field: 'type',
+      editable: (data) => !this.readonly,
       cellRenderer: CellContentComponent,
+      cellEditor: 'select',
+      cellEditorParams: {
+        values: [
+          'object',
+          'array',
+          'string',
+          'number',
+          'boolean'
+        ]
+      },
       cellRendererParams: {
-        hintStr: 'Description'
+        hintStr: 'Field Type'
       }
     },
     {
       field: 'sample',
-      editable: true,
+      editable: () => !this.readonly,
       cellRenderer: CellContentComponent,
       cellRendererParams: {
         hintStr: 'Sample Value'
+      }
+    },
+    {
+      field: 'desc',
+      editable: () => !this.readonly,
+      cellRenderer: CellContentComponent,
+      cellRendererParams: {
+        hintStr: 'Description'
       }
     },
     {
@@ -57,7 +75,9 @@ export class JsonTableEditorComponent implements OnInit {
   autoGroupColumnDef: ColDef = {
     headerName: 'Organisation Hierarchy',
     minWidth: 300,
-    editable: true,
+    editable: (node) => {
+      return !this.readonly && node.data.canEditName;
+    },
     cellRendererParams: {
       suppressCount: true,
     },
@@ -71,9 +91,10 @@ export class JsonTableEditorComponent implements OnInit {
     }
   };
   rowData: DocJsonTableNode[];
-  groupDefaultExpanded = -1;
+  groupDefaultExpanded = 2;
 
-  constructor() { }
+  constructor() {
+  }
 
   getDataPath = (data: any) => data.location;
 
@@ -104,12 +125,20 @@ export class JsonTableEditorComponent implements OnInit {
       const waitForAdd = [];
       this.traverse(data, this.process, rootNode.childrenAfterGroup, waitForAdd, rootNode.data.location);
       console.log('added arr', waitForAdd);
-      this.gridApi.applyTransaction({add: waitForAdd });
+      this.gridApi.applyTransaction({add: waitForAdd});
     }
     console.log('do append', data);
-    console.log('zq see daa', this.gridApi.getModel().gridOptionsWrapper.gridOptions.rowData);
+    setTimeout(() => {
+      const arr = [];
+      this.gridApi.forEachNode((rowNode, index) => {
+        arr.push(rowNode.data);
+      });
+      console.log('zq see daa', arr);
+    }, 3000);
   }
+
   readOnly() {
+    this.readonly = !this.readonly;
   }
 
   getId = (da) => da.id;
@@ -145,9 +174,9 @@ export class JsonTableEditorComponent implements OnInit {
       if (o[i] !== null && Array.isArray(o[i]) && o[i].length > 0) {
         if (index === -1) {
           this.generateItem(o, i, nodes, func, newArr, newArr[newArr.length - 1].location);
-        }else if (!nodes[index].childrenAfterGroup[0]){
+        } else if (!nodes[index].childrenAfterGroup[0]) {
           this.generateItem(o, i, nodes, func, newArr, nodes[index].data.location);
-        }else if (nodes[index].childrenAfterGroup[0].data.name !== 'item'
+        } else if (nodes[index].childrenAfterGroup[0].data.name !== 'item'
           && !nodes[index].childrenAfterGroup[0].data.canEditName) {
           this.generateItem(o, i, nodes, func, newArr, nodes[index].data.location);
         } else if (nodes[index].childrenAfterGroup[0].data.name === 'item'
@@ -160,10 +189,10 @@ export class JsonTableEditorComponent implements OnInit {
         if (index === -1) {
           if (newArr[newArr.length - 1]) {
             this.traverse(o[i], func, [], newArr, newArr[newArr.length - 1].location);
-          }else {
+          } else {
             this.traverse(o[i], func, [], newArr, ids);
           }
-        }else {
+        } else {
           this.traverse(o[i], func, nodes[index].childrenAfterGroup, newArr, nodes[index].data.location);
         }
       }
