@@ -113,7 +113,7 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.da && changes.da.currentValue) {
+    if (changes.da && changes.da.currentValue && Array.isArray(changes.da.currentValue)) {
       this.rowData = changes.da.currentValue;
     }
   }

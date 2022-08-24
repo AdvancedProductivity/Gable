@@ -13,6 +13,9 @@ import {HttpUrlDocComponent} from './shared/components/docs/http-url-doc/http-ur
 import {RawTextDocComponent} from './shared/components/docs/raw-text-doc/raw-text-doc.component';
 import {I18nTitleComponent} from './shared/components/docs/i18n-title/i18n-title.component';
 import {DocService} from './core/services/impl/doc.service';
+import {
+  JsonTableEditorComponent
+} from "./shared/components/api/work-bench/http-work-bench/json-table-editor/json-table-editor.component";
 
 @Component({
   selector: 'app-root',
@@ -36,8 +39,8 @@ export class AppComponent {
     customElements.define('raw-text-doc-component', rawText);
     const monin = createCustomElement(HttpApiDocComponent, {injector});
     customElements.define('http-api-doc-component', monin);
-    const treeDataEditor = createCustomElement(TreeDataEditorComponent, {injector});
-    customElements.define('tree-data-editor-component', treeDataEditor);
+    const treeDataEditor = createCustomElement(JsonTableEditorComponent, {injector});
+    customElements.define('json-table-editor-component', treeDataEditor);
     this.loadLanguage();
     console.log('APP_CONFIG', APP_CONFIG);
 
