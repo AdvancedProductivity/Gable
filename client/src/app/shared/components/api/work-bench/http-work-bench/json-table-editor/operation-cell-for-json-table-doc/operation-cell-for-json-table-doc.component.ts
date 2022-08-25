@@ -62,13 +62,13 @@ export class OperationCellForJsonTableDocComponent implements OnInit, ICellRende
   agInit(params: ICellRendererParams): void {
     this.params = params;
     this.curData = params.data;
-    this.isShowAdd = (this.curData.type === 'object' || this.curData.type === 'array');
-    this.isShowDelete = this.curData.canDelete;
     this.gridApi = params.api;
     this.rowId = params.node.id;
+    this.setValue(params);
   }
 
   refresh(params: ICellRendererParams<any>): boolean {
+    this.setValue(params);
     return false;
   }
 
@@ -109,5 +109,10 @@ export class OperationCellForJsonTableDocComponent implements OnInit, ICellRende
     }
     // ignore nodes that have no data, i.e. 'filler groups'
     return node.data ? res.concat([node.data]) : res;
+  }
+
+  private setValue(params: ICellRendererParams) {
+    this.isShowAdd = (this.curData.type === 'object' || this.curData.type === 'array');
+    this.isShowDelete = this.curData.canDelete;
   }
 }

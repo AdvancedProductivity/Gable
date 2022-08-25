@@ -195,6 +195,15 @@ export class JsonTableEditorComponent implements OnInit, OnChanges {
   }
 
   onChanged(event: CellValueChangedEvent<any>) {
+    if (event.column.getColId() === 'type') {
+      const rowId = event.node.id;
+      const rowNode = this.gridApi.getRowNode(rowId);
+      this.gridApi.refreshCells({
+        force: true,
+        rowNodes: [rowNode],
+        columns: ['Operation'],
+      });
+    }
     this.dataChange();
   }
 
