@@ -44,6 +44,7 @@
       "JSON_DOC_GEN_EXIST": "退出编辑",
       "ADD_CONTENT": "请点击上方添加按钮创建内容",
       "ADD_NEW_ARTICLE": "添加",
+      "BACK": "返回",
       "DOC_NAME": "文档名称",
       "EDITOR_DATA": "获取编辑器数据",
       "STASH": "暂存",

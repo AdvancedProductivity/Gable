@@ -115,7 +115,6 @@ export class ApiRunnerService {
 
     if (reqBody.method.toUpperCase() === 'POST' || reqBody.method.toUpperCase() === 'PUT') {
       if (reqBody.bodyType === 'none') {
-        return requestOptions;
       }else if (reqBody.bodyType.toUpperCase() === 'FORM_DATA') {
         const formArr = reqBody.bodyForm.filter(item => item.using && item.key);
         const formData = new FormData();

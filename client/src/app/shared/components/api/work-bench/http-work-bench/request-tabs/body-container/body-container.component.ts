@@ -68,9 +68,6 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
     this.editorBody.markExistEditing();
   }
 
-  onBeautify(): void {
-  }
-
   public setIsInDoc() {
     this.isInDoc = true;
     this.editorBody.setIsInDoc();

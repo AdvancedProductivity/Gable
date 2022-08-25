@@ -88,4 +88,12 @@ export class TextBodyComponent implements OnInit, OnDestroy {
       console.error('parser error');
     }
   }
+
+  beautify() {
+    try {
+      this.code = JSON.stringify(JSON.parse(this.code), null, '\t');
+    } catch (e){
+      console.log(e);
+    }
+  }
 }

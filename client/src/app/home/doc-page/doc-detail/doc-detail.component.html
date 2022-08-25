@@ -1,6 +1,11 @@
 <div class="doc-detail-container">
   <div class="doc-menu-tree">
     <div class="top-bar">
+      <div class="btn-gro-back">
+        <a style="height: 32px" mat-flat-button color="primary"  [routerLink]="['../../d']" target="_self">
+          {{ 'PAGES.DOCS.BACK' | translate }}
+        </a>
+      </div>
       <div class="btn-gro">
         <button
           style="line-height: 32px;"
@@ -34,22 +39,19 @@
       style="height: 100%;position: relative"
     ></app-doc-editor>
   </div>
-  <mat-divider vertical></mat-divider>
-  <div class="doc-operation">
-    <div class="btn-group">
-      <div>
-        <a mat-button [routerLink]="['../../d']" target="_self">
-          {{ 'MESSAGE.BACK' | translate }}
-        </a>
-      </div>
-      <div style="flex: 1">
-      </div>
-      <div *ngIf="docId !== 1">
-        <button mat-button color="primary" (click)="isEdit ? editor.saveData() : editor.doEdit()">
-          {{(isEdit ? 'PAGES.DOCS.SAVE' : 'PAGES.DOCS.EDIT') | translate }}
-        </button>
-      </div>
-    </div>
-    <mat-divider></mat-divider>
+  <div class="ab-btn-group">
+    <button
+      style="margin-right: 10px"
+      *ngIf="docId !== 1"
+      mat-flat-button color="primary"
+      (click)="isEdit ? editor.saveData() : editor.doEdit()"
+    >
+      {{(isEdit ? 'PAGES.DOCS.SAVE' : 'PAGES.DOCS.EDIT') | translate }}
+    </button>
+    <button
+      style="background-color: #fff"
+      mat-stroked-button color="primary">
+      {{'OPERATION.LEARN_MORE' | translate}}
+    </button>
   </div>
 </div>

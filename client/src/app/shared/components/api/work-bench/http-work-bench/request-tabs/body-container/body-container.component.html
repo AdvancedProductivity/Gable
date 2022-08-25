@@ -49,7 +49,7 @@
           {{ (isEditingDoc ? 'PAGES.DOCS.JSON_DOC_GEN_EXIST' : 'PAGES.DOCS.JSON_DOC_GEN') | translate }}
         </button>
 
-        <button *ngIf="rawType === 'json'" mat-button color="primary" (click)="onBeautify()">
+        <button *ngIf="rawType === 'json'" mat-button color="primary" (click)="editorBody.beautify()">
           {{'MESSAGE.BEAUTIFY' | translate}}
         </button>
       </div>

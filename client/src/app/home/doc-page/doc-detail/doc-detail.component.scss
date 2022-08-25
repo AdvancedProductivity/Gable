@@ -4,6 +4,18 @@
   display: flex;
   flex-direction: row;
 
+  .ab-btn-group {
+    position: absolute;
+    z-index: 10000;
+    right: 40px;
+    top: 100px;
+    display: flex;
+    flex-direction: row;
+    background-color: #F2F2F2;
+    padding: 10px;
+    border-radius: 6px;
+  }
+
   .doc-menu-tree {
     width: 300px;
     height: 100%;
@@ -20,6 +32,15 @@
         margin-top: 4px;
         width: 67px;
         background-color: #F2F2F2;
+        border-radius: 4px;
+      }
+
+      .btn-gro-back {
+        float: left;
+        margin-left: 10px;
+        margin-top: 4px;
+        height: 32px;
+        width: 67px;
         border-radius: 4px;
       }
     }
