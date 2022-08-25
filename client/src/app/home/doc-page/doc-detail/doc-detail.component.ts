@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {BrowserOpenService} from '../../../core/services/browser-open.service';
 
 @Component({
   selector: 'app-doc-detail',
@@ -12,6 +13,7 @@ export class DocDetailComponent implements OnInit {
   isEdit = false;
   constructor(
     private route: ActivatedRoute,
+    private browserOpenService: BrowserOpenService,
     private router: Router
   ) { }
 

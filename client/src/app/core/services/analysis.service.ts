@@ -81,7 +81,7 @@ export class AnalysisService {
   }
 
   public async saveApiName(): Promise<any> {
-    return this.event('saveApiName');
+    return this.event('saveApiDefineFromCache');
   }
 
   public async renderDoc(): Promise<any> {

@@ -125,5 +125,16 @@
   },
   "STUDY": {
     "NAME": "用户指南"
+  },
+  "LINK": {
+    "GITHUB": "https://github.com/AdvancedProductivity/Gable",
+    "DOCUMENT": "https://advancedproductivity.github.io/GablePreview/docs/zh/",
+    "PRE_SCRIPT": "https://advancedproductivity.github.io/GablePreview/docs/zh/guide/feature-design.html#pre-script",
+    "POST_SCRIPT": "https://advancedproductivity.github.io/GablePreview/docs/zh/guide/feature-design.html#post-script",
+    "POST_SCRIPT_RESP": "https://advancedproductivity.github.io/GablePreview/docs/zh/guide/feature-design.html#post-script-response",
+    "MOCK": "https://advancedproductivity.github.io/GablePreview/docs/zh/guide/feature-design.html#mock",
+    "DOCUMENT_PAGE": "https://advancedproductivity.github.io/GablePreview/docs/zh/guide/document.html",
+    "SETTING_GABLE": "https://advancedproductivity.github.io/GablePreview/docs/zh/guide/setting.html#gable-%E6%9C%8D%E5%8A%A1%E5%9C%B0%E5%9D%80",
+    "SETTING_PROXY": "https://advancedproductivity.github.io/GablePreview/docs/zh/guide/setting.html#%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE"
   }
 }

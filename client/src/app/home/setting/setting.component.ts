@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {ConfigServiceImpl} from '../../core/services/impl/ConfigServiceImpl';
 import {ApiRunnerService} from '../../core/services/impl/api-runner.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {TranslateService} from "@ngx-translate/core";
-import {ApiMenuWebImplService} from "../../core/services/impl/web/api-menu-web-impl.service";
+import {TranslateService} from '@ngx-translate/core';
+import {ApiMenuWebImplService} from '../../core/services/impl/web/api-menu-web-impl.service';
+import {BrowserOpenService} from '../../core/services/browser-open.service';
 
 @Component({
   selector: 'app-setting',
@@ -19,6 +20,7 @@ export class SettingComponent implements OnInit {
     private trans: TranslateService,
     private apiRunnerService: ApiRunnerService,
     private menuWebImplService: ApiMenuWebImplService,
+    private browserOpenService: BrowserOpenService,
     private config: ConfigServiceImpl
   ) {
   }

@@ -49,10 +49,10 @@ module.exports = {
                         children: [
                             '/guide/'
                             , '/guide/getting-started'
-                            , '/guide/FeatureDesign'
-                            , '/guide/Document'
-                            , '/guide/Setting'
-                            , '/guide/About'
+                            , '/guide/feature-design'
+                            , '/guide/document'
+                            , '/guide/setting'
+                            , '/guide/about'
                             , '/guide/database'
                             , '/guide/memory-assistant'
                         ]
@@ -87,10 +87,10 @@ module.exports = {
                         children: [
                             '/zh/guide/'
                             , '/zh/guide/getting-started'
-                            , '/zh/guide/FeatureDesign'
-                            , '/zh/guide/Document'
-                            , '/zh/guide/Setting'
-                            , '/zh/guide/About'
+                            , '/zh/guide/feature-design'
+                            , '/zh/guide/document'
+                            , '/zh/guide/setting'
+                            , '/zh/guide/about'
                             , '/zh/guide/database'
                             , '/zh/guide/memory-assistant'
                         ]

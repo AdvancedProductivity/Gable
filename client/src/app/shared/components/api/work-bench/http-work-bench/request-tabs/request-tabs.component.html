@@ -11,8 +11,8 @@
         mat-tab-link
         style="text-decoration: none"
         class="tab select-disable"
-        [class.active] ="curTab === tab"
-        [active]="curTab === tab"
+        [class.active] ="curTab === tab.name"
+        [active]="curTab === tab.name"
         (click)="selectTab(tab.name)"
       >
         <span>{{ tab.name }}</span>
@@ -46,12 +46,12 @@
       <app-developing
         location="pre-script"
         [style.display]="curTab === 'Pre-Script' ? 'inline' : 'none'"
-        link="https://advancedproductivity.github.io/Gable/"
+        link="LINK.PRE_SCRIPT"
       ></app-developing>
       <app-developing
         location="post-script"
         [style.display]="curTab === 'Post-Script' ? 'inline' : 'none'"
-        link="https://advancedproductivity.github.io/Gable/"
+        link="LINK.POST_SCRIPT"
       ></app-developing>
     </div>
   </div>

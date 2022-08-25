@@ -16,6 +16,7 @@
       </mat-form-field>
       <mat-card-actions  align="end">
         <button
+          (click)="browserOpenService.open('LINK.SETTING_GABLE')"
           style="background-color: #fff"
           mat-stroked-button color="primary">
           {{'OPERATION.LEARN_MORE' | translate}}
@@ -44,6 +45,7 @@
       <mat-card-actions  align="end">
         <button
           style="background-color: #fff"
+          (click)="browserOpenService.open('LINK.SETTING_PROXY')"
           mat-stroked-button color="primary">
           {{'OPERATION.LEARN_MORE' | translate}}
         </button>

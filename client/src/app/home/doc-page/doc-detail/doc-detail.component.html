@@ -42,7 +42,7 @@
   <div class="ab-btn-group">
     <button
       style="margin-right: 10px"
-      *ngIf="docId !== 1"
+      *ngIf="showing && docId !== 1"
       mat-flat-button color="primary"
       (click)="isEdit ? editor.saveData() : editor.doEdit()"
     >
@@ -50,6 +50,7 @@
     </button>
     <button
       style="background-color: #fff"
+      (click)="browserOpenService.open('LINK.DOCUMENT_PAGE')"
       mat-stroked-button color="primary">
       {{'OPERATION.LEARN_MORE' | translate}}
     </button>

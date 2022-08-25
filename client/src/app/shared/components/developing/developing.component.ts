@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {TranslateService} from '@ngx-translate/core';
-import {AnalysisService} from "../../../core/services/analysis.service";
+import {AnalysisService} from '../../../core/services/analysis.service';
+import {BrowserOpenService} from '../../../core/services/browser-open.service';
 
 @Component({
   selector: 'app-developing',
@@ -14,6 +15,7 @@ export class DevelopingComponent implements OnInit {
   constructor(
     private snackBar: MatSnackBar,
     private analysisService: AnalysisService,
+    private browserOpenService: BrowserOpenService,
     private trans: TranslateService
   ) { }
 
@@ -30,6 +32,6 @@ export class DevelopingComponent implements OnInit {
   }
 
   onLearnMoreClick(): void {
-    window.open(this.link);
+    this.browserOpenService.open(this.link);
   }
 }

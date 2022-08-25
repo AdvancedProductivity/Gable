@@ -1,13 +1,12 @@
 import {Handler} from "../listener-handler";
-import {ApiMenuCollection} from "../../entity/ApiMenuCollection";
 import {
-  getApiCollectionRepository, getApiMenuItemRepository, getDocBlockRepository,
+  getApiMenuItemRepository, getDocBlockRepository,
   getDocDefineRepository,
   getDocMenuRepository,
   getDocsRepository
 } from "../../config/init-datasource";
 import {DocDefine, DocMenu, Docs} from "../../entity/Docs";
-import {HttpApi} from "../../entity/HttpApi";
+const { shell } = require('electron')
 
 export class AddDoc implements Handler  {
 
@@ -115,6 +114,14 @@ export class GetDocById implements Handler  {
     return new Promise(resolve => {
       resolve(one);
     });
+  }
+}
+
+export class OpenBrowser implements Handler  {
+
+  async handle(args: any[]): Promise<any> {
+    await shell.openExternal(args[0]);
+    return Promise.resolve();
   }
 }
 
