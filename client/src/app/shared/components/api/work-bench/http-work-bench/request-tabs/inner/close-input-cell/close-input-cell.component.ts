@@ -24,13 +24,14 @@ export class CloseInputCellComponent implements OnInit,ICellRendererAngularComp 
   }
 
   refresh(params: ICellRendererParams<any>): boolean {
+    this.params = params;
     this.setValue(params);
     return true;
   }
 
   delete(){
     // @ts-ignore
-    this.params.remove(this.params.rowIndex);
+    this.params.remove(this.params.rowIndex, this.params.node.id);
   }
 
   private setValue(params: ICellRendererParams) {
@@ -38,6 +39,8 @@ export class CloseInputCellComponent implements OnInit,ICellRendererAngularComp 
     if (this.cellValue) {
       this.showHint = false;
     }
+    // @ts-ignore
+    console.log('compare ', params.totalIndex(), params.rowIndex + 1);
     // @ts-ignore
     this.isShowClose = params.totalIndex() !== params.rowIndex + 1;
   }

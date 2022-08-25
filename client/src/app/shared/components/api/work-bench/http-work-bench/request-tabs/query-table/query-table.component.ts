@@ -103,9 +103,11 @@ export class QueryTableComponent implements OnInit {
       cellRenderer: CloseInputCellComponent,
       cellRendererParams: {
         totalIndex: () => this.rowData.length,
-        remove: (index) => {
-          this.rowData.splice(index, 1);
-          this.gridApi.setRowData(this.rowData);
+        remove: (index, rowId) => {
+          console.log('delete index', index, rowId);
+          const deleted = this.rowData.splice(index, 1);
+          this.gridApi.applyTransaction({remove: deleted});
+          this.gridApi.refreshCells({force: true});
           this.dataChange.next({field: this.field, data: this.rowData});
         }
       },
@@ -157,14 +159,13 @@ export class QueryTableComponent implements OnInit {
   }
 
   private handleAddRow() {
-    setTimeout(() => {
-      const lastValue = this.rowData[this.rowData.length - 1];
-      if (lastValue.key || lastValue.value || lastValue.desc) {
-        this.rowData.push(getCommonKeyValue());
-        this.gridApi.setRowData(this.rowData);
-      }
-      this.dataChange.next({field: this.field, data: this.rowData});
-      // this.gridApi.refreshCells({ force: true });
-    }, 100);
+    const lastValue = this.rowData[this.rowData.length - 1];
+    if (lastValue.key || lastValue.value || lastValue.desc) {
+      const newRow = getCommonKeyValue();
+      this.rowData.push(newRow);
+      this.gridApi.applyTransaction({add: [newRow]});
+      this.gridApi.refreshCells({force: true});
+    }
+    this.dataChange.next({field: this.field, data: this.rowData});
   }
 }
