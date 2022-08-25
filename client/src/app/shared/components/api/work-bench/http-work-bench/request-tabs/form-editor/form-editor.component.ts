@@ -247,13 +247,11 @@ export class FormEditorComponent implements OnInit, OnDestroy {
   }
 
   private handleAddRow() {
-    setTimeout(() => {
-      const lastValue = this.rowData[this.rowData.length - 1];
-      if (lastValue.key || lastValue.value || lastValue.desc) {
-        this.rowData.push(getCommonFormKeyValue());
-        this.gridApi.setRowData(this.rowData);
-      }
-      this.dataChange.next({field: this.field, data: this.rowData});
-    }, 100);
+    const lastValue = this.rowData[this.rowData.length - 1];
+    if (lastValue.key || lastValue.value || lastValue.desc) {
+      this.rowData.push(getCommonFormKeyValue());
+      this.gridApi.setRowData(this.rowData);
+    }
+    this.dataChange.next({field: this.field, data: this.rowData});
   }
 }
