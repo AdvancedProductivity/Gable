@@ -7,6 +7,9 @@ import {ConfigServiceImpl} from '../impl/ConfigServiceImpl';
 import {ElectronService} from '../electron/electron.service';
 import {FileUploadInfo} from '../entity/ApiPart';
 import {DocBlock} from '../entity/Docs';
+import {randomString} from "../utils/Uuid";
+import {ArrayData} from "../entity/ArrayData";
+import {db} from "../db";
 
 @Injectable({
   providedIn: 'root'
@@ -63,8 +66,24 @@ export class HttpApiStorageService {
       return this.remoteService.setFile(file);
     } else if (this.electronService.isElectron) {
     } else {
+      const uploadInfo = new FileUploadInfo();
+      uploadInfo.id = randomString(10);
+      uploadInfo.name = file.name;
       return new Promise(resolve => {
-        resolve(new FileUploadInfo());
+        if (window.FileReader) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            // @ts-ignore
+            const r: ArrayBuffer = reader.result;
+            const waitForAdd = new ArrayData();
+            waitForAdd.id = uploadInfo.id;
+            waitForAdd.data = r;
+            db.arrayData.add(waitForAdd, waitForAdd.id).then(rr => {
+              resolve(uploadInfo);
+            });
+          };
+          reader.readAsArrayBuffer(file);
+        }
       });
     }
   }

@@ -32,7 +32,7 @@ export class ApiFormKeyValue extends ApiKeyValue{
   fileName?: string;
   filePath?: string;
   fileUrl?: string;
-  fileId?: number;
+  fileId?: string;
 }
 
 export const getCommonFormKeyValue = () => {
@@ -72,6 +72,7 @@ export class HttpComponentHotDataUpdateEvent {
 }
 
 export class FileUploadInfo{
+  id: string;
   name: string;
   path: string;
   url: string;

@@ -49,7 +49,7 @@ export class CellFileComponent implements OnInit, ICellRendererAngularComp {
     this.httpApiStorageService.setFile(file).then((res: FileUploadInfo) => {
       console.log('rec', res);
       // @ts-ignore
-      this.params.setFileInfo(this.params.rowIndex, res.name, new Date().getTime(), res.url, res.path);
+      this.params.setFileInfo(this.params.rowIndex, res.name, res.id, res.url, res.path);
     });
   }
 

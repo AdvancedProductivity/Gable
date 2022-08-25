@@ -44,7 +44,7 @@ export class ApiRunnerService {
   private async runByFetch(id: number, reqBody: HttpApi): Promise<HttpApiResponse> {
     const resp = new HttpApiResponse();
     try {
-      const requestOptions: RequestInit = this.getFetchOption(reqBody);
+      const requestOptions: RequestInit = await this.getFetchOption(reqBody);
       const url = this.parserUrl(reqBody);
       console.log('fetch url is: ', url);
       resp.startAt = new Date().getTime();
@@ -97,23 +97,36 @@ export class ApiRunnerService {
     });
   }
 
-  private getFetchOption(reqBody: HttpApi) {
+  private async getFile(id: string, name: string): Promise<any> {
+    const fileData: ArrayData = await db.arrayData.get(id);
+    return new Promise(resolve => {
+      const b = new Blob([fileData.data]);
+      const file = new File([b], name, {type: 'data:application/octet-stream'});
+      resolve(file);
+    });
+  }
+
+  private async getFetchOption(reqBody: HttpApi) {
     const requestOptions: RequestInit = {};
     requestOptions.credentials = 'omit';
     requestOptions.method = reqBody.method;
     requestOptions.redirect = 'manual';
     const headers = new Headers();
+
     if (reqBody.method.toUpperCase() === 'POST' || reqBody.method.toUpperCase() === 'PUT') {
       if (reqBody.bodyType === 'none') {
         return requestOptions;
       }else if (reqBody.bodyType.toUpperCase() === 'FORM_DATA') {
         const formArr = reqBody.bodyForm.filter(item => item.using && item.key);
         const formData = new FormData();
-        formArr.forEach(item => {
+        for (let i = 0; i < formArr.length; i++) {
+          const item = formArr[i];
           if (item.type === 'text') {
             formData.append(item.key, item.value);
+          }else if (item.type === 'file') {
+            formData.append(item.key, await this.getFile(item.fileId, item.fileName), item.fileName);
           }
-        });
+        }
         requestOptions.body = formData;
       } else if (reqBody.bodyType.toUpperCase() === 'URLENCODED') {
         const urlencoded = new URLSearchParams();
