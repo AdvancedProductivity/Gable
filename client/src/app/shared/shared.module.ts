@@ -157,39 +157,39 @@ import {NgxGoogleAnalyticsModule} from 'ngx-google-analytics';
     , AgGridModule
     , NgxGoogleAnalyticsModule.forRoot('G-N6TDNR9G7Q')
   ],
-    exports: [
-        TranslateModule
-        , WebviewDirective
-        , FormsModule
-        , MatIconModule
-        , MatButtonModule
-        , MatSliderModule
-        , MatCardModule
-        , MatTreeModule
-        , MatSnackBarModule
-        , MatRadioModule
-        , MonacoEditorModule
-        , ApiTreeMenuComponent
-        , MatFormFieldModule
-        , MatInputModule
-        , MatDialogModule
-        , MatTabsModule
-        , MatMenuModule
-        , MatTooltipModule
-        , MatDividerModule
-        , NgxSpinnerModule
-        , AngularSplitModule
-        , RightPanelComponent
-        , NgxMatContextMenuTriggerModule
-        , NavComponent
-        , ApiHeaderOperationComponent
-        , NgSelectModule
-        , MatProgressBarModule
-        , HttpWorkBenchComponent
-        , ClipboardModule
-        , AgGridModule
-        , TestDashboardComponent
-        , HttpApiDocComponent, TreeDataEditorComponent, HttpUrlDocComponent, RawTextDocComponent, I18nTitleComponent, TextBodyComponent, JsonTableEditorComponent
-    ]
+  exports: [
+    TranslateModule
+    , WebviewDirective
+    , FormsModule
+    , MatIconModule
+    , MatButtonModule
+    , MatSliderModule
+    , MatCardModule
+    , MatTreeModule
+    , MatSnackBarModule
+    , MatRadioModule
+    , MonacoEditorModule
+    , ApiTreeMenuComponent
+    , MatFormFieldModule
+    , MatInputModule
+    , MatDialogModule
+    , MatTabsModule
+    , MatMenuModule
+    , MatTooltipModule
+    , MatDividerModule
+    , NgxSpinnerModule
+    , AngularSplitModule
+    , RightPanelComponent
+    , NgxMatContextMenuTriggerModule
+    , NavComponent
+    , ApiHeaderOperationComponent
+    , NgSelectModule
+    , MatProgressBarModule
+    , HttpWorkBenchComponent
+    , ClipboardModule
+    , AgGridModule
+    , TestDashboardComponent
+    , HttpApiDocComponent, TreeDataEditorComponent, HttpUrlDocComponent, RawTextDocComponent, I18nTitleComponent, TextBodyComponent, JsonTableEditorComponent, DevelopingComponent
+  ]
 })
 export class SharedModule {}
