@@ -19,7 +19,13 @@ export class RequestTabsComponent implements OnInit, OnDestroy {
   @ViewChild(FormEditorComponent) formEditor!: FormEditorComponent;
   apiData: HttpApi;
   isInDoc = false;
-  tabs = ['Query Param', 'Header', 'Body', 'Pre-Script', 'Post-Script'];
+  tabs: { name: string; showP: boolean; count: number }[] = [
+    {name: 'Query Param', showP: false, count: 0 },
+    {name: 'Header', showP: false, count: 0 },
+    {name: 'Body', showP: false, count: 0 },
+    {name: 'Pre-Script', showP: false, count: 0 },
+    {name: 'Post-Script', showP: false, count: 0 }
+   ];
   curTab = 'Query Param';
 
   constructor() {
@@ -70,6 +76,17 @@ export class RequestTabsComponent implements OnInit, OnDestroy {
   }
 
   private dispatchData(httpApi: HttpApi) {
+    if (Array.isArray(httpApi.query)) {
+      this.tabs[0].showP = httpApi.query.length - 1 > 0;
+    }else {
+      this.tabs[0].showP = false;
+    }
+    this.tabs[2].showP = (httpApi.method === 'POST' || httpApi.method === 'PUT') && httpApi.bodyType !== 'none';
+    if (Array.isArray(httpApi.header)) {
+      this.tabs[1].count = httpApi.header.length - 1;
+    }else {
+      this.tabs[1].count = 0;
+    }
     this.query.setData(httpApi.query);
     this.header.setData(httpApi.header);
     this.body.setBodyType(httpApi);

@@ -13,6 +13,14 @@
       .tab{
         min-width: 60px;
         height: 32px;
+
+        .request-editor-tabs-badge {
+          width: 8px;
+          height: 8px;
+          background-color: #0cbb52;
+          border-radius: 8px;
+          margin-left: 5px;
+        }
       }
 
       .active{

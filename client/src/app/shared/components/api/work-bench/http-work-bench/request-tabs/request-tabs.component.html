@@ -13,8 +13,12 @@
         class="tab select-disable"
         [class.active] ="curTab === tab"
         [active]="curTab === tab"
-        (click)="selectTab(tab)"
-      >{{ tab }}</a>
+        (click)="selectTab(tab.name)"
+      >
+        <span>{{ tab.name }}</span>
+        <span *ngIf="tab.count > 0" style="color:#007F31;margin-left: 5px">({{ tab.count }})</span>
+        <div *ngIf="tab.showP" class="request-editor-tabs-badge"></div>
+      </a>
     </nav>
     <div class="operation-hub"></div>
   </div>
