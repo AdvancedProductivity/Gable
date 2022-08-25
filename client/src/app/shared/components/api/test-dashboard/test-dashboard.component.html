@@ -32,7 +32,7 @@
   </div>
   <div
     class="http"
-    [style.display]="data === null"
+    [style.display]="data === null ? 'block': 'none'"
   >
     <app-empty-response
       header="PAGES.API_TEST.NO_CONTENT"

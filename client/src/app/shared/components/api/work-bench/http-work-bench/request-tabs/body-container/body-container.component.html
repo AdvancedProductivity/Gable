@@ -66,6 +66,7 @@
     ></app-text-body>
     <app-form-editor
       #form
+      field="form"
       (dataChange)="onFormChange($event)"
       [style.display]="curTyp === 'form_data' ? 'inline' : 'none'"
     ></app-form-editor>

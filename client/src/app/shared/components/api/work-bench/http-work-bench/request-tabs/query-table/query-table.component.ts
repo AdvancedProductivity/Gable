@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ColDef, GridApi, ValueGetterParams, ValueSetterParams} from 'ag-grid-community';
+import {CellMouseOverEvent, ColDef, GridApi, ValueGetterParams, ValueSetterParams} from 'ag-grid-community';
 import PerfectScrollbar from 'perfect-scrollbar';
 import {CloseInputCellComponent} from '../inner/close-input-cell/close-input-cell.component';
 import {CellContentComponent} from '../inner/cell-content/cell-content.component';
@@ -10,6 +10,7 @@ import {
   ApiKeyValueChangeEvent,
   getCommonKeyValue
 } from '../../../../../../../core/services/entity/ApiPart';
+import {CloseIconObservableService} from '../../../../../../../core/services/close-icon-observable.service';
 
 @Component({
   selector: 'app-query-table',
@@ -44,9 +45,7 @@ export class QueryTableComponent implements OnInit {
     },
     {
       headerName: 'KEY',
-      valueGetter: (params: ValueGetterParams) => {
-        return params.data.key;
-      },
+      valueGetter: (params: ValueGetterParams) => params.data.key,
       valueSetter: (params: ValueSetterParams) => {
         const valueChanged = params.data.key !== params.newValue;
         if (valueChanged) {
@@ -66,9 +65,7 @@ export class QueryTableComponent implements OnInit {
     },
     {
       headerName: 'VALUE',
-      valueGetter: (params: ValueGetterParams) => {
-        return params.data.value;
-      },
+      valueGetter: (params: ValueGetterParams) => params.data.value,
       valueSetter: (params: ValueSetterParams) => {
         const valueChanged = params.data.value !== params.newValue;
         if (valueChanged) {
@@ -87,9 +84,7 @@ export class QueryTableComponent implements OnInit {
     },
     {
       headerName: 'DESCRIPTION',
-      valueGetter: (params: ValueGetterParams) => {
-        return params.data.desc;
-      },
+      valueGetter: (params: ValueGetterParams) => params.data.desc,
       valueSetter: (params: ValueSetterParams) => {
         const valueChanged = params.data.desc !== params.newValue;
         if (valueChanged) {
@@ -102,12 +97,20 @@ export class QueryTableComponent implements OnInit {
       editable: true,
       cellRenderer: CloseInputCellComponent,
       cellRendererParams: {
-        totalIndex: () => this.rowData.length,
+        field: () => this.field,
         remove: (index, rowId) => {
-          console.log('delete index', index, rowId);
-          const deleted = this.rowData.splice(index, 1);
+          let i = -1;
+          this.gridApi.forEachNode((rowNode, iIndex) => {
+            if (rowNode.id === rowId) {
+              console.log('find', iIndex);
+              i = iIndex;
+            }
+          });
+          if (i === -1) {
+            return;
+          }
+          const deleted = this.rowData.splice(i, 1);
           this.gridApi.applyTransaction({remove: deleted});
-          this.gridApi.refreshCells({force: true});
           this.dataChange.next({field: this.field, data: this.rowData});
         }
       },
@@ -128,7 +131,9 @@ export class QueryTableComponent implements OnInit {
     },
   };
 
-  constructor() {
+  constructor(
+    private closeIconObservableService: CloseIconObservableService
+  ) {
   }
 
   ngOnInit(): void {
@@ -144,6 +149,34 @@ export class QueryTableComponent implements OnInit {
         ps.update();
       }
     });
+  }
+
+  onCellMouseOver(params: CellMouseOverEvent<any>) {
+    if (params.node.rowIndex + 1 === this.rowData.length) {
+      return;
+    }
+    const colId = params.column.getColId();
+    if (colId === '2') {
+      const v = {
+        key: this.field + '_' + params.node.id,
+        v: true,
+      };
+      this.closeIconObservableService.emit(v);
+    }
+  }
+
+  onCellMouseOut(params: CellMouseOverEvent<any>) {
+    if (params.node.rowIndex + 1 === this.rowData.length) {
+      return;
+    }
+    const colId = params.column.getColId();
+    if (colId === '2') {
+      const v = {
+        key: this.field + '_' + params.node.id,
+        v: false,
+      };
+      this.closeIconObservableService.emit(v);
+    }
   }
 
   public setData(data: ApiKeyValue[]): void {
@@ -164,7 +197,6 @@ export class QueryTableComponent implements OnInit {
       const newRow = getCommonKeyValue();
       this.rowData.push(newRow);
       this.gridApi.applyTransaction({add: [newRow]});
-      this.gridApi.refreshCells({force: true});
     }
     this.dataChange.next({field: this.field, data: this.rowData});
   }

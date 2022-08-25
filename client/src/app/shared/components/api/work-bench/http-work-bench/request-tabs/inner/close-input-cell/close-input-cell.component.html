@@ -1,6 +1,4 @@
 <div
-  (mouseover)="isCursorIn=true"
-  (mouseleave)="isCursorIn=false"
   class="cell-container"
 >
   <div class="cell-content">
@@ -16,7 +14,7 @@
     class="input-con-cell"
     (click)="$event.cancelBubble=true;delete()"
     (dblclick)="$event.cancelBubble=true;delete()"
-    *ngIf="isShowClose && isCursorIn"
+    *ngIf="isCursorIn"
   >
     <mat-icon class="input-con-cell-icon" svgIcon="closeNav"></mat-icon>
   </div>

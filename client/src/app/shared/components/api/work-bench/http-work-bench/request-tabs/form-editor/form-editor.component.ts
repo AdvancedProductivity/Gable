@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ColDef, GridApi, ValueGetterParams, ValueSetterParams} from 'ag-grid-community';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {CellMouseOverEvent, ColDef, GridApi, ValueGetterParams, ValueSetterParams} from 'ag-grid-community';
 import PerfectScrollbar from 'perfect-scrollbar';
 import {CheckBoxCellEditorComponent} from '../inner/check-box-cell-editor/check-box-cell-editor.component';
 import {CheckBoxCellComponent} from '../inner/check-box-cell/check-box-cell.component';
@@ -11,17 +11,18 @@ import {
   ApiFormKeyValueChangeEvent, getCommonFormKeyValue
 } from '../../../../../../../core/services/entity/ApiPart';
 import {randomString} from '../../../../../../../core/services/utils/Uuid';
+import {CloseIconObservableService} from '../../../../../../../core/services/close-icon-observable.service';
 
 @Component({
   selector: 'app-form-editor',
   templateUrl: './form-editor.component.html',
   styleUrls: ['./form-editor.component.scss']
 })
-export class FormEditorComponent implements OnInit {
+export class FormEditorComponent implements OnInit, OnDestroy {
+  @Input() field: string;
   @Output() dataChange = new EventEmitter<ApiFormKeyValueChangeEvent>();
   gridApi: GridApi;
-  rowData: ApiFormKeyValue[] = [
-  ];
+  rowData: ApiFormKeyValue[] = [];
   columnDefs: ColDef[] = [
     {
       headerName: '',
@@ -71,6 +72,7 @@ export class FormEditorComponent implements OnInit {
             rowNodes: [rowNode],
             columns: ['1']
           });
+          this.dataChange.next({field: this.field, data: this.rowData});
         }
       },
       resizable: true,
@@ -87,7 +89,7 @@ export class FormEditorComponent implements OnInit {
           } else {
             v = undefined;
           }
-        }else if (params.data.type === 'file'){
+        } else if (params.data.type === 'file') {
           if (params.data.type === 'file') {
             if (params.data.fileName) {
               v = params.data.fileName;
@@ -95,7 +97,7 @@ export class FormEditorComponent implements OnInit {
               v = undefined;
             }
           }
-        }else {
+        } else {
           v = undefined;
         }
         return v;
@@ -117,7 +119,7 @@ export class FormEditorComponent implements OnInit {
           this.rowData[index].filePath = filePath;
           this.rowData[index].fileName = fileName;
           this.rowData[index].fileId = fileId;
-          this.dataChange.next({field: 'form', data: this.rowData});
+          this.dataChange.next({field: this.field, data: this.rowData});
         }
       },
       resizable: true,
@@ -145,11 +147,21 @@ export class FormEditorComponent implements OnInit {
       editable: true,
       cellRenderer: CloseInputCellComponent,
       cellRendererParams: {
-        totalIndex: () => this.rowData.length,
-        remove: (index) => {
-          this.rowData.splice(index, 1);
-          this.gridApi.setRowData(this.rowData);
-          this.dataChange.next({field: 'form', data: this.rowData});
+        field: () => this.field,
+        remove: (index, rowId) => {
+          let i = -1;
+          this.gridApi.forEachNode((rowNode, iIndex) => {
+            if (rowNode.id === rowId) {
+              console.log('find', iIndex);
+              i = iIndex;
+            }
+          });
+          if (i === -1) {
+            return;
+          }
+          const deleted = this.rowData.splice(i, 1);
+          this.gridApi.applyTransaction({remove: deleted});
+          this.dataChange.next({field: this.field, data: this.rowData});
         }
       },
       cellStyle: {cursor: 'text'}
@@ -169,16 +181,48 @@ export class FormEditorComponent implements OnInit {
     },
   };
 
-  constructor() {
+  constructor(
+    private closeIconObservableService: CloseIconObservableService
+  ) {
   }
 
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+  }
+
+  onCellMouseOver(params: CellMouseOverEvent<any>) {
+    if (params.node.rowIndex + 1 === this.rowData.length) {
+      return;
+    }
+    const colId = params.column.getColId();
+    if (colId === '2') {
+      const v = {
+        key: this.field + '_' + params.node.id,
+        v: true,
+      };
+      this.closeIconObservableService.emit(v);
+    }
+  }
+
+  onCellMouseOut(params: CellMouseOverEvent<any>) {
+    if (params.node.rowIndex + 1 === this.rowData.length) {
+      return;
+    }
+    const colId = params.column.getColId();
+    if (colId === '2') {
+      const v = {
+        key: this.field + '_' + params.node.id,
+        v: false,
+      };
+      this.closeIconObservableService.emit(v);
+    }
+  }
+
   getId = (da) => randomString(6);
 
   public setData(data: ApiFormKeyValue[]): void {
-    console.log('zzq see set form data', data);
     if (Array.isArray(data) && data.length === 0) {
       this.rowData = [getCommonFormKeyValue()];
     } else {
@@ -209,8 +253,7 @@ export class FormEditorComponent implements OnInit {
         this.rowData.push(getCommonFormKeyValue());
         this.gridApi.setRowData(this.rowData);
       }
-      this.dataChange.next({field: 'form', data: this.rowData});
-      // this.gridApi.refreshCells({ force: true });
+      this.dataChange.next({field: this.field, data: this.rowData});
     }, 100);
   }
 }

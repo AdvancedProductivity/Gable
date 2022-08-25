@@ -8,6 +8,8 @@
     [enableFillHandle]="true"
     [enableCellChangeFlash]="true"
     [pagination]="false"
+    (cellMouseOver)="onCellMouseOver($event)"
+    (cellMouseOut)="onCellMouseOut($event)"
     [getRowNodeId]="getId"
     [stopEditingWhenCellsLoseFocus]="true"
     [rowData]="rowData"
