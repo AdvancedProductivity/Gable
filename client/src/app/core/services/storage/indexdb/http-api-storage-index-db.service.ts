@@ -53,9 +53,7 @@ export class HttpApiStorageIndexDbService {
   }
 
   public async getApiDefine(id: number): Promise<any> {
-    return new Promise(resolve => {
-      resolve({});
-    });
+    return db.httpApi.get(id);
   }
 
   private async createDocMenu(apiMenuId: number, collectionId: number, name: string) {

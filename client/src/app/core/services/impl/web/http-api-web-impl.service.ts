@@ -24,6 +24,7 @@ export class HttpApiWebImplService {
   }
 
   public getCache(id: number): Observable<HttpApiHistoryCache> {
+    console.log('get cache http', id);
     if (this.cacheMap.has(id)) {
       return of(this.cacheMap.get(id));
     }

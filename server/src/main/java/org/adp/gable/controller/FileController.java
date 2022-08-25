@@ -62,6 +62,7 @@ public class FileController {
         objectNode.set("file", objectMapper.createObjectNode()
                 .put("url", from + connectChar + "static/" + pathWithName)
                 .put("path", pathWithName)
+                .put("id", RandomStringUtils.random(10, true, false))
                 .put("name", name)
         );
         return objectNode;

@@ -20,7 +20,7 @@ export class NavTabWebImplService implements NavTabService{
 
   public clearAllCache(){
     this.cacheMap.clear();
-    this.cache = undefined;
+    this.cache = [];
     db.openingTabs.clear().then(res => {});
   }
 

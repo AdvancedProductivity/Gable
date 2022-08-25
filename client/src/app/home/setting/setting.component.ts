@@ -40,6 +40,7 @@ export class SettingComponent implements OnInit {
     if (!this.serverUrl) {
       this.showLocalTip();
       this.config.updateOrCreateConfig('gableServer', null);
+      this.menuWebImplService.clearAllCache();
       return;
     }
     this.apiRunnerService.ping(this.serverUrl).subscribe(res => {

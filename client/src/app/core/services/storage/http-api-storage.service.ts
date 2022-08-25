@@ -62,7 +62,7 @@ export class HttpApiStorageService {
   }
 
   public async setFile(file: any): Promise<FileUploadInfo> {
-    if (this.saveDataInRemote()) {
+    if (this.saveDataInRemote() && this.runInRemote()) {
       return this.remoteService.setFile(file);
     } else if (this.electronService.isElectron) {
     } else {
@@ -90,6 +90,11 @@ export class HttpApiStorageService {
 
   private saveDataInRemote() {
     const server = this.config.getConfigSync('gableServer');
+    return server && server !== 'null';
+  }
+
+  private runInRemote() {
+    const server = this.config.getConfigSync('proxyServer');
     return server && server !== 'null';
   }
 }
