@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {MonacoStandaloneCodeEditor} from '@materia-ui/ngx-monaco-editor';
-import {debounceTime, distinctUntilChanged, Subject} from 'rxjs';
+import {debounceTime, Subject} from 'rxjs';
 import {DocJsonTableNode} from '../../../../../../../core/services/entity/Docs';
 import {JsonTableEditorComponent} from '../../json-table-editor/json-table-editor.component';
 
@@ -22,14 +22,14 @@ export class TextBodyComponent implements OnInit, OnDestroy {
   code = '{}';
   editor: MonacoStandaloneCodeEditor;
   contentSubject = new Subject<void>();
+  isFirstIn = false;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.contentSubject.pipe(debounceTime(2000), distinctUntilChanged())
+    this.contentSubject.pipe(debounceTime(2000))
       .subscribe(() => {
-        console.log('body changed');
         this.contentChange.next(this.code);
       });
   }
@@ -44,12 +44,18 @@ export class TextBodyComponent implements OnInit, OnDestroy {
 
   setBodyText(bodyContent): void {
     this.code = bodyContent;
+    this.isFirstIn = true;
   }
 
   initEditor(e: MonacoStandaloneCodeEditor) {
     this.editor = e;
+    this.isFirstIn = false;
     e.onDidChangeModelContent((ey) => {
-      this.contentSubject.next();
+      if (this.isFirstIn) {
+        this.isFirstIn = false;
+      }else {
+        this.contentSubject.next();
+      }
     });
   }
 

@@ -137,6 +137,7 @@ export class ApiRunnerService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         requestOptions.body = urlencoded;
       } else if (reqBody.bodyType.toUpperCase() === 'RAW') {
+        console.log('set raw', reqBody.bodyText);
         requestOptions.body = reqBody.bodyText;
         const t = reqBody.bodyText.toUpperCase();
         if (t === 'JSON') {
