@@ -53,6 +53,8 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
       false, docData.version, docData.httpId, docData.collectionName);
     this.httpApi = docData.define;
     this.req.setHttpData(docData.define);
+    this.req.setIsInDoc();
+    this.resp.setIsInDoc();
     this.header.setCacheVersion(docData.define.version);
     this.curMethod = docData.define.method;
     this.url = docData.define.url;

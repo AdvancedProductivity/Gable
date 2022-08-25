@@ -30,6 +30,10 @@ export class BodyTextComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public setIsInDoc() {
+    this.isInDoc = true;
+  }
+
   onRespDocChange(newDoc: DocJsonTableNode[]) {
     this.respDocChange.next(newDoc);
   }

@@ -42,10 +42,10 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
           </svg>
         </span>
-        <button  style="margin-left: 5px;margin-right: 5px" *ngIf="rawType === 'json' && isEditingDoc" mat-button color="primary" (click)="appendDoc()">
+        <button  style="margin-left: 5px;margin-right: 5px" *ngIf="!isInDoc && rawType === 'json' && isEditingDoc" mat-button color="primary" (click)="appendDoc()">
           {{ 'PAGES.DOCS.APPEND_DOC' | translate }}
         </button>
-        <button *ngIf="rawType === 'json'" mat-button color="primary" (click)="generateDoc()">
+        <button *ngIf="!isInDoc && rawType === 'json'" mat-button color="primary" (click)="generateDoc()">
           {{ (isEditingDoc ? 'PAGES.DOCS.JSON_DOC_GEN_EXIST' : 'PAGES.DOCS.JSON_DOC_GEN') | translate }}
         </button>
 

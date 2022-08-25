@@ -38,6 +38,10 @@ export class TextBodyComponent implements OnInit, OnDestroy {
     this.editorOptions = {...this.editorOptions, language};
   }
 
+  public setIsInDoc() {
+    this.isInDoc = true;
+  }
+
   setBodyText(bodyContent): void {
     this.code = bodyContent;
   }

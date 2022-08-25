@@ -14,6 +14,7 @@ export class ResponseTabsComponent implements OnInit {
   @Output() dataChanged = new EventEmitter<HttpComponentHotDataUpdateEvent>();
   tabs = ['Body', 'Cookies', 'Headers', 'Post-Script'];
   curTab = 'Body';
+  isInDoc = false;
   code: number;
   timeTakes: number;
   size: number;
@@ -30,6 +31,11 @@ export class ResponseTabsComponent implements OnInit {
     this.size = response.size;
     this.textCom.setText(response.content);
     this.textCom.setLang(response.bodyType);
+  }
+
+  public setIsInDoc() {
+    this.isInDoc = true;
+    this.textCom.setIsInDoc();
   }
 
   setRespDoc(doc: DocJsonTableNode[]) {

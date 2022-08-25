@@ -71,6 +71,11 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
   onBeautify(): void {
   }
 
+  public setIsInDoc() {
+    this.isInDoc = true;
+    this.editorBody.setIsInDoc();
+  }
+
   onPartChange(data: ApiKeyValueChangeEvent) {
     this.contentChange.next({action: data.field, data: data.data});
   }

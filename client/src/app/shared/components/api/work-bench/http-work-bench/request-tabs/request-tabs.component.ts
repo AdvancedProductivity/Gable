@@ -18,6 +18,7 @@ export class RequestTabsComponent implements OnInit, OnDestroy {
   @ViewChild('body', {static: true}) body: BodyContainerComponent;
   @ViewChild(FormEditorComponent) formEditor!: FormEditorComponent;
   apiData: HttpApi;
+  isInDoc = false;
   tabs = ['Query Param', 'Header', 'Body', 'Pre-Script', 'Post-Script'];
   curTab = 'Query Param';
 
@@ -25,6 +26,11 @@ export class RequestTabsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+  }
+
+  public setIsInDoc() {
+    this.isInDoc = true;
+    this.body.setIsInDoc();
   }
 
   public setHttpData(httpApi: HttpApi) {
