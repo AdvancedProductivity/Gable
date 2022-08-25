@@ -15,6 +15,11 @@
         <input matInput type="text" [(ngModel)]="serverUrl">
       </mat-form-field>
       <mat-card-actions  align="end">
+        <button
+          style="background-color: #fff"
+          mat-stroked-button color="primary">
+          {{'OPERATION.LEARN_MORE' | translate}}
+        </button>
         <button mat-raised-button color="primary" (click)="applyGableServer()">
           {{ 'PAGES.SETTING.APPLY' | translate }}
         </button>
@@ -37,6 +42,11 @@
         <input matInput type="text" [(ngModel)]="proxyUrl">
       </mat-form-field>
       <mat-card-actions  align="end">
+        <button
+          style="background-color: #fff"
+          mat-stroked-button color="primary">
+          {{'OPERATION.LEARN_MORE' | translate}}
+        </button>
         <button mat-raised-button color="primary" (click)="applyProxyServer()">
           {{ 'PAGES.SETTING.APPLY' | translate }}
         </button>

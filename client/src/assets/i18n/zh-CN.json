@@ -122,5 +122,8 @@
     "I_KNOW": "知道了",
     "FEATURE_HELPER": "关于该功能的规划与设计,您可以",
     "BEAUTIFY": "美化"
+  },
+  "STUDY": {
+    "NAME": "用户指南"
   }
 }

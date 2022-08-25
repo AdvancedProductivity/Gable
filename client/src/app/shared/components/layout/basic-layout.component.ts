@@ -25,6 +25,9 @@ import {AnalysisService} from "../../../core/services/analysis.service";
           <a class="header-link" routerLink="/dashboard/setting" routerLinkActive="active-link" mat-button>
             {{ 'PAGES.SETTING.NAME' | translate }}
           </a>
+          <a class="header-link" routerLink="/dashboard/setting" routerLinkActive="active-link" mat-button>
+            {{ 'STUDY.NAME' | translate }}
+          </a>
           <div class="flex-spacer"></div>
           <button
             mat-icon-button
@@ -43,9 +46,9 @@ import {AnalysisService} from "../../../core/services/analysis.service";
               <span>English</span>
             </button>
           </mat-menu>
-          <button mat-flat-button color="warn">
-            {{'OPERATION.LOGIN' | translate}}
-          </button>
+<!--          <button mat-flat-button color="warn">-->
+<!--            {{'OPERATION.LOGIN' | translate}}-->
+<!--          </button>-->
         </nav>
       </div>
       <div class="gable-layout-content">
