@@ -35,7 +35,15 @@ export class CellContentComponent implements OnInit, ICellRendererAngularComp {
 
   private setValue(params: ICellRendererParams) {
     this.cellValue = params.value;
-    if (typeof this.cellValue !== 'string' || this.cellValue) {
+    if (this.cellValue === undefined) {
+      this.showHint = true;
+    } else if ((typeof this.cellValue === 'string')) {
+      if (this.cellValue) {
+        this.showHint = false;
+      }else {
+        this.showHint = true;
+      }
+    } else {
       this.showHint = false;
     }
     // @ts-ignore

@@ -45,11 +45,7 @@ export class QueryTableComponent implements OnInit {
     {
       headerName: 'KEY',
       valueGetter: (params: ValueGetterParams) => {
-        if (params.data.key) {
-          return params.data.key;
-        } else {
-          return undefined;
-        }
+        return params.data.key;
       },
       valueSetter: (params: ValueSetterParams) => {
         const valueChanged = params.data.key !== params.newValue;
@@ -61,7 +57,8 @@ export class QueryTableComponent implements OnInit {
       },
       cellRenderer: CellContentComponent,
       cellRendererParams: {
-        hintStr: 'key'
+        hintStr: 'key',
+        from: 'cc'
       },
       resizable: true,
       editable: true,
@@ -70,11 +67,7 @@ export class QueryTableComponent implements OnInit {
     {
       headerName: 'VALUE',
       valueGetter: (params: ValueGetterParams) => {
-        if (params.data.value) {
-          return params.data.value;
-        } else {
-          return undefined;
-        }
+        return params.data.value;
       },
       valueSetter: (params: ValueSetterParams) => {
         const valueChanged = params.data.value !== params.newValue;
@@ -95,11 +88,7 @@ export class QueryTableComponent implements OnInit {
     {
       headerName: 'DESCRIPTION',
       valueGetter: (params: ValueGetterParams) => {
-        if (params.data.desc) {
-          return params.data.desc;
-        } else {
-          return undefined;
-        }
+        return params.data.desc;
       },
       valueSetter: (params: ValueSetterParams) => {
         const valueChanged = params.data.desc !== params.newValue;
