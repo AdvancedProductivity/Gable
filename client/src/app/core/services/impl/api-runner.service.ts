@@ -118,6 +118,7 @@ export class ApiRunnerService {
       }else if (reqBody.bodyType.toUpperCase() === 'FORM_DATA') {
         const formArr = reqBody.bodyForm.filter(item => item.using && item.key);
         const formData = new FormData();
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < formArr.length; i++) {
           const item = formArr[i];
           if (item.type === 'text') {
@@ -135,6 +136,17 @@ export class ApiRunnerService {
         });
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         requestOptions.body = urlencoded;
+      } else if (reqBody.bodyType === 'graphQL') {
+        let variavle = {};
+        try {
+          variavle = JSON.parse(reqBody.bodyGraphQlVar);
+        } catch (e) {
+          console.log('error parser graph ql var', e);
+        }
+        requestOptions.body = JSON.stringify({
+          query: reqBody.bodyGraphQlQuery,
+          variables: variavle
+        });
       } else if (reqBody.bodyType.toUpperCase() === 'RAW') {
         console.log('set raw', reqBody.bodyText);
         requestOptions.body = reqBody.bodyText;

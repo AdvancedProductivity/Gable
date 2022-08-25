@@ -113,7 +113,18 @@ export class HttpRunner implements Handler {
           }
         });
         data = formData;
-      } else if (reqBody.bodyType.toUpperCase() === 'URLENCODED') {
+      } else if (reqBody.bodyType === 'graphQL') {
+        let variavle = {};
+        try {
+          variavle = JSON.parse(reqBody.bodyGraphQlVar);
+        } catch (e) {
+          console.log('error parser graph ql var', e);
+        }
+        data = JSON.stringify({
+          query: reqBody.bodyGraphQlQuery,
+          variables: variavle
+        });
+      }  else if (reqBody.bodyType.toUpperCase() === 'URLENCODED') {
         const urlencoded = new URLSearchParams();
         const urlEncodedArr = reqBody.bodyUrlEncoded.filter(item => item.using && item.key);
         urlEncodedArr.forEach(item => {
