@@ -1,6 +1,7 @@
 import {Handler} from "../listener-handler";
 import axios, {AxiosRequestHeaders} from "axios";
 import {HttpApiResponse, HttpFromWeb} from "../../entity/HttpApi";
+import * as fs from 'fs';
 const FormData = require('form-data');
 
 export class HttpRunner implements Handler {
@@ -104,6 +105,11 @@ export class HttpRunner implements Handler {
         formArr.forEach(item => {
           if (item.type === 'text') {
             formData.append(item.key, item.value);
+          }else {
+            const file = fs.createReadStream(item.filePath);
+            if (file) {
+              formData.append(item.key, fs.createReadStream(item.filePath), item.fileName);
+            }
           }
         });
         data = formData;

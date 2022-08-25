@@ -65,6 +65,14 @@ export class HttpApiStorageService {
     if (this.saveDataInRemote() && this.runInRemote()) {
       return this.remoteService.setFile(file);
     } else if (this.electronService.isElectron) {
+      console.log('see file in elec', file);
+      const uploadInfo = new FileUploadInfo();
+      uploadInfo.id = randomString(10);
+      uploadInfo.name = file.name;
+      uploadInfo.path = file.path;
+      return new Promise(resolve => {
+        resolve(uploadInfo);
+      });
     } else {
       const uploadInfo = new FileUploadInfo();
       uploadInfo.id = randomString(10);
