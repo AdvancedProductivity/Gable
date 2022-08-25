@@ -7,6 +7,7 @@ import {ArrayData} from '../entity/ArrayData';
 import {randomString} from '../utils/Uuid';
 import {db} from '../db';
 import {ElectronService} from '../electron/electron.service';
+import {AnalysisService} from "../analysis.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,23 +17,27 @@ export class ApiRunnerService {
   constructor(
     private config: ConfigServiceImpl,
     private electronService: ElectronService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private analysisService: AnalysisService
   ) {
   }
 
   public runHttp(id: number, reqBody: any): Observable<any> {
     const server = this.config.getConfigSync('proxyServer');
     if (server && server !== 'null') {
+      this.analysisService.runHttp(server, 'remote').then(r => {});
       return this.httpClient.post(`${server}/api/apiRunner`, {
         id,
         type: 'http',
         params: reqBody
       });
     } else if (this.electronService.isElectron) {
+      this.analysisService.runHttp(server, 'electron').then(r => {});
       return from(new Promise(resolve => {
         resolve(this.electronService.ipcRenderer.sendSync('runHttp', id, reqBody));
       }));
     } else {
+      this.analysisService.runHttp(server, 'web').then(r => {});
       return from(this.runByFetch(id, reqBody));
     }
   }

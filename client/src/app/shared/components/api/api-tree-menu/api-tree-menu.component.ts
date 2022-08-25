@@ -12,6 +12,7 @@ import {
 } from '../../../../core/services/entity/ApiMenu';
 import {NavTabImplService} from '../../../../core/services/impl/nav-tab-impl.service';
 import {PerfectScrollbarDirective} from 'ngx-perfect-scrollbar';
+import {AnalysisService} from "../../../../core/services/analysis.service";
 
 @Component({
   selector: 'app-api-tree-menu',
@@ -59,6 +60,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(
+    private analysisService: AnalysisService,
     private menuService: ApiMenuServiceImpl,
     private navTabImplService: NavTabImplService) {
   }
@@ -132,6 +134,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
    * -> NavTabImplService open tabs -> collection workbench render
    * */
   addCollection(): void {
+    this.analysisService.addCollection().then(r => {});
     this.menuService.addCollection('New Collection');
   }
 
@@ -143,6 +146,7 @@ export class ApiTreeMenuComponent implements OnInit, OnDestroy {
    * -> NavTabImplService open tabs -> http workbench render
    * */
   addHttp(id: any): void {
+    this.analysisService.addHttp().then(r => {});
     this.menuService.addHttp('New Request', id);
   }
 

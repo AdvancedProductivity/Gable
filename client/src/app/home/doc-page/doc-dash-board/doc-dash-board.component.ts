@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {DocCreateDialogComponent} from './doc-create-dialog/doc-create-dialog.component';
 import {DocService} from '../../../core/services/impl/doc.service';
 import {Doc} from '../../../core/services/entity/Docs';
+import {AnalysisService} from "../../../core/services/analysis.service";
 
 @Component({
   selector: 'app-doc-dash-board',
@@ -14,6 +15,7 @@ export class DocDashBoardComponent implements OnInit {
 
   constructor(
     private docService: DocService,
+    private analysisService: AnalysisService,
     private dialog: MatDialog
   ) {}
 
@@ -29,6 +31,7 @@ export class DocDashBoardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.analysisService.addDoc().then(r => {});
         this.docService.addDoc(result).then(newId => {
           this.getData();
         });

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {ApiMenuServiceImpl} from '../../../../core/services/impl/api-menu-impl.service';
 import {NavTabImplService} from '../../../../core/services/impl/nav-tab-impl.service';
+import {AnalysisService} from "../../../../core/services/analysis.service";
 
 @Component({
   selector: 'app-api-header-operation',
@@ -24,6 +25,7 @@ export class ApiHeaderOperationComponent implements OnInit {
 
   constructor(
     private menuService: ApiMenuServiceImpl,
+    private analysisService: AnalysisService,
     private navTabImplService: NavTabImplService
   ) {
   }
@@ -88,6 +90,7 @@ export class ApiHeaderOperationComponent implements OnInit {
     this.menuService.upgradeHttpDefine(this.collectionId, this.apiId, this.defineId).subscribe(res => {
       this.oldVersion = this.newVersion;
     });
+    this.analysisService.saveApiName().then(r => {});
   }
 
   copyLink(): void {
@@ -104,9 +107,11 @@ export class ApiHeaderOperationComponent implements OnInit {
     this.menuService.updateApiName(this.apiId, this.collectionId, this.apiName);
     // update tab's name
     this.navTabImplService.updateTabName(this.apiId, 'http', this.apiName);
+    this.analysisService.renameHttp().then(r => {});
   }
 
   discardChange(): void {
     this.discard.next({});
+    this.analysisService.discardChange().then(r => {});
   }
 }

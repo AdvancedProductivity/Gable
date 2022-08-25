@@ -10,6 +10,7 @@ import {DocBlock} from '../entity/Docs';
 import {randomString} from "../utils/Uuid";
 import {ArrayData} from "../entity/ArrayData";
 import {db} from "../db";
+import {AnalysisService} from "../analysis.service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class HttpApiStorageService {
   constructor(
     private config: ConfigServiceImpl,
     private electronService: ElectronService,
+    private analysisService: AnalysisService,
     private remoteService: HttpApiStorageRemoteService,
     private storageElectronService: HttpApiStorageElectronService,
     private indexDbService: HttpApiStorageIndexDbService
@@ -63,6 +65,7 @@ export class HttpApiStorageService {
 
   public async setFile(file: any): Promise<FileUploadInfo> {
     if (this.saveDataInRemote() && this.runInRemote()) {
+      this.analysisService.persistenceFile('remote').then(r => {});
       return this.remoteService.setFile(file);
     } else if (this.electronService.isElectron) {
       console.log('see file in elec', file);
@@ -70,10 +73,12 @@ export class HttpApiStorageService {
       uploadInfo.id = randomString(10);
       uploadInfo.name = file.name;
       uploadInfo.path = file.path;
+      this.analysisService.persistenceFile('electron').then(r => {});
       return new Promise(resolve => {
         resolve(uploadInfo);
       });
     } else {
+      this.analysisService.persistenceFile('webLocal').then(r => {});
       const uploadInfo = new FileUploadInfo();
       uploadInfo.id = randomString(10);
       uploadInfo.name = file.name;

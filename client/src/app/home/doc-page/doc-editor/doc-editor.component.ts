@@ -27,6 +27,7 @@ import {JsonTreeBlock} from '../plugins/json-tree';
 import {UrlBlock} from '../plugins/url-block';
 import {RawText} from '../plugins/raw-text';
 import {I18nTitle} from '../plugins/i18n-title';
+import {AnalysisService} from '../../../core/services/analysis.service';
 
 @Component({
   selector: 'app-doc-editor',
@@ -43,6 +44,7 @@ export class DocEditorComponent implements OnInit {
 
   constructor(
     private docService: DocService,
+    private analysisService: AnalysisService,
     private spinner: NgxSpinnerService,
     private config: ConfigServiceImpl
   ) {
@@ -53,12 +55,14 @@ export class DocEditorComponent implements OnInit {
 
   doEdit() {
     this.readOnly = false;
+    this.analysisService.editDoc().then(r => {});
     this.editor.readOnly.toggle().then(res => {
       this.status.next(res);
     });
   }
 
   saveData() {
+    this.analysisService.saveDoc().then(r => {});
     this.editor.save().then((res) => {
       const block = res.blocks;
       this.docService.updateBlock(this.docId, block, this.name).then(r => {
@@ -111,6 +115,7 @@ export class DocEditorComponent implements OnInit {
         }
         this.status.next(this.readOnly);
         this.spinner.hide();
+        this.analysisService.renderDoc().then(r => {});
       });
     }, 200);
   }

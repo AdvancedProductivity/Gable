@@ -14,6 +14,7 @@ import {HttpApiService} from '../../../../../core/services/impl/http-api.service
 import {ApiRunnerService} from '../../../../../core/services/impl/api-runner.service';
 import {ResponseTabsComponent} from './response-tabs/response-tabs.component';
 import {HttpDocBlockData} from '../../../../../core/services/entity/Docs';
+import {AnalysisService} from "../../../../../core/services/analysis.service";
 
 @Component({
   selector: 'app-http-work-bench',
@@ -36,6 +37,7 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   constructor(
     private menuService: ApiMenuServiceImpl,
     private apiRunnerService: ApiRunnerService,
+    private analysisService: AnalysisService,
     private httpApiService: HttpApiService
   ) {
   }
@@ -103,10 +105,6 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
       }
     });
     console.log('zzq see data wait for send', this.httpApi);
-    // @ts-ignore
-    gtag('event', 'run_test', {
-      type: 'Http',
-    });
   }
 
   onReqTabChanged(tabKey: string) {
@@ -131,6 +129,9 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   }
 
   onApiUpdate(updateAction: HttpComponentHotDataUpdateEvent) {
+    if (this.isInDoc) {
+      return;
+    }
     console.log('api update', updateAction);
     if (!this.httpApi) {
       return;
@@ -144,7 +145,7 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
       this.httpApi.bodyTextType = updateAction.data;
     } else if (updateAction.action === 'url_encode') {
       this.httpApi.bodyUrlEncoded = updateAction.data;
-    }  else if (updateAction.action === 'form') {
+    } else if (updateAction.action === 'form') {
       this.httpApi.bodyForm = updateAction.data;
     } else if (updateAction.action === 'raw') {
       this.httpApi.bodyText = updateAction.data;
@@ -208,11 +209,13 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   };
 
   private doHttpApiUpdateCache() {
-    this.httpApi.version = new Date().getTime();
     if (this.isInDoc) {
       return;
     }
+    this.httpApi.version = new Date().getTime();
     this.httpApiService.updateCache(this.httpApi);
     this.header.setCacheVersion(this.httpApi.version);
+    this.analysisService.updateHttpCache().then(r => {});
+    this.req.updateTabStatus(this.httpApi);
   }
 }

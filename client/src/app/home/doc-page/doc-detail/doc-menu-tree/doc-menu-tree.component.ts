@@ -3,6 +3,7 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {DocMenu, DocMenuDynamicFlatNode} from '../../../../core/services/entity/Docs';
 import {DocMenuDynamicDataSource} from '../DocMenuDynamicDataSource';
 import {DocService} from '../../../../core/services/impl/doc.service';
+import {AnalysisService} from "../../../../core/services/analysis.service";
 
 
 @Component({
@@ -34,6 +35,7 @@ export class DocMenuTreeComponent implements OnInit {
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   constructor(
+    private analysisService: AnalysisService,
     private docService: DocService
   ) {
   }
@@ -61,6 +63,7 @@ export class DocMenuTreeComponent implements OnInit {
   }
 
   public addNewArticle(): void {
+    this.analysisService.addBaseDoc().then(r => {});
     this.dataSource.addBaseLevel(this.id).then(m => {
       this.menus.push(m);
     });
@@ -73,6 +76,7 @@ export class DocMenuTreeComponent implements OnInit {
   }
 
   addSub(node) {
+    this.analysisService.addSubDoc(node.level).then(r => {});
     this.dataSource.addSubLevel(node.id, node.level, this.id, node.itemCount);
   }
 

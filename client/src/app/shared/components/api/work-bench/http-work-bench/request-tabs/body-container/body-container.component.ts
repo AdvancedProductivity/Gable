@@ -10,6 +10,7 @@ import {FormEditorComponent} from '../form-editor/form-editor.component';
 import {QueryTableComponent} from '../query-table/query-table.component';
 import {GraphQLComponent} from '../graph-ql/graph-ql.component';
 import {DocJsonTableNode} from '../../../../../../../core/services/entity/Docs';
+import {AnalysisService} from "../../../../../../../core/services/analysis.service";
 
 @Component({
   selector: 'app-body-container',
@@ -37,7 +38,7 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
     , {name: 'GraphQL', type: 'graphQL'}
   ];
 
-  constructor() {
+  constructor(private analysisService: AnalysisService) {
   }
 
   ngOnInit(): void {
@@ -102,6 +103,7 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
 
   doFullScreen(): void {
     this.isFull = !this.isFull;
+    this.analysisService.fullScreen('request', this.isInDoc).then(r => {});
   }
 
   generateDoc() {

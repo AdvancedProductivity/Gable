@@ -3,6 +3,7 @@ import {MonacoStandaloneCodeEditor} from '@materia-ui/ngx-monaco-editor';
 import {debounceTime, Subject} from 'rxjs';
 import {DocJsonTableNode} from '../../../../../../../core/services/entity/Docs';
 import {JsonTableEditorComponent} from '../../json-table-editor/json-table-editor.component';
+import {AnalysisService} from '../../../../../../../core/services/analysis.service';
 
 @Component({
   selector: 'app-text-body',
@@ -24,7 +25,7 @@ export class TextBodyComponent implements OnInit, OnDestroy {
   contentSubject = new Subject<void>();
   isFirstIn = false;
 
-  constructor() {
+  constructor(private analysis: AnalysisService) {
   }
 
   ngOnInit(): void {
@@ -81,6 +82,7 @@ export class TextBodyComponent implements OnInit, OnDestroy {
   }
 
   appendDoc() {
+    this.analysis.appendDoc('request').then(r => {});
     try {
       const data = JSON.parse(this.code);
       this.treeDataEditorComponent.gen(data);

@@ -47,14 +47,17 @@ export class RequestTabsComponent implements OnInit, OnDestroy {
   onPartChange(data: ApiKeyValueChangeEvent) {
     if (data.field === 'query') {
       this.dataChanged.next({action: 'query', data: data.data});
+      this.updateTabStatus(this.apiData);
     }
     if (data.field === 'header') {
       this.dataChanged.next({action: 'header', data: data.data});
+      this.updateTabStatus(this.apiData);
     }
   }
 
   onBodyContentChanged(e: HttpComponentHotDataUpdateEvent) {
     this.dataChanged.next(e);
+    this.updateTabStatus(this.apiData);
   }
 
   onBodyTypeChange(type: string) {
@@ -75,13 +78,17 @@ export class RequestTabsComponent implements OnInit, OnDestroy {
     this.dataChanged.unsubscribe();
   }
 
-  private dispatchData(httpApi: HttpApi) {
+  public updateTabStatus(httpApi: HttpApi) {
     if (Array.isArray(httpApi.query)) {
       this.tabs[0].showP = httpApi.query.length - 1 > 0;
     }else {
       this.tabs[0].showP = false;
     }
     this.tabs[2].showP = (httpApi.method === 'POST' || httpApi.method === 'PUT') && httpApi.bodyType !== 'none';
+  }
+
+  private dispatchData(httpApi: HttpApi) {
+    this.updateTabStatus(httpApi);
     if (Array.isArray(httpApi.header)) {
       this.tabs[1].count = httpApi.header.length - 1;
     }else {

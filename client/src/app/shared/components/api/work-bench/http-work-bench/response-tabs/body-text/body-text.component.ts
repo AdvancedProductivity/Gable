@@ -3,6 +3,7 @@ import {MonacoStandaloneCodeEditor} from '@materia-ui/ngx-monaco-editor';
 import {BodyHtmlComponent} from './body-html/body-html.component';
 import {DocJsonTableNode} from '../../../../../../../core/services/entity/Docs';
 import {JsonTableEditorComponent} from '../../json-table-editor/json-table-editor.component';
+import {AnalysisService} from '../../../../../../../core/services/analysis.service';
 
 @Component({
   selector: 'app-body-text',
@@ -24,7 +25,9 @@ export class BodyTextComponent implements OnInit {
   showType = 'Pretty';
   editor: MonacoStandaloneCodeEditor;
   isFull = false;
-  constructor() {
+  constructor(
+    private analysis: AnalysisService
+  ) {
   }
 
   ngOnInit(): void {
@@ -50,6 +53,7 @@ export class BodyTextComponent implements OnInit {
 
   doFullScreen(): void {
     this.isFull = !this.isFull;
+    this.analysis.fullScreen('response', this.isInDoc).then(r => {});
   }
 
   generateDoc(): void {
@@ -61,6 +65,7 @@ export class BodyTextComponent implements OnInit {
   }
 
   appendDoc() {
+    this.analysis.appendDoc('response').then(r => {});
     try {
       const data = JSON.parse(this.code);
       this.treeDataEditorComponent.gen(data);

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {ConfigServiceImpl} from '../../../core/services/impl/ConfigServiceImpl';
+import {AnalysisService} from "../../../core/services/analysis.service";
 
 @Component({
   selector: 'app-basic-layout',
@@ -60,6 +61,7 @@ export class BasicLayoutComponent {
 
   constructor(
     private configService: ConfigServiceImpl,
+    private analysisService: AnalysisService,
     private trans: TranslateService
   ) {
   }
@@ -68,6 +70,7 @@ export class BasicLayoutComponent {
     if (this.trans.getDefaultLang() === newLang) {
       return;
     }
+    this.analysisService.changeLanguage().then(r => {});
     this.trans.setDefaultLang(newLang);
     this.configService.updateOrCreateConfig('lang', newLang);
   }
