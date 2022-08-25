@@ -134,7 +134,7 @@ export class HttpRunner implements Handler {
         data = urlencoded;
       } else if (reqBody.bodyType.toUpperCase() === 'RAW') {
         data = reqBody.bodyText;
-        const t = reqBody.bodyText.toUpperCase();
+        const t = reqBody.bodyTextType.toUpperCase();
         if (t === 'JSON') {
           headers['Content-Type'] = 'application/json';
         } else if (t === 'TEXT') {

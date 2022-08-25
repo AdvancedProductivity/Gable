@@ -37,6 +37,8 @@ public class HttpAction implements Action {
     private static final String URLENCODED = "bodyUrlEncoded";
     private static final String HTTP_BODY_FORM_DATA = "bodyForm";
     private static final String HTTP_BODY_CONTENT = "bodyText";
+    private static final String HTTP_BODY_GRAPH_QL_QUERY = "bodyGraphQlQuery";
+    private static final String HTTP_BODY_GRAPH_QL_VAR = "bodyGraphQlVar";
     private static final String HTTP_HEADER = "header";
     private static final String HEADERS = "headers";
 
@@ -188,6 +190,20 @@ public class HttpAction implements Action {
         } else if (StringUtils.equals(bodyType, HttpBodyType.URLENCODED.name())) {
             String urlEncodedContent = mapKeyValue(in.path(URLENCODED));
             return RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), urlEncodedContent);
+        } else if (StringUtils.equalsIgnoreCase(bodyType, HttpBodyType.GRAPHQL.name())) {
+            String queryStr = in.path(HTTP_BODY_GRAPH_QL_QUERY).asText();
+            String varStr = in.path(HTTP_BODY_GRAPH_QL_VAR).asText();
+            JsonNode varObj = mapper.createObjectNode();
+            try {
+                varObj = mapper.readValue(varStr, JsonNode.class);
+            } catch (Exception e) {
+                log.error("parser graph data json error", e);
+            }
+            ;
+            return RequestBody.create(
+                    MediaType.parse("application/json"),
+                    mapper.createObjectNode().put("query", queryStr).set("variables", varObj).toString()
+            );
         }
         return null;
     }

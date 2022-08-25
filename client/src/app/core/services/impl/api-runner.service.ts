@@ -148,9 +148,9 @@ export class ApiRunnerService {
           variables: variavle
         });
       } else if (reqBody.bodyType.toUpperCase() === 'RAW') {
-        console.log('set raw', reqBody.bodyText);
+        console.log('set raw', reqBody.bodyType);
         requestOptions.body = reqBody.bodyText;
-        const t = reqBody.bodyText.toUpperCase();
+        const t = reqBody.bodyTextType.toUpperCase();
         if (t === 'JSON') {
           headers.append('Content-Type', 'application/json');
         } else if (t === 'TEXT') {
