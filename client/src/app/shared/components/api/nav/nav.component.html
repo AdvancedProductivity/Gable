@@ -35,8 +35,9 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="closeAllTabs()">
-        <mat-icon>clear</mat-icon>
-        <span>Close All Tabs</span>
+        <span>
+          {{ 'PAGES.API_TEST.NAV.CLOSE_ALL' | translate }}
+        </span>
       </button>
     </mat-menu>
   </div>

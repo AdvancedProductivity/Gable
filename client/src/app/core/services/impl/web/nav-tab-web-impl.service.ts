@@ -221,6 +221,7 @@ export class NavTabWebImplService implements NavTabService{
     this.cache = [];
     this.cacheMap.clear();
     this.subject.next(this.cache);
+    this.showingSubject.next(null);
     db.openingTabs.bulkDelete(ids);
   }
 

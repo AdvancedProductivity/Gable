@@ -1,7 +1,7 @@
 <div class="dashboard">
   <div
     class="http"
-    [style.display]="data?.type === 'http' ? 'block': 'none'"
+    [style.display]="(data !== null && data?.type === 'http') ? 'block': 'none'"
   >
     <as-split
       direction="horizontal" [unit]="'pixel'"
@@ -31,8 +31,17 @@
     </as-split>
   </div>
   <div
+    class="http"
+    [style.display]="data === null"
+  >
+    <app-empty-response
+      header="PAGES.API_TEST.NO_CONTENT"
+      tip="PAGES.API_TEST.SELECT_FROM_MENU"
+    ></app-empty-response>
+  </div>
+  <div
     class="collection"
-    [style.display]="data?.type === 'collection' ? 'block': 'none'"
+    [style.display]="(data !== null && data?.type === 'collection') ? 'block': 'none'"
   >
     <app-collection-work-bench #collection></app-collection-work-bench>
   </div>

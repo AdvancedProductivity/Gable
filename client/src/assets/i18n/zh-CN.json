@@ -60,6 +60,8 @@
     },
     "API_TEST": {
       "NAME": "API 测试",
+      "NO_CONTENT": "没有内容可以展示",
+      "SELECT_FROM_MENU": "请先在左边菜单树中选择",
       "TREE_MENU": {
         "SEARCH_PLACE_HOLDER": "根据名称或者关键字搜索API",
         "ADD_HTTP": "创建 Http API",
@@ -88,6 +90,7 @@
       },
       "NAV": {
         "CLOSE_THIS": "关闭",
+        "CLOSE_ALL": "关闭全部选项卡",
         "CLOSE_OTHER": "关闭其它选项卡",
         "CLOSE_LEFT": "关闭左边所有选项卡",
         "CLOSE_RIGHT": "关闭右边所有选项卡"

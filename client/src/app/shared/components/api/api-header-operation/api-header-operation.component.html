@@ -87,20 +87,14 @@
             {{ 'PAGES.API_TEST.HEADER.DISCARD_CHANGE' | translate }}
             </span>
           </button>
-          <button mat-menu-item disabled>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voice mail</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>notifications_off</mat-icon>
-            <span>Disable alerts</span>
-          </button>
         </mat-menu>
       </button>
       <div class="env-select">
         <ng-select
           placeholder="{{ 'PAGES.API_TEST.HEADER.ENV_SELECT' | translate }}"
           class="env-custom"
+          [clearable]="false"
+          [searchable]="false"
           (change)="selectChange($event)"
         >
           <ng-option [value]="0">No Environment</ng-option>

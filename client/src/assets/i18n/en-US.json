@@ -23,6 +23,8 @@
     },
     "API_TEST": {
       "NAME": "API Test",
+      "NO_CONTENT": "No Content To Show",
+      "SELECT_FROM_MENU": "Please Select Something In The Left Menu",
       "TREE_MENU": {
         "SEARCH_PLACE_HOLDER": "Search API By Name Or Keyword",
         "LOAD_MENU": "API Collections Data Loading...",
@@ -50,6 +52,7 @@
         "EMPTY_HEADERS_TIP": "All your headers will appear here."
       },
       "NAV": {
+        "CLOSE_ALL": "Close All Tabs",
         "CLOSE_THIS": "Close",
         "CLOSE_OTHER": "Close Other Tabs",
         "CLOSE_LEFT": "Close All Left Tabs",
