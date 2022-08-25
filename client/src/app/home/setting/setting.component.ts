@@ -20,7 +20,7 @@ export class SettingComponent implements OnInit {
     private trans: TranslateService,
     private apiRunnerService: ApiRunnerService,
     private menuWebImplService: ApiMenuWebImplService,
-    private browserOpenService: BrowserOpenService,
+    public browserOpenService: BrowserOpenService,
     private config: ConfigServiceImpl
   ) {
   }

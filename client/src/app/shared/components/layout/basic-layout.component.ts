@@ -77,7 +77,7 @@ export class BasicLayoutComponent {
   constructor(
     private configService: ConfigServiceImpl,
     private analysisService: AnalysisService,
-    private browserOpenService: BrowserOpenService,
+    public browserOpenService: BrowserOpenService,
     private trans: TranslateService
   ) {
   }

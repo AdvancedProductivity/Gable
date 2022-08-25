@@ -13,7 +13,7 @@ export class DocDetailComponent implements OnInit {
   isEdit = false;
   constructor(
     private route: ActivatedRoute,
-    private browserOpenService: BrowserOpenService,
+    public browserOpenService: BrowserOpenService,
     private router: Router
   ) { }
 

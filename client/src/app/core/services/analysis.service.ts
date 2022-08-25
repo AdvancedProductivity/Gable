@@ -68,10 +68,18 @@ export class AnalysisService {
   }
 
   public async fullScreen(location: string, inDoc: boolean): Promise<any> {
-    this.$gaService.gtag('event', 'persistenceFile', {
+    this.$gaService.gtag('event', 'fullScreen', {
       from: this.from,
       location,
       inDoc,
+    });
+    return Promise.resolve();
+  }
+
+  public async openLink(link: string): Promise<any> {
+    this.$gaService.gtag('event', 'openLink', {
+      from: this.from,
+      link
     });
     return Promise.resolve();
   }
