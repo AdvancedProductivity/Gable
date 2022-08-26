@@ -22,6 +22,7 @@ import {
   GetSubMenu, OpenBrowser, UpdateContentCount, UpdateDocMenuName, UpdateOrCreateBlock
 } from "./handler/DocsHandler";
 import {HttpRunner} from "./handler/HttpRunner";
+import {AnalysisHandler} from "./handler/analysis";
 
 export const listenerArray: { channel: string, handler: Handler }[] = [
   {channel: 'get-data', handler: new OnItemGetAllHandler()}
@@ -56,5 +57,6 @@ export const listenerArray: { channel: string, handler: Handler }[] = [
   , {channel: 'updateOrCreateBlock', handler: new UpdateOrCreateBlock()}
   , {channel: 'getDocById', handler: new GetDocById()}
   , {channel: 'runHttp', handler: new HttpRunner()}
+  , {channel: 'analysis', handler: new AnalysisHandler()}
   , {channel: 'openBrowser', handler: new OpenBrowser()}
 ];

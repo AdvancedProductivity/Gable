@@ -19,23 +19,35 @@ export class AnalysisService {
   }
 
   public async runHttp(server: string, way: string): Promise<any> {
-    this.$gaService.gtag('event', 'run_http', {
-      from: this.from,
-      way,
-      server
-    });
+    if (this.elect.isElectron) {
+      this.analysisByElec('run_http');
+    } else {
+      this.$gaService.gtag('event', 'run_http', {
+        from: this.from,
+        way,
+        server
+      });
+    }
     return Promise.resolve();
   }
 
   public async comeOn(location: string): Promise<any> {
-    this.$gaService.gtag('event', 'ComeOn', {
-      from: this.from,
-      location
-    });
+    if (this.elect.isElectron) {
+      this.analysisByElec('ComeOn');
+    } else{
+      this.$gaService.gtag('event', 'ComeOn', {
+        from: this.from,
+        location
+      });
+    }
     return Promise.resolve();
   }
 
   public async persistenceFile(location: string): Promise<any> {
+    if (this.elect.isElectron) {
+      this.analysisByElec('persistenceFile', location);
+      return Promise.resolve();
+    }
     this.$gaService.gtag('event', 'persistenceFile', {
       from: this.from,
       location
@@ -56,6 +68,10 @@ export class AnalysisService {
   }
 
   public async addSubDoc(level: any): Promise<any> {
+    if (this.elect.isElectron) {
+      this.analysisByElec('addSubDoc', '' + level);
+      return Promise.resolve();
+    }
     this.$gaService.gtag('event', 'addSubDoc', {
       from: this.from,
       level
@@ -68,6 +84,10 @@ export class AnalysisService {
   }
 
   public async fullScreen(location: string, inDoc: boolean): Promise<any> {
+    if (this.elect.isElectron) {
+      this.analysisByElec('fullScreen', location + '_' + inDoc);
+      return Promise.resolve();
+    }
     this.$gaService.gtag('event', 'fullScreen', {
       from: this.from,
       location,
@@ -77,6 +97,10 @@ export class AnalysisService {
   }
 
   public async openLink(link: string): Promise<any> {
+    if (this.elect.isElectron) {
+      this.analysisByElec('openLink', link);
+      return Promise.resolve();
+    }
     this.$gaService.gtag('event', 'openLink', {
       from: this.from,
       link
@@ -113,6 +137,10 @@ export class AnalysisService {
   }
 
   public async appendDoc(location): Promise<any> {
+    if (this.elect.isElectron) {
+      this.analysisByElec('appendDoc', location);
+      return Promise.resolve();
+    }
     this.$gaService.gtag('event', 'appendDoc', {
       from: this.from,
       location
@@ -125,6 +153,10 @@ export class AnalysisService {
   }
 
   public async learnMore(location: string): Promise<any> {
+    if (this.elect.isElectron) {
+      this.analysisByElec('LearnMore', location);
+      return Promise.resolve();
+    }
     this.$gaService.gtag('event', 'LearnMore', {
       from: this.from,
       location
@@ -132,7 +164,21 @@ export class AnalysisService {
     return Promise.resolve();
   }
 
+  private analysisByElec(action: string, label?: string) {
+    const s = label ? '_' + label : '';
+    const params = {
+      ec: 'Gable Client',
+      ea: action,
+      el: this.from + s
+    };
+    this.elect.ipcRenderer.sendSync('analysis', params);
+  }
+
   private async event(eventName: string): Promise<any> {
+    if (this.elect.isElectron) {
+      this.analysisByElec(eventName);
+      return Promise.resolve();
+    }
     this.$gaService.gtag('event', eventName, {
       from: this.from
     });

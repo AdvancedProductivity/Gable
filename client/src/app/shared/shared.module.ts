@@ -155,7 +155,7 @@ import {NgxGoogleAnalyticsModule} from 'ngx-google-analytics';
     , ClipboardModule
     , NgxMatContextMenuTriggerModule
     , AgGridModule
-    , NgxGoogleAnalyticsModule.forRoot('G-N6TDNR9G7Q')
+    , NgxGoogleAnalyticsModule.forRoot('G-VPPB82K220')
   ],
   exports: [
     TranslateModule
