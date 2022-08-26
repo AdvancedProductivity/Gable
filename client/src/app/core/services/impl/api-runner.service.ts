@@ -7,7 +7,7 @@ import {ArrayData} from '../entity/ArrayData';
 import {randomString} from '../utils/Uuid';
 import {db} from '../db';
 import {ElectronService} from '../electron/electron.service';
-import {AnalysisService} from "../analysis.service";
+import {AnalysisService} from '../analysis.service';
 
 @Injectable({
   providedIn: 'root'

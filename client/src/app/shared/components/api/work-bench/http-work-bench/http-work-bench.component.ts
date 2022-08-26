@@ -93,6 +93,7 @@ export class HttpWorkBenchComponent implements OnInit, OnDestroy {
   }
 
   onSend() {
+    this.resp.setResp(getEmptyResponse());
     this.apiRunnerService.runHttp(this.id, this.httpApi).subscribe({
       next: (res) => {
         console.log('receive response', res);
