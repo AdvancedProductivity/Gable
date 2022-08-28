@@ -156,6 +156,7 @@ function generateRequestType(waitForSave: HttpApiHistoryCache, order: number, do
 }
 
 function generateJsonTree(bodyTextDoc: any, order: number, docDefineId: number) {
+  console.log('zzq see json tree', bodyTextDoc);
   const block = new DocBlock();
   block.docDefineId = docDefineId;
   block.config = {};
@@ -229,16 +230,16 @@ export const generateBlocks = (docDefineId: number,
         blocks.push(generateTableForForm(forms, order++, docDefineId));
       }
     } else if (bodyType === 'raw') {
-      if (waitForSave.bodyTextType === 'json' && waitForSave.bodyTextDoc && Array.isArray(waitForSave.bodyTextDoc.children)
-        && waitForSave.bodyTextDoc.children.length > 0) {
+      if (waitForSave.bodyTextType === 'json' && waitForSave.bodyTextDoc && Array.isArray(waitForSave.bodyTextDoc)
+        && waitForSave.bodyTextDoc.length > 1) {
         blocks.push(generateI18nTitle('PAGES.DOCS.BODY_TEXT_INFO', order++, docDefineId));
         blocks.push(generateJsonTree(waitForSave.bodyTextDoc, order++, docDefineId));
       }
       blocks.push(generateI18nTitle('PAGES.DOCS.BODY_TEXT', order++, docDefineId));
       blocks.push(generateRawText(waitForSave.bodyText, waitForSave.bodyTextType, order++, docDefineId));
     }
-    if (waitForSave.respBodyTextDoc && Array.isArray(waitForSave.respBodyTextDoc.children)
-      && waitForSave.respBodyTextDoc.children.length > 0) {
+    if (waitForSave.respBodyTextDoc && Array.isArray(waitForSave.respBodyTextDoc)
+      && waitForSave.respBodyTextDoc.length > 1) {
       blocks.push(generateI18nTitle('PAGES.DOCS.RESP_BODY_TEXT_INFO', order++, docDefineId));
       // generate return body text
       blocks.push(generateJsonTree(waitForSave.respBodyTextDoc, order++, docDefineId));

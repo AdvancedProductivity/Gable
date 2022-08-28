@@ -79,9 +79,12 @@ export class RequestTabsComponent implements OnInit, OnDestroy {
   }
 
   public updateTabStatus(httpApi: HttpApi) {
+    if (!httpApi) {
+      return;
+    }
     if (Array.isArray(httpApi.query)) {
       this.tabs[0].showP = httpApi.query.length - 1 > 0;
-    }else {
+    } else {
       this.tabs[0].showP = false;
     }
     this.tabs[2].showP = (httpApi.method === 'POST' || httpApi.method === 'PUT') && httpApi.bodyType !== 'none';
