@@ -53,6 +53,10 @@ export class BodyContainerComponent implements OnInit, OnDestroy {
     this.urlEncode.setData(httpApi.bodyUrlEncoded);
     this.editorBody.setBodyText(httpApi.bodyText);
     this.editorBody.setBodyTextDoc(httpApi.bodyTextDoc);
+    if (this.isEditingDoc) {
+      this.isEditingDoc = false;
+      this.editorBody.markExistEditing();
+    }
   }
 
   public setBodyType(httpApi: HttpApi) {

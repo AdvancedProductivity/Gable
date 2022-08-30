@@ -95,6 +95,9 @@ export class BodyTextComponent implements OnInit {
       this.code = JSON.stringify(content, null, '\t');
       this.bodyContent.setContent(JSON.stringify(content));
     }
+    if (this.isEditingDoc) {
+      this.isEditingDoc = false;
+    }
   }
 
   setRespDoc(doc: DocJsonTableNode[]) {
