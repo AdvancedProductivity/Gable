@@ -6,7 +6,7 @@
 
 如果您下载 JDK 有困难，可以在这里找到CDN版本: [https://www.injdk.cn/](https://www.injdk.cn/)
 
-# 运行代码
+## 运行代码
 
 可以直接从 `Github` 克隆代码，控制台执行命令:
 ```shell
@@ -19,7 +19,7 @@ git clone git@github.com:AdvancedProductivity/Gable.git
 
 ```
 
-# 代码仓库目录结构
+## 代码仓库目录结构
 
 ```md
 ├── assets (Github readme.md 中引用的资源)
@@ -37,7 +37,7 @@ git clone git@github.com:AdvancedProductivity/Gable.git
 └── README.md
 ```
 
-# 启动项目
+## 启动项目
 
 `Gable`本身是一个普通的 Angular 项目，只需要下载依赖然后启动就好了，但是因为使用
 [Angular-Electron](https://github.com/maximegris/angular-electron)
@@ -53,7 +53,7 @@ npm run start
 ```
 成功启动之后，它会启动浏览器并打开 [http://localhost:4200](http://localhost:4200)，同时启动`Electron`的客户端，在开发模式下，`Electron`端通过`WebView`加载的 `http://localhost:4200`
 
-# 启动后台服务
+## 启动后台服务
 
 `Gable` 是为用户提供协作服务的，处于用户体验的角度考虑，用户可以不连接`Gable`后台服务当做单机版本用。
 

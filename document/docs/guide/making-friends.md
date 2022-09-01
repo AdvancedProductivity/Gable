@@ -1,0 +1,1 @@
+# Notice for making friends

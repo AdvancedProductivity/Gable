@@ -49,10 +49,13 @@ module.exports = {
                         children: [
                             '/guide/'
                             , '/guide/getting-started'
+                            , '/guide/core-principles'
+                            , '/guide/business-ideal'
                             , '/guide/feature-design'
                             , '/guide/document'
                             , '/guide/setting'
                             , '/guide/about'
+                            , '/guide/making-friends'
                             , '/guide/database'
                             , '/guide/memory-assistant'
                         ]
@@ -87,10 +90,13 @@ module.exports = {
                         children: [
                             '/zh/guide/'
                             , '/zh/guide/getting-started'
+                            , '/zh/guide/core-principles'
+                            , '/zh/guide/business-ideal'
                             , '/zh/guide/feature-design'
                             , '/zh/guide/document'
                             , '/zh/guide/setting'
                             , '/zh/guide/about'
+                            , '/zh/guide/making-friends'
                             , '/zh/guide/database'
                             , '/zh/guide/memory-assistant'
                         ]
