@@ -1,7 +1,7 @@
 ---
 home: true
-heroText: Hero 标题
-tagline: Hero 副标题
+heroText: Gable
+tagline: API 协作工具
 actionText: 快速上手 →
 actionLink: /zh/guide/
 features:
