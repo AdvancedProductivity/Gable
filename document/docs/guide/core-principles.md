@@ -1,1 +1,5 @@
-# 核心原理
+# Core Principle
+
+Waiting for improvement
+
+先看中文

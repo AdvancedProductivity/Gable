@@ -1,5 +1,10 @@
 # Setting
 
+
+Waiting for improvement
+
+先看中文
+
 这里写设置相关的内容
 
 ## Gable Server Config

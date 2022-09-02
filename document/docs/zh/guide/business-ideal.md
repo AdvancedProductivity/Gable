@@ -6,7 +6,7 @@
 
 您可以点击此处查看：[链接](https://zhuanlan.zhihu.com/p/483788526)
 
-在开源领域，曾经的 `PostWomen`,如今叫 `hoppscotch` 也获得了三百美元的投资：
+在开源领域，曾经的 `PostWomen`,如今叫 `hoppscotch` 也获得了三百万美元的投资：
 
 ![hoppscotch投资](https://s3.bmp.ovh/imgs/2022/09/01/b477fee4f376052f.png)
 

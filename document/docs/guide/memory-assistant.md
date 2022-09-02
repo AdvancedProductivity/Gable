@@ -1,5 +1,10 @@
 # Memory Assistant
 
+
+Waiting for improvement
+
+先看中文
+
 This page is mainly used to help developers quickly check some things, which is not important to non developers.
 
 ## About PostgreSql 

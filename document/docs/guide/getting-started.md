@@ -1,5 +1,9 @@
 # Get Started
 
+Waiting for improvement
+
+先看中文
+
 Before the `Gable` starts, you need to prepare the environment.
 `Gable` does not have too many requirements for the running machine. It only needs to install a jdk8 environment.
 
