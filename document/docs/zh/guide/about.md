@@ -1,3 +1,3 @@
-# About Gable
+# 关于Gable
 
-关于Gable
+等待完善
