@@ -15,6 +15,8 @@ import { DocDashBoardComponent } from './doc-page/doc-dash-board/doc-dash-board.
 import { DocDetailComponent } from './doc-page/doc-detail/doc-detail.component';
 import { DocCreateDialogComponent } from './doc-page/doc-dash-board/doc-create-dialog/doc-create-dialog.component';
 import { DocMenuTreeComponent } from './doc-page/doc-detail/doc-menu-tree/doc-menu-tree.component';
+import { DiffComponent } from './diff/diff.component';
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [
@@ -27,8 +29,9 @@ import { DocMenuTreeComponent } from './doc-page/doc-detail/doc-menu-tree/doc-me
     DocDashBoardComponent,
     DocDetailComponent,
     DocCreateDialogComponent,
-    DocMenuTreeComponent
+    DocMenuTreeComponent,
+    DiffComponent
   ],
-    imports: [CommonModule, SharedModule, HomeRoutingModule, PerfectScrollbarModule]
+  imports: [CommonModule, SharedModule, HomeRoutingModule, PerfectScrollbarModule, MatGridListModule]
 })
 export class HomeModule {}
