@@ -82,6 +82,7 @@
     "ngx-google-analytics": "13.0.0",
     "ngx-perfect-scrollbar": "^10.1.1",
     "ngx-spinner": "^13.0.0",
+    "ot-json0": "1.1.0",
     "rxjs": "7.5.5",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.5"

@@ -10,6 +10,7 @@ import {MockPageComponent} from './mock-page/mock-page.component';
 import {DocDashBoardComponent} from './doc-page/doc-dash-board/doc-dash-board.component';
 import {DocDetailComponent} from './doc-page/doc-detail/doc-detail.component';
 import {DiffComponent} from "./diff/diff.component";
+import {OtComponent} from "./ot/ot.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'api', pathMatch: 'full' },
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: 'diff',
     component: DiffComponent
+  },
+  {
+    path: 'ot',
+    component: OtComponent
   },
   {
     path: 'doc',

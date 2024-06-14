@@ -1,0 +1,13 @@
+<mat-grid-list cols="2" rowHeight="5:1">
+  <mat-grid-tile>
+    <textarea [(ngModel)]="snapshot" style="height: 90%; width: 80%" matInput></textarea>
+    <button mat-raised-button color="primary" (click)="setSnapshot()">Set in left</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <textarea [(ngModel)]="op" style="height: 90%; width: 80%" matInput></textarea>
+    <button mat-raised-button color="primary" (click)="setOp()">Set in right</button>
+  </mat-grid-tile>
+</mat-grid-list>
+<div style="width: 100%;height: 600px; border: #3a5e77 1px solid;margin: 5px">
+  <ngx-monaco-diff-editor (init)="down($event)" [options]="editorOptions" [original]="originalCode" [modified]="code"></ngx-monaco-diff-editor>
+</div>
