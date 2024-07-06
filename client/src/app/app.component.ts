@@ -1,4 +1,4 @@
-import {Component, Injector} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import { ElectronService } from './core/services';
 import { TranslateService } from '@ngx-translate/core';
 import { APP_CONFIG } from '../environments/environment';
@@ -15,14 +15,14 @@ import {I18nTitleComponent} from './shared/components/docs/i18n-title/i18n-title
 import {DocService} from './core/services/impl/doc.service';
 import {
   JsonTableEditorComponent
-} from "./shared/components/api/work-bench/http-work-bench/json-table-editor/json-table-editor.component";
+} from './shared/components/api/work-bench/http-work-bench/json-table-editor/json-table-editor.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   constructor(
     private docService: DocService,
     private electronService: ElectronService,
@@ -58,6 +58,10 @@ export class AppComponent {
         this.sanitizer.bypassSecurityTrustResourceUrl('./assets/svg/' + item.file)
       );
     });
+  }
+
+  ngOnInit(): void {
+    (window as any).fastLoader.destroy();
   }
 
   private loadLanguage() {

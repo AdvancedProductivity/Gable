@@ -8,17 +8,287 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
   <link rel="preconnect" href="https://fonts.gstatic.com">
+  <style>
+    .loader-screen-fast {
+      position: absolute;
+      overflow: auto;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-direction: column;
+    }
+
+    .loader-screen-fast__canvas-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .fast_loader__canvas {
+      display: block;
+      margin: 16px auto;
+      pointer-events: none;
+    }
+
+    @keyframes c_rotation-keyframes__b67 {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .fast_loader__animate {
+      animation: c_rotation-keyframes__b67 36s linear infinite;
+    }
+
+    .fast_loader__text {
+      text-align: center;
+      font-family: var(--ring-font-family);
+      font-size: var(--ring-font-size);
+      line-height: var(--ring-line-height);
+    }
+  </style>
 </head>
 <body class="mat-typography">
+<div id="fast-loader" class="loader-screen-fast"></div>
+<script>
+  class Particle {
+    constructor({ x, y, radius, color }) {
+      this.radius = radius;
+      this.x = x;
+      this.y = y;
+      this.color = color;
+      this.decay = 0.01;
+      this.life = 1;
+    }
+
+    step() {
+      this.life -= this.decay;
+    }
+
+    isAlive() {
+      return this.life >= 0;
+    }
+
+    draw(ctx) {
+      const alpha = this.life >= 0 ? this.life : 0;
+      ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`;
+      ctx.beginPath();
+      ctx.arc(this.x + this.radius, this.y + this.radius, this.radius, 0, 2 * Math.PI);
+      ctx.fill();
+    }
+  }
+
+  class Loader {
+    static defaultProps = {
+      size: 96,
+      stop: false,
+      deterministic: false,
+      colors: [
+        { r: 215, g: 60, b: 234 },
+        { r: 145, g: 53, b: 224 },
+        { r: 88, g: 72, b: 224 },
+        { r: 37, g: 183, b: 255 },
+        { r: 89, g: 189, b: 0 },
+        { r: 251, g: 172, b: 2 },
+        { r: 227, g: 37, b: 129 }
+      ]
+    };
+
+    constructor(container, props) {
+      this.props = Object.assign({}, Loader.defaultProps, props);
+      this.canvas = document.createElement('canvas');
+      this.canvas.dataset.test = 'ring-loader';
+      this.canvas.classList.add('fast_loader__canvas');
+      this.textNode = document.createElement('div');
+      this.textNode.dataset.test = 'ring-loader-text';
+      this.textNode.classList.add('fast_loader__text');
+      this.textNode.textContent = this.props.message || '';
+      container.appendChild(this.canvas);
+      container.appendChild(this.textNode);
+
+      const pixelRatio = Loader.getPixelRatio();
+      const size = this.props.size * pixelRatio;
+      this.canvas.width = size;
+      this.canvas.height = size;
+      this.canvas.style.width = `${this.props.size}px`;
+      this.canvas.style.height = `${this.props.size}px`;
+      this.ctx = this.canvas.getContext('2d');
+      this.ctx.scale(pixelRatio, pixelRatio);
+      this.height = this.props.size;
+      this.width = this.props.size;
+      this.particles = [];
+      this.baseSpeed = 1;
+      this.colorIndex = 0;
+      this.maxRadius = 10;
+      this.minRadius = 6;
+      this.colorChangeTick = 40;
+      this.x = this.width / 2;
+      this.y = this.height / 2;
+      this.radius = 8;
+      this.hSpeed = 1.5;
+      this.vSpeed = 0.5;
+      this.radiusSpeed = 0.05;
+      this.tick = 0;
+
+      // 三角形顶点
+      this.triangleVertices = [
+        { x: (this.width -20) / 2, y: 0 },
+        { x: 0, y: this.height -20 },
+        { x: this.width - 20, y: this.height -20 }
+      ];
+      // this.triangleVertices = [
+      //     { x: this.width / 4, y: 0 },
+      //     { x: 0, y: this.height/2 },
+      //     { x: this.width/2, y: this.height/2 }
+      // ];
+      this.currentVertexIndex = 0;
+      console.log('xxx', this.triangleVertices);
+      this.prepareInitialState(100);
+      this.isRunning = !this.props.stop;
+      this.isRunning ? this.startAnimation() : this.draw();
+    }
+
+    static getPixelRatio() {
+      return 'devicePixelRatio' in window ? window.devicePixelRatio : 1;
+    }
+
+    prepareInitialState(count) {
+      for (let i = 0; i < count; i++) {
+        this.step();
+      }
+    }
+
+    calculateNextCoordinates() {
+      console.log('zzq see ', this.triangleVertices);
+      const target = this.triangleVertices[this.currentVertexIndex];
+      console.log('tr', target);
+      const dx = target.x - this.x;
+      const dy = target.y - this.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const stepSize = 2;
+
+      if (distance < stepSize) {
+        this.x = target.x;
+        this.y = target.y;
+        this.currentVertexIndex = (this.currentVertexIndex + 1) % this.triangleVertices.length;
+      } else {
+        this.x += (dx / distance) * stepSize;
+        this.y += (dy / distance) * stepSize;
+      }
+    }
+
+    calculateNextRadius() {
+      this.radius += this.radiusSpeed;
+      if (this.radius > this.maxRadius || this.radius < this.minRadius) {
+        this.radiusSpeed = -this.radiusSpeed;
+      }
+    }
+
+    getNextColor() {
+      const colors = this.props.colors;
+      const currentColor = colors[this.colorIndex];
+      const nextColor = colors[this.colorIndex + 1] || colors[0];
+      const progress = this.tick / this.colorChangeTick;
+
+      const blend = (start, end, progress) => start + Math.round((end - start) * progress);
+
+      return {
+        r: blend(currentColor.r, nextColor.r, progress),
+        g: blend(currentColor.g, nextColor.g, progress),
+        b: blend(currentColor.b, nextColor.b, progress)
+      };
+    }
+
+    nextTick() {
+      this.tick++;
+      if (this.tick > this.colorChangeTick) {
+        this.tick = 0;
+        this.colorIndex++;
+        if (this.colorIndex > this.props.colors.length - 1) {
+          this.colorIndex = 0;
+        }
+      }
+    }
+
+    step() {
+      this.nextTick();
+      this.calculateNextCoordinates();
+      this.calculateNextRadius();
+      this.particles.forEach(particle => particle.step());
+      this.particles.push(new Particle({
+        x: this.x,
+        y: this.y,
+        radius: this.radius,
+        color: this.getNextColor()
+      }));
+    }
+
+    removeDeadParticles() {
+      this.particles = this.particles.filter(particle => particle.isAlive());
+    }
+
+    draw() {
+      if (this.ctx) {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+        this.removeDeadParticles();
+        this.particles.forEach(particle => particle.draw(this.ctx));
+      }
+    }
+
+    loop() {
+      this.step();
+      this.draw();
+      if (this.isRunning) {
+        window.requestAnimationFrame(() => this.loop());
+      }
+    }
+
+    updateMessage(message) {
+      this.textNode.textContent = message || '';
+    }
+
+    stopAnimation() {
+      this.isRunning = false;
+      this.canvas.classList.remove('fast_loader__animate');
+    }
+
+    startAnimation() {
+      this.isRunning = true;
+      // this.canvas.classList.add('fast_loader__animate');
+      this.loop();
+    }
+
+    destroy() {
+      this.isRunning = false;
+    }
+  }
+
+  const loaderElement = document.getElementById('fast-loader');
+  if (loaderElement) {
+    loaderElement.classList.add('loader-screen-fast');
+    const canvasWrapper = document.createElement('div');
+    canvasWrapper.classList.add('loader-screen-fast__canvas-wrapper');
+    loaderElement.appendChild(canvasWrapper);
+
+    const loader = new Loader(canvasWrapper, {
+      className: 'loader-screen-fast__loader', message: 'Gable' });
+
+    window.fastLoader = {
+      updateMessage: (message) => {
+        loader.updateMessage(message);
+      },
+      destroy: () => {
+        loader.destroy();
+        loaderElement.remove();
+      }
+    };
+  }
+</script>
   <app-root>
-    <div style="text-align: center;margin-top: 100px">
-      <h1>English:</h1>
-      <h2 style="margin-top: 15px">-- Loading a huge JS file, which may take a little time  :)</h2>
-      <h2 style="margin-top: 15px">-- Our ambition is to be the best API collaboration tool in the world  :)</h2>
-      <h1 style="margin-top: 30px">中文:</h1>
-      <h2 style="margin-top: 15px">-- 正在加载一个巨大的js文件，可能需要花费一点儿时间  :)</h2>
-      <h2 style="margin-top: 15px">-- 我们的雄心壮志是做一款全世界最好用的API 协作工具  :)</h2>
-    </div>
   </app-root>
 </body>
 </html>
